@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="login" location="234,10" size="525,245">
+    <action name="toLogin" location="65,57" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="login.jsp" />
+      </result>
+    </action>
+    <action name="login" location="65,152" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="index.jsp" />
+      </result>
+      <result name="fail">
+        <resourceEdge source="fail" routing="0" target="login.jsp" />
+      </result>
+    </action>
+    <action name="createImage" location="310,162" size="150,41">
+      <result name="success" />
+    </action>
+  </package>
+  <package name="emp" location="0,0" size="0,0">
+    <action name="toEmpAdd" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="addEmp.jsp" />
+      </result>
+    </action>
+    <action name="checkEname" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+  </package>
+  <webResource name="login.jsp" path="/WEB-INF/main/login.jsp" location="10,135" size="150,55" />
+  <webResource name="index.jsp" path="/WEB-INF/main/index.jsp" location="289,310" size="150,55" />
+  <webResource name="addEmp.jsp" path="/WEB-INF/emp/addEmp.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+
