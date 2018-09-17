@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="struts2" location="50,50" size="171,162">
+    <action name="upload" location="12,20" size="150,62">
+      <result name="result">
+        <resourceEdge source="result" routing="0" target="result.jsp" />
+      </result>
+      <result name="input">
+        <resourceEdge source="input" routing="0" target="index.jsp" />
+      </result>
+    </action>
+    <action name="download" location="12,112" size="150,41">
+      <result name="success" />
+    </action>
+  </package>
+  <webResource name="result.jsp" path="/result.jsp" location="350,50" size="150,55" />
+  <webResource name="index.jsp" path="/index.jsp" location="350,200" size="150,55" />
+</Struts2Diagram>
+
