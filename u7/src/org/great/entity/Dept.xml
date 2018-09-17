@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+
+<mapper namespace="org.great.mapper.DeptMapper">
+
+	<insert id="addDept" parameterType="org.great.entity.Dept" >
+		insert into
+		dept(deptno,dname,loc) values(#{deptno},#{dname},#{loc})
+</insert>
+
+	<delete id="deleteById" parameterType="int">
+		delete from dept where
+		deptno=#{id}
+</delete>
+
+	<select id="findById" resultType="org.great.entity.Dept"
+		parameterType="int">
+		select deptno,dname,loc from dept where deptno=#{id}
+	</select>
+
+	<update id="updateDept" parameterType="org.great.entity.Dept">
+		update dept set
+		dname=#{dname},loc=#{loc} where deptno=#{deptno}
+</update>
+
+	<select id="findAll" resultType="org.great.entity.Dept">
+		select deptno,dname,loc from
+		dept
+	</select>
+
+	<select id="findById2" parameterType="int" resultType="java.util.HashMap">
+		select
+		deptno,dname,loc from dept where deptno=#{id}
+    </select>
+
+	<select id="findAll2" resultType="java.util.HashMap">
+		select deptno,dname,loc from
+		dept
+	</select>
+
+
+
+
+</mapper>
+	
