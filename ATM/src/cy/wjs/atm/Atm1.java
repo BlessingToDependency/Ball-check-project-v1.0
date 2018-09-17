@@ -10,7 +10,7 @@ public class Atm1
 		Scanner sc1 = new Scanner(System.in);
 		Scanner sc2 = new Scanner(System.in);
 
-		
+		String  a="ssss";
 		boolean isLog = false;
 		
 		String Name1 = "123";
