@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+
+    <package name="dept" namespace="/dept" extends="struts-default">
+    <!-- 由于使用Spring来管理Action，因此需要通过Spring容器来创建Action
+    	  所以class属性指定的是组件的ID
+     -->   
+        <action name="alldept" class="allDeptAction">
+            <result name="success">/WEB-INF/dept/alldept.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+        </action>
+    </package>    
+
+
+</struts>
