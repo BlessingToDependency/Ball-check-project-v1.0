@@ -47,6 +47,7 @@ public class userLoginAction {
 	 */
 	@RequestMapping("/userRegister.action")
 	public ModelAndView userRegister(UserBean uBean) {
+		
 		userBizImp.userRegister(uBean);
 		mav.setViewName("login");
 		return mav;
