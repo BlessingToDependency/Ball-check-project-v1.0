@@ -1,8 +1,11 @@
 package org.great.bean;
 
+import org.springframework.stereotype.Component;
+
 /*
  * 账单记录表
  */
+@Component
 public class BillBean {
    private int billId;//账单ID
    private int companyId;//公司ID
@@ -10,7 +13,7 @@ public class BillBean {
    private int actNum;//实际人数
    private int setmealId;//套餐ID
    private int actCharge;//实际收费
-   
+   private String currentTime;//当前时间
    public BillBean() {
 	   
    }
@@ -61,6 +64,16 @@ public int getActCharge() {
 }
 public void setActCharge(int actCharge) {
 	this.actCharge = actCharge;
+}
+
+
+public String getCurrentTime() {
+	return currentTime;
+}
+
+
+public void setCurrentTime(String currentTime) {
+	this.currentTime = currentTime;
 }
    
    

@@ -1,5 +1,6 @@
 package org.great.biz;
 
+import org.great.bean.BillBean;
 import org.great.bean.UserBean;
 
 /*
@@ -14,4 +15,7 @@ public interface UserBiz {
 	
 	//ajax判断注册名是否重复
 	public UserBean userRepeat(String company);
+	
+	//增加账单
+	public void userBill(BillBean billBean);
 }

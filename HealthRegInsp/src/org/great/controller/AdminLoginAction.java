@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
  * 后台登陆
  */
 @Controller
-@RequestMapping("/userLoginAction")
+@RequestMapping("/adminLoginAction")
 public class AdminLoginAction {
 	
 	@Resource 
