@@ -4,12 +4,10 @@ package org.great.controller;
  */
 
 import java.io.PrintWriter;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.great.bean.UserBean;
 import org.great.biz.UserBiz;
 import org.springframework.stereotype.Controller;
