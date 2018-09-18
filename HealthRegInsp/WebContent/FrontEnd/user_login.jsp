@@ -1,21 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%
-String path = request.getScheme() +"://"+request.getServerName()
-	+":"+request.getServerPort()+ request.getContextPath()+"/";%>
+	pageEncoding="UTF-8"%>
+<%
+	String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ request.getContextPath() + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-	
+<body>	
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>登录</title>
+
+
+<script src="<%=path%>js/jquery.min.js"></script>
+<script src="<%=path%>js/snow.js"></script>
+<script src="<%=path%>js/jquery.pure.tooltips.js"></script>
+<script src="<%=path%>js/spop.min.js"></script>
+
 <link rel="stylesheet" href="<%=path%>css/normalize.css">
 <link rel="stylesheet" href="<%=path%>css/login.css">
 <link rel="stylesheet" href="<%=path%>css/sign-up-login.css">
@@ -24,10 +27,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 <link rel="stylesheet" href="<%=path%>css/tooltips.css" />
 <link rel="stylesheet" href="<%=path%>css/spop.min.css" />
 
-<script src="<%=path%>js/jquery.min.js"></script>
-<script src="<%=path%>js/snow.js"></script>
-<script src="<%=path%>js/jquery.pure.tooltips.js"></script>
-<script src="<%=path%>js/spop.min.js"></script>
+
 <script>	
 	(function() {
 		// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
@@ -363,7 +363,7 @@ body{
 
 	background-color: #00BDDC;
 
-	background-image: url(images/snow.jpg);
+	background-image: url(<%=path%>images/snow.jpg);
 
 	background-size: 100% 100%;
 

@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/userLoginAction")
-public class adminLoginAction {
+public class AdminLoginAction {
 	
 	@Resource 
 	private AdminBean adminBean;//后台bean
