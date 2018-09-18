@@ -4,16 +4,13 @@ package org.great.controller;
  */
 
 import java.io.PrintWriter;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.great.bean.UserBean;
 import org.great.biz.UserBiz;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,7 +22,7 @@ public class UserLoginAction {
 	private UserBean userBean;//前台用户bean
 	@Resource
 	private UserBiz userBizImp;//前台用户接口
-	
+
 	ModelAndView mav = new ModelAndView();
 	
 	/*
@@ -35,8 +32,6 @@ public class UserLoginAction {
 	public ModelAndView userLogin(HttpServletRequest request,HttpServletResponse response,UserBean uBean) {
 		userBean = userBizImp.userLogin(uBean);
 		//登陆成功则进入if
-		
-		String  test  = "1111";
 		if(null != userBean) {
 			HttpSession session = request.getSession();
 			session.setAttribute("userBean", userBean);
@@ -48,10 +43,12 @@ public class UserLoginAction {
 	}
 	
 	/*
-	 * 用户注册:存在问题
+	 * 用户注册
 	 */
 	@RequestMapping("/userRegister.action")
 	public ModelAndView userRegister(UserBean uBean) {
+		System.out.println("好不智能");
+		uBean.setHead("images/user.png");//设置默认头像
 		userBizImp.userRegister(uBean);
 		mav.setViewName("login");
 		return mav;
