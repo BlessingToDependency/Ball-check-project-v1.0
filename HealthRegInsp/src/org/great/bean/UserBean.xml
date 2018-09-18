@@ -28,4 +28,5 @@
 			select company from tblforeground where company=#{company}
 		</select>
  	
+ 		
  </mapper>

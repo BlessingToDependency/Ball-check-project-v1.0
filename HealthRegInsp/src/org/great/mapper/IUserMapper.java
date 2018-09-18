@@ -1,6 +1,7 @@
 package org.great.mapper;
 
 import org.apache.ibatis.annotations.Param;
+import org.great.bean.BillBean;
 import org.great.bean.UserBean;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,7 @@ public interface IUserMapper {
 	
 	//注册名查重
 	public UserBean userRepeat(@Param("company")String company);
+	
+	//增加账单
+	public void userBill(BillBean billBean);
 }
