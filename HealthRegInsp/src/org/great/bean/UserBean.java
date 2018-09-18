@@ -15,7 +15,7 @@ public class UserBean {
 	private long phone;//电话
 	private int balance;	//余额
 	private String busNum;//工商号
-	private String head;//头像
+	private String head;//头像这是头像
 	
 	public UserBean() {
 		super();

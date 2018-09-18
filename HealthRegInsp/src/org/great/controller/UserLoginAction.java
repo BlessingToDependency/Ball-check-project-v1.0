@@ -47,6 +47,7 @@ public class UserLoginAction {
 	 */
 	@RequestMapping("/userRegister.action")
 	public ModelAndView userRegister(UserBean uBean) {
+		System.out.println("好不智能");
 		uBean.setHead("images/user.png");//设置默认头像
 		userBizImp.userRegister(uBean);
 		mav.setViewName("login");

@@ -12,7 +12,7 @@
 <meta name="author" content="order by dede58.com/" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<title>后天健康团检系统</title>
+<title>后天健康团检系统_好不智能</title>
 
 <meta name="description" content="网站描述" />
 
