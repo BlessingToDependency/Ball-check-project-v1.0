@@ -22,8 +22,7 @@ public class userLoginAction {
 	private UserBean userBean;//前台用户bean
 	@Resource
 	private UserBiz userBizImp;//前台用户接口
-	
-	private UserBean bean1;
+
 	ModelAndView mav = new ModelAndView();
 	
 	/*
