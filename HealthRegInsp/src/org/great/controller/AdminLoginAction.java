@@ -47,7 +47,8 @@ public class AdminLoginAction {
 	 */
 	@RequestMapping("/adminRegister.action")
 	public ModelAndView adminRegister(HttpServletRequest request,AdminBean aBean){
-		
+
+		aBean.setHead("images/docter.png");//设置默认头像
 		adminBizImp.adminRegister(aBean);
 		mav.setViewName("login");
 		return mav;
