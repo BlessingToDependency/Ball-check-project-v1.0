@@ -22,7 +22,7 @@ public class userLoginAction {
 	private UserBean userBean;//前台用户bean
 	@Resource
 	private UserBiz userBizImp;//前台用户接口
-
+	
 	ModelAndView mav = new ModelAndView();
 	
 	/*
@@ -47,6 +47,7 @@ public class userLoginAction {
 	 */
 	@RequestMapping("/userRegister.action")
 	public ModelAndView userRegister(UserBean uBean) {
+		
 		userBizImp.userRegister(uBean);
 		mav.setViewName("login");
 		return mav;
