@@ -1,7 +1,7 @@
 package org.great.biz;
 
 import org.great.bean.AdminBean;
-import org.great.bean.AdminBiz;
+
 import org.great.mapper.IAdminMapper;
 import org.springframework.stereotype.Service;
 

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.great.bean.MangerBean;
 import org.great.bean.UserBean;
 import org.great.biz.UserBiz;
 import org.springframework.stereotype.Controller;
@@ -62,7 +61,7 @@ public class userLoginAction {
 	@ResponseBody
 	public void userRepeat(HttpServletRequest request,HttpServletResponse response,String company)throws Exception{
 		String str;
-		UserBean ub = userBizImp.loginRepeat(company);
+		UserBean ub = userBizImp.userRepeat(company);
 		PrintWriter out = response.getWriter();
 		
 		//1=重复；2=不重复
