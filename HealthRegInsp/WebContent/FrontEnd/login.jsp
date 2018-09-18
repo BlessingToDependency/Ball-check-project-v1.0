@@ -16,18 +16,18 @@ String path = request.getScheme() +"://"+request.getServerName()
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>登录</title>
-<link rel="stylesheet" href="css/normalize.css">
-<link rel="stylesheet" href="css/login.css">
-<link rel="stylesheet" href="css/sign-up-login.css">
-<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/inputEffect.css" />
-<link rel="stylesheet" href="css/tooltips.css" />
-<link rel="stylesheet" href="css/spop.min.css" />
+<link rel="stylesheet" href="<%=path%>css/normalize.css">
+<link rel="stylesheet" href="<%=path%>css/login.css">
+<link rel="stylesheet" href="<%=path%>css/sign-up-login.css">
+<link rel="stylesheet" type="text/css" href="<%=path%>css/font-awesome.min.css">
+<link rel="stylesheet" href="<%=path%>css/inputEffect.css" />
+<link rel="stylesheet" href="<%=path%>css/tooltips.css" />
+<link rel="stylesheet" href="<%=path%>css/spop.min.css" />
 
-<script src="js/jquery.min.js"></script>
-<script src="js/snow.js"></script>
-<script src="js/jquery.pure.tooltips.js"></script>
-<script src="js/spop.min.js"></script>
+<script src="<%=path%>js/jquery.min.js"></script>
+<script src="<%=path%>js/snow.js"></script>
+<script src="<%=path%>js/jquery.pure.tooltips.js"></script>
+<script src="<%=path%>js/spop.min.js"></script>
 <script>	
 	(function() {
 		// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
