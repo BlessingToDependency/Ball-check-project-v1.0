@@ -48,7 +48,7 @@ public class AdminBizImp implements AdminBiz{
 	public Integer userAdminCount(StaffBean sBean) {
 		// TODO Auto-generated method stub
 		return iAdminMapper.userAdminCount(sBean);
-    
+    }
     //修改密码
 	@Override
 	public void updateAdminPws(String adminPwd,int adminId) {
