@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/userLoginAction")
-public class userLoginAction {
+public class UserLoginAction {
 	@Resource 
 	private UserBean userBean;//前台用户bean
 	@Resource
@@ -72,6 +72,18 @@ public class userLoginAction {
 		out.close();
 	}
 	
+	/*
+	 * 修改后台用户密码
+	 */
+	@RequestMapping(value="/updateUserPws.action")
+	public  ModelAndView updateAdminPws(String pwd,String company) {
+		
+		
+		userBizImp.updateUserPws(pwd,company);
+		//跳转到用户展示的方法
+		return mav;
+		
+	}
 
 	public UserBean getUserBean() {
 		return userBean;
