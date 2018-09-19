@@ -33,4 +33,9 @@
 		     update   tblforeground  set pwd=#{pwd} where company=#{company}
 		  </update>
  	
+ 		<!-- 增加账单 -->
+ 		<insert id="userBill" parameterType="org.great.bean.BillBean" >
+ 			insert into tblbill values ("自增长",#{companyId},#{ordNum},#{actNum},#{setmealId},#{actCharge},"当前时间")
+ 		</insert>
+ 		
  </mapper>

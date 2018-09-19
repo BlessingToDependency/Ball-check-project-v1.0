@@ -1,3 +1,4 @@
+
 package org.great.controller;
 /*
  * 前台用户登陆
@@ -43,10 +44,12 @@ public class UserLoginAction {
 	}
 	
 	/*
-	 * 用户注册:存在问题
+	 * 用户注册
 	 */
 	@RequestMapping("/userRegister.action")
 	public ModelAndView userRegister(UserBean uBean) {
+		System.out.println("好不智能");
+		uBean.setHead("images/user.png");//设置默认头像
 		userBizImp.userRegister(uBean);
 		mav.setViewName("login");
 		return mav;
@@ -72,7 +75,7 @@ public class UserLoginAction {
 		out.close();
 	}
 	
-	/*
+  	/*
 	 * 修改后台用户密码
 	 */
 	@RequestMapping(value="/updateUserPws.action")
@@ -102,3 +105,4 @@ public class UserLoginAction {
 	}
 	
 }
+

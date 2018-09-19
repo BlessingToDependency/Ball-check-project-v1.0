@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.great.bean.AdminBean;
 import org.great.biz.AdminBiz;
+import org.great.biz.AdminBizImp;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 /*
@@ -17,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
  * 后台登陆
  */
 @Controller
-@RequestMapping("/userLoginAction")
+@RequestMapping("/adminLoginAction")
 public class AdminLoginAction {
 	
 	@Resource 
@@ -51,6 +52,7 @@ public class AdminLoginAction {
 		mav.setViewName("login");
 		return mav;
 	}
+
 	
 	/*
 	 * 修改后台用户密码
@@ -106,3 +108,4 @@ public class AdminLoginAction {
 	 */
 	
 }  
+

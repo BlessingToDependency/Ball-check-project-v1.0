@@ -1,5 +1,6 @@
 package org.great.biz;
 
+import org.great.bean.BillBean;
 import org.great.bean.UserBean;
 
 /*
@@ -17,4 +18,8 @@ public interface UserBiz {
 	
 	//前端修改密码
 	public void  updateUserPws(String pwd,String company);
+
+	//增加账单
+	public void userBill(BillBean billBean);
+
 }
