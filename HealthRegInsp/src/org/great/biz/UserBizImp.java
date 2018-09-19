@@ -40,7 +40,7 @@ public class UserBizImp implements UserBiz {
 	@Override
 	public void userBill(BillBean billBean) {
 		// TODO Auto-generated method stub
-		iUserMapperDao.userBill(billBean);
+		iUserMapper.userBill(billBean);
 	}
 
 	//前端修改密码
