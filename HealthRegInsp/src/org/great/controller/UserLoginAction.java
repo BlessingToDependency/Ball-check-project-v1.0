@@ -74,7 +74,26 @@ public class UserLoginAction {
 		out.close();
 	}
 	
+  	/*
+	 * 修改后台用户密码
+	 */
+	@RequestMapping(value="/updateUserPws.action")
+	public  ModelAndView updateAdminPws(String pwd,String company) {
+		
+		
+		userBizImp.updateUserPws(pwd,company);
+		//跳转到用户展示的方法
+		return mav;
+		
+	}
 
+	public UserBean getUserBean() {
+		return userBean;
+	}
+
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
+	}
 
 	public UserBiz getUserBizImp() {
 		return userBizImp;
@@ -85,3 +104,5 @@ public class UserLoginAction {
 	}
 	
 }
+
+

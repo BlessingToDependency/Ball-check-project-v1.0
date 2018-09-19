@@ -19,6 +19,11 @@ public interface IUserMapper {
 	//注册名查重
 	public UserBean userRepeat(@Param("company")String company);
 	
+
+	//前端修改密码
+	public void  updateUserPws(@Param("pwd")String pwd,@Param("company")String company);
+
 	//增加账单
 	public void userBill(BillBean billBean);
+
 }
