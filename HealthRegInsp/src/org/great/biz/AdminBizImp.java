@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import org.great.bean.AdminBean;
+import org.great.bean.LitemBean;
 import org.great.bean.StaffBean;
 import org.great.bean.UserBean;
 import org.great.mapper.IAdminMapper;
@@ -84,6 +85,22 @@ public class AdminBizImp implements AdminBiz{
 		 List<AdminBean> adminList=iAdminMapper.slectDoctorInfo(adminId);
 		return adminList;
 
+	}
+
+	//增加项目
+	@Override
+	public void addItem(LitemBean litemBean) {
+		// TODO Auto-generated method stub
+		iAdminMapper.addItem(litemBean);
+	}
+
+
+	//查询项目 (通用)
+	@Override
+	public LitemBean selectLitem(LitemBean litemBean) {
+		// TODO Auto-generated method stub
+		LitemBean  list = iAdminMapper.selectLitem(litemBean);
+		return list;
 	}
 	
 	
