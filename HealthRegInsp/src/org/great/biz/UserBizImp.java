@@ -42,7 +42,6 @@ public class UserBizImp implements UserBiz {
 		// TODO Auto-generated method stub
 		iUserMapper.userBill(billBean);
 	}
-
 	//前端修改密码
 	@Override
 	public void updateUserPws(String pwd,String company) {

@@ -4,10 +4,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.great.bean.AdminBean;
 import org.great.biz.AdminBiz;
-import org.great.biz.AdminBizImp;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 /*
@@ -28,7 +26,9 @@ public class AdminLoginAction {
 	private AdminBiz adminBizImp;//前台用户接口
 	
 	ModelAndView mav = new ModelAndView();
-	
+	/*
+	 * 后台登陆
+	 */
 	@RequestMapping("/adminLogin.action")
 	public ModelAndView adminLogin(HttpServletRequest request,HttpServletResponse response,AdminBean aBean) {
 
