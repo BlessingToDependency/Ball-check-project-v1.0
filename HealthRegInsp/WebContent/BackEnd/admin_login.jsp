@@ -14,11 +14,11 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="renderer" content="webkit">
 <title>登录</title>
-<link rel="stylesheet" href="css/jigsaw.css">
-<link rel="stylesheet" href="css/pintuer.css">
-<link rel="stylesheet" href="css/admin.css">
-<script src="js/jquery.js"></script>
-<script src="js/pintuer.js"></script>
+<link rel="stylesheet" href="<%=path %>BackEnd/css/jigsaw.css">
+<link rel="stylesheet" href="<%=path %>FrontEnd/css/pintuer.css">
+<link rel="stylesheet" href="<%=path %>BackEnd/css/admin.css">
+<script src="<%=path %>FrontEnd/js/jquery.js"></script>
+<script src="<%=path %>FrontEnd/js/pintuer.js"></script>
 <script type="text/javascript">
 function getCode(){
 	//得到图片对象
@@ -30,7 +30,7 @@ function getCode(){
 <script type="text/javascript" src="jss/jigsaw.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function(){
+<%-- $(document).ready(function(){
 	$("#save").click(function(){
 		$.ajax({		
 				url: "<%=path%>UserLogServlet?action=login",
@@ -48,10 +48,10 @@ $(document).ready(function(){
 				}
 			});
 		});
-	});
+	}); --%>
 </script>
 </head>
-<body onLoad="">
+<body>
 	<div class="bg"></div>
 	<div class="container">
 		<div class="line bouncein">
@@ -97,7 +97,7 @@ jigsaw.init(document.getElementById('captcha'), function () {
 	document.getElementById('null').disabled=false;
 	return true;
 },function () {
-	alert("不正确")
+	document.getElementById('msg').innerHTML = '验证失败，重新验证！'
 	return false;
 })
 </script>					

@@ -75,13 +75,6 @@ public class UserLoginAction {
 	}
 	
 
-	public UserBean getUserBean() {
-		return userBean;
-	}
-
-	public void setUserBean(UserBean userBean) {
-		this.userBean = userBean;
-	}
 
 	public UserBiz getUserBizImp() {
 		return userBizImp;

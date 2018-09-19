@@ -1,17 +1,23 @@
 package org.great.bean;
 
+import org.springframework.stereotype.Component;
+
 /*
  * 员工表
- * 
  */
+@Component
 public class StaffBean {
      private int staffId;//员工ID
      private String staffName;//员工名
      private int age;//年龄
      private String sex;//性别
      private String idNum;//身份证号
-     private int phone;//电话
+     private long phone;//电话
      private int companyId;//公司ID
+     
+     private UserBean userBean;//前台公司表
+     private PerguirelaBean perguirelaBean;//员工导检单关系表
+     private GuisetmealBean guisetmealBean;//导检单套餐表
      
      public StaffBean(){
     	 
@@ -58,17 +64,44 @@ public class StaffBean {
 	public void setIdNum(String idNum) {
 		this.idNum = idNum;
 	}
-	public int getPhone() {
+	
+	public long getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+
+	public void setPhone(long phone) {
 		this.phone = phone;
 	}
+
 	public int getCompanyId() {
 		return companyId;
 	}
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
+	}
+
+	public UserBean getUserBean() {
+		return userBean;
+	}
+
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
+	}
+
+	public PerguirelaBean getPerguirelaBean() {
+		return perguirelaBean;
+	}
+
+	public void setPerguirelaBean(PerguirelaBean perguirelaBean) {
+		this.perguirelaBean = perguirelaBean;
+	}
+
+	public GuisetmealBean getGuisetmealBean() {
+		return guisetmealBean;
+	}
+
+	public void setGuisetmealBean(GuisetmealBean guisetmealBean) {
+		this.guisetmealBean = guisetmealBean;
 	}
      
      

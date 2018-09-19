@@ -20,7 +20,7 @@
 		
 		<!-- 注册 -->
 		<insert id="userRegister" parameterType="org.great.bean.UserBean">
-			insert into tblforeground values ("自增长",#{company},#{pwd},#{address},#{contacts},#{phone},#{balance},#{busNum})
+			insert into tblforeground values ("自增长",#{company},#{pwd},#{address},#{contacts},#{phone},#{balance},#{busNum},#{head})
 		</insert>
 		
 		<!-- 注册名查重 -->
