@@ -27,6 +27,11 @@
  		<select id="userRepeat" parameterType="java.lang.String" resultType="org.great.bean.UserBean">
 			select company from tblforeground where company=#{company}
 		</select>
+		
+		  <!-- 修改密码 -->
+		  <update id="updateUserPws" >
+		     update   tblforeground  set pwd=#{pwd} where company=#{company}
+		  </update>
  	
  		<!-- 增加账单 -->
  		<insert id="userBill" parameterType="org.great.bean.BillBean" >

@@ -1,3 +1,4 @@
+
 package org.great.controller;
 /*
  * 前台用户登陆
@@ -74,6 +75,18 @@ public class UserLoginAction {
 		out.close();
 	}
 	
+  	/*
+	 * 修改后台用户密码
+	 */
+	@RequestMapping(value="/updateUserPws.action")
+	public  ModelAndView updateAdminPws(String pwd,String company) {
+		
+		
+		userBizImp.updateUserPws(pwd,company);
+		//跳转到用户展示的方法
+		return mav;
+		
+	}
 
 	public UserBean getUserBean() {
 		return userBean;
@@ -92,3 +105,4 @@ public class UserLoginAction {
 	}
 	
 }
+
