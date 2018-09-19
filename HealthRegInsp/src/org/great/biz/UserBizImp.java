@@ -48,6 +48,5 @@ public class UserBizImp implements UserBiz {
 		// TODO Auto-generated method stub
 		iUserMapper.updateUserPws(pwd,company);
 	}
-	String s= "";
 
 }
