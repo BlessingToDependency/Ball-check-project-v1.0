@@ -6,6 +6,7 @@ package org.great.bean;
  */
 
 public class TotalBean {
+	
     private int totalId;//总结记录ID
     private String guChId;//导检单ID
     private String doctor;//总检医生名

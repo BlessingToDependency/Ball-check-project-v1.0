@@ -7,6 +7,7 @@
  */
 package org.great.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.great.bean.TotalBean;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,6 @@ import org.springframework.stereotype.Repository;
 public interface IReportMapper {
 
 	//总结报告单
-	public TotalBean  showReport(Integer reportId);
+	public TotalBean  showReport(@Param("guChId")String reportId);
 	
 }

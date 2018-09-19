@@ -5,8 +5,8 @@
  <mapper namespace="org.great.bean.TotalBean">
    
   <!--用户报告  -->
- 	<select id="showReport" parameterMap="java.lang.Integer" resultType="org.great.bean.TotalBean">
- 		SELECT * FROM tbltotal where  GUCHID =#{reportId}	
+ 	<select id="showReport" parameterMap="java.lang.String" resultType="org.great.bean.TotalBean">
+ 		SELECT * FROM tbltotal where  GUCHID =#{guChId}	
  	</select>
  </mapper>
  
