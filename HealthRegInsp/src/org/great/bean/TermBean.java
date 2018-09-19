@@ -1,10 +1,13 @@
 package org.great.bean;
 
+import org.springframework.stereotype.Component;
+
 /*
  * 细项
  * 
  */
 
+@Component
 public class TermBean {
      private  int termId;//细项ID
      private  String term;//细项

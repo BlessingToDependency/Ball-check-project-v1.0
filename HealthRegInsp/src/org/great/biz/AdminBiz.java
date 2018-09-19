@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.great.bean.AdminBean;
+import org.great.bean.LitemBean;
 import org.great.bean.StaffBean;
 import org.great.bean.UserBean;
 
@@ -33,5 +34,11 @@ public interface AdminBiz {
 	
 	//查询医生信息
 	public  List<AdminBean> slectDoctorInfo(int adminId);
+	
+	//增加项目
+	public void addItem(LitemBean litemBean);
+
+	//查询项目(通用)
+	public LitemBean selectLitem(LitemBean litemBean);
 
 }
