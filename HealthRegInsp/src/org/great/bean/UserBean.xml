@@ -20,7 +20,7 @@
 		
 		<!-- 注册 -->
 		<insert id="userRegister" parameterType="org.great.bean.UserBean">
-			insert into tblforeground values ("自增长",#{company},#{pwd},#{address},#{contacts},#{phone},#{balance},#{busNum})
+			insert into tblforeground values (TBL_FOREGROUND.Nextval,#{company},#{pwd},#{address},#{contacts},#{phone},#{balance},#{busNum})
 		</insert>
 		
 		<!-- 注册名查重 -->
@@ -32,5 +32,10 @@
  		<insert id="userBill" parameterType="org.great.bean.BillBean" >
  			insert into tblbill values ("自增长",#{companyId},#{ordNum},#{actNum},#{setmealId},#{actCharge},"当前时间")
  		</insert>
+ 		
+ 		<!-- 获取开单用户列表 -->
+ 	    <select id="OpenBillUserList" resultType="org.great.bean.UserBean">
+			select * from tblforeground 
+		</select>
  		
  </mapper>
