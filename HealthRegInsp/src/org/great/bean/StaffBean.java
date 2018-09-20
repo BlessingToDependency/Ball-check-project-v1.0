@@ -24,24 +24,11 @@ public class StaffBean {
      private UserBean userBean;//前台公司表
      @Resource
      private PerguirelaBean perguirelaBean;//员工导检单关系表
-     @Resource
-     private GuisetmealBean guisetmealBean;//导检单套餐表
      
-     public StaffBean(){
-    	 
-     }
-     
-	public StaffBean(int staffId, String staffName, int age, String sex, String idNum, int phone, int companyId) {
-		super();
-		this.staffId = staffId;
-		this.staffName = staffName;
-		this.age = age;
-		this.sex = sex;
-		this.idNum = idNum;
-		this.phone = phone;
-		this.companyId = companyId;
-	}
 	
+	public StaffBean() {
+		super();
+	}
 	public int getStaffId() {
 		return staffId;
 	}
@@ -104,13 +91,7 @@ public class StaffBean {
 		this.perguirelaBean = perguirelaBean;
 	}
 
-	public GuisetmealBean getGuisetmealBean() {
-		return guisetmealBean;
-	}
-
-	public void setGuisetmealBean(GuisetmealBean guisetmealBean) {
-		this.guisetmealBean = guisetmealBean;
-	}
+	
 
 	public String getStatTime() {
 		return statTime;
@@ -127,7 +108,15 @@ public class StaffBean {
 	public void setStopTime(String stopTime) {
 		this.stopTime = stopTime;
 	}
-     
+
+	@Override
+	public String toString() {
+		return "StaffBean [staffId=" + staffId + ", staffName=" + staffName + ", age=" + age + ", sex=" + sex
+				+ ", idNum=" + idNum + ", phone=" + phone + ", companyId=" + companyId + ", statTime=" + statTime
+				+ ", stopTime=" + stopTime + ", userBean=" + userBean + ", perguirelaBean=" + perguirelaBean + "]";
+	}
+
+
      
      
 }
