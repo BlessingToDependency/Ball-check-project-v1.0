@@ -38,4 +38,9 @@
  			insert into tblbill values ("自增长",#{companyId},#{ordNum},#{actNum},#{setmealId},#{actCharge},"当前时间")
  		</insert>
  		
+ 		<!-- 查看公司信息 -->
+ 		<select id="selectCompInfo" resultType="org.great.bean.UserBean"  parameterType="java.lang.String">
+ 		    select * from tblforeground where company=#{company}
+ 		</select>
+ 		
  </mapper>

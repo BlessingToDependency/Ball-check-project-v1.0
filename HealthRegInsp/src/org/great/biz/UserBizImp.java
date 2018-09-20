@@ -40,7 +40,7 @@ public class UserBizImp implements UserBiz {
 	@Override
 	public void userBill(BillBean billBean) {
 		// TODO Auto-generated method stub
-		iUserMapperDao.userBill(billBean);
+		iUserMapper.userBill(billBean);
 	}
 
 	//前端修改密码
@@ -48,6 +48,13 @@ public class UserBizImp implements UserBiz {
 	public void updateUserPws(String pwd,String company) {
 		// TODO Auto-generated method stub
 		iUserMapper.updateUserPws(pwd,company);
+	}
+   //查看公司信息
+	@Override
+	public List<UserBean> selectCompInfo(String company) {
+		// TODO Auto-generated method stub
+		List<UserBean>  compList=iUserMapper.selectCompInfo(company);
+		return compList;
 	}
 
 

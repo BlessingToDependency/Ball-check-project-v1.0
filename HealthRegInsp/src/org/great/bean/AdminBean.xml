@@ -34,7 +34,7 @@
  	      </update>
  	      
  	      <!-- 查询医生信息 -->
- 	        <select id="slectDoctorInfo" parameterType="java.lang.int" resultMap="adminIn">
+ 	        <select id="slectDoctorInfo" parameterType="int" resultMap="adminIn">
  	                select t.*,p.post from tblbackstage  t,PostBean p
  	                
  	                
