@@ -1,10 +1,12 @@
 package org.great.bean;
 
+import org.springframework.stereotype.Component;
+
 /*
  *总结记录表 
  * 
  */
-
+@Component
 public class TotalBean {
     private int totalId;//总结记录ID
     private String guChId;//导检单ID
