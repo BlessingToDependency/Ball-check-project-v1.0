@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 public class UserBizImp implements UserBiz {
 
 	@Resource
-	private IUserMapper iUserMapperDao;
+	private IUserMapper iUserMapper;
 	
 	//前台用户登陆
 	@Override
 	public UserBean userLogin(UserBean userBean) {
 		// TODO Auto-generated method stub
-		UserBean uBean = iUserMapperDao.userLogin(userBean);
+		UserBean uBean = iUserMapper.userLogin(userBean);
 		return uBean;
 	}
 	
@@ -26,22 +26,27 @@ public class UserBizImp implements UserBiz {
 	@Override
 	public void userRegister(UserBean userBean) {
 		// TODO Auto-generated method stub
-		iUserMapperDao.userRegister(userBean);
+		iUserMapper.userRegister(userBean);
 	}
 
 	//查重
 	@Override
 	public UserBean userRepeat(String company) {
 		// TODO Auto-generated method stub
-		UserBean uBean = iUserMapperDao.userRepeat(company);
+		UserBean uBean = iUserMapper.userRepeat(company);
 		return uBean;
 	}
 	//账单记账	
 	@Override
 	public void userBill(BillBean billBean) {
 		// TODO Auto-generated method stub
-		iUserMapperDao.userBill(billBean);
+		iUserMapper.userBill(billBean);
 	}
-
+	//前端修改密码
+	@Override
+	public void updateUserPws(String pwd,String company) {
+		// TODO Auto-generated method stub
+		iUserMapper.updateUserPws(pwd,company);
+	}
 
 }

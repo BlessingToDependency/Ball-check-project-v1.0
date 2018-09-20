@@ -28,7 +28,7 @@ public class UserLoginAction {
 	/*
 	 * 用户登陆
 	 */
-	@RequestMapping("/userLogin.action")
+	@RequestMapping("userLogin.action")
 	public ModelAndView userLogin(HttpServletRequest request,HttpServletResponse response,UserBean uBean) {
 		userBean = userBizImp.userLogin(uBean);
 		//登陆成功则进入if
@@ -45,7 +45,7 @@ public class UserLoginAction {
 	/*
 	 * 用户注册
 	 */
-	@RequestMapping("/userRegister.action")
+	@RequestMapping("userRegister.action")
 	public ModelAndView userRegister(UserBean uBean) {
 		System.out.println("好不智能");
 		uBean.setHead("images/user.png");//设置默认头像
@@ -57,7 +57,7 @@ public class UserLoginAction {
 	/*
 	 * AJAX判断公司注册名是否重复:传入公司名
 	 */
-	@RequestMapping("/userRepeat.action")
+	@RequestMapping("userRepeat.action")
 	@ResponseBody
 	public void userRepeat(HttpServletRequest request,HttpServletResponse response,String company)throws Exception{
 		String str;
@@ -74,6 +74,18 @@ public class UserLoginAction {
 		out.close();
 	}
 	
+  	/*
+	 * 修改后台用户密码
+	 */
+	@RequestMapping(value="updateUserPws.action")
+	public  ModelAndView updateAdminPws(String pwd,String company) {
+		
+		
+		userBizImp.updateUserPws(pwd,company);
+		//跳转到用户展示的方法
+		return mav;
+		
+	}
 
 	public UserBean getUserBean() {
 		return userBean;
@@ -92,3 +104,5 @@ public class UserLoginAction {
 	}
 	
 }
+
+

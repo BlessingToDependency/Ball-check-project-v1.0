@@ -65,14 +65,14 @@ String path = request.getScheme() +"://"+request.getServerName()
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="member-list.html">
+                        <a href="<%=path %>userAdminAction/userAdmin.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>会员列表</cite>
                             
                         </a>
                     </li >
                     <li>
-                        <a _href="member-del.html">
+                        <a href="member-del.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>会员删除</cite>
                             

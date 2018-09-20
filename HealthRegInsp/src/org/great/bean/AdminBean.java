@@ -1,5 +1,7 @@
 package org.great.bean;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 
 /*
@@ -22,8 +24,10 @@ public class AdminBean {
 	private int stateId;//用户状态
 	private int logicId;//逻辑状态
 	
-	
-	
+	@Resource
+    private PostBean postBean;
+ 
+ 
 	public AdminBean() {
 		super();
 	}
@@ -110,6 +114,12 @@ public class AdminBean {
 	}
 	public void setLogicId(int logicId) {
 		this.logicId = logicId;
+	}
+	public PostBean getPostBean() {
+		return postBean;
+	}
+	public void setPostBean(PostBean postBean) {
+		this.postBean = postBean;
 	}
 	
 	

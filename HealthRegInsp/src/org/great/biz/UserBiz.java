@@ -16,6 +16,10 @@ public interface UserBiz {
 	//ajax判断注册名是否重复
 	public UserBean userRepeat(String company);
 	
+	//前端修改密码
+	public void  updateUserPws(String pwd,String company);
+
 	//增加账单
 	public void userBill(BillBean billBean);
+
 }

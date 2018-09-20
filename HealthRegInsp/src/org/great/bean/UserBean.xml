@@ -20,13 +20,20 @@
 		
 		<!-- 注册 -->
 		<insert id="userRegister" parameterType="org.great.bean.UserBean">
+
 			insert into tblforeground values (TBL_FOREGROUND.Nextval,#{company},#{pwd},#{address},#{contacts},#{phone},#{balance},#{busNum})
+
 		</insert>
 		
 		<!-- 注册名查重 -->
- 		<select id="userRepeat" parameterType="java.lang.String" resultType="org.great.bean.UserBean">
+ 		<select id="userRepeat" resultType="org.great.bean.UserBean">
 			select company from tblforeground where company=#{company}
 		</select>
+		
+		  <!-- 修改密码 -->
+		  <update id="updateUserPws" >
+		     update   tblforeground  set pwd=#{pwd} where company=#{company}
+		  </update>
  	
  		<!-- 增加账单 -->
  		<insert id="userBill" parameterType="org.great.bean.BillBean" >

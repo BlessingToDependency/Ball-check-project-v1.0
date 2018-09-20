@@ -1,10 +1,12 @@
 package org.great.bean;
 
+import org.springframework.stereotype.Component;
+
 /*
  * 项目表
  * 
  */
-
+@Component
 public class LitemBean {
      private int itemId;//项目ID
      private String item;//项目
