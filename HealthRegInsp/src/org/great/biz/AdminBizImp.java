@@ -17,12 +17,14 @@ import org.springframework.stereotype.Service;
 public class AdminBizImp implements AdminBiz{
 	@Resource
 	IAdminMapper iAdminMapper;
-	private List<UserBean> userList;
+	private List<StaffBean> userList;
 	//登陆
 	@Override
 	public AdminBean adminLogin(AdminBean adminBean) {
 		// TODO Auto-generated method stub
+		System.out.println("biz="+adminBean);
 		AdminBean aBean = iAdminMapper.adminLogin(adminBean);
+		System.out.println("BIZ==="+aBean);
 		return aBean;
 	}
 
@@ -37,7 +39,7 @@ public class AdminBizImp implements AdminBiz{
 
 	//后台用户管理列表展示
 	@Override
-	public List<UserBean> userAdmin(StaffBean sBean,Integer pages) {
+	public List<StaffBean> userAdmin(StaffBean sBean,Integer pages) {
 		// TODO Auto-generated method stub
 		userList = iAdminMapper.userAdmin(sBean,pages);
 		return userList;

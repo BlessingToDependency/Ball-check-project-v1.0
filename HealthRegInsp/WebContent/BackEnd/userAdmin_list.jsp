@@ -64,12 +64,12 @@
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
             <td>1</td>
-            <td>${staffBean.staffName}</td>
-            <td>${staffBean.phone}</td>
-            <td>${staffBean.idNum}</td>
-            <td>${staffBean.perguirelaBean.partYear}</td>
-            <td>${staffBean.guisetmealBean.guChId}</td>
-             <td>${staffBean.userBean.company}</td>
+            <td>${staffBean.staffName }</td>
+            <td>${staffBean.phone }</td>
+            <td>${staffBean.idNum }</td>
+            <td>${staffBean.perguirelaBean.partYear }</td>
+            <td>${staffBean.guisetmealBean.guChId }</td>
+             <td>${staffBean.userBean.company }</td>
             <td class="td-status">
               <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
             <td class="td-manage">

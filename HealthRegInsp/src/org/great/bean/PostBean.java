@@ -1,9 +1,12 @@
 package org.great.bean;
 
+import org.springframework.stereotype.Component;
+
 /*
  * 职务表
  * 
  */
+@Component
 public class PostBean {
      private int postId;//职务ID
      private String post;//职务

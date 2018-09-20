@@ -1,5 +1,7 @@
 package org.great.bean;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 
 /*
@@ -15,8 +17,14 @@ public class StaffBean {
      private long phone;//电话
      private int companyId;//公司ID
      
+     private String statTime;//开始时间
+     private String stopTime;//结束时间
+     
+     @Resource
      private UserBean userBean;//前台公司表
+     @Resource
      private PerguirelaBean perguirelaBean;//员工导检单关系表
+     @Resource
      private GuisetmealBean guisetmealBean;//导检单套餐表
      
      public StaffBean(){
@@ -102,6 +110,22 @@ public class StaffBean {
 
 	public void setGuisetmealBean(GuisetmealBean guisetmealBean) {
 		this.guisetmealBean = guisetmealBean;
+	}
+
+	public String getStatTime() {
+		return statTime;
+	}
+
+	public void setStatTime(String statTime) {
+		this.statTime = statTime;
+	}
+
+	public String getStopTime() {
+		return stopTime;
+	}
+
+	public void setStopTime(String stopTime) {
+		this.stopTime = stopTime;
 	}
      
      

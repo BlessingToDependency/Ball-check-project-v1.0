@@ -1,7 +1,11 @@
 package org.great.bean;
+
+import org.springframework.stereotype.Component;
+
 /*
  * 导检单套餐表
  */
+@Component
 public class GuisetmealBean {
 	private String guChId;//导检单ID	==条码号
 	private int setmealId;//套餐ID

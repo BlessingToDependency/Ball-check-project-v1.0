@@ -21,7 +21,7 @@ public class UserAdminAction {
 	ModelAndView mav = new ModelAndView();
 	@Resource
 	private AdminBiz adminBizImp;//前台用户接口
-	private List<UserBean> userList;
+	private List<StaffBean> userList;
 	private int pageCountAll=1;//总页数
 	
 	
@@ -41,8 +41,8 @@ public class UserAdminAction {
 			pageCountAll=countAll/10;
 		}
 		userList = adminBizImp.userAdmin(sBean,pages);
-		System.out.println(userList.size());
-		mav.setViewName("BackEnd/file_list");
+		System.out.println("大小="+userList.size());
+		mav.setViewName("BackEnd/userAdmin_list");
 		mav.addObject("userList", userList);
 		mav.addObject("pages", pages);//当前页
 		return mav;

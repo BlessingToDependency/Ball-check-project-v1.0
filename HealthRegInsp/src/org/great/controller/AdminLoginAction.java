@@ -29,23 +29,25 @@ public class AdminLoginAction {
 	/*
 	 * 后台登陆
 	 */
-	@RequestMapping("/adminLogin.action")
+	@RequestMapping("adminLogin.action")
 	public ModelAndView adminLogin(HttpServletRequest request,HttpServletResponse response,AdminBean aBean) {
-
+		System.out.println("后台登陆"+aBean.getAdminId()+aBean.getAdminPwd());
 		adminBean = adminBizImp.adminLogin(aBean);
 		if(null != adminBean) {
 			HttpSession session = request.getSession();
 			session.setAttribute("adminBean", adminBean);
-			mav.setViewName("success");
+			System.out.println("登陆成功");
+			mav.setViewName("BackEnd/admin_Index");
 		}else {
-			mav.setViewName("error");
+			System.out.println("登陆失败");
+			mav.setViewName("BackEnd/admin_Index");
 		}
 		return mav;
 	}
 	/*
 	 * 新增用户
 	 */
-	@RequestMapping("/adminRegister.action")
+	@RequestMapping("adminRegister.action")
 	public ModelAndView adminRegister(HttpServletRequest request,AdminBean aBean){
 		
 		adminBizImp.adminRegister(aBean);
@@ -57,7 +59,7 @@ public class AdminLoginAction {
 	/*
 	 * 修改后台用户密码
 	 */
-	@RequestMapping(value="/updateAdminPws.action")
+	@RequestMapping(value="updateAdminPws.action")
 	public  ModelAndView updateAdminPws(String adminPwd,int adminId) {
 		
 		adminBizImp.updateAdminPws(adminPwd,adminId);
@@ -70,7 +72,7 @@ public class AdminLoginAction {
 	/*
 	 * 修改后台医生状态（禁用启用）
 	 */
-	@RequestMapping(value="/updateDoctorState.action")
+	@RequestMapping(value="updateDoctorState.action")
 	public ModelAndView updateDoctorState(AdminBean aBean) {
 		
 		adminBizImp.updateDoctorState(aBean);

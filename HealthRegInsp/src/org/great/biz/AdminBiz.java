@@ -15,7 +15,7 @@ public interface AdminBiz {
 	public void adminRegister(AdminBean adminBean);
 
 	//后台用户管理列表展示
-	public List<UserBean> userAdmin(StaffBean sBean,Integer pages);
+	public List<StaffBean> userAdmin(StaffBean sBean,Integer pages);
 	//后台用户管理列表总数查询
 	public Integer userAdminCount(StaffBean sBean);
 	
