@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ 
+ <mapper namespace="org.great.mapper.IAdminMapper">
+ 		<!-- 后台用户登陆 -->
+ 		<select id="adminLogin" parameterType="org.great.bean.AdminBean" resultType="org.great.bean.AdminBean">
+			select * from tblbackstage where adminId=#{adminId} and adminPwd=#{adminPwd}
+		</select>
+		
+		<!-- 新增用户（注册） -->
+		<insert id="adminRegister" parameterType="org.great.bean.AdminBean">
+			insert into tblbackstage values ("自增长",#{adminPwd},#{adminName},#{age},#{background},#{phone},#{graduated},#{sex},#{postId},#{head},#{depaId},#{roleId},#{stateId},#{logicId})
+		</insert>
+		
+		<!--  后台用户管理列表 -->
+		<select id="userAdmin" parameterType="org.great.bean.StaffBean" resultMap="userAdmin">
+			select * from(
+			select z.*,rownum rn from(
+			select a.staffName,a.idNum,a.phone,b.company,c.*,d.guChId from tblstaff a,tblforeground b,tblperguirela c,tblguisetmeal d
+			where a.companyId = b.companyId and a.staffId = c.staffId
+			<!-- <if test="staffName != null and staffName != ''">and a.staffName like concat(concat('%',#{staffName}),'%')</if>
+			<if test="phone != null and phone != ''">and a.phone = #{phone}</if>
+			<if test="statTime != null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
+			<if test="stopTime != null and stopTime != ''">and c.partYear &lt; = #{stopTime}</if>
+			 <if test="guisetmealBean.guChId != null and guisetmealBean.guChId != ''">and d.guChId = #{guChId}</if>  -->
+			order by a.staffName)z where rownum &lt; =#{pages}*10 )r where r.rn &gt; =(#{pages}-1)*10+1
+		</select>
+		<!-- 员工表 -->
+		<resultMap type="org.great.bean.StaffBean" id="userAdmin">
+			<id property="staffId" column="staffId"/>
+			<result property="staffName" column="staffName"/>
+			<result property="idNum" column="idNum"/>
+			<result property="phone" column="phone"/>
+		
+		<!-- 前台公司表 -->
+		<association property="userBean" javaType="org.great.bean.UserBean">
+			<result property="company" column="company"/>
+		</association>
+		
+		<!-- 员工导检单关系表 -->
+		<association property="perguirelaBean" javaType="org.great.bean.PerguirelaBean">
+			<result property="staffId" column="staffId"/>
+			<result property="partYear" column="partYear"/>
+			<result property="companyId" column="companyId"/>
+			<result property="batchNum" column="batchNum"/>
+		</association>
+		
+		<!-- 导检单套餐表 -->
+		<association property="guisetmealBean" javaType="org.great.bean.GuisetmealBean">
+			<result property="guChId" column="guChId"/>
+		</association>
+		</resultMap> 
+		
+		<!-- 查询后台用户管理列表总数 -->
+		 <select id="userAdminCount" parameterType="org.great.bean.StaffBean" resultType="java.lang.Integer">
+			select count(*) from tblstaff a,tblforeground b,tblperguirela c,tblguisetmeal d
+			where a.companyId = b.companyId and a.staffId = c.staffId
+			<!--  <if test="staffName != null and staffName != ''">and a.staffName like concat(concat('%',#{staffName}),'%')</if>
+			<if test="phone != null and phone != ''">and a.phone = #{phone}</if>
+			<if test="statTime != null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
+			<if test="stopTime != null and stopTime != ''">and c.partYear &lt; = #{stopTime}</if>
+			<if test="guisetmealBean.guChId != null and guisetmealBean.guChId != ''">and d.guChId = #{guChId}</if>  -->
+		</select> 
+		
+		
+ 	     <!-- 修改用户密码 -->	   
+ 	    <update id="updateAdminPws" >
+ 	      update tblbackstage set adminPwd=#{adminPwd} where adminId=#{adminId}
+ 	    </update>
+ 	  
+ 	      <!-- 修改医生状态 （禁用，启用）-->
+ 	      <update id="updateDoctorState" parameterType="org.great.bean.AdminBean">
+ 	         update tblbackstage set stateId=#{stateId} where adminId={adminId}
+ 	      </update>
+ 	
+ 	      <!-- 逻辑删除医生 -->
+ 	      <update id="logicDeleteDoc" parameterType="org.great.bean.AdminBean">
+ 	           update  tblbackstage set logicId=#{logicId}  where adminId={adminId}
+ 	      </update>
+ 	      
+ 	      <!-- 后台对医生信息进行修改 -->
+ 	      <update id="updateDoctorInfo" parameterType="org.great.bean.AdminBean">
+ 	            update tblbackstage set background=#{background},phone=#{phone},graduated=#{graduated},postId=#{postId},head=#{head},depaId=#{depaId},roleId=#{roleId} where adminId={adminId}
+ 	      </update>
+ 	      
+ 	      <!-- 查询医生信息 -->
+ 	        <select id="slectDoctorInfo" parameterType="java.lang.Integer" resultMap="adminIn">
+ 	                select t.*,p.post from tblbackstage  t,PostBean p
+ 	                
+ 	                
+ 	                  where adminId=#{adminId}
+ 	        </select>
+ 	        
+ 	        <resultMap type="org.great.bean.AdminBean" id="adminIn">
+	    	<id property="adminId" column="adminId"/>
+		   <result property="adminName" column="adminName"/>
+		   <result property="age" column="age"/>
+		   <result property="background" column="background"/>
+	       <result property="phone" column="phone"/>
+		   <result property="graduated" column="graduated"/>
+		   <result property="background" column="background"/>
+		   <result property="sex" column="sex"/>
+		   <result property="postId" column="postId"/>
+		   <result property="head" column="head"/>
+		   <result property="depaId" column="depaId"/>
+		   <result property="roleId" column="roleId"/>
+		   <result property="stateId" column="stateId"/>
+		   <result property="logicId" column="logicId"/>
+		<association property="postBean" javaType="org.great.bean.PostBean" >
+			<id property="postId" column="postId"/>
+			<result property="post" column="post"/>
+		</association>
+		
+	</resultMap>
+	<!-- 查询项目 -->
+	<select id="selectLitem" resultType="org.great.bean.LitemBean" parameterType="org.great.bean.LitemBean">
+		SELECT * FROM TBLITEM
+		<where>
+			<if test="itemId != null">and ITEMID = #{itemId}</if>
+			<if test="item !=null and item!=''">and ITEM = #{item}</if>
+		</where>
+	</select>
+	<!-- 增加项目 -->
+	<insert id="addItem" parameterType="org.great.bean.LitemBean">
+		insert into TBLITEM VALUES (TBL_ITEM,#{item},#{price},#{introd})
+	</insert>
+ </mapper>
