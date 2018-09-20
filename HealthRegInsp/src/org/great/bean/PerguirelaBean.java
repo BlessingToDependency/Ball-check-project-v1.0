@@ -1,11 +1,13 @@
 package org.great.bean;
 
+import org.springframework.stereotype.Component;
+
 /*
  *员工导检单关系表 
  * 
  */
 
-
+@Component
 public class PerguirelaBean {
     private int staffId;//人员ID
     private String partYear;//年份

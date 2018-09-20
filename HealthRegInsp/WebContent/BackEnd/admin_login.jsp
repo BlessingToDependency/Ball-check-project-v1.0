@@ -58,7 +58,7 @@ function getCode(){
 			<div class="xs6 xm4 xs3-move xm4-move">
 				<div style="height: 150px;"></div>
 				<div class="media media-y margin-big-bottom"></div>
-				<form action="<%=path%>front/login!login.action" method="post" id="loginform" >
+				<form action="<%=path %>adminLoginAction/adminLogin.action" method="post" id="loginform" >
 					<div class="panel loginbox">
 						<div class="text-center margin-big padding-big-top">
 							<h1>后台登录中心</h1>
@@ -67,14 +67,14 @@ function getCode(){
 							style="padding: 30px; padding-bottom: 10px; padding-top: 10px;">
 							<div class="form-group">
 								<div class="field field-icon-right">
-									<input type="text" class="input input-big" name="user.userId"
+									<input type="text" class="input input-big" name="adminId"
 										placeholder="用户名" data-validate="required:请填写账号" /> <span
 										class="icon icon-user margin-small"></span>
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="field field-icon-right">
-									<input type="password" class="input input-big" name="user.userPwd"
+									<input type="password" class="input input-big" name="adminPwd"
 										placeholder="密码" data-validate="required:请填写密码" /> <span
 										class="icon icon-key margin-small"></span>
 								</div>

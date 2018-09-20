@@ -24,7 +24,7 @@
 		</insert>
 		
 		<!-- 注册名查重 -->
- 		<select id="userRepeat" parameterType="java.lang.String" resultType="org.great.bean.UserBean">
+ 		<select id="userRepeat" resultType="org.great.bean.UserBean">
 			select company from tblforeground where company=#{company}
 		</select>
 		
