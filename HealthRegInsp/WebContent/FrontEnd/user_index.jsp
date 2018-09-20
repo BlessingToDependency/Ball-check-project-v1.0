@@ -121,7 +121,7 @@
           <li><a href="<%=path%>userLoginAction/selectCompInfo.action">公司信息</a></li>
 
           
-
+          <li><a href="<%=path%>userLoginAction/toUpPws.action">编辑公司信息</a></li>
           <li><a href="<%=path%>userLoginAction/toUpPws.action">修改密码</a></li>
 
           

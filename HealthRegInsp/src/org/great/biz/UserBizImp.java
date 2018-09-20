@@ -58,5 +58,12 @@ public class UserBizImp implements UserBiz {
 		return compList;
 	}
 
+	//编辑公司信息
+	@Override
+	public void updateCompInfo(String company) {
+		// TODO Auto-generated method stub
+		iUserMapper.updateCompInfo(company);
+	}
+
 
 }

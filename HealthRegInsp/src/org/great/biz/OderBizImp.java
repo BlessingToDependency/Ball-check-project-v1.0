@@ -8,6 +8,7 @@
 package org.great.biz;
 
 import org.great.bean.SetmealBean;
+import org.springframework.stereotype.Service;
 
 /** 
  * @ClassName: OderBizImp 
@@ -15,6 +16,7 @@ import org.great.bean.SetmealBean;
  * @author: wjx(wangj)  
  * @date: 2018年9月19日 下午10:33:54  
  */
+@Service
 public class OderBizImp implements OderBiz{
 
 	/* (non-Javadoc)

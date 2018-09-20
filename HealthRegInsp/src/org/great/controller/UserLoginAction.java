@@ -121,8 +121,8 @@ public class UserLoginAction {
 	public ModelAndView  selectCompInfo() {
 		
 		UserBean userBean=(UserBean) session.getAttribute("userBean");
-		String componey=userBean.getCompany();
-		
+		//String componey=userBean.getCompany();
+		String componey="公司";
 		List<UserBean> compList=userBizImp.selectCompInfo(componey);
 		session.setAttribute("compList", compList);
 		mav.setViewName("FrontEnd/company_Info");

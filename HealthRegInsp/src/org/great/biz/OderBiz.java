@@ -8,6 +8,7 @@
 package org.great.biz;
 
 import org.great.bean.SetmealBean;
+import org.springframework.stereotype.Service;
 
 /** 
  * @ClassName: OderBiz 
@@ -15,6 +16,7 @@ import org.great.bean.SetmealBean;
  * @author: wjx(wangj)  
  * @date: 2018年9月19日 下午10:30:36  
  */
+
 public interface OderBiz {
 
 	public  SetmealBean  showOder(String setmeal); 
