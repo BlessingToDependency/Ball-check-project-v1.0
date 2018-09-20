@@ -78,6 +78,8 @@ String path = request.getScheme() +"://"+request.getServerName()
                             
                         </a>
                     </li>
+                    
+                    
                     <li>
                         <a href="javascript:;">
                             <i class="iconfont">&#xe70b;</i>
@@ -109,34 +111,44 @@ String path = request.getScheme() +"://"+request.getServerName()
                             
                         </ul>
                     </li>
+                
+                
+                
                 </ul>
             </li>
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
-                    <cite>订单管理</cite>
+                    <cite>团检单位开单</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="<%=path%>adminOpenBillAction/systemParam.action">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>订单列表</cite>
+                            <cite>团检单位列表</cite>
                         </a>
-                    </li >
+                    </li>
                 </ul>
             </li>
+            
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
-                    <cite>分类管理</cite>
+                    <cite>后台人员管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
                         <a _href="cate.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>多级分类</cite>
+                            <cite>医生管理</cite>
+                        </a>
+                    </li >
+                      <li>
+                        <a _href="cate.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>管理员管理</cite>
                         </a>
                     </li >
                 </ul>
@@ -144,14 +156,14 @@ String path = request.getScheme() +"://"+request.getServerName()
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
-                    <cite>城市联动</cite>
+                    <cite>科室管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
                         <a _href="city.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>三级地区联动</cite>
+                            <cite>科室管理</cite>
                         </a>
                     </li >
                 </ul>
@@ -159,36 +171,62 @@ String path = request.getScheme() +"://"+request.getServerName()
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe726;</i>
-                    <cite>管理员管理</cite>
+                    <cite>体检项目管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
                         <a _href="admin-list.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>管理员列表</cite>
+                            <cite>套餐配置管理</cite>
                         </a>
                     </li >
                     <li>
                         <a _href="admin-role.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>角色管理</cite>
+                            <cite>项目配置管理</cite>
                         </a>
                     </li >
                     <li>
                         <a _href="admin-cate.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>权限分类</cite>
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="admin-rule.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>权限管理</cite>
+                            <cite>细项配置管理</cite>
                         </a>
                     </li >
                 </ul>
             </li>
+            
+            
+             <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b4;</i>
+                    <cite>权限角色管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="unicode.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>角色管理</cite>
+                        </a>
+                    </li>
+                      <li>
+                        <a _href="unicode.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>权限分配</cite>
+                        </a>
+                    </li>
+                      <li>
+                        <a _href="unicode.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>菜单管理</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            
+            
+            
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6ce;</i>
@@ -246,17 +284,33 @@ String path = request.getScheme() +"://"+request.getServerName()
                     </li>
                 </ul>
             </li>
+            
+             <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b4;</i>
+                    <cite>系统参数配置</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="<%=path%>adminParamAction/systemParam.action">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>参数配置</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b4;</i>
-                    <cite>图标字体</cite>
+                    <cite>日志管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
                         <a _href="unicode.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>图标对应字体</cite>
+                            <cite>日志查看</cite>
                         </a>
                     </li>
                 </ul>

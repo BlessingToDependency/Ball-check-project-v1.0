@@ -1,5 +1,7 @@
 package org.great.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.great.bean.BillBean;
 import org.great.bean.UserBean;
@@ -25,5 +27,8 @@ public interface IUserMapper {
 
 	//增加账单
 	public void userBill(BillBean billBean);
+	
+	//获得用户开单列表（L）
+	public List<UserBean> OpenBillUserList();
 
 }
