@@ -4,10 +4,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.great.bean.AdminBean;
 import org.great.biz.AdminBiz;
-import org.great.biz.AdminBizImp;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 /*
@@ -28,24 +26,28 @@ public class AdminLoginAction {
 	private AdminBiz adminBizImp;//前台用户接口
 	
 	ModelAndView mav = new ModelAndView();
-	
-	@RequestMapping("/adminLogin.action")
+	/*
+	 * 后台登陆
+	 */
+	@RequestMapping("adminLogin.action")
 	public ModelAndView adminLogin(HttpServletRequest request,HttpServletResponse response,AdminBean aBean) {
-
+		System.out.println("后台登陆"+aBean.getAdminId()+aBean.getAdminPwd());
 		adminBean = adminBizImp.adminLogin(aBean);
 		if(null != adminBean) {
 			HttpSession session = request.getSession();
 			session.setAttribute("adminBean", adminBean);
-			mav.setViewName("success");
+			System.out.println("登陆成功");
+			mav.setViewName("BackEnd/admin_Index");
 		}else {
-			mav.setViewName("error");
+			System.out.println("登陆失败");
+			mav.setViewName("BackEnd/admin_Index");
 		}
 		return mav;
 	}
 	/*
 	 * 新增用户
 	 */
-	@RequestMapping("/adminRegister.action")
+	@RequestMapping("adminRegister.action")
 	public ModelAndView adminRegister(HttpServletRequest request,AdminBean aBean){
 		
 		adminBizImp.adminRegister(aBean);
@@ -57,7 +59,7 @@ public class AdminLoginAction {
 	/*
 	 * 修改后台用户密码
 	 */
-	@RequestMapping(value="/updateAdminPws.action")
+	@RequestMapping(value="updateAdminPws.action")
 	public  ModelAndView updateAdminPws(String adminPwd,int adminId) {
 		
 		adminBizImp.updateAdminPws(adminPwd,adminId);
@@ -70,7 +72,7 @@ public class AdminLoginAction {
 	/*
 	 * 修改后台医生状态（禁用启用）
 	 */
-	@RequestMapping(value="/updateDoctorState.action")
+	@RequestMapping(value="updateDoctorState.action")
 	public ModelAndView updateDoctorState(AdminBean aBean) {
 		
 		adminBizImp.updateDoctorState(aBean);

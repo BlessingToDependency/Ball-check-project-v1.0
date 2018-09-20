@@ -1,0 +1,105 @@
+/*-- table{width:800px ;height :300px} */
+/* style="width:300px ;height :30px ;background: url(Image/login.png);"  按钮添加背景图*/
+
+a:link {color:#F03}     /* 未访问的链接 */
+a:visited {color:#F69}  /* 已访问的链接 */
+a:hover {color:#33F}    /* 当有鼠标悬停在链接上 */
+a:active {color:blue}   /* 被选择的链接 */
+
+/*标题*/
+#osta{font-family:"Times New Roman",Georgia,Serif; font-style:italic; font-size:25px; font-weight: 900}
+
+/*标签名称*/
+
+.itemstyle{font-family:"Times New Roman",Georgia,Serif;font-weight: 900}
+
+/*背景图片*/
+body {background-image:url(../Image/white.jpg);}
+
+/*登录按钮*/
+/*.p{background-color:#CCC;}
+
+/*登录验证失败栏*/
+#hint { font:15px "黑体"; color:#363636; color:#FF3366}
+<!-- background: url(Image/login.png);-->
+/*设置拍卖字体*/
+#color{color:#C00;}
+#color2{color:#C39;}
+
+#p2{margin: auto 500px;}
+
+/* 设置login背景*/
+#backset{background-color:#CCC;
+ height:300px; width:550px;
+ margin:auto;
+ margin-top:2.5cm;
+ border-radius:10px;
+}
+
+/* 设置sale背景*/
+#backset02{background-color:#CCC;
+ height:300px; width:700px;
+ /*border-width:5px;*/
+ border-color:#FFF
+ margin:auto;
+ margin-top:1cm;
+ border-radius:20px
+}
+
+#time{background-color:#CCC;
+ height:300px; width:700px;
+ border-width:5px;
+ border-color:#FFF
+ border-radius:20px
+ margin:auto;
+ margin-top:1cm;
+ border-radius:10px;
+}
+
+/* 设置register背景*/
+#backset03{background-color:#CCC;
+ height:350px; width:400px;
+ /*border-width:5px;*/
+ border-color:#FFF
+ margin:auto;
+ margin-top:1cm;
+ border-radius:10px
+
+}
+
+/* 设置sale背景*/
+#Table{background-color:#CCC;
+ height:300px; width:700px;
+ /*border-width:5px;*/
+ border-color:#FFF
+ margin:auto;
+ margin-top:1cm;
+ border-radius:20px
+}
+
+/* 设置sale背景*/
+#Table02{background-color:#CCC;
+ width:700px;
+ /*border-width:5px;*/
+ border-color:#FFF
+ margin:auto;
+ margin-top:1cm;
+ border-radius:20px
+}
+
+
+/* 设置center背景*/
+#Table03{background-color:#CCC;
+ width:700px;
+ /*border-width:5px;*/
+ border-color:#FFF
+ margin:auto;
+ margin-top:1cm;
+ border-radius:20px
+}
+
+
+/*验证码大小*/
+.code{
+	width:120px;			
+}

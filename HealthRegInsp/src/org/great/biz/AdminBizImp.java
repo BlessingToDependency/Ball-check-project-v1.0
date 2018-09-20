@@ -2,9 +2,12 @@ package org.great.biz;
 
 import java.util.List;
 
-import javax.annotation.Resource;
 
+import javax.annotation.Resource;
 import org.great.bean.AdminBean;
+import org.great.bean.LitemBean;
+import org.great.bean.StaffBean;
+import org.great.bean.UserBean;
 import org.great.mapper.IAdminMapper;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +18,14 @@ import org.springframework.stereotype.Service;
 public class AdminBizImp implements AdminBiz{
 	@Resource
 	IAdminMapper iAdminMapper;
-	
+	private List<StaffBean> userList;
 	//登陆
 	@Override
 	public AdminBean adminLogin(AdminBean adminBean) {
 		// TODO Auto-generated method stub
+		System.out.println("biz="+adminBean);
 		AdminBean aBean = iAdminMapper.adminLogin(adminBean);
+		System.out.println("BIZ==="+aBean);
 		return aBean;
 	}
 
@@ -29,10 +34,24 @@ public class AdminBizImp implements AdminBiz{
 	@Override
 	public void adminRegister(AdminBean adminBean) {
 		// TODO Auto-generated method stub
-		
 		iAdminMapper.adminRegister(adminBean);
 	}
 
+
+	//后台用户管理列表展示
+	@Override
+	public List<StaffBean> userAdmin(StaffBean sBean,Integer pages) {
+		// TODO Auto-generated method stub
+		userList = iAdminMapper.userAdmin(sBean,pages);
+		return userList;
+	}
+
+	//后台用户管理总数
+	@Override
+	public Integer userAdminCount(StaffBean sBean) {
+		// TODO Auto-generated method stub
+		return iAdminMapper.userAdminCount(sBean);
+	}
     //修改密码
 	@Override
 	public void updateAdminPws(String adminPwd,int adminId) {
@@ -67,6 +86,23 @@ public class AdminBizImp implements AdminBiz{
 		// TODO Auto-generated method stub
 		 List<AdminBean> adminList=iAdminMapper.slectDoctorInfo(adminId);
 		return adminList;
+
+	}
+
+	//增加项目
+	@Override
+	public void addItem(LitemBean litemBean) {
+		// TODO Auto-generated method stub
+		iAdminMapper.addItem(litemBean);
+	}
+
+
+	//查询项目 (通用)
+	@Override
+	public LitemBean selectLitem(LitemBean litemBean) {
+		// TODO Auto-generated method stub
+		LitemBean  list = iAdminMapper.selectLitem(litemBean);
+		return list;
 	}
 	
 	

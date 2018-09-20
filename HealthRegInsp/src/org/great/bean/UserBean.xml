@@ -20,11 +20,13 @@
 		
 		<!-- 注册 -->
 		<insert id="userRegister" parameterType="org.great.bean.UserBean">
-			insert into tblforeground values ("自增长",#{company},#{pwd},#{address},#{contacts},#{phone},#{balance},#{busNum})
+
+			insert into tblforeground values (TBL_FOREGROUND.Nextval,#{company},#{pwd},#{address},#{contacts},#{phone},#{balance},#{busNum})
+
 		</insert>
 		
 		<!-- 注册名查重 -->
- 		<select id="userRepeat" parameterType="java.lang.String" resultType="org.great.bean.UserBean">
+ 		<select id="userRepeat" resultType="org.great.bean.UserBean">
 			select company from tblforeground where company=#{company}
 		</select>
 		
@@ -38,9 +40,16 @@
  			insert into tblbill values ("自增长",#{companyId},#{ordNum},#{actNum},#{setmealId},#{actCharge},"当前时间")
  		</insert>
  		
+
  		<!-- 查看公司信息 -->
  		<select id="selectCompInfo" resultType="org.great.bean.UserBean"  parameterType="java.lang.String">
  		    select * from tblforeground where company=#{company}
  		</select>
+
+ 		<!-- 获取开单用户列表 -->
+ 	    <select id="OpenBillUserList" resultType="org.great.bean.UserBean">
+			select * from tblforeground 
+		</select>
+
  		
  </mapper>

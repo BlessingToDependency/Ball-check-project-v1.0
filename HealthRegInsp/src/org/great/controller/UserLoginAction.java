@@ -1,4 +1,3 @@
-
 package org.great.controller;
 /*
  * 前台用户登陆
@@ -47,6 +46,7 @@ public class UserLoginAction {
 	/*
 	 * 用户登陆
 	 */
+
 	@RequestMapping("/userLogin.action")
 	public ModelAndView userLogin(UserBean uBean) {
 		userBean = userBizImp.userLogin(uBean);
@@ -64,7 +64,7 @@ public class UserLoginAction {
 	/*
 	 * 用户注册
 	 */
-	@RequestMapping("/userRegister.action")
+	@RequestMapping("userRegister.action")
 	public ModelAndView userRegister(UserBean uBean) {
 	
 		uBean.setHead("images/user.png");//设置默认头像
@@ -76,7 +76,7 @@ public class UserLoginAction {
 	/*
 	 * AJAX判断公司注册名是否重复:传入公司名
 	 */
-	@RequestMapping("/userRepeat.action")
+	@RequestMapping("userRepeat.action")
 	@ResponseBody
 	public void userRepeat(String company)throws Exception{
 		String str;
@@ -96,9 +96,9 @@ public class UserLoginAction {
   	/*
 	 * 修改公司登陆密码
 	 */
+
 	@RequestMapping(value="/updateUserPws.action")
-	public  ModelAndView updateAdminPws(String pwd) {
-		
+	public  ModelAndView updateAdminPws(String pwd) {		
 		String msg=(String) session.getAttribute("msg");
 		UserBean uBean=(UserBean) session.getAttribute("userBean");
 		String company=uBean.getCompany();
@@ -184,4 +184,5 @@ public class UserLoginAction {
 	}
 	
 }
+
 
