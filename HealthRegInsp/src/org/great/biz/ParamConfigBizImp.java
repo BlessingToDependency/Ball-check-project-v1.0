@@ -23,5 +23,26 @@ public class ParamConfigBizImp implements IParamConfigBiz {
 		paramList=iParamMapper.ParamList();
 		return paramList;
 	}
+	
+	//删除系统参数
+	@Override
+	public int DelParam(int pid) {
+		int res = iParamMapper.delParam(pid);
+		return res;
+	}
+
+	//根据系统参数得到参数信息
+	@Override
+	public ParamBean getParamInfo(int pid) {
+		ParamBean pb = iParamMapper.getParamInfo(pid);
+		return pb;
+	}
+
+	//保存修改后后的参数内容
+	@Override
+	public int updateParam(ParamBean param) {
+		int res = iParamMapper.updateParam(param);
+		return res;
+	}
 
 }
