@@ -20,9 +20,12 @@ public interface IAdminMapper {
 	public void adminRegister(AdminBean adminBean);
 
 	//后台用户管理列表展示
-	public List<StaffBean> userAdmin(StaffBean sBean,@Param("pages")Integer pages);
+	public List<StaffBean> userAdmin(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("pages")Integer pages);
 	//后台用户管理列表总数查询
-	public Integer userAdminCount(StaffBean sBean);
+	public Integer userAdminCount(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear);
+	
+	//根据用户id查找对应信息
+	public StaffBean userInfo(@Param("staffId")String staffId);
 	
 	//后台修改密码
 	public  void  updateAdminPws(@Param("adminPwd")String adminPwd,@Param("adminId")int adminId);

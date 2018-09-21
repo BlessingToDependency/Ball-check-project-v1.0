@@ -1,5 +1,6 @@
 package org.great.biz;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,14 +19,12 @@ import org.springframework.stereotype.Service;
 public class AdminBizImp implements AdminBiz{
 	@Resource
 	IAdminMapper iAdminMapper;
-	private List<StaffBean> userList;
+	private List<StaffBean> userList = new ArrayList<StaffBean>();
 	//登陆
 	@Override
 	public AdminBean adminLogin(AdminBean adminBean) {
 		// TODO Auto-generated method stub
-		System.out.println("biz="+adminBean);
 		AdminBean aBean = iAdminMapper.adminLogin(adminBean);
-		System.out.println("BIZ==="+aBean);
 		return aBean;
 	}
 
@@ -40,18 +39,24 @@ public class AdminBizImp implements AdminBiz{
 
 	//后台用户管理列表展示
 	@Override
-	public List<StaffBean> userAdmin(StaffBean sBean,Integer pages) {
+	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer pages) {
 		// TODO Auto-generated method stub
-		userList = iAdminMapper.userAdmin(sBean,pages);
+		userList = iAdminMapper.userAdmin( staffName, phone, statTime, stopTime, partYear,pages);
 		return userList;
 	}
 
 	//后台用户管理总数
 	@Override
-	public Integer userAdminCount(StaffBean sBean) {
+	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear) {
 		// TODO Auto-generated method stub
-		return iAdminMapper.userAdminCount(sBean);
+		return iAdminMapper.userAdminCount( staffName, phone, statTime, stopTime, partYear);
 	}
+	
+	//根据用户id查找对应信息
+	public StaffBean userInfo(String staffId) {
+		return iAdminMapper.userInfo(staffId);
+	}
+	
     //修改密码
 	@Override
 	public void updateAdminPws(String adminPwd,int adminId) {

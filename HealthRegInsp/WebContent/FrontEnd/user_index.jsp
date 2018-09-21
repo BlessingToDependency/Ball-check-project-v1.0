@@ -112,17 +112,17 @@
 
         </ul>
 
-      </li><li class="navitem"><a  href="about.html" >医院简介</a>
+      </li><li class="navitem"><a  href="about.html" >公司简介</a>
 
         <ul class="subnav">
 
           
 
-          <li><a href="#">企业文化</a></li>
+          <li><a href="<%=path%>userLoginAction/selectCompInfo.action">公司信息</a></li>
 
           
-
-          <li><a href="#">发展历程</a></li>
+          <li><a href="<%=path%>userLoginAction/toUpPws.action">编辑公司信息</a></li>
+          <li><a href="<%=path%>userLoginAction/toUpPws.action">修改密码</a></li>
 
           
 

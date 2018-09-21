@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ 
+ <mapper namespace="org.great.mapper.IOrderMapper">
+ 
+ 	<!-- 套餐设置 -->
+ 	<select id="orderMaga" parameterType="java.lang.String"  resultType="org.great.bean.SetmealBean">			
+ 		select b.* rownum from 
+		(select a.*,rownum rn  from 
+		(select * from  tblsetmeal  	
+		<where>
+		     <if test="setmeal!=null and setmeal !=''" >   setmeal like concat(concat('%',#{setmeal}),'%') order by  setmeal desc   </if>
+		</where>
+		) a 
+		where rownum&gt;= 10)b  where rn&lt;=1
+ 	</select>
+ 	
+ 	
+ </mapper>

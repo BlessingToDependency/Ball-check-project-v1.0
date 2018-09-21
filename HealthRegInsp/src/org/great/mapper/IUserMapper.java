@@ -28,7 +28,14 @@ public interface IUserMapper {
 	//增加账单
 	public void userBill(BillBean billBean);
 	
+	//查看公司信息
+	public  List<UserBean>  selectCompInfo(@Param("company")String company);
+	
 	//获得用户开单列表（L）
 	public List<UserBean> OpenBillUserList();
+	
+	//编辑公司信息
+	public void updateCompInfo(@Param("company")String company);
+
 
 }
