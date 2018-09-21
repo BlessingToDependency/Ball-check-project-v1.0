@@ -39,7 +39,7 @@ public class OrderAction {
 	
 	@Resource
 	private  OderBiz oderBizImp;
-//	private Integer currentPage;
+//	private Integer currentPage; 是的
 	private Integer totalPage;
 	@RequestMapping("/showOrder.action")
 	public String showOrder(HttpServletRequest request,Model model,SetmealBean setmealBean,Integer currentPage) {

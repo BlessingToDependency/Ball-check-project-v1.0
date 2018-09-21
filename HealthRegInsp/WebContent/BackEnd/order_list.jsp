@@ -21,7 +21,9 @@
     <script type="text/javascript" src="<%=path%>js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
-    
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
@@ -83,7 +85,7 @@
             <td class="td-status" align="center">
               <span class="layui-btn layui-btn-normal layui-btn-mini">增加</span>
            	 <span class="layui-btn layui-btn-warm  layui-btn-mini">刪除</span>
-      			 <span class="layui-btn  layui-btn-mini">刪除</span>
+      			 <span class="layui-btn  layui-btn-mini" > <a data-toggle="modal" data-target="#myModal" onclick="info(${list.setmealId })">修改</a></span>
       			 	 <span class="layui-btn layui-btn-danger  layui-btn-mini">查看</span>
             </td>            
           </tr>
@@ -103,9 +105,38 @@
         </div>
       </div>
 
-    </div>
-	  
-    </div>
+    </div>	  
+    <!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel" >
+           		 	项目信息 
+                </h4>
+            </div>
+            
+            <div class="modal-body">
+               	  项目名称：<input type="text" id="name">
+            </div>
+            <div class="modal-body">
+             	   项目单价：<input type="text" id="sex">
+            </div>
+            
+                  
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary">
+              	      提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
     <script>
       layui.use('laydate', function(){
         var laydate = layui.laydate;
@@ -122,44 +153,6 @@
       });
     </script>
 <script>
-<%-- layui.use(['laypage', 'layer'], function(){
-		
-  var currentPage  = $("#currentPage").val();
-  var pagecount = ${count}
-  var laypage = layui.laypage 
-  ,layer = layui.layer;
-  
-  //总页数低于页码总数
-  laypage.render({
-    elem: 'demo2'
-    ,count: pagecount //数据总数
-  	,limit: 5
-  	,curr: currentPage
-  	,jump: function(obj, first){
-  	    //obj包含了当前分页的所有参数，比如：
-  	    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-  	    console.log(obj.limit); //得到每页显示的条数
-  	 //   var form  = $("#fileForm").val();
-  		//form.action="Order/showOrder.action?currentPage=${(currentPage+1)<=totalPage?currentPage+1:totalPage}";		
-		//提交表单
-		//form.submit();  
-  	    //首次不执行
-  	    if(!first){
-  	      //do something
-  	      location.href = "<%=path%>Order/showOrder.action?currentPage=${(currentPage+1)<=totalPage?currentPage+1:totalPage}"
-  	    }
-  	  }
-  /*   ,jump: function(){
-     //	var form =document.getElementById("fileForm");	
-    	 var form  = $("#fileForm").val();
-  		//设置地址
-  		form.action="Order/showOrder.action?currentPage=${(currentPage+1)<=totalPage?currentPage+1:totalPage}";		
-  		//提交表单
-  		form.submit();  
- 
-    } */
-  });
-}); --%>
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -172,6 +165,23 @@
       });
     });
 </script>
-  </body>
+    <script type="text/javascript">
+	function info(id){
+	$.ajax({
+		url:"<%=path %>userAdminAction/userInfo.action",
+		data:"staffId="+id,
+		dataType:"json",
+		type:"POST",
+		success : function(str){
+			$("#name").val(str.staffName);
+			$("#age").val(str.age);
+			$("#sex").val(str.sex);
+			$("#phone").val(str.phone);
+			$("#idNum").val(str.idNum);
+		}
+	});
+};
+</script>
+</body>
 
 </html>
