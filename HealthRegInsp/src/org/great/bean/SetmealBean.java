@@ -1,9 +1,12 @@
 package org.great.bean;
 
+import org.springframework.stereotype.Component;
+
 /*
  * 套餐表
  * 
  */
+@Component
 public class SetmealBean {
     private int setmealId;//套餐ID
     private String setmeal;//套餐

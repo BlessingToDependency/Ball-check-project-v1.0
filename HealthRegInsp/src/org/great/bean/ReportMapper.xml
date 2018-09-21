@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ 
+ <mapper namespace="org.great.mapper.ReportMapper">
+   
+  <!--用户报告  -->
+ <!-- 	<select id="showReport" parameterMap="java.lang.String" resultType="org.great.bean.TotalBean">
+ 		SELECT * FROM tbltotal where  GUCHID =#{guChId}	 like concat(concat('%',#{guChId}),'%') 	
+ 	</select> -->
+ 	<select id="showReport" parameterType="java.lang.String" resultType="org.great.bean.TotalBean">
+ 		SELECT * FROM tbltotal where  GUCHID  =#{guChId}  
+ 	</select>
+ </mapper>
+ 

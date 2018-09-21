@@ -7,6 +7,8 @@
  */
 package org.great.biz;
 
+import java.util.List;
+
 import org.great.bean.SetmealBean;
 
 /** 
@@ -17,6 +19,9 @@ import org.great.bean.SetmealBean;
  */
 public interface OderBiz {
 
-	public  SetmealBean  showOder(String setmeal); 
+	//套餐模糊搜索
+	public  List<SetmealBean>  showOder(String setmeal,Integer currentPage); 
 	
+	//套餐页数总结
+	public Integer   countOrder(String setmeal);
 }

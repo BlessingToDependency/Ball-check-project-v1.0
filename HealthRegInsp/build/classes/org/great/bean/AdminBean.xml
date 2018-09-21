@@ -125,4 +125,5 @@
 	<insert id="addItem" parameterType="org.great.bean.LitemBean">
 		insert into TBLITEM VALUES (TBL_ITEM,#{item},#{price},#{introd})
 	</insert>
+
  </mapper>

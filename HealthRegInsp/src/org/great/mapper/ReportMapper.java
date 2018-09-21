@@ -18,9 +18,9 @@ import org.springframework.stereotype.Repository;
  * @date: 2018年9月19日 下午4:58:57  
  */
 @Repository
-public interface IReportMapper {
+public interface ReportMapper {
 
 	//总结报告单
-	public TotalBean  showReport(@Param("guChId")String reportId);
+	public  TotalBean  showReport(@Param("guChId")String reportId);
 	
 }
