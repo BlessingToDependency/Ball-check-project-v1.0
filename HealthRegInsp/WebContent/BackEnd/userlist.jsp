@@ -1,49 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%
+String path = request.getScheme() +"://"+request.getServerName()
+	+":"+request.getServerPort()+ request.getContextPath()+"/";%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
- <meta name="renderer" content="webkit">
+ <head>
+    <meta charset="UTF-8">
+    <title>参数配置</title>
+    <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/xadmin.css">
+    <link rel="shortcut icon" href="<%=path%>/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="<%=path%>/css/font.css">
+    <link rel="stylesheet" href="<%=path%>/css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-	function info(){
+    
+    <script type="text/javascript">
+	function info(id){
 	$.ajax({
-		url:"userAdminAction/userInfo.action",
-		data:"staffId="+$("#hidden").val(),
+		url:"<%=path %>userAdminAction/userInfo.action",
+		data:"staffId="+id,
 		dataType:"json",
 		type:"POST",
 		success : function(str){
-			$("#name").html(str.staffName);
-			$("#age").html(str.age);
-			$("#sex").html(str.sex);
-			$("#phone").html(str.phone);
+			$("#name").val(str.staffName);
+			$("#age").val(str.age);
+			$("#sex").val(str.sex);
+			$("#phone").val(str.phone);
+			$("#idNum").val(str.idNum);
 		}
 	});
 };
 </script>
-
-</head>
-<body>
- <div class="x-nav">
+<script type="text/javascript">
+    $(document).ready(function(){
+       //点击链接的时候调用
+      $("#linkToCart").click(function(){
+ 
+          //得到input的值
+          var pages = $("#pages").val();
+ 
+          //设置linkToCart的href的值
+          $("#linkToCart").attr("href","<%=path %>userAdminAction/userAdmin.action?pages="+pages+"");
+      });
+    });
+</script>
+<script type="text/javascript">
+function checkUser(){
+	document.getElementById("formid").submit();
+}
+	</script>
+  </head>
+  
+  <body>
+    <div class="x-nav">
       <span class="layui-breadcrumb">
         <a href="">首页</a>
         <a href="">演示</a>
-
         <a>
           <cite>导航元素</cite></a>
       </span>
@@ -52,19 +78,19 @@
     </div>
     <div class="x-body">
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-          <input class="layui-input" placeholder="开始日" name="start" id="start">
-          <input class="layui-input" placeholder="截止日" name="end" id="end">
-          <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        <form class="layui-form layui-col-md12 x-so" id="formid" action="<%=path %>userAdminAction/userAdmin.action">
+          <input class="layui-input" placeholder="开始日" name="statTime" id="start">
+          <input class="layui-input" placeholder="截止日" name="stopTime" id="end">
+          <input type="text" name="staffName"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+          <input type="text" name="phone"  placeholder="请输入手机号" autocomplete="off" class="layui-input">
+          <input type="text" name="staffName"  placeholder="请输入条码号" autocomplete="off" class="layui-input">
+          <button class="layui-btn"  lay-submit="" lay-filter="sreach" onclick = "checkUser();"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
       <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html')"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
       </xblock>
-      <table class="layui-table">
+       <table class="layui-table">
         <thead>
           <tr>
             <th>
@@ -73,7 +99,6 @@
             <th>ID</th>
             <th>姓名</th>
             <th>手机号</th>
-            <th>身份证号</th>
             <th>体检时间</th>
             <th>条码号</th>
             <th>公司</th>
@@ -87,17 +112,13 @@
             </td>
           	<input type="hidden" id="hidden" name="hidden" value="${staffBean.staffId}"/>
             <td>${staffBean.staffId}</td>
-            <td><a data-toggle="modal" data-target="#myModal" onclick="info()">${staffBean.staffName}</a></td>
+            <td><a data-toggle="modal" data-target="#myModal" onclick="info(${staffBean.staffId})">${staffBean.staffName}</a></td>
             <td>${staffBean.phone}</td>
-            <td>${staffBean.idNum}</td>
             <td>${staffBean.perguirelaBean.partYear}</td>
              <td>${staffBean.staffId}${staffBean.perguirelaBean.partYear}${staffBean.companyId}${staffBean.perguirelaBean.batchNum}</td>
+             <td>${staffBean.userBean.company}</td>
             <td class="td-status">
-              <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
-            <td class="td-manage">
-              <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                <i class="layui-icon">&#xe601;</i>
-              </a>
+              
               <a title="编辑"  onclick="x_admin_show('编辑','admin-edit.html')" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
@@ -111,18 +132,17 @@
       </table>
       <div class="page">
         <div>
-          <a class="num" href="">首页</a>
-          <a class="prev" href="">上一页</a>
-          <a class="next" href="">下一页</a>
-          <a class="num" href="">末页</a>
-          <input type="text" name="code" style="width:40px;" autocomplete="off" class="layui-input">
-           <a class="num" href="">跳转</a>
+      当前：第  ${pages } 页/ 共 ${pageCountAll} 页
+          <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=1">首页</a>
+          <a class="prev" href="<%=path %>${(pages-1)>0?pages-1:1}">上一页</a>
+          <a class="next" href="<%=path %>userAdminAction/userAdmin.action?pages=${(pages+1)<=pageCountAll?pages+1:pageCountAll}">下一页</a>
+          <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=${pageCountAll}">末页</a>
+          <input type="text" id="pages" name="code" style="width:40px;" autocomplete="off" class="layui-input"/>
+           <a class="num" id="linkToCart" href="">跳转</a>
         </div>
       </div>
+
     </div>
-    
-    
-    
     <!-- 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -137,17 +157,20 @@
             </div>
             
             <div class="modal-body">
-                 姓名：<span id="name"></span>
+                 姓名：<input type="text" id="name">
             </div>
             <div class="modal-body">
-                性别：<span id="sex"></span>
+                性别：<input type="text" id="sex">
             </div>
             
             <div class="modal-body">
-                年龄：<span id="age"></span>
+                年龄：<input type="text" id="age">
             </div>
             <div class="modal-body">
-                电话：<span id="phone"></span>
+                电话：<input type="text" id="phone">
+            </div>
+            <div class="modal-body">
+                身份证号：<input type="text" id="idNum">
             </div>
            
             <div class="modal-footer">
@@ -160,10 +183,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-
-
-
-    <script>
+<script>
       layui.use('laydate', function(){
         var laydate = layui.laydate;
         
@@ -177,52 +197,7 @@
           elem: '#end' //指定元素
         });
       });
-
-       /*用户-停用*/
-      function member_stop(obj,id){
-          layer.confirm('确认要停用吗？',function(index){
-
-              if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-              }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
-              
-          });
-      }
-
-      /*用户-删除*/
-      function member_del(obj,id){
-          layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
-          });
-      }
-
-
-
-      function delAll (argument) {
-
-        var data = tableCheck.getData();
-  
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-      }
-    </script>
+ </script>
 </body>
+
 </html>

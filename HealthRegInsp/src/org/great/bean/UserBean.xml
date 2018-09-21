@@ -40,9 +40,20 @@
  			insert into tblbill values ("自增长",#{companyId},#{ordNum},#{actNum},#{setmealId},#{actCharge},"当前时间")
  		</insert>
  		
+
+ 		<!-- 查看公司信息 -->
+ 		<select id="selectCompInfo" resultType="org.great.bean.UserBean"  parameterType="java.lang.String">
+ 		    select * from tblforeground where company=#{company}
+ 		</select>
+
  		<!-- 获取开单用户列表 -->
  	    <select id="OpenBillUserList" resultType="org.great.bean.UserBean">
 			select * from tblforeground 
 		</select>
+
+ 		<!-- 编辑公司信息 -->
+ 		  <update id="updateCompInfo" parameterType="java.lang.String">
+ 		  
+ 		  </update>
  		
  </mapper>

@@ -1,3 +1,4 @@
+
 package org.great.biz;
 
 import java.util.List;
@@ -42,11 +43,27 @@ public class UserBizImp implements UserBiz {
 		// TODO Auto-generated method stub
 		iUserMapper.userBill(billBean);
 	}
+
 	//前端修改密码
 	@Override
 	public void updateUserPws(String pwd,String company) {
 		// TODO Auto-generated method stub
 		iUserMapper.updateUserPws(pwd,company);
 	}
+   //查看公司信息
+	@Override
+	public List<UserBean> selectCompInfo(String company) {
+		// TODO Auto-generated method stub
+		List<UserBean>  compList=iUserMapper.selectCompInfo(company);
+		return compList;
+	}
+
+	//编辑公司信息
+	@Override
+	public void updateCompInfo(String company) {
+		// TODO Auto-generated method stub
+		iUserMapper.updateCompInfo(company);
+	}
+
 
 }
