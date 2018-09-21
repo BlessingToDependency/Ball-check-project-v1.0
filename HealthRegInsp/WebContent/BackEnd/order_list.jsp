@@ -91,8 +91,20 @@
         </tbody>
       </table>
       </form>
-      <div id="demo6" align="center"></div>
-	  <input type ="hidden" value="${currentPage }" id="currentPage"/> 
+     <div class="page">
+        <div>
+     	 当前：第  ${currentPage } 页/ 共 ${totalPage} 页
+          <a class="num" href="<%=path %>Order/showOrder.action?currentPage=1">首页</a>
+          <a class="prev" href="<%=path %>Order/showOrder.action?currentPage=${(currentPage-1)>0?currentPage-1:1}">上一页</a>
+          <a class="next" href="<%=path%>Order/showOrder.action?currentPage=${(currentPage+1)<=totalPage?currentPage+1:totalPage}">下一页</a>
+          <a class="num" href="<%=path %>Order/showOrder.action?currentPage=${totalPage}">末页</a>
+                    <input type="text" id="currentPage" name="code" style="width:50px;height:40px;" autocomplete="off"/>
+           <a class="num" id="linkToCart" href="">跳转</a>
+        </div>
+      </div>
+
+    </div>
+	  
     </div>
     <script>
       layui.use('laydate', function(){
@@ -108,52 +120,6 @@
           elem: '#end' //指定元素
         });
       });
-
-       /*用户-停用*/
-      function member_stop(obj,id){
-          layer.confirm('确认要停用吗？',function(index){
-
-              if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-              }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
-              
-          });
-      }
-
-      /*用户-删除*/
-      function member_del(obj,id){
-          layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
-          });
-      }
-
-
-
-      function delAll (argument) {
-
-        var data = tableCheck.getData();
-  
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-      }
     </script>
 <script>
 <%-- layui.use(['laypage', 'layer'], function(){
@@ -195,22 +161,16 @@
   });
 }); --%>
 </script>
-<script>
-layui.use(['laypage', 'layer'], function(){
-	 //只显示上一页、下一页
-	   var laypage = layui.laypage 
-  		,layer = layui.layer;
-	  laypage.render({
-	    elem: 'demo6'
-	    ,count: 50
-	    ,layout: ['prev', 'next']
-	    ,jump: function(obj, first){
-	      if(!first){
-	        layer.msg('第 '+ obj.curr +' 页');
-	      }
-	    }
-	  });	
-});
+<script type="text/javascript">
+    $(document).ready(function(){
+       //点击链接的时候调用
+      $("#linkToCart").click(function(){
+          //得到input的值
+          var currentPage = $("#currentPage").val();
+          //设置linkToCart的href的值
+          $("#linkToCart").attr("href","<%=path %>Order/showOrder.action?currentPage="+currentPage);
+      });
+    });
 </script>
   </body>
 

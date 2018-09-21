@@ -39,15 +39,15 @@ public class OrderAction {
 	
 	@Resource
 	private  OderBiz oderBizImp;
-	private Integer currentPage;
+//	private Integer currentPage;
 	private Integer totalPage;
 	@RequestMapping("/showOrder.action")
-	public String showOrder(HttpServletRequest request,Model model,SetmealBean setmealBean) {
+	public String showOrder(HttpServletRequest request,Model model,SetmealBean setmealBean,Integer currentPage) {
 		
 		if (null == currentPage) {
 			currentPage = 1;
 		}
-		System.out.println("setmealBean:"+setmealBean);
+		System.out.println("currentPage:"+currentPage);
 		int count = oderBizImp.countOrder(setmealBean.getSetmeal());
 		totalPage = count % 5 > 0 ? count / 5 + 1 : count / 5;
 		if (totalPage==0) {
@@ -57,23 +57,10 @@ public class OrderAction {
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("orderList", orderList);	
-		model.addAttribute("count", 20);
+		model.addAttribute("count", count);
 		return "BackEnd/order_list";
 	}
 
-	/**
-	 * @return the currentPage
-	 */
-	public Integer getCurrentPage() {
-		return currentPage;
-	}
-
-	/**
-	 * @param currentPage the currentPage to set
-	 */
-	public void setCurrentPage(Integer currentPage) {
-		this.currentPage = currentPage;
-	}
 
 	/**
 	 * @return the totalPage
