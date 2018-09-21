@@ -7,5 +7,21 @@
  	    <select id="ParamList" resultType="org.great.bean.ParamBean">
 			select * from TBLParam
 		</select>
+		
+	    <!-- 根据参数ID获取系统参数-->
+ 	    <select id="getParamInfo" resultType="org.great.bean.ParamBean">
+			select * from TBLPARAM where PARAMID=#{pid}
+		</select>
+		
+		<delete id="delParam">
+		    delete from TBLPARAM where PARAMID=#{pid}
+		</delete>
+		
+		
+		<!-- 修改参数内容 -->
+		<update id="updateParam" parameterType="org.great.bean.ParamBean">
+	    update TBLPARAM set PARAM=#{param},PARID=#{parId} where PARAMID=#{paramId} 
+	    </update>
+	   
  		
  </mapper>
