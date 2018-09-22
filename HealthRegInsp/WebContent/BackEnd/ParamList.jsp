@@ -20,6 +20,12 @@ String path = request.getScheme() +"://"+request.getServerName()
     <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
     <script src="<%=path%>js/bootstrap.min.js"></script>
+     <style>
+     .zt{color: #06F;font-size: 18px;font-weight: 10px;}
+         #div{width:100%; height:50px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
+         #divleft{width:35%; height:48px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:right;}
+         #divright{width:63%; height:48px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
+	</style>
   </head>
   <body>
     <div class="x-nav">
@@ -35,15 +41,9 @@ String path = request.getScheme() +"://"+request.getServerName()
     </div>
     <div class="x-body">
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-          <input class="layui-input" placeholder="开始日" name="start" id="start">
-          <input class="layui-input" placeholder="截止日" name="end" id="end">
-          <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-        </form>
       </div>
       <xblock>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="addParam();"><i class="layui-icon"></i>添加</button>
       </xblock>
       <table class="layui-table">
         <thead>
@@ -56,20 +56,6 @@ String path = request.getScheme() +"://"+request.getServerName()
         
         <tbody>
           <c:forEach items="${paramList}"  var="list" step="1" varStatus="vs">
-			<c:if test="${vs.index%2 == 0}">
-			<tr>
-			   <td>${vs.index+1}</td>
-			   <td>${list.param}</td>
-			   <td>${list.parId}</td>
-	       	   <td class="td-status">
-	       	   
-                <span id="up" class="layui-btn layui-btn-normal layui-btn-mini" onclick="addHid(${list.paramId});">修改</span>
-                 <a href="<%=path%>adminParamAction/delParam.action?pid=${list.paramId}" ><span class="layui-btn layui-btn-danger" onclick="return disable();">删除</span></a>
-	           </td>
-			</tr>
-			</c:if>
-			
-		   <c:if test="${vs.index%2 == 1}">
 			<tr>
 			    <td>${vs.index+1}</td>
 			   <td>${list.param}</td>
@@ -79,26 +65,62 @@ String path = request.getScheme() +"://"+request.getServerName()
                  <a href="<%=path%>adminParamAction/delParam.action?pid=${list.paramId}" ><span class="layui-btn layui-btn-danger" onclick="return disable();">删除</span></a>
 	           </td>
 			</tr>
-			</c:if>
 			</c:forEach>
         </tbody>
       </table>
-      <div class="page">
+       
+        <div class="page">
         <div>
-          <a class="prev" href="">&lt;&lt;</a>
-          <c:if test="${vs.index%2 == 1}">
-          
-          </c:if>
-          <a class="num" href="">1</a>
-          <span class="current">2</span>
-          <a class="num" href="">3</a>
-          <a class="num" href="">489</a>
-          
-          <a class="next" href="">&gt;&gt;</a>
+      当前：第  ${pageNo} 页/ 共 ${AllPage} 页
+          <a class="num" href="<%=path %>adminParamAction/systemParam.action?pageNo=1">首页</a>
+          <a class="prev" href="<%=path %>adminParamAction/systemParam.action?pageNo=${pageNo-1}" onclick="return chageNO(this)">上一页</a>
+          <a class="next" href="<%=path %>adminParamAction/systemParam.action?pageNo=${pageNo+1}" onclick="return chageNE(this)">下一页</a>
+          <a class="num" href="<%=path %>adminParamAction/systemParam.action?pageNo=${AllPage}">末页</a>
+          <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off"/>
+           <a class="num" id="linkToCart" onclick="jump();">跳转</a>
         </div>
       </div>
 
+
     </div>
+
+
+<form id="addfrom" method="post" action="<%=path%>adminParamAction/addParam.action">
+<button type="button" id="addParam" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2"></button>
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加系统参数</h4>
+      </div>
+     <!--  <div class="modal-body"> -->
+        <div id="div">
+             <div id="divleft"><span class="zt">参数:</span></div> 
+             <div id="divright">
+             <input type="text" id="pname" name="param" style="width:200px;" class="form-control" placeholder="参数名">
+             </div>          
+        </div>  
+        
+          <div id="div">
+             <div id="divleft"><span class="zt">所属参数:</span></div> 
+             <div id="divright">
+             <select class="form-control" id="conname" name="conname" style="width:200px;">
+                 <option value="0">--父级参数--</option>
+                 </select>
+             </div>          
+          </div>  
+             
+             
+ <!--      </div> -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-primary">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>	
 
 <form id="myform" method="post" action="<%=path%>adminParamAction/saveParam.action" >
 <button type="button" id="dada" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></button>
@@ -108,14 +130,23 @@ String path = request.getScheme() +"://"+request.getServerName()
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">系统参数修改</h4>
+        <input type="hidden" name="co" id="co" value=""/>
       </div>
-      <div class="modal-body">
-        <input type="hidden" id="coun" name="coun"/>
-                   参数： <input  type="text" id="pname" name="param" class="form-control" placeholder="参数名">
-                 父级ID ： <input  type="text" id="parId" name="parId" class="form-control" placeholder="父级ID">
-             
-             
-      </div>
+         <div id="div">
+             <div id="divleft"><span class="zt">参数:</span></div> 
+             <div id="divright">
+             <input type="text" id="pn" name="pn" style="width:200px;" class="form-control" placeholder="参数名">
+             </div>          
+        </div>  
+        
+          <div id="div">
+             <div id="divleft"><span class="zt">所属参数:</span></div> 
+             <div id="divright">
+             <select class="form-control" id="paramId" name="paramId" style="width:200px;">
+                 <option value="0">--父级参数--</option>
+                 </select>
+             </div>          
+          </div>  
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
         <button type="submit" class="btn btn-primary">保存</button>
@@ -129,6 +160,13 @@ String path = request.getScheme() +"://"+request.getServerName()
 </body>
 
 <script type="text/javascript">
+//跳转页码
+function jump(){
+	var p=document.getElementById("pageNo").value;
+	window.location.href="<%=path%>adminParamAction/systemParam.action?pageNo="+p;
+}
+
+
 //添加到隐藏域
 function addHid(v){
 	$.ajax({
@@ -136,24 +174,46 @@ function addHid(v){
 		data:"pid="+v,//发送至服务器的键值数据
 		dataType:"json",//请求数据格式，如script,json,text等
 		type:"post",//发送方式，get/post
-	    success:function(redata){
-	    	alert("*****"+redata.paramId);
-	    	
+	    success:function(data){
+	    	//得到map中的对象
+	    	var dd = data.pb;
+	    	var tt = data.piList;
+	    	var ff = data.fn;
 	    	//展开模态框
-			$("#dada").trigger("click");
-			$("#coun").val(redata.paramId);
-	    	$("#pname").val(redata.param);
-	    	$("#parId").val(redata.parId);
-
+	      	$("#dada").trigger("click");
+	    	//数据展示到页面中
+	   		$("#co").val(dd.paramId);
+	 	    $("#pn").val(dd.param);
+	 	    $("#parId").val(dd.parId);
+	 	    $("#paramId").find("option").remove();
+	 	     $("#paramId").append("<option value="+dd.parId+">"+ ff + "</option>");
+	    	$.each(tt, function(i, item) {
+	    	  $("#paramId").append("<option value="+item.paramId+">"+ item.param+ "</option>");
+			});
 	  }
 	});
 } 
+//新增参数模态框
+function addParam(){
+	$.ajax({
+		url:"<%=path%>adminParamAction/getParam.action",//请求地址
+		data:"pid=123",//发送至服务器的键值数据
+		dataType:"json",//请求数据格式，如script,json,text等
+		type:"post",//发送方式，get/post
+	    success:function(redata){
+	    	//展开模态框
+	    	$("#addParam").trigger("click");
+	    	//移除原有的下拉框内容
+	    	$("#conname").find("option").remove();
+	    	//添加到下拉框中
+	        $("#conname").append("<option value=0>--父级参数--</option>");
+			$.each(redata, function(i, item) {
+				   $("#conname").append("<option value="+item.paramId+">"+ item.param+ "</option>");
+			});
 
-/* 
-function tijiao(){
-	var s =document.getElementById('coun');
-	alert(s.value);
-} */
+	  }
+	});
+}
 //禁用弹窗确认
 function disable(){
 	 var r=confirm("确定删除吗？")
@@ -163,27 +223,29 @@ function disable(){
 	 return false;
 }
 //上一页限制
- function chageNO(v){
- 	 var url = v.href;
- 	 var a=url.indexOf('=',1);
- 	 var a2=a+1;
- 	 var b=a2+2;
- 	 var num = parseInt(url.substring(a2,b));
- 	 if(num<1){
- 		 return false;
- 	 }
- 	 return true;
- }
+function chageNO(v){
+	 var url = v.href;
+	 var a=url.indexOf('=',1);
+	 var a2=a+1;
+	 var b=a2+2;
+	 var num = parseInt(url.substring(a2,b));
+	 if(num<1){
+		 return false;
+	 }
+	 return true;
+}
+//下一页限制
+function chageNE(v){
+	 var url = v.href;
+	 var a=url.indexOf('=',1);
+	 var a2=a+1;
+	 var b=a2+2;
+	 var num = parseInt(url.substring(a2,b));
+	 //var all=${allPageNo};
+	 if(num>${AllPage}){
+		 return false;
+	 }
+	 return true;
+}
 </script> 
-<!--  <script> 
- 	$(function(){
-
- 
-     //ajax判断
-		$("#up").click(function(){
-			alert(v.);
-	
-		});
-	});
-	</script>  -->
 </html>

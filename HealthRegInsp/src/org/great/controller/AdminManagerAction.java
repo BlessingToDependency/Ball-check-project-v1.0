@@ -22,11 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 /*
- * 后台参数配置
+ * 后台管理员管理
  */
 @Controller
-@RequestMapping("/adminParamAction")
-public class ParamConfigAction {   
+@RequestMapping("/adminManagerAction")
+public class AdminManagerAction {   
 	@Autowired
 	private HttpServletResponse response;
 	
@@ -108,22 +108,14 @@ public class ParamConfigAction {
 	@RequestMapping(value="/updateParam.action")
 	public ModelAndView UpdateParam(HttpServletRequest request,int pid){
 		//定义一个Map
-		Map<String,Object> map = new HashMap<String,Object>();
+		Map<ParamBean,List<ParamBean>> map = new HashMap<ParamBean,List<ParamBean>>();
 		//得到该参数信息
 		ParamBean pb = ParamConfigBizImp.getParamInfo(pid);
 		//得到该参数信息
 		List<ParamBean> piList = ParamConfigBizImp.allParamPar();
-		//父级参数名
-		String fn=null;
-		for(int i=0;i<piList.size();i++) {
-			if(pb.getParId()==piList.get(i).getParamId()) {
-				fn=piList.get(i).getParam();
-			}
-		}
+		//得到对应父级菜单名
 		//赋值
-		map.put("piList", piList);
-		map.put("pb", pb);
-		map.put("fn", fn);
+		map.put(pb, piList);
 		try {
 			PrintWriter out =response.getWriter();
 			//通过gson进行传输
@@ -162,17 +154,14 @@ public class ParamConfigAction {
 	
 	//保存修改的系统参数
 	@RequestMapping(value="/saveParam.action")
-	public ModelAndView SaveParam(HttpServletRequest request,String pn,int paramId,int co){
+	public ModelAndView SaveParam(HttpServletRequest request,String pn,String paramId,String co){
 		//修改参数信息
-		ParamBean param = new ParamBean();
-		param.setParam(pn);
-		param.setParamId(co);
-		param.setParId(paramId);
-		int res = ParamConfigBizImp.updateParam(param);
+		System.out.println(co);
+		/*int res = ParamConfigBizImp.updateParam(param);
 		ModelAndView mav = new ModelAndView();
 		if(res>0) {
 			return new ModelAndView("redirect:/adminParamAction/systemParam.action");
-		}
+		}*/
 		return null;
 	}
 

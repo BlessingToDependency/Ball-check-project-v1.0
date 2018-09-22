@@ -12,8 +12,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface IParamMapper {
-	//获取参数内容
-	public List<ParamBean> ParamList();
+	//获取分页参数内容
+	public List<ParamBean> ParamList(@Param("statrRn")int statrRn,@Param("endRn")int endRn);
+	
+	//获得总的数据
+	public List<ParamBean> AllParamList();
 	
 	//删除系统参数
 	public int delParam(@Param("pid")int pid);
@@ -23,5 +26,11 @@ public interface IParamMapper {
 	
 	//保存修改的参数内容
 	public int updateParam(ParamBean param);
+	
+	//得到父级参数
+	public List<ParamBean> getParamPar();
+	
+	//添加参数信息
+	public int addParam(ParamBean param);
 
 }
