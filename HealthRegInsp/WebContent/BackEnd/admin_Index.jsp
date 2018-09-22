@@ -168,34 +168,37 @@ String path = request.getScheme() +"://"+request.getServerName()
                     </li >
                 </ul>
             </li>
+            
+            
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont">&#xe726;</i>
+                    <i class="iconfont">&#xe6b4;</i>
                     <cite>体检项目管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="admin-list.html">
+                        <a _href="<%=path%>adminParamAction/systemParam.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>套餐配置管理</cite>
                         </a>
-                    </li >
+                    </li>
+                    
                     <li>
-                        <a _href="admin-role.html">
+                        <a _href="<%=path %>adminLitemAction/selectItem.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>项目配置管理</cite>
                         </a>
-                    </li >
+                    </li>
+                    
                     <li>
-                        <a _href="admin-cate.html">
+                        <a _href="<%=path%>adminParamAction/systemParam.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>细项配置管理</cite>
                         </a>
-                    </li >
+                    </li>
                 </ul>
             </li>
-            
             
              <li>
                 <a href="javascript:;">

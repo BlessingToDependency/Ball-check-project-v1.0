@@ -49,6 +49,11 @@ public class LitemBean {
 	public void setIntrod(String introd) {
 		this.introd = introd;
 	}
+
+	@Override
+	public String toString() {
+		return "LitemBean [itemId=" + itemId + ", item=" + item + ", price=" + price + ", introd=" + introd + "]";
+	}
      
      
      
