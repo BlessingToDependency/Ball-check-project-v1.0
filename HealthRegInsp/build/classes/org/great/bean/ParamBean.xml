@@ -5,7 +5,17 @@
  		
  		<!-- 获取系统参数-->
  	    <select id="ParamList" resultType="org.great.bean.ParamBean">
-			select * from TBLParam
+			 select * from (select t.*,rownum rn from (select * from TBLParam where 1=1) t where rownum &lt;=#{statrRn})where rn&gt;=#{endRn} 	
+		</select>
+		
+		<!-- 获取系统总的参数-->
+ 	    <select id="AllParamList" resultType="org.great.bean.ParamBean">
+			 select * from TBLParam where 1=1
+		</select>
+		
+		 <!-- 获取所有的父级参数-->
+ 	    <select id="getParamPar" resultType="org.great.bean.ParamBean">
+			select * from TBLPARAM where PARID = 0
 		</select>
 		
 	    <!-- 根据参数ID获取系统参数-->
@@ -13,15 +23,20 @@
 			select * from TBLPARAM where PARAMID=#{pid}
 		</select>
 		
+		<!-- 删除参数 -->
 		<delete id="delParam">
 		    delete from TBLPARAM where PARAMID=#{pid}
 		</delete>
-		
 		
 		<!-- 修改参数内容 -->
 		<update id="updateParam" parameterType="org.great.bean.ParamBean">
 	    update TBLPARAM set PARAM=#{param},PARID=#{parId} where PARAMID=#{paramId} 
 	    </update>
+	    
+	    <insert id="addParam" parameterType="org.great.bean.ParamBean">
+	    insert into TBLPARAM values(TBL_PARAM.Nextval,#{param},#{parId})
+	    </insert>
+	    
 	   
  		
  </mapper>

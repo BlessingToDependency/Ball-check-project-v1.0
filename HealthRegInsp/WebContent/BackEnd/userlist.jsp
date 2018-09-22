@@ -132,12 +132,12 @@ function checkUser(){
       </table>
       <div class="page">
         <div>
-      当前：第  ${pages } 页/ 共 ${pageCountAll} 页
+      当前：第  ${pages} 页/ 共 ${pageCountAll} 页
           <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=1">首页</a>
           <a class="prev" href="<%=path %>${(pages-1)>0?pages-1:1}">上一页</a>
           <a class="next" href="<%=path %>userAdminAction/userAdmin.action?pages=${(pages+1)<=pageCountAll?pages+1:pageCountAll}">下一页</a>
           <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=${pageCountAll}">末页</a>
-          <input type="text" id="pages" name="code" style="width:40px;" autocomplete="off" class="layui-input"/>
+          <input type="text" id="pages" name="code" style="width:50px;height:40px;" autocomplete="off"/>
            <a class="num" id="linkToCart" href="">跳转</a>
         </div>
       </div>
