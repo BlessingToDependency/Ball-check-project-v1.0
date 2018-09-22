@@ -58,6 +58,7 @@ public class UserLoginAction {
 		}else {
 			mav.setViewName("login");//登陆失败
 		}
+		
 		return mav;
 	}
 	
@@ -93,80 +94,7 @@ public class UserLoginAction {
 		out.close();
 	}
 	
-  	/*
-	 * 修改公司登陆密码
-	 */
-
-	@RequestMapping(value="/updateUserPws.action")
-	public  ModelAndView updateAdminPws(String pwd) {		
-		String msg=(String) session.getAttribute("msg");
-		UserBean uBean=(UserBean) session.getAttribute("userBean");
-		String company=uBean.getCompany();
-		
-		if(msg.equals("密码正确")) {
-		userBizImp.updateUserPws(pwd,company);
-		mav.setViewName("FrontEnd/user_index");
-		}
-		else {
-		 mav.setViewName("FrontEnd/update_CompPws");
-		}
-		return mav;
-		
-	}
-  
-	/*
-	 * 查询公司信息
-	 */
-	@RequestMapping(value="/selectCompInfo.action")
-	public ModelAndView  selectCompInfo() {
-		
-		UserBean userBean=(UserBean) session.getAttribute("userBean");
-		String componey=userBean.getCompany();
-		
-		List<UserBean> compList=userBizImp.selectCompInfo(componey);
-		session.setAttribute("compList", compList);
-		mav.setViewName("FrontEnd/company_Info");
-		return mav;
-	}
-	
-	
-	/*
-	 * 跳转到修改密码界面
-	 */
-	@RequestMapping(value="/toUpPws.action")
-	public ModelAndView toUpPws() {
-		
-		mav.setViewName("FrontEnd/update_CompPws");
-		return mav;
-		
-	}
-	
-	/*
-	 * AJAX判断修改密码时，原密码是否正确
-	 */
-	@RequestMapping(value="/validateCompPws.action")
-	public @ResponseBody void validateCompPws(UserBean uBean)throws Exception{
-		PrintWriter out = response.getWriter();
-		UserBean uBea=(UserBean) session.getAttribute("userBean");
-		String company=uBea.getCompany();
-		uBean.setCompany(company);
-		userBean = userBizImp.userLogin(uBean);
-	String msg;
-	if(userBean!=null) {
-		msg="密码正确";
-		
-	}else {
-		msg="密码错误";
-	}
-	session.setAttribute("msg", msg);
-	Gson gson1 = new Gson();
-	String str1 = gson1.toJson(msg);
-	out.print(str1);
-	out.close();
-	
-}
-	
-	
+  	
 	public UserBean getUserBean() {
 		return userBean;
 	}

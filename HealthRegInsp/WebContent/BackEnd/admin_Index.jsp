@@ -140,7 +140,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="cate.html">
+                        <a _href="<%=path%>maDoctorAction/selectAllDoctor.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>医生管理</cite>
                         </a>

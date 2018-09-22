@@ -26,6 +26,10 @@ public class AdminBean {
 	
 	@Resource
     private PostBean postBean;
+	@Resource  
+	private  ParamBean  paramBean;
+	@Resource 
+	private DeparBean deparBean;
  
  
 	public AdminBean() {
@@ -121,6 +125,19 @@ public class AdminBean {
 	public void setPostBean(PostBean postBean) {
 		this.postBean = postBean;
 	}
+	public ParamBean getParamBean() {
+		return paramBean;
+	}
+	public void setParamBean(ParamBean paramBean) {
+		this.paramBean = paramBean;
+	}
+	public DeparBean getDeparBean() {
+		return deparBean;
+	}
+	public void setDeparBean(DeparBean deparBean) {
+		this.deparBean = deparBean;
+	}
+
 	
 	
 	

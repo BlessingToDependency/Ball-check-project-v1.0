@@ -33,6 +33,9 @@ public interface IUserMapper {
 	
 	//获得用户开单列表（L）
 	public List<UserBean> OpenBillUserList();
+	
+	//编辑公司信息
+	public void updateCompInfo(UserBean userBean);
 
 
 }

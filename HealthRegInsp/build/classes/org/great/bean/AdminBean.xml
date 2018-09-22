@@ -10,7 +10,7 @@
 		
 		<!-- 新增用户（注册） -->
 		<insert id="adminRegister" parameterType="org.great.bean.AdminBean">
-			insert into tblbackstage values ("自增长",#{adminPwd},#{adminName},#{age},#{background},#{phone},#{graduated},#{sex},#{postId},#{head},#{depaId},#{roleId},#{stateId},#{logicId})
+			insert into tblbackstage values (TBL_BACKSTAGE.nextval,#{adminPwd},#{adminName},#{age},#{background},#{phone},#{graduated},#{sex},#{postId},#{head},#{depaId},#{roleId},#{stateId},#{logicId})
 		</insert>
 		
 		<!--  后台用户管理列表 -->
@@ -71,28 +71,59 @@
  	  
  	      <!-- 修改医生状态 （禁用，启用）-->
  	      <update id="updateDoctorState" parameterType="org.great.bean.AdminBean">
- 	         update tblbackstage set stateId=#{stateId} where adminId={adminId}
+ 	         update tblbackstage set stateId=#{stateId} where adminId=#{adminId}
  	      </update>
  	
  	      <!-- 逻辑删除医生 -->
  	      <update id="logicDeleteDoc" parameterType="org.great.bean.AdminBean">
- 	           update  tblbackstage set logicId=#{logicId}  where adminId={adminId}
+ 	           update  tblbackstage set logicId=#{logicId}  where adminId=#{adminId}
  	      </update>
  	      
  	      <!-- 后台对医生信息进行修改 -->
  	      <update id="updateDoctorInfo" parameterType="org.great.bean.AdminBean">
- 	            update tblbackstage set background=#{background},phone=#{phone},graduated=#{graduated},postId=#{postId},head=#{head},depaId=#{depaId},roleId=#{roleId} where adminId={adminId}
+ 	            update tblbackstage set background=#{background},phone=#{phone},graduated=#{graduated},postId=#{postId},depaId=#{depaId} where adminId=#{adminId}
  	      </update>
  	      
  	      <!-- 查询医生信息 -->
  	        <select id="slectDoctorInfo" parameterType="java.lang.Integer" resultMap="adminIn">
- 	                select t.*,p.post from tblbackstage  t,PostBean p
- 	                
- 	                
+ 	                select t.*,p.post from tblbackstage  t,TBLPOST p
  	                  where adminId=#{adminId}
  	        </select>
  	        
- 	        <resultMap type="org.great.bean.AdminBean" id="adminIn">
+ 	       
+	<!-- 查询项目 -->
+	<select id="selectLitem" resultType="org.great.bean.LitemBean" parameterType="org.great.bean.LitemBean">
+		SELECT * FROM TBLITEM
+		<where>
+			<if test="itemId != null">and ITEMID = #{itemId}</if>
+			<if test="item !=null and item!=''">and ITEM = #{item}</if>
+		</where>
+	</select>
+	<!-- 增加项目 -->
+	<insert id="addItem" parameterType="org.great.bean.LitemBean">
+		insert into TBLITEM VALUES (TBL_ITEM,#{item},#{price},#{introd})
+	</insert>
+
+          <!-- 管理全体医生信息 -->
+ 	        <select id="selectAllDoctor" parameterType="org.great.bean.AdminBean" resultMap="adminIn">
+ 	              select t.*,p.post,m.param,r.depa from tblbackstage  t,TBLPOST p,tblparam m,tbldepar r  where t.postId=p.postId and t.stateId=m.paramId and t.depaId=r.depaId
+ 	               <if test="adminName!=null">and adminName like '%${adminName}%'   </if>
+ 	                
+ 	               
+ 	        </select>
+ 	        
+ 	        <!-- 管理医生(数量) -->
+ 	        <select id="selectAllDoctorN" parameterType="org.great.bean.AdminBean" resultMap="adminIn">
+ 	              select t.*,p.post,m.param from tblbackstage  t,TBLPOST p,tblparam m  where t.postId=p.postId and t.stateId=m.paramId
+ 	               <if test="adminName!=null">and adminName like '%${adminName}%'   </if>
+ 	            
+ 	               
+ 	        </select>
+ 	        
+ 	  
+ 	   
+ 	        
+ 	 <resultMap type="org.great.bean.AdminBean" id="adminIn">
 	    	<id property="adminId" column="adminId"/>
 		   <result property="adminName" column="adminName"/>
 		   <result property="age" column="age"/>
@@ -112,17 +143,19 @@
 			<result property="post" column="post"/>
 		</association>
 		
+		<association property="paramBean" javaType="org.great.bean.ParamBean" >
+			<id property="paramId" column="paramId"/>
+			<result property="param" column="param"/>
+		</association>
+		
+		<association property="deparBean" javaType="org.great.bean.DeparBean" >
+			<id property="depaId" column="depaId"/>
+			<result property="depa" column="depa"/>
+		</association>
+		
 	</resultMap>
-	<!-- 查询项目 -->
-	<select id="selectLitem" resultType="org.great.bean.LitemBean" parameterType="org.great.bean.LitemBean">
-		SELECT * FROM TBLITEM
-		<where>
-			<if test="itemId != null">and ITEMID = #{itemId}</if>
-			<if test="item !=null and item!=''">and ITEM = #{item}</if>
-		</where>
-	</select>
-	<!-- 增加项目 -->
-	<insert id="addItem" parameterType="org.great.bean.LitemBean">
-		insert into TBLITEM VALUES (TBL_ITEM,#{item},#{price},#{introd})
-	</insert>
+	
+     
+		
+
  </mapper>

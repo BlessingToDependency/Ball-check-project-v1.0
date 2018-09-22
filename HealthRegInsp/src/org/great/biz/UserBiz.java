@@ -27,5 +27,8 @@ public interface UserBiz {
 	
 	//查看公司信息
 	public  List<UserBean>  selectCompInfo(String company);
+	
+	//编辑公司信息
+	public void updateCompInfo(UserBean userBean);
 
 }

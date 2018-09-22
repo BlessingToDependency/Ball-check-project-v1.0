@@ -3,6 +3,7 @@ package org.great.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 import org.great.bean.AdminBean;
 import org.great.bean.LitemBean;
 import org.great.bean.StaffBean;
@@ -21,6 +22,7 @@ public interface IAdminMapper {
 
 	//后台用户管理列表展示
 	public List<StaffBean> userAdmin(StaffBean sBean,@Param("pages")Integer pages);
+	
 	//后台用户管理列表总数查询
 	public Integer userAdminCount(StaffBean sBean);
 	
@@ -44,5 +46,15 @@ public interface IAdminMapper {
 	
 	//查询项目(通用)
 	public LitemBean selectLitem(LitemBean litemBean);
+	
+	//管理医生(查看所有医生)
+	public List<AdminBean> selectAllDoctor(AdminBean adminBean,RowBounds rowBounds);
+	
+	//查询医生（个数）
+	public List<AdminBean> selectAllDoctorN(AdminBean adminBean);
+	
+	
+	
+
 
 }

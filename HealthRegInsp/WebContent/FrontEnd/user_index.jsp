@@ -4,6 +4,7 @@
 	String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ request.getContextPath() + "/";
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,6 +14,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 <title>后天健康团检系统</title>
+<link rel="stylesheet" href="<%=path%>css/bootstrap.min.css">
+	<script src="<%=path%>js/jquery.min.js"></script>
+	<script src="<%=path%>js/bootstrap.min.js"></script>
+
 
 <meta name="description" content="网站描述" />
 
@@ -118,11 +123,13 @@
 
           
 
-          <li><a href="<%=path%>userLoginAction/selectCompInfo.action">公司信息</a></li>
+          <li>
+          <a href="<%=path%>myCompAction/selectCompInfo.action"  >公司信息</a>
+         </li>
 
           
-
-          <li><a href="<%=path%>userLoginAction/toUpPws.action">修改密码</a></li>
+          <li><a href="<%=path%>myCompAction/toEditCompInfo.action" >编辑公司信息</a></li>
+          <li><a  href="<%=path%>myCompAction/toUpPws.action"">修改密码</a></li>
 
           
 
