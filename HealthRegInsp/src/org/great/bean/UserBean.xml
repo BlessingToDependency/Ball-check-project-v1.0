@@ -15,8 +15,9 @@
 					and pwd=#{pwd}
 				</if>
 			</where>
-			
 		</select>
+		
+		
 		
 		<!-- 注册 -->
 		<insert id="userRegister" parameterType="org.great.bean.UserBean">
@@ -29,6 +30,37 @@
  		<select id="userRepeat" resultType="org.great.bean.UserBean">
 			select company from tblforeground where company=#{company}
 		</select>
+		
+		<!-- 前台主页展示套餐 -->
+		<select id="showSetmeal" parameterType="org.great.bean.SetmealBean" resultMap="showSetmeal" >
+			select a.*,b.* from tblitem a,tblsetmeal b,tblsetcom c where b.setmealId = c.setmealId and a.itemId = c.itemId
+			<if test="setmealId != null and setmealId !=''">
+				 and b.setmealId = #{setmealId}
+			</if>
+		</select>
+		
+		<!-- 套餐表 -->
+		 <resultMap type="org.great.bean.SetmealBean" id="showSetmeal">
+			<id property="setmealId" column="setmealId"/> 
+			<result property="setmeal" column="setmeal"/>
+			<result property="discount" column="discount"/>
+			<result property="salsvolume" column="salsvolume"/>
+			<result property="picture" column="picture"/>
+			
+			<collection property="litemBean" ofType="org.great.bean.LitemBean" >
+				 <id property="itemId" column="itemId"/>
+			<result property="item" column="item"/>
+			<result property="price" column="price"/>
+			<result property="introd" column="introd"/> 
+			</collection>
+		<!-- 项目表 -->
+		 <!-- <association property="litemBean" javaType="org.great.bean.LitemBean">
+			 <id property="itemId" column="itemId"/>
+			<result property="item" column="item"/>
+			<result property="price" column="price"/>
+			<result property="introd" column="introd"/> 
+		</association> -->
+		</resultMap> 
 		
 		  <!-- 修改密码 -->
 		  <update id="updateUserPws" >
@@ -55,5 +87,7 @@
  		  <update id="updateCompInfo" parameterType="java.lang.String">
  		  
  		  </update>
+ 		  
+ 		  
  		
  </mapper>

@@ -46,17 +46,19 @@ public class UserLoginAction {
 	/*
 	 * 用户登陆
 	 */
-
 	@RequestMapping("/userLogin.action")
 	public ModelAndView userLogin(UserBean uBean) {
+		System.out.println("登陆"+uBean.getCompany()+uBean.getPwd());
 		userBean = userBizImp.userLogin(uBean);
 		//登陆成功则进入if
 		if(null != userBean) {
 		
 			session.setAttribute("userBean", userBean);
-			mav.setViewName("success");//登陆成功后跳转主页
+			mav.setViewName("FrontEnd/user_index");//登陆成功后跳转主页
+			System.out.println("登陆成功");
 		}else {
-			mav.setViewName("login");//登陆失败
+			mav.setViewName("FrontEnd/user_login");//登陆失败
+			System.out.println("登陆失败");
 		}
 		return mav;
 	}

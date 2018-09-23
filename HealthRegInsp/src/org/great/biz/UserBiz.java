@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.great.bean.BillBean;
+import org.great.bean.SetmealBean;
 import org.great.bean.UserBean;
 
 /*
@@ -30,5 +31,8 @@ public interface UserBiz {
 	
 	//编辑公司信息
 	public void updateCompInfo(String company);
+	
+	//前台套餐展示
+	public  List<SetmealBean> showSetmeal(String setmealId);
 
 }

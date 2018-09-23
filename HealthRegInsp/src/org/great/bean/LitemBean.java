@@ -14,16 +14,10 @@ public class LitemBean {
      private String introd;//简介
      
      public LitemBean(){
-    	 
+    	 super();
      }
      
-	public LitemBean(int itemId, String item, int price, String introd) {
-		super();
-		this.itemId = itemId;
-		this.item = item;
-		this.price = price;
-		this.introd = introd;
-	}
+
 	
 	public int getItemId() {
 		return itemId;
@@ -48,6 +42,13 @@ public class LitemBean {
 	}
 	public void setIntrod(String introd) {
 		this.introd = introd;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "LitemBean [itemId=" + itemId + ", item=" + item + ", price=" + price + ", introd=" + introd + "]";
 	}
      
      

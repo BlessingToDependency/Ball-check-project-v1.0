@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
@@ -26,10 +25,10 @@
 			select z.*,rownum rn from(
 			select a.*,b.company,c.partYear,c.batchNum from tblstaff a,tblforeground b,tblperguirela c
 			where a.companyId = b.companyId and a.staffId = c.staffId and 1 = 1
-			<if test="staffName!=null and staffName!='' ">and a.staffName like concat(concat('%',#{staffName}),'%')</if> 
-			<if test="phone!=null and phone != ''">and a.phone = #{phone}</if>
-			<if test="statTime!=null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
-			<if test="stopTime!=null and stopTime != ''">and c.partYear &lt; = #{stopTime}</if>
+			<if test="staffBean.staffName!=null and staffBean.staffName!='' ">and a.staffName like concat(concat('%',#{staffName}),'%')</if> 
+			<if test="staffBean.phone!=null and staffBean.phone != ''">and a.phone = #{phone}</if>
+			<if test="staffBean.statTime!=null and staffBean.statTime != ''">and c.partYear &gt; = #{statTime}</if>
+			<if test="staffBean.stopTime!=null and staffBean.stopTime != ''">and c.partYear &lt; = #{stopTime}</if>
 			order by a.staffName)z where rownum &lt; =#{pages}*10 )r where r.rn &gt; =(#{pages}-1)*10+1
 		</select>
 		<!-- 员工表 -->

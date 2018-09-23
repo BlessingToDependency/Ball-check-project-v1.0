@@ -64,7 +64,7 @@
 	})();
 	
 	$(function() {	
-		$('#login #login-password').focus(function() {
+		$('#login #pwd').focus(function() {
 			$('.login-owl').addClass('password');
 		}).blur(function() {
 			$('.login-owl').removeClass('password');
@@ -95,8 +95,8 @@
 	}
 	
 	function goto_login(){
-		$("#login-username").val("");
-		$("#login-password").val("");
+		$("#company").val("");
+		$("#pwd").val("");
 		$("#tab-1").prop("checked",true);
 	}
 	
@@ -108,14 +108,14 @@
 	}
 	
 	function login(){//登录
-		var username = $("#login-username").val(),
-			password = $("#login-password").val(),
+		var username = $("#company").val(),
+			password = $("#pwd").val(),
 			validatecode = null,
 			flag = false;
 		//判断用户名密码是否为空
 		if(username == ""){
 			$.pt({
-        		target: $("#login-username"),
+        		target: $("#company"),
         		position: 'r',
         		align: 't',
         		width: 'auto',
@@ -126,7 +126,7 @@
 		}
 		if(password == ""){
 			$.pt({
-        		target: $("#login-password"),
+        		target: $("#pwd"),
         		position: 'r',
         		align: 't',
         		width: 'auto',
@@ -136,10 +136,10 @@
 			flag = true;
 		}
 		//用户名只能是15位以下的字母或数字
-		var regExp = new RegExp("^[a-zA-Z0-9_]{1,15}$");
+		/* var regExp = new RegExp("^[a-zA-Z0-9_]{1,15}$");
 		if(!regExp.test(username)){
 			$.pt({
-        		target: $("#login-username"),
+        		target: $("#company"),
         		position: 'r',
         		align: 't',
         		width: 'auto',
@@ -147,13 +147,14 @@
         		content:"用户名必须为15位以下的字母或数字"
         	});
 			flag = true;
-		}
+		} */
 		
 		if(flag){
 			return false;
 		}else{//登录
 			//调用后台登录验证的方法
-			alert('登录成功');
+			document.getElementById("formid").submit();
+			//alert('登录成功');
 			return false;
 		}
 	}
@@ -385,7 +386,7 @@ body{
 		<div class="wrapper">
 			<!-- 登录页面 -->
 			<div class="login sign-in-htm">
-				<form class="container offset1 loginform">
+				<form id="formid" class="container offset1 loginform" action="<%=path %>userLoginAction/userLogin.action">
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="login-owl">
 						<div class="hand"></div>
@@ -398,16 +399,16 @@ body{
 					<div class="pad input-container">
 						<section class="content">
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="text" id="login-username" 
+								<input class="input__field input__field--hideo" type="text" name="company" 
 									autocomplete="off" placeholder="请输入用户名" tabindex="1" maxlength="15" />
-								<label class="input__label input__label--hideo" for="login-username">
+								<label class="input__label input__label--hideo" for="company">
 									<i class="fa fa-fw fa-user icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
 							</span>
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="password" id="login-password" placeholder="请输入密码" tabindex="2" maxlength="15"/>
-								<label class="input__label input__label--hideo" for="login-password">
+								<input class="input__field input__field--hideo" type="password" name="pwd" placeholder="请输入密码" tabindex="2" maxlength="15"/>
+								<label class="input__label input__label--hideo" for="pwd">
 									<i class="fa fa-fw fa-lock icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>

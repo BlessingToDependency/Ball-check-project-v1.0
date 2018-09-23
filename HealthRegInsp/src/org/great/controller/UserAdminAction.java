@@ -19,7 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 import com.google.gson.Gson;
-
+/*
+ * 后台用户管理
+ */
 @Controller
 @RequestMapping("/userAdminAction")
 public class UserAdminAction {
@@ -50,23 +52,23 @@ public class UserAdminAction {
 	
 	//用户管理列表展示
 	@RequestMapping("userAdmin.action")
-	public ModelAndView userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer pages) {
+	public ModelAndView userAdmin(StaffBean staffBean,Integer pages) {
 		
-		String count = request.getParameter("pages");
-		System.out.println("count="+count);
+//		String count = request.getParameter("pages");
+//		System.out.println("count="+count);
 //		System.out.println("开始事件="+sBean.getStatTime());
 		
 		String page = String.valueOf(pages);
 		if(page==null ||"null".equals(page)|| "".equals(page)||"0".equals(page)) {
 			pages=1;
 		}
-		int countAll=adminBizImp.userAdminCount( staffName, phone, statTime, stopTime, partYear);//当前用户总个数
+		int countAll=adminBizImp.userAdminCount(staffBean);//当前用户总个数
 		if(countAll%10>0||countAll==0) {
 			pageCountAll=countAll/10+1;
 		}else {
 			pageCountAll=countAll/10;
 		}
-		userList = adminBizImp.userAdmin( staffName, phone, statTime, stopTime, partYear,pages);
+		userList = adminBizImp.userAdmin(staffBean,pages);
 		System.out.println("action大小="+userList.size());
 		mav.setViewName("BackEnd/userlist");
 		request.setAttribute("userList", userList);

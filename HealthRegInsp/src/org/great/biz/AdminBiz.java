@@ -16,9 +16,9 @@ public interface AdminBiz {
 	public void adminRegister(AdminBean adminBean);
 
 	//后台用户管理列表展示
-	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer pages);
+	public List<StaffBean> userAdmin(StaffBean staffBean,Integer pages);
 	//后台用户管理列表总数查询
-	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear);
+	public Integer userAdminCount(StaffBean staffBean);
 	
 	//根据用户id查找对应信息
 	public StaffBean userInfo(String staffId);

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ request.getContextPath() + "/";
@@ -68,6 +69,21 @@
 
     </script>
 
+<script type="text/javascript">
+<%-- 	$(function(){
+		alert("执行");
+		
+		$.ajax({
+			url:"<%=path %>userMainAction/showSetmeal.action",
+			data:"",
+			dataType:"json",
+			type:"POST",
+			success : function(str){
+				alert("返回")
+			}
+		});
+	}); --%>
+</script>
 </head>
 
 <body>
@@ -261,7 +277,10 @@
         <a href="/" class="more wow">MORE<i class="fa fa-angle-right"></i></a> </div>
 
     </div>
-
+<!-- -----------------------------套餐选择----------------------------------- -->
+   
+   
+   
     <div id="mproject" class="module">
 
       <div class="bgmask"></div>
@@ -270,7 +289,8 @@
 
         <div class="header wow">
 
-          <p class="title">门诊科室</p>
+          <p class="title">
+			</p>
 
           <p class="subtitle"></p>
 
@@ -316,7 +336,12 @@
 
               <ul class="content_list" data-options-sliders="8" data-options-margin="15" data-options-ease="1" data-options-speed="1">
 
-                <li id="projectitem_0" class="projectitem wow"> <a href="/a/keshi/k4/17.html" class="projectitem_content" target="_blank">
+
+<c:forEach items="${setList }" var="setmealBean">
+   	
+   
+                <li id="projectitem_0" class="projectitem wow"> 
+                <a href="<%=path %>userMainAction/showSetmeal.action?setmealId=${setmealBean.setmealId}" class="projectitem_content" target="_self">
 
                   <div class="projectitem_wrapper">
 
@@ -325,8 +350,17 @@
                     <div class="project_info">
 
                       <div>
-
-                        <p class="title">健康医学部</p>
+                        <p class="title">${setmealBean.setmeal}
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                       	 销量：${setmealBean.salsvolume} </p>
+                        <p class="title" align="right">
+                        <span style="text-decoration:line-through;">
+                        	原价：<%-- ${setmealBean.litemBean.price} --%> 
+                        	${setmealBean.countAll}
+                        	</span>
+                        	&emsp;&emsp;
+                        	优惠价格：${setmealBean.discount*setmealBean.countAll}
+              	  </p>
 
                       </div>
 
@@ -335,8 +369,10 @@
                   </div>
 
                   </a> </li>
+                  </c:forEach>
+                 <!--  -------------一段------------ -->
 
-<li id="projectitem_1" class="projectitem wow"> <a href="/a/keshi/k2/16.html" class="projectitem_content" target="_blank">
+<%-- <li id="projectitem_1" class="projectitem wow"> <a href="/a/keshi/k2/16.html" class="projectitem_content" target="_blank">
 
                   <div class="projectitem_wrapper">
 
@@ -465,26 +501,17 @@
                     <div class="project_info">
 
                       <div>
-
                         <p class="title">普通外科</p>
-
                       </div>
-
                     </div>
-
                   </div>
-
-                  </a> </li>
-
-
-
+                  </a> </li> --%>
               </ul>
-
             </div>
-
             <!--wrapper--> 
-
           </div>
+<!-- --------------------------------套餐分割线-------------------------------------- -->
+
 
           <!--projectSubList--> 
 
