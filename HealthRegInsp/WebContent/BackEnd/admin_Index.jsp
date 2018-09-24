@@ -185,7 +185,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                     </li>
                     
                     <li>
-                        <a _href="<%=path %>adminLitemAction/selectItem.action">
+                        <a _href="<%=path%>adminLitemAction/selectItem.action?page=1&itemName=&peakPrice=&bottomPrice=">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>项目配置管理</cite>
                         </a>

@@ -10,13 +10,16 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.apache.ibatis.annotations.Param;
 import org.great.bean.LitemBean;
+import org.great.bean.TermBean;
 import org.great.biz.AdminBiz;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,6 +38,8 @@ public class AdminLitemAction {
 	@Resource
 	private LitemBean litemBean;
 	
+	@Resource
+	private TermBean termBean;
 
 	ModelAndView mav = new ModelAndView();
 	
@@ -50,15 +55,96 @@ public class AdminLitemAction {
 	/*
 	 * 首页查询项目
 	 */
-	@RequestMapping("/selectItem.action")
-	public ModelAndView selectItem(HttpServletRequest request,Model model) {
+//	@RequestMapping("/selectItem.action")
+//	public ModelAndView selectItem(HttpServletRequest request,Model model) {
+//		String peakPrice = "";//最高价格
+//		String bottomPrice = "";//最低价格
+//		String rank = "";//排列顺序
+//		Integer page = 1;//页数
+//		
+//		System.out.println("11111");
+//		//调用查询项目方法
+//		List<LitemBean> list = adminBizImp.selectLitem(litemBean, peakPrice, bottomPrice, rank, page);
+//		
+//		//调用SpingMVC的封装方法  和request的返回方法一致
+//		model.addAttribute("list", list);
+//		
+//		//查询项目的总数
+//		Integer sum = adminBizImp.selectLitemSum(litemBean, peakPrice, bottomPrice);
+//		
+//		model.addAttribute("sum", sum);
+//				
+//		peakPrice = "请输入最高价格";
+//		bottomPrice = "请输入最低价格";
+//		String itemName = "请输入项目名";
+//		model.addAttribute("itemName", itemName);
+//		model.addAttribute("peakPrice", peakPrice);
+//		model.addAttribute("bottomPrice", bottomPrice);
+//		model.addAttribute("page", page);
+//		model.addAttribute("litemBean", litemBean);
+//		
+//		mav.setViewName("BackEnd/admin_Item");
+//		
+//		return mav;
+//	}
+	/*
+	 *查看项目详情
+	 */
+	@RequestMapping(value="/activity.action",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> Activity(Model model,LitemBean litemBean,HttpServletResponse response) {
+		//Map<String,Object> maps = new Hashtable<String, Object>();
+		//System.out.println(litemBean.getItemId());
+		
 		String peakPrice = "";
 		String bottomPrice = "";
 		String rank = "";
 		Integer page = 1;
 		
+		//调用查询项目方法
+		List<LitemBean> list = adminBizImp.selectLitem(litemBean, peakPrice, bottomPrice, rank, page);
 		
+		//调用查询对应项目细项信息
+		List<TermBean> termList = adminBizImp.selectTerm(litemBean);
+		System.out.println(termList.toString());
+		
+		
+		Map<String,Object> maps = new HashMap<String, Object>();
+		
+		maps.put("list", list);
+		maps.put("termList", termList);
 
+		return maps;
+	}
+	/*
+	 * 查询项目(模糊 分页 条件)
+	 */
+	@RequestMapping("/selectItem.action")
+	public ModelAndView selectItem(HttpServletRequest request,Model model,
+			@RequestParam String itemName,String peakPrice,String bottomPrice,Integer page) {
+//		String peakPrice = "";//最高价格
+//		String bottomPrice = "";//最低价格
+		String rank = "";//排列顺序
+//		Integer page = 1;//页数
+//		System.out.println(peakPrice);
+//		System.out.println(page);
+//		System.out.println(itemName);
+		if(peakPrice.equals("请输入最高价格")) {
+			peakPrice = "";//最高价格
+		}
+		if(bottomPrice.equals("请输入最低价格")) {
+			bottomPrice = "";//最低价格
+		}
+		if(itemName.equals("请输入项目名")) {
+			itemName = "";
+			litemBean.setItem("");
+		}else {
+			litemBean.setItem(itemName);
+		}
+		if(page<1) {
+			page = 1;
+		}
+		
 		//调用查询项目方法
 		List<LitemBean> list = adminBizImp.selectLitem(litemBean, peakPrice, bottomPrice, rank, page);
 		
@@ -70,36 +156,24 @@ public class AdminLitemAction {
 		
 		model.addAttribute("sum", sum);
 				
+		if(peakPrice.equals("")) {
+			peakPrice = "请输入最高价格";//最高价格
+		}
+		if(bottomPrice.equals("")) {
+			bottomPrice = "请输入最低价格";//最低价格
+		}
+		if(itemName.equals("")) {
+			itemName = "请输入项目名";
+		}
+		
+		model.addAttribute("peakPrice", peakPrice);
+		model.addAttribute("bottomPrice", bottomPrice);
+		model.addAttribute("itemName", itemName);		
+		model.addAttribute("page", page);
+		model.addAttribute("litemBean", litemBean);
+		
 		mav.setViewName("BackEnd/admin_Item");
 		
 		return mav;
-	}
-	/*
-	 *查看项目详情
-	 */
-	@RequestMapping(value="/activity.action",method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String,Object> Activity(Model model,LitemBean litemBean,HttpServletResponse response) {
-		//Map<String,Object> maps = new Hashtable<String, Object>();
-		System.out.println(litemBean.getItemId());
-		
-		String peakPrice = "";
-		String bottomPrice = "";
-		String rank = "";
-		Integer page = 1;
-		
-		//调用查询项目方法
-		List<LitemBean> list = adminBizImp.selectLitem(litemBean, peakPrice, bottomPrice, rank, page);
-		
-//		System.out.println(list.toString());
-		
-		Map<String,Object> maps = new HashMap<String, Object>();
-		
-		maps.put("list", list);
-//		maps.put("page", 1);
-		
-		
-		
-		return maps;
 	}
 }

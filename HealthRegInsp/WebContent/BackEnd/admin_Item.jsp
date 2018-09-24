@@ -38,41 +38,32 @@ String path = request.getScheme() +"://"+request.getServerName()
 	                    //alert(reData.page);
 	                   /*  var jsonObj=eval("("+reData+")");
 	                    alert(jsonObj); */
-	                    $.each(reData.list, function (i, item) { 
-	                    	alert(item.item);
+	                    //清空div里的内容
+	                    $("#myModal0").empty();
+	                    $("#myModal0").prepend("<div class='modal-footer'>"
+	                    		+"<button type='button' class='btn btn-default'"
+	                    		+"data-dismiss='modal'>关闭</button></div>"
+	                    	)
+	                    $.each(reData.termList, function (i, item0) { 
+	                    	//alert(item0.term);
+	                    	$("#myModal0").prepend("<div class='modal-body'>"+item0.term+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"             
+	                    		+item0.downLimit+item0.upLimit+item0.measur
+	                    		+"</div>"
+	                    	)
 	                    });
-	                
-/* 	                    $("#hid").val(jsonObj.page);
-	                    $("#tab").empty();
-	                    $("#tab").prepend("<thead>"    
-	                    		+"<tr>"      
-	                        	+"<th>文档标题</th>"
-	                        	+"<th>上传人</th>"   
-	                             +"    <th>上传时间</th>" 
-	                              +"   <th>下载积分</th>"
-	                               +"  <th>文档类型</th>"
-	                                 +"<th>下载次数</th>"
-	                        		+"</tr>"  
-	                       		 +"</thead>");
-	                    $.each(jsonObj.list, function (i, item) { 
-	                    		//alert(item.title);
-	                    		$("#tab").prepend("<tbody>"            
-	                       		 	+"<tr>"                        		 	
-	                        			+"<td onClick='return  download()'>"
-	                        			+"<a href='download!down.action?fileName="+item.title+"."+item.documentType+"'>"
-	                        			+item.title
-	                        			+"</a>"
-	                        			+" </td>" 
-	                        			
-	                        			+"<td>"+item.userBean.userName +"</td>"
-	                                    +"<td>"+item.uploadTime +"</td>"
-	                                    +"<td>"+item.downloadIntegral +"</td>"
-	                                    +"<td>"+item.documentType +"</td>"  
-	                                    +"<td>"+item.down         +"</td>"  
-	                      		  	+"</tr>"   
-	                        	+"</tbody>");
-	                    		
-	                    }) */
+	                    $("#myModal0").prepend("<div class='modal-body'>--项目细项--</div>");
+	                    $.each(reData.list, function (i, item) { 
+	                    	//alert(item.item);
+	                    	$("#myModal0").prepend("<div class='modal-header'>"
+	                    		+"<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>×</button>" 
+        						+"<h4 class='modal-title' id='myModalLabel'>简介："+item.item +"</h4></div>"
+								+"<div class='modal-body'>单价："+item.price +"元</div>"
+								+"<div class='modal-body'>简介："+item.introd +"</div>"
+	                    	)
+	                    });
+	                   
+	                    $('#myModal').modal('show');
+        				
 	            }
 	   
 	    });
@@ -96,15 +87,18 @@ String path = request.getScheme() +"://"+request.getServerName()
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
-          <input class="layui-input" placeholder="开始日" name="start" id="start">
-          <input class="layui-input" placeholder="截止日" name="end" id="end">
-          <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+<!--           <input class="layui-input" placeholder="开始日" name="start" id="start">
+          <input class="layui-input" placeholder="截止日" name="end" id="end"> -->
+          <input type="text" name="itemName"  placeholder="${itemName }" autocomplete="off" class="layui-input">
+          <input type="text" name="peakPrice"  placeholder="${peakPrice }" autocomplete="off" class="layui-input">
+          <input type="text" name="bottomPrice"  placeholder="${bottomPrice }" autocomplete="off" class="layui-input">
+          <input name="page" type="hidden" value="1">
           <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加项目','<%=path%>adminLitemAction/selectItem.action')"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：${sum } 条</span>
       </xblock>
       <table class="layui-table" width="100%" style="table-layout:fixed;">
@@ -132,14 +126,28 @@ String path = request.getScheme() +"://"+request.getServerName()
             <td class="td-status">
                  <span class="layui-btn layui-btn-normal layui-btn-mini">修改</span>
                  <span class="layui-btn layui-btn-danger">删除</span>
-                 <span class="layui-btn layui-btn-normal layui-btn-mini" id="myModal" onClick="myModal(${item.itemId})">查看详情</span>
+                 <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="myModal(${item.itemId})">查看详情</span>
                  <%-- <span class="layui-btn layui-btn-danger" data-toggle="modal" data-target="#myModal${i.index+1 }">查看详情</span> --%>
 	        </td>
-          </tr>          
-            <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal${i.index+1 }" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          </tr>             
+          </c:forEach>
+            
+        </tbody>
+      </table>
+      <div class="page">
+        <div>    	
+        	共${sum/10 }页/当前第${page }页
+          <a class="num" href="<%=path%>adminLitemAction/selectItem.action?page=1&itemName=${itemName}&peakPrice=${peakPrice}&bottomPrice=${bottomPrice}">首页</a>
+          <a class="num" href="<%=path%>adminLitemAction/selectItem.action?page=${page - 1}&itemName=${itemName}&peakPrice=${peakPrice}&bottomPrice=${bottomPrice}">上一页</span>
+          <a class="num" href="<%=path%>adminLitemAction/selectItem.action?page=${page + 1}&itemName=${itemName}&peakPrice=${peakPrice}&bottomPrice=${bottomPrice}">下一页</a>
+          <a class="num" href="">末页</a>
+        </div>
+      </div>
+    </div>
+      <!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<div class="modal-content">
+		<div class="modal-content" id="myModal0">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" 
 						aria-hidden="true">×
@@ -162,22 +170,6 @@ String path = request.getScheme() +"://"+request.getServerName()
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-          
-          </c:forEach>
-        </tbody>
-      </table>
-      <div class="page">
-        <div>
-          <a class="prev" href="">&lt;&lt;</a>
-          <a class="num" href="">1</a>
-          <span class="current">2</span>
-          <a class="num" href="">3</a>
-          <a class="num" href="">489</a>
-          <a class="next" href="">&gt;&gt;</a>
-        </div>
-      </div>
-
-    </div>
     <script>
       layui.use('laydate', function(){
         var laydate = layui.laydate;

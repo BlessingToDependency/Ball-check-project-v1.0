@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.great.bean.AdminBean;
 import org.great.bean.LitemBean;
 import org.great.bean.StaffBean;
+import org.great.bean.TermBean;
 import org.great.bean.UserBean;
 import org.great.mapper.IAdminMapper;
 import org.springframework.stereotype.Service;
@@ -110,6 +111,14 @@ public class AdminBizImp implements AdminBiz{
 		// TODO Auto-generated method stub
 		Integer i = iAdminMapper.selectLitemSum(litemBean, peakPrice, bottomPrice);
 		return i;
+	}
+
+	//查询指定项目的细项
+	@Override
+	public List<TermBean> selectTerm(LitemBean litemBean) {
+		// TODO Auto-generated method stub
+		List<TermBean> list = iAdminMapper.selectTerm(litemBean);
+		return list;
 	}
 
 
