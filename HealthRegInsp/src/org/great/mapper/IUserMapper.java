@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.great.bean.BillBean;
+import org.great.bean.SetmealBean;
 import org.great.bean.UserBean;
 import org.springframework.stereotype.Repository;
 
@@ -36,6 +37,9 @@ public interface IUserMapper {
 	
 	//编辑公司信息
 	public void updateCompInfo(@Param("company")String company);
+	
+	//前台套餐展示
+	public  List<SetmealBean> showSetmeal(@Param("setmealId")String setmealId);
 
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ request.getContextPath() + "/";
@@ -313,10 +314,14 @@
             </div>
 
             <div class="wrapper">
-
               <ul class="content_list" data-options-sliders="8" data-options-margin="15" data-options-ease="1" data-options-speed="1">
+<!-- ------------------------ -->
 
-                <li id="projectitem_0" class="projectitem wow"> <a href="/a/keshi/k4/17.html" class="projectitem_content" target="_blank">
+             <c:forEach items="${setList }" var="setmealBean">
+   	
+   
+                <li id="projectitem_0" class="projectitem wow"> 
+                <a href="<%=path %>userMainAction/showSetmeal.action?setmealId=${setmealBean.setmealId}" class="projectitem_content" target="_self">
 
                   <div class="projectitem_wrapper">
 
@@ -325,28 +330,17 @@
                     <div class="project_info">
 
                       <div>
-
-                        <p class="title">健康医学部</p>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  </a> </li>
-
-<li id="projectitem_1" class="projectitem wow"> <a href="/a/keshi/k2/16.html" class="projectitem_content" target="_blank">
-
-                  <div class="projectitem_wrapper">
-
-                    <div class="project_img"> <img src="<%=path%>images/1-1F5041UI60-L.jpg" width="650" height="385" /> </div>
-
-                    <div class="project_info">
-
-                      <div>
-
-                        <p class="title">手术室</p>
+                        <p class="title">${setmealBean.setmeal}
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                       	 销量：${setmealBean.salsvolume} </p>
+                        <p class="title" align="right">
+                        <span style="text-decoration:line-through;">
+                        	原价：<%-- ${setmealBean.litemBean.price} --%> 
+                        	${setmealBean.countAll}
+                        	</span>
+                        	&emsp;&emsp;
+                        	优惠价格：${setmealBean.discount*setmealBean.countAll}
+              	  </p>
 
                       </div>
 
@@ -354,132 +348,14 @@
 
                   </div>
 
-                  </a> </li>
-
-<li id="projectitem_2" class="projectitem wow"> <a href="/a/keshi/k1/15.html" class="projectitem_content" target="_blank">
-
-                  <div class="projectitem_wrapper">
-
-                    <div class="project_img"> <img src="<%=path%>images/1-1F5041U6200-L.jpg" width="650" height="385" /> </div>
-
-                    <div class="project_info">
-
-                      <div>
-
-                        <p class="title">诊断相关科室</p>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  </a> </li>
-
-<li id="projectitem_3" class="projectitem wow"> <a href="/a/keshi/k4/14.html" class="projectitem_content" target="_blank">
-
-                  <div class="projectitem_wrapper">
-
-                    <div class="project_img"> <img src="<%=path%>images/1-1F5041U5040-L.jpg" width="650" height="385" /> </div>
-
-                    <div class="project_info">
-
-                      <div>
-
-                        <p class="title">医疗技术部</p>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  </a> </li>
-
-<li id="projectitem_4" class="projectitem wow"> <a href="/a/keshi/k3/13.html" class="projectitem_content" target="_blank">
-
-                  <div class="projectitem_wrapper">
-
-                    <div class="project_img"> <img src="<%=path%>images/1-1F5041U4070-L.jpg" width="650" height="385" /> </div>
-
-                    <div class="project_info">
-
-                      <div>
-
-                        <p class="title"> 普通内科</p>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  </a> </li>
-
-<li id="projectitem_5" class="projectitem wow"> <a href="/a/keshi/k3/12.html" class="projectitem_content" target="_blank">
-
-                  <div class="projectitem_wrapper">
-
-                    <div class="project_img"> <img src="<%=path%>images/1-1F5041U25W31.jpg" width="650" height="385" /> </div>
-
-                    <div class="project_info">
-
-                      <div>
-
-                        <p class="title">干部保健科</p>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  </a> </li>
-
-<li id="projectitem_6" class="projectitem wow"> <a href="/a/keshi/k2/2.html" class="projectitem_content" target="_blank">
-
-                  <div class="projectitem_wrapper">
-
-                    <div class="project_img"> <img src="<%=path%>images/1-1F503203T5342.jpg" width="650" height="385" /> </div>
-
-                    <div class="project_info">
-
-                      <div>
-
-                        <p class="title">微创手术</p>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  </a> </li>
-
-<li id="projectitem_7" class="projectitem wow"> <a href="/a/keshi/k1/1.html" class="projectitem_content" target="_blank">
-
-                  <div class="projectitem_wrapper">
-
-                    <div class="project_img"> <img src="<%=path%>images/1-1F5032031470-L.jpg" width="650" height="385" /> </div>
-
-                    <div class="project_info">
-
-                      <div>
-
-                        <p class="title">普通外科</p>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  </a> </li>
+                  </a> 
+                  </li>
+                  </c:forEach>
 
 
 
+<!-- ----------------------------- -->
               </ul>
-
             </div>
 
             <!--wrapper--> 
