@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 /** 
  * @ClassName: IOrderMapper 
  * @Description: TODO
- * @author: wjx(wangj)  ff
+ * @author: wjx(wangj) 
  * @date: 2018年9月19日 下午10:36:05  
  */
 @Repository
