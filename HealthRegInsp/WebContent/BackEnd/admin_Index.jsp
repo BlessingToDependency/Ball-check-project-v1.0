@@ -73,7 +73,28 @@ String path = request.getScheme() +"://"+request.getServerName()
                     </li>
                 </ul>
             </li>
-        
+            <!--体检报告  -->
+         <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b4;</i>
+                    <cite>体检报告</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="<%=path%>Report/showRepoert.action">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>体检报告</cite>
+                        </a>
+                    </li>
+                     <li>
+                        <a _href="<%=path%>Order/showOrder.action">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>团检套餐配置</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             
             
             <li>
@@ -135,8 +156,8 @@ String path = request.getScheme() +"://"+request.getServerName()
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
-                    <li>
-                        <a _href="admin-list.html">
+                      <li>
+                         <a _href="<%=path%>Order/showOrder.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>套餐配置管理</cite>
                         </a>

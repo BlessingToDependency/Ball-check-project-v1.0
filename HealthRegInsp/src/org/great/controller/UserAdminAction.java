@@ -36,6 +36,7 @@ public class UserAdminAction {
 	@Autowired
 	private HttpServletResponse response;
 	
+	
 	//根据用户id查找对应信息
 	@RequestMapping("userInfo.action")
 	public void userInfo(String staffId)throws Exception {
@@ -60,6 +61,7 @@ public class UserAdminAction {
 		if(page==null ||"null".equals(page)|| "".equals(page)||"0".equals(page)) {
 			pages=1;
 		}
+		//分页
 		int countAll=adminBizImp.userAdminCount( staffName, phone, statTime, stopTime, partYear);//当前用户总个数
 		if(countAll%10>0||countAll==0) {
 			pageCountAll=countAll/10+1;
@@ -70,7 +72,6 @@ public class UserAdminAction {
 		System.out.println("action大小="+userList.size());
 		mav.setViewName("BackEnd/userlist");
 		request.setAttribute("userList", userList);
-//		mav.addObject("userList", userList);
 		mav.addObject("pageCountAll", pageCountAll);//总页
 		mav.addObject("pages", pages);//当前页
 		return mav;
