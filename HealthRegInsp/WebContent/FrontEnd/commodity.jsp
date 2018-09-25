@@ -132,7 +132,7 @@ $('#min').attr('disabled',true);
       <li class="navitem"><a  class='active' href="index.html">首页</a></li>
 
 </ul>
-	<form id="form1" name="form1" method="post" action="<%=path %>userMainAction/buyNow.action">
+	<form id="form1" name="form1" method="post" action="<%=path %>userMainAction/buyNow.action" enctype="multipart/form-data">
   <table width="800" border="1" align="center">
 <c:forEach items="${setList }" var="setmealBean">
     <tr>
@@ -192,7 +192,15 @@ $('#min').attr('disabled',true);
 </c:forEach>
   </table>
 </form>
-
+<form action="<%=path %>fileAction/fileUpLoad.action" enctype="multipart/form-data">
+ <table>
+ <tr><td>
+  		<input type="file" name="file"/>
+    	 <input type="text" name="desc"/>
+        <input type="submit" value="提交上传"/>
+        </td></tr>
+         </table>
+</form>
    
 <div id="footer">
 

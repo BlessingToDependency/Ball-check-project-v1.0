@@ -129,14 +129,13 @@
 
         </ul>
 
-      </li><li class="navitem"><a  href="team.html" >医师团队</a>
+      </li><li class="navitem"><a  href="<%=path %>fileAction/fileDownLoad.action" >下载模板</a>
 
         <ul class="subnav">
 
           
 
         </ul>
-
       </li><li class="navitem"><a  href="news.html" >新闻动态</a>
 
         <ul class="subnav">
@@ -144,13 +143,11 @@
           
 
           <li><a href="#">院内新闻</a></li>
-
           
 
           <li><a href="#">行业新闻</a></li>
-
           
-
+          
         </ul>
 
       </li><li class="navitem"><a  href="contact.html" >联系我们</a>
