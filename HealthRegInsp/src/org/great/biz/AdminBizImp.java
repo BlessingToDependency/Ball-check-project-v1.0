@@ -125,6 +125,16 @@ public class AdminBizImp implements AdminBiz{
 		List<TermBean> list = iAdminMapper.selectTerm(litemBean);
 		return list;
 	}
+
+
+	/* (non-Javadoc)
+	 * @see org.great.biz.AdminBiz#selectLitem(org.great.bean.LitemBean)
+	 */
+	@Override
+	public LitemBean selectLitem(LitemBean litemBean) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

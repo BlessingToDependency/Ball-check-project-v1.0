@@ -48,7 +48,7 @@ public interface OrderMapper {
 	public void addItem(@Param("setmealId")Integer setmealId,@Param("itemId")Integer itemId);
 	
 	
-	//修改套餐名
+	//修改套餐名 哈哈哈
 	public void updateOrder(@Param("orderId")Integer setmealId,@Param("orderName")String setmeal);
 	
 }
