@@ -7,6 +7,7 @@ import org.great.bean.AdminBean;
 import org.great.bean.LitemBean;
 import org.great.bean.StaffBean;
 import org.great.bean.UserBean;
+import org.great.search.AdminCon;
 import org.springframework.stereotype.Repository;
 /*
  * 后台Mapper
@@ -21,6 +22,7 @@ public interface IAdminMapper {
 
 	//后台用户管理列表展示
 	public List<StaffBean> userAdmin(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("pages")Integer pages);
+	
 	//后台用户管理列表总数查询
 	public Integer userAdminCount(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear);
 	
@@ -40,12 +42,15 @@ public interface IAdminMapper {
 	public void updateDoctorInfo(AdminBean adminBean);
 	
 	//查询医生信息
-	public  List<AdminBean> slectDoctorInfo(@Param("adminId")int adminId);
+	public List<AdminBean> slectDoctorInfo(@Param("adminId")int adminId);
 	
 	//增加项目
 	public void addItem(LitemBean litemBean);
 	
 	//查询项目(通用)
 	public LitemBean selectLitem(LitemBean litemBean);
+	
+	
+
 
 }

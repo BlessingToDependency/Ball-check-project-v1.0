@@ -43,5 +43,7 @@ public interface AdminBiz {
 
 	//查询项目(通用)
 	public LitemBean selectLitem(LitemBean litemBean);
+	
+
 
 }
