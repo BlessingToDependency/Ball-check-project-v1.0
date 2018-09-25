@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="org.great.mapper.IParticularService">
+ 
+ 	<!-- 查询所有的细项 -->
+ 	<select id="selectAllTerm" resultType="org.great.bean.TermBean">
+ 		select * from TBLTERM ORDER BY TERMID
+ 	</select>
+ 
+ 
+ </mapper>

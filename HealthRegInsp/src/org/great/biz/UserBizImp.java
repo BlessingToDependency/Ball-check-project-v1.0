@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.great.bean.BillBean;
+import org.great.bean.SetmealBean;
 import org.great.bean.UserBean;
 import org.great.mapper.IUserMapper;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,13 @@ public class UserBizImp implements UserBiz {
 		// TODO Auto-generated method stub
 		iUserMapper.updateCompInfo(company);
 	}
+	
+	//前台套餐展示
+	public  List<SetmealBean> showSetmeal(String setmealId){
+		List<SetmealBean>  setList=iUserMapper.showSetmeal(setmealId);
+		return setList;
+		}
+	
 
 
 }

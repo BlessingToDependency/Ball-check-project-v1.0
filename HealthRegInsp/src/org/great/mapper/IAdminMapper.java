@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.great.bean.AdminBean;
 import org.great.bean.LitemBean;
 import org.great.bean.StaffBean;
+import org.great.bean.TermBean;
 import org.great.bean.UserBean;
 import org.great.search.AdminCon;
 import org.springframework.stereotype.Repository;
@@ -46,11 +47,24 @@ public interface IAdminMapper {
 	
 	//增加项目
 	public void addItem(LitemBean litemBean);
+
 	
 	//查询项目(通用)
 	public LitemBean selectLitem(LitemBean litemBean);
 	
 	
+
+
+		
+	//查询项目(通用 模糊分页  排序)
+	public List<LitemBean> selectLitem(@Param(value="litemBean")LitemBean litemBean,@Param("peakPrice")String peakPrice,@Param("bottomPrice")String bottomPrice,
+			@Param("rank")String rank,@Param("page")Integer page);
+		
+	//查询项目总数(通用)
+	public Integer selectLitemSum(@Param(value="litemBean")LitemBean litemBean,@Param("peakPrice")String peakPrice,@Param("bottomPrice")String bottomPrice);
+
+	//查询指定项目的细项
+	public List<TermBean> selectTerm(LitemBean litemBean);
 
 
 }

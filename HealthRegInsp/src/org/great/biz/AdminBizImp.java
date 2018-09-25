@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.great.bean.AdminBean;
 import org.great.bean.LitemBean;
 import org.great.bean.StaffBean;
+import org.great.bean.TermBean;
 import org.great.bean.UserBean;
 import org.great.mapper.IAdminMapper;
 import org.springframework.stereotype.Service;
@@ -101,12 +102,27 @@ public class AdminBizImp implements AdminBiz{
 		iAdminMapper.addItem(litemBean);
 	}
 
-
-	//查询项目 (通用)
+	//查询项目(通用 模糊分页  排序)
 	@Override
-	public LitemBean selectLitem(LitemBean litemBean) {
+	public List<LitemBean> selectLitem(LitemBean litemBean, String peakPrice, String bottomPrice, String rank, Integer page) {
 		// TODO Auto-generated method stub
-		LitemBean  list = iAdminMapper.selectLitem(litemBean);
+		List<LitemBean> list = iAdminMapper.selectLitem(litemBean, peakPrice, bottomPrice, rank, page);
+		return list;
+	}
+
+	//查询项目总数(通用)
+	@Override
+	public Integer selectLitemSum(LitemBean litemBean, String peakPrice, String bottomPrice) {
+		// TODO Auto-generated method stub
+		Integer i = iAdminMapper.selectLitemSum(litemBean, peakPrice, bottomPrice);
+		return i;
+	}
+
+	//查询指定项目的细项
+	@Override
+	public List<TermBean> selectTerm(LitemBean litemBean) {
+		// TODO Auto-generated method stub
+		List<TermBean> list = iAdminMapper.selectTerm(litemBean);
 		return list;
 	}
 	

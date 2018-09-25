@@ -115,15 +115,48 @@
 	</resultMap>
 	<!-- 查询项目 -->
 	<select id="selectLitem" resultType="org.great.bean.LitemBean" parameterType="org.great.bean.LitemBean">
+		
+		select * from ( select  t.*, rownum RN from (
 		SELECT * FROM TBLITEM
 		<where>
-			<if test="itemId != null">and ITEMID = #{itemId}</if>
-			<if test="item !=null and item!=''">and ITEM = #{item}</if>
+		    <if test="litemBean.item != null and litemBean.item != ''">and item like concat(concat('%',#{litemBean.item}),'%') </if>
+			<if test="peakPrice != null and peakPrice != ''">and PRICE &gt;= #{peakPrice} </if>
+			<if test="bottomPrice != null and bottomPrice != ''">and PRICE &lt;= #{bottomPrice} </if>
+			<if test="litemBean.itemId !=null and litemBean.itemId !=''">and itemId = #{litemBean.itemId}</if>
 		</where>
+			<!-- <if test="rank = '1'">ORDER BY PRICE</if>
+			<if test="rank = '2'">ORDER BY PRICE desc</if> -->
+		 )t ) where RN &gt;(#{page}*10-10) and RN &lt;= (#{page}*10)
 	</select>
 	<!-- 增加项目 -->
 	<insert id="addItem" parameterType="org.great.bean.LitemBean">
 		insert into TBLITEM VALUES (TBL_ITEM,#{item},#{price},#{introd})
 	</insert>
+	<!-- 查询项目总数 -->
+	<select id="selectLitemSum" resultType="java.lang.Integer" parameterType="org.great.bean.LitemBean">
+		select count(*) from TBLITEM
+		<where>
+		   	 <if test="litemBean.item != null and litemBean.item != ''">and item like concat(concat('%',#{litemBean.item}),'%') </if>
+			<if test="peakPrice != null and peakPrice != ''">and PRICE &gt;= #{peakPrice} </if>
+			<if test="bottomPrice != null and bottomPrice != ''">and PRICE &lt;= #{bottomPrice} </if>
+		</where>
+	</select>
+	<!-- 查询项目对应的细项信息 -->
+	<select id="selectTerm" parameterType="org.great.bean.LitemBean" resultMap="mySelectTerm">
+		select a.ITEMID,b.* from tblitemcom a,tblterm b 
+		where a.ITEMID = #{itemId} and a.TERMID = b.TERMID
+	</select>
+	<resultMap type="org.great.bean.TermBean" id="mySelectTerm">
+		<id property="termId" column="termId"/>
+		<result property="term" column="term"/>
+		<result property="measur" column="measur"/>
+		<result property="upLimit" column="upLimit"/>
+		<result property="downLimit" column="downLimit"/>
+		<association property="itemComBean" javaType="org.great.bean.ItemComBean">
+		<id property="termId" column="termId"/>
+		<result property="termId" column="termId"/>
+		</association>
+	
+	</resultMap>
 
  </mapper>
