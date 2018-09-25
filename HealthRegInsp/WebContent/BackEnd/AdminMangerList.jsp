@@ -22,9 +22,7 @@ String path = request.getScheme() +"://"+request.getServerName()
     <%-- <script src="<%=path%>js/bootstrap.min.js"></script> --%>
      <style>
      .zt{color: #06F;font-size: 18px;font-weight: 10px;}
-         #div{width:100%; height:50px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
-         #divleft{width:35%; height:48px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:right;}
-         #divright{width:63%; height:48px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
+         #div{width:20%; height:40px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
 	</style>
   </head>
   <body>
@@ -40,17 +38,25 @@ String path = request.getScheme() +"://"+request.getServerName()
     </div>
     <div class="x-body">
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-          <input class="layui-input" placeholder="开始日" name="start" id="start">
-          <input class="layui-input" placeholder="截止日" name="end" id="end">
-          <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        <form class="layui-form layui-col-md12 x-so"  method="post" action="<%=path %>adminManagerAction/getAdminList.action">
+        <div id="div">
+          <input type="text" id="adminName" name="adminName"  placeholder="姓名" autocomplete="off" class="layui-input" value="${adminCon.adminName==null?"":adminCon.adminName}">
+        </div>
+        <div id="div">
+          <select id="stateId" name="stateId" lay-filter="aihao" value=="${adminCon.stateId==null?"":adminCon.stateId}">
+          <option value="0">用户状态</option>
+           <c:forEach items="${userState}"  var="us" step="1" varStatus="vs">
+           <option value="${us.paramId}" >${us.param}</option>
+           </c:forEach>
+          </select>
+          </div>
+          <button class="layui-btn" type="submit" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html')"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+        <button class="layui-btn" onclick="x_admin_show('添加用户','<%=path%>BackEnd/AddAdmins.jsp')"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">共有数据:${allRecord}条</span>
       </xblock>
       <table class="layui-table">
         <thead>
@@ -59,23 +65,34 @@ String path = request.getScheme() +"://"+request.getServerName()
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
             <th>ID</th>
-            <th>登录名</th>
-            <th>手机</th>
-            <th>邮箱</th>
+            <th>名字</th>
+            <th>性别</th>
+            <th>联系方式</th>
             <th>角色</th>
-            <th>加入时间</th>
             <th>状态</th>
             <th>操作</th>
         </thead>
         <tbody>
-          <c:forEach items="${paramList}"  var="list" step="1" varStatus="vs">
+          <c:forEach items="${adminList}"  var="list" step="1" varStatus="vs">
 			<tr>
-			    <td>${vs.index+1}</td>
-			   <td>${list.param}</td>
-			   <td>${list.parId}</td>
+			  <td>
+              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+               </td>
+			   <td>${vs.index+1}</td>
+			   <td>${list.adminName}</td>
+			   <td>${list.sex}</td>
+			   <td>${list.phone}</td>
+			   <td>${list.roleBean.role}</td>
+			    <td>${list.paramBean.param}</td>
 	       	   <td class="td-status">
-                 <span id="up" class="layui-btn layui-btn-normal layui-btn-mini" onclick="addHid(${list.paramId});">修改</span>
-                 <a href="<%=path%>adminParamAction/delParam.action?pid=${list.paramId}" ><span class="layui-btn layui-btn-danger" onclick="return disable();">删除</span></a>
+	       	    <c:if test="${list.stateId==3}">
+	       	       <a href="<%=path%>adminManagerAction/disableAdmin.action?adid=${list.adminId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return disable();">禁用</span></a>
+	       	    </c:if>
+	       	     <c:if test="${list.stateId==4}">
+	       	       <a href="<%=path%>adminManagerAction/enableAdmin.action?adid=${list.adminId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return disable();">启用</span></a>
+	       	     </c:if>
+                  <a href="<%=path%>adminManagerAction/resetPwd.action?adid=${list.adminId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return resPwd();">重置密码</span></a>
+                 <a href="<%=path%>adminManagerAction/deletAdmin.action?adid=${list.adminId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return dele();">删除</span></a>
 	           </td>
 			</tr>
 			</c:forEach>
@@ -85,10 +102,10 @@ String path = request.getScheme() +"://"+request.getServerName()
         <div class="page">
         <div>
       当前：第  ${pageNo} 页/ 共 ${AllPage} 页
-          <a class="num" href="<%=path %>adminParamAction/systemParam.action?pageNo=1">首页</a>
-          <a class="prev" href="<%=path %>adminParamAction/systemParam.action?pageNo=${pageNo-1}" onclick="return chageNO(this)">上一页</a>
-          <a class="next" href="<%=path %>adminParamAction/systemParam.action?pageNo=${pageNo+1}" onclick="return chageNE(this)">下一页</a>
-          <a class="num" href="<%=path %>adminParamAction/systemParam.action?pageNo=${AllPage}">末页</a>
+          <a class="num" href="<%=path %>adminManagerAction/getAdminList.action?pageNo=1&adminName=${adminCon.adminName}&stateId=${adminCon.stateId}">首页</a>
+          <a class="prev" href="<%=path %>adminManagerAction/getAdminList.action?pageNo=${pageNo-1}&adminName=${adminCon.adminName}&stateId=${adminCon.stateId}" onclick="return chageNO(this)">上一页</a>
+          <a class="next" href="<%=path %>adminManagerAction/getAdminList.action?pageNo=${pageNo+1}&adminName=${adminCon.adminName}&stateId=${adminCon.stateId}" onclick="return chageNE(this)">下一页</a>
+          <a class="num" href="<%=path %>adminManagerAction/getAdminList.action?pageNo=${AllPage}&adminName=${adminCon.adminName}&stateId=${adminCon.stateId}">末页</a>
           <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off"/>
            <a class="num" id="linkToCart" onclick="jump();">跳转</a>
         </div>
@@ -112,20 +129,46 @@ String path = request.getScheme() +"://"+request.getServerName()
         });
       });
     </script>
-    <script type="text/javascript">
+<script type="text/javascript">
 //跳转页码
 function jump(){
 	var p=document.getElementById("pageNo").value;
-	window.location.href="<%=path%>adminParamAction/systemParam.action?pageNo="+p;
+	window.location.href="<%=path%>adminManagerAction/getAdminList.action?pageNo="+p+"&adminName=${adminCon.adminName}&stateId=${adminCon.stateId}";
 }
-//禁用弹窗确认
+
+//启用弹窗确认
 function disable(){
-	 var r=confirm("确定删除吗？")
+	 var r=confirm("确定启用该用户吗？")
 	 if(r==true){
 		 return true;
 	 }
 	 return false;
 }
+//禁用弹窗确认
+function disable(){
+	 var r=confirm("确定要禁用该用户吗？")
+	 if(r==true){
+		 return true;
+	 }
+	 return false;
+}
+//重置弹窗确认
+function resPwd(){
+	 var r=confirm("确定要重置该用户的密码吗？")
+	 if(r==true){
+		 return true;
+	 }
+	 return false;
+}
+//删除弹窗确认
+function dele(){
+	 var r=confirm("确定要删除该用户吗？")
+	 if(r==true){
+		 return true;
+	 }
+	 return false;
+}
+
 //上一页限制
 function chageNO(v){
 	 var url = v.href;
@@ -145,7 +188,6 @@ function chageNE(v){
 	 var a2=a+1;
 	 var b=a2+2;
 	 var num = parseInt(url.substring(a2,b));
-	 //var all=${allPageNo};
 	 if(num>${AllPage}){
 		 return false;
 	 }

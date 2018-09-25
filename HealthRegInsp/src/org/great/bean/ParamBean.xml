@@ -18,6 +18,11 @@
 			select * from TBLPARAM where PARID = 0
 		</select>
 		
+		<!-- 用户状态-->
+ 	    <select id="userStates" resultType="org.great.bean.ParamBean">
+			select * from TBLPARAM where PARID=1
+		</select>
+		
 	    <!-- 根据参数ID获取系统参数-->
  	    <select id="getParamInfo" resultType="org.great.bean.ParamBean">
 			select * from TBLPARAM where PARAMID=#{pid}

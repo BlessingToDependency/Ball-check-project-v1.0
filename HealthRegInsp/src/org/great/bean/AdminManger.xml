@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ 
+ <mapper namespace="org.great.mapper.IParamMapper">
+ 
+     <select id="checkIdNum" resultType="org.great.bean.AdminBean">
+ 	     select * from TBLBACKSTAGE where LOGICID=6 and IDNUM=#{idNum}
+ 	</select>
+ 
+ 	<select id="getFuzzyAdminList" parameterType="org.great.search.AdminCon" resultMap="lian">
+ 	     select * from (select t.*,rownum rn from (
+ 	     select t.*,r.ROLE,p.PARAM from TBLBACKSTAGE t,TBLROLE r,TBLPARAM p where t.roleid=r.roleid and t.stateid=p.paramid and LOGICID=6
+ 	   <if test="adminName!=null and adminName!=''">
+	     and ADMINNAME like CONCAT(CONCAT('%',#{adminName}),'%')
+       </if>
+       <if test="stateId!=0">
+	     and STATEID = #{stateId}
+       </if>
+ 	     ) t where rownum &lt;=#{statrRn})where rn&gt;=#{endRn} 
+ 	</select>
+ 	
+ 	<select id="getAllFuzzyAdminList" parameterType="org.great.search.AdminCon" resultMap="lian">
+ 	     select * from (
+ 	     select t.*,r.ROLE,p.PARAM from TBLBACKSTAGE t,TBLROLE r,TBLPARAM p where t.roleid=r.roleid and t.stateid=p.paramid and LOGICID=6
+ 	   <if test="adminName!=null and adminName!=''">
+	     and ADMINNAME like CONCAT(CONCAT('%',#{adminName}),'%')
+       </if>
+       <if test="stateId!=0">
+	     and STATEID = #{stateId}
+       </if>
+       )
+ 	</select>
+ 	
+ 		<!-- 员工表 -->
+		<resultMap type="org.great.bean.AdminBean" id="lian">
+			<id property="adminId" column="adminId"/>
+			<result property="adminPwd" column="adminPwd"/>
+			<result property="adminName" column="adminName"/>
+			<result property="age" column="age"/>
+			<result property="background" column="background"/>
+			<result property="phone" column="phone"/>
+			<result property="graduated" column="graduated"/>
+            <result property="sex" column="sex"/>
+			<result property="postId" column="postId"/>
+			<result property="head" column="head"/>		
+			<result property="depaId" column="depaId"/>
+            <result property="roleId" column="roleId"/>
+			<result property="stateId" column="stateId"/>
+			<result property="logicId" column="logicId"/>	
+		<!-- 角色表 -->
+		<association property="roleBean" javaType="org.great.bean.RoleBean">
+			<id property="roleId" column="roleId"/>
+			<result property="role" column="role"/>
+		</association>
+		
+		<!-- 参数表 -->
+		<association property="paramBean" javaType="org.great.bean.ParamBean">
+			<id property="paramId" column="paramId"/>
+			<result property="param" column="param"/>
+		</association>
+		</resultMap>  
+		
+		<update id="endisAdmin">
+		   update TBLBACKSTAGE set STATEID=#{val} where ADMINID=#{id}
+		</update>
+		
+		<update id="resetPwd">
+		  update TBLBACKSTAGE set ADMINPWD=#{pwd} where ADMINID=#{id}
+		</update>
+		
+		<update id="delAdmin">
+		  update TBLBACKSTAGE set LOGICID=#{logic} where ADMINID=#{id}
+		</update>
+		
+		<insert id="addAdmin" parameterType="org.great.bean.AdminBean">
+		  insert into TBLBACKSTAGE(ADMINID,ADMINPWD,ADMINNAME,AGE,PHONE,SEX,STATEID,LOGICID,IDNUM,EMAIL) 
+		  values(TBL_BACKSTAGE.Nextval,#{adminPwd},#{adminName},#{age},#{phone},#{sex},3,6,#{idNum},#{email})
+		</insert>
+		
+		<insert id="rela" >
+		  insert into TBLROLERELA(ROLEID,ADMINID) values(#{roleId},#{adminId})
+		</insert>
+
+ </mapper>

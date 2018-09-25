@@ -127,7 +127,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                         </a>
                     </li >
                       <li>
-                        <a _href="cate.html">
+                        <a _href="<%=path%>adminManagerAction/getAdminList.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>管理员管理</cite>
                         </a>
