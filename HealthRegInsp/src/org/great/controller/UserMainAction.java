@@ -3,6 +3,7 @@ package org.great.controller;
  * 前台主页套餐展示
  */
 
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -17,6 +18,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
 
 
 @Controller
@@ -65,17 +70,25 @@ public class UserMainAction {
 	@RequestMapping("buyNow.action")
 	public ModelAndView buyNow(SetmealBean setmealBean) throws Exception{
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
-	
 		if(null != userBean) {
-			
 			System.out.println("购买");
+			File f=new File("upload/体检表.xls");
+			Workbook book=Workbook.getWorkbook(f);// 
+			Sheet sheet=book.getSheet(0); //获得第一个工作表对象 
+			for(int i=0;i<sheet.getRows();i++){ 
+				for(int j=0;j<sheet.getColumns();j++){ 
+					Cell cell=sheet.getCell(j, i); //获得单元格 
+					System.out.print(cell.getContents()+" "); 
+				} 
+				System.out.print("\n"); 
+			}
+			
 			mav.addObject("setmealBean", setmealBean);
 			mav.setViewName("FrontEnd/user_buynow");
 		}else {
 			System.out.println("登陆去");
 			mav.setViewName("FrontEnd/user_login");
 		}
-		
 		return mav;
 	}
 	
