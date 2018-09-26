@@ -130,7 +130,7 @@
 	</select>
 	<!-- 增加项目 -->
 	<insert id="addItem" parameterType="org.great.bean.LitemBean">
-		insert into TBLITEM VALUES (TBL_ITEM,#{item},#{price},#{introd})
+		insert into TBLITEM VALUES (TBL_ITEM.nextval,#{item},#{price},#{introd})
 	</insert>
 	<!-- 查询项目总数 -->
 	<select id="selectLitemSum" resultType="java.lang.Integer" parameterType="org.great.bean.LitemBean">
