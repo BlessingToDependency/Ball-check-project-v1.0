@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.great.bean.TermBean;
 import org.great.mapper.IParticularService;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,60 @@ public class ParticularBizImpl implements ParticularBiz{
 		// TODO Auto-generated method stub
 		List<TermBean> list = iParticularService.selectAllTerm();
 		return list;
+	}
+	
+	//分页 模糊 条件 查询细项信息
+	@Override
+	public List<TermBean> selectTerm(TermBean termBean, Integer page) {
+		// TODO Auto-generated method stub
+		List<TermBean> list = iParticularService.selectTerm(termBean, page);
+		return list;
+	}
+
+	//查询模糊条件细项总条数
+	@Override
+	public Integer selectTermSum(TermBean termBean) {
+		// TODO Auto-generated method stub
+		Integer sum = iParticularService.selectTermSum(termBean);
+		return sum;
+	}
+
+	//增加细项
+	@Override
+	public void addTerm(TermBean termBean) {
+		// TODO Auto-generated method stub
+		iParticularService.addTerm(termBean);
+		
+	}
+
+	//查询单个细项信息
+	@Override
+	public TermBean selectOneTerm(Integer termId) {
+		// TODO Auto-generated method stub
+		TermBean tb = iParticularService.selectOneTerm(termId);
+		return tb;
+	}
+
+	//修改细项信息
+	@Override
+	public void upDateTerm(TermBean termBean) {
+		// TODO Auto-generated method stub
+		iParticularService.upDateTerm(termBean);
+		
+	}
+
+	//删除细项
+	@Override
+	public void deleteTerm(Integer termId) {
+		// TODO Auto-generated method stub
+		iParticularService.deleteTerm(termId);
+	}
+
+	//删除项目细项关系中关于细项的数据
+	@Override
+	public void deleteTermCom(Integer termId) {
+		// TODO Auto-generated method stub
+		iParticularService.deleteTermCom(termId);
 	}
 
 }

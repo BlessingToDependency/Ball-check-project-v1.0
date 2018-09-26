@@ -228,7 +228,7 @@ public class AdminLitemAction {
 	}
 	
 	/*
-	 *增加项目
+	 *修改项目
 	 */
 	@RequestMapping("/upDateItem.action")
 	public ModelAndView upDateItem(HttpServletRequest request,
