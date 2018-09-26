@@ -43,11 +43,6 @@ public interface AdminBiz {
 	public void addItem(LitemBean litemBean);
 
 
-	//查询项目(通用)
-	public LitemBean selectLitem(LitemBean litemBean);
-	
-
-
 	//查询项目(通用 模糊分页  排序)
 	public List<LitemBean> selectLitem(@Param("litemBean")LitemBean litemBean,@Param("peakPrice")String peakPrice,@Param("bottomPrice")String bottomPrice,
 				@Param("rank")String rank,@Param("page")Integer page);
