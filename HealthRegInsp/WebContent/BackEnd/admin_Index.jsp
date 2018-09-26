@@ -121,7 +121,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="cate.html">
+                         <a _href="<%=path%>maDoctorAction/selectAllDoctor.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>医生管理</cite>
                         </a>
@@ -142,10 +142,10 @@ String path = request.getScheme() +"://"+request.getServerName()
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="city.html">
+                          <a _href="<%=path%>maDeparAction/selectDe.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>科室管理</cite>
-                        </a>
+                         </a>
                     </li >
                 </ul>
             </li>
@@ -186,7 +186,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="unicode.html">
+                         <a _href="<%=path%>maRoleAction/selectAllRole.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>角色管理</cite>
                         </a>

@@ -71,6 +71,13 @@ public class UserBizImp implements UserBiz {
 		List<SetmealBean>  setList=iUserMapper.showSetmeal(setmealId);
 		return setList;
 		}
+
+	//编辑公司信息
+	@Override
+	public void updateCompInfo(UserBean userBean) {
+			// TODO Auto-generated method stub
+			iUserMapper.updateCompInfo(userBean);
+		}
 	
 
 

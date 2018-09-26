@@ -3,6 +3,7 @@ package org.great.biz;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 import org.great.bean.AdminBean;
 import org.great.bean.LitemBean;
 import org.great.bean.StaffBean;
@@ -52,6 +53,17 @@ public interface AdminBiz {
 
 	//查询指定项目的细项
 	public List<TermBean> selectTerm(LitemBean litemBean);
+	
+	//管理医生(查看所有医生)
+	public List<AdminBean> selectAllDoctor(AdminBean adminBean,RowBounds rowBounds);
+		
+	//查询医生（个数）
+	public List<AdminBean> selectAllDoctorN(AdminBean adminBean);
+		
+	//新增医生查重
+	public List<AdminBean>  cheackDoctor(AdminBean adminBean);
+	
+	
 
 
 }

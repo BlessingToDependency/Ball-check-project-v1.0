@@ -10,7 +10,7 @@
 		
 		<!-- 新增用户（注册） -->
 		<insert id="adminRegister" parameterType="org.great.bean.AdminBean">
-			insert into tblbackstage values ("自增长",#{adminPwd},#{adminName},#{age},#{background},#{phone},#{graduated},#{sex},#{postId},#{head},#{depaId},#{roleId},#{stateId},#{logicId})
+			insert into tblbackstage values (TBL_BACKSTAGE.nextval,#{adminPwd},#{adminName},#{age},#{background},#{phone},#{graduated},#{sex},#{postId},#{head},#{depaId},#{roleId},#{stateId},#{logicId},#{idNum},#{email})
 		</insert>
 		
 		<!-- 根据用户id查找对应信息 -->
@@ -69,50 +69,6 @@
  	      update tblbackstage set adminPwd=#{adminPwd} where adminId=#{adminId}
  	    </update>
  	  
- 	      <!-- 修改医生状态 （禁用，启用）-->
- 	      <update id="updateDoctorState" parameterType="org.great.bean.AdminBean">
- 	         update tblbackstage set stateId=#{stateId} where adminId={adminId}
- 	      </update>
- 	
- 	      <!-- 逻辑删除医生 -->
- 	      <update id="logicDeleteDoc" parameterType="org.great.bean.AdminBean">
- 	           update  tblbackstage set logicId=#{logicId}  where adminId={adminId}
- 	      </update>
- 	      
- 	      <!-- 后台对医生信息进行修改 -->
- 	      <update id="updateDoctorInfo" parameterType="org.great.bean.AdminBean">
- 	            update tblbackstage set background=#{background},phone=#{phone},graduated=#{graduated},postId=#{postId},head=#{head},depaId=#{depaId},roleId=#{roleId} where adminId={adminId}
- 	      </update>
- 	      
- 	      <!-- 查询医生信息 -->
- 	        <select id="slectDoctorInfo" parameterType="java.lang.Integer" resultMap="adminIn">
- 	                select t.*,p.post from tblbackstage  t,PostBean p
- 	                
- 	                
- 	                  where adminId=#{adminId}
- 	        </select>
- 	        
- 	        <resultMap type="org.great.bean.AdminBean" id="adminIn">
-	    	<id property="adminId" column="adminId"/>
-		   <result property="adminName" column="adminName"/>
-		   <result property="age" column="age"/>
-		   <result property="background" column="background"/>
-	       <result property="phone" column="phone"/>
-		   <result property="graduated" column="graduated"/>
-		   <result property="background" column="background"/>
-		   <result property="sex" column="sex"/>
-		   <result property="postId" column="postId"/>
-		   <result property="head" column="head"/>
-		   <result property="depaId" column="depaId"/>
-		   <result property="roleId" column="roleId"/>
-		   <result property="stateId" column="stateId"/>
-		   <result property="logicId" column="logicId"/>
-		<association property="postBean" javaType="org.great.bean.PostBean" >
-			<id property="postId" column="postId"/>
-			<result property="post" column="post"/>
-		</association>
-		
-	</resultMap>
 	<!-- 查询项目 -->
 	<select id="selectLitem" resultType="org.great.bean.LitemBean" parameterType="org.great.bean.LitemBean">
 		

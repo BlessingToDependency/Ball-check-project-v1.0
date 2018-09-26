@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="org.great.mapper.IDeparMapper">
+ 		
+ 		<!-- 获取所有科室-->
+ 	    <select id="selectAllDepar" resultType="org.great.bean.DeparBean">
+			select * from tbldepar
+		</select>
+		
+		<!-- 带条件分页查询所有科室-->
+		 <select id="selectDe" resultType="org.great.bean.DeparBean">
+			select * from(select * from tbldepar) where 1=1
+			<if test="depa!=null">and depa like '%${depa}%'</if>
+			  
+		</select>
+		
+		<!-- 查询个数，查重-->
+		<select id="selectDeN" resultType="org.great.bean.DeparBean">
+			select * from(select * from tbldepar) where 1=1
+			  <if test="depa!=null">and depa like '%${depa}%'</if>
+		</select>
+		
+		<!-- 增加科室-->
+ 		 <insert id="innserDepar" parameterType="java.lang.String">
+ 		        insert into tbldepar values(TBL_DEPAR.nextval,#{depar})
+ 		 </insert>
+ 		 
+ 		 <!-- 删除科室-->
+ 		 <delete id="deleteDepar" parameterType="int">
+ 		         delete tbldepar where depaId=#{depaId}
+ 		 </delete>
+ 		 
+ 		  <!-- 修改科室名-->
+ 		  <update id="updateDepar" parameterType="org.great.bean.DeparBean">
+ 		         update tbldepar set depa=#{depa} where depaId=#{depaId}
+ 		  </update>
+ 		
+ </mapper>

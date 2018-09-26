@@ -6,7 +6,6 @@
  	<!-- 查询所有的细项 -->
  	<select id="selectAllTerm" resultType="org.great.bean.TermBean">
  		select * from TBLTERM ORDER BY TERMID
- 	</select>
- 
+ 	</select> 	
  
  </mapper>
