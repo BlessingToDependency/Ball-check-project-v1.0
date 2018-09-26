@@ -169,7 +169,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                         </a>
                     </li >
                     <li>
-                        <a _href="admin-cate.html">
+                        <a _href="<%=path%>adminDetailAction/selectDetail.action?page=1&termName=">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>细项配置管理</cite>
                         </a>
