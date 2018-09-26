@@ -76,8 +76,8 @@
 		</select>
 
  		<!-- 编辑公司信息 -->
- 		  <update id="updateCompInfo" parameterType="java.lang.String">
- 		  
+ 		  <update id="updateCompInfo" parameterType="org.great.bean.UserBean">
+ 		       update tblforeground set head=#{head},address=#{address},contacts=#{contacts},phone=#{phone} where company=#{company}
  		  </update>
  		
  </mapper>

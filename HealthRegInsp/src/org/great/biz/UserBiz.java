@@ -34,5 +34,8 @@ public interface UserBiz {
 	
 	//前台套餐展示
 	public  List<SetmealBean> showSetmeal(String setmealId);
+	
+	//编辑公司信息
+   public void updateCompInfo(UserBean userBean);
 
 }

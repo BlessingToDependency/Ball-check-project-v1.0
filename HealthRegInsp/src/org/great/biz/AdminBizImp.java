@@ -5,6 +5,8 @@ import java.util.List;
 
 
 import javax.annotation.Resource;
+
+import org.apache.ibatis.session.RowBounds;
 import org.great.bean.AdminBean;
 import org.great.bean.LitemBean;
 import org.great.bean.StaffBean;
@@ -126,5 +128,29 @@ public class AdminBizImp implements AdminBiz{
 		return list;
 	}
 	
+	//管理医生(查看所有医生)
+		@Override
+		public List<AdminBean> selectAllDoctor(AdminBean adminBean, RowBounds rowBounds) {
+			// TODO Auto-generated method stub
+			List<AdminBean> adList=iAdminMapper.selectAllDoctor(adminBean, rowBounds);
+			return adList;
+		}
+
+		//查询医生（个数）
+		@Override
+		public List<AdminBean> selectAllDoctorN(AdminBean adminBean) {
+			// TODO Auto-generated method stub
+			List<AdminBean> adListN=iAdminMapper.selectAllDoctorN(adminBean);
+			return adListN;
+		}
+
+
+		//新增医生查重
+		@Override
+		public List<AdminBean> cheackDoctor(AdminBean adminBean) {
+			// TODO Auto-generated method stub
+			List<AdminBean> al=iAdminMapper.cheackDoctor(adminBean);
+			return al;
+		}
 	
 }

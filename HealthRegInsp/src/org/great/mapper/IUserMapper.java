@@ -40,6 +40,9 @@ public interface IUserMapper {
 	
 	//前台套餐展示
 	public  List<SetmealBean> showSetmeal(@Param("setmealId")String setmealId);
+	
+	//编辑公司信息
+    public void updateCompInfo(UserBean userBean);
 
 
 }

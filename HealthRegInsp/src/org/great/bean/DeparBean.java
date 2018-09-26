@@ -1,9 +1,12 @@
 package org.great.bean;
 
+import org.springframework.stereotype.Component;
+
 /*
  * 科室表
  * 
  */
+@Component
 public class DeparBean {
     private int depaId;//科室ID
     private String depa;//科室

@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	  $.ajax({
 		  type:"post",
-   	   url:"<%=basePath%>userLoginAction/validateCompPws.action",
+   	   url:"<%=basePath%>myCompAction/validateCompPws.action",
    	   data:{"pwd":$("#acc").val()},
    	   dataType:"json",
   			success : function(redata) {//定义各事件发生时回调的函数
@@ -34,24 +34,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 } 
  
- $(document).ready(function(){
+/*  $.validator.setDefaults({
+	    submitHandler: function() {
+	      alert("提交事件!");
+	    }
+	});
+$().ready(function() {
+	// 在键盘按下并释放及提交后验证提交表单
+	  $("#form1").validate({
+	      rules: {
+	    	  pwd:{required:true,minlength:6},	
+	   	   pwdOk:{required:true,minlength:6,equalTo:"#pwd"}
+	      }
+	
+	  });
+	}); */
+/*  $(document).ready(function(){
 		
 		$("#form1").on("submit",function(event){
                 alert("1111");
 			//event.preventDefaul();//阻止事件默认动作
-			$(this).validate();
-		});
-	  $("#form1").validate({
+			//$(this).validate();
+			 rules:{			  
+			   pwd:{required:true,minlength:6},	
+			   pwdOk:{required:true,minlength:6,equalTo:"#pwd"},			  
+		   }
+		}); */
+	  /* $("#form1").validate({
 		 
 		   rules:{			  
 			   pwd:{required:true,minlength:6},	
 			   pwdOk:{required:true,minlength:6,equalTo:"#pwd"},			  
 		   }
 		  
-	  });
-	}); 
+	  }); */
+	/* });  */
 </script>
-
+<script type="text/javascript">
+function back(){
+	window.location.href="<%=path%>/myCompAction/backIndex.action";
+}
+</script>
 </head>
 <body>
 
@@ -62,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </tr>
 
   <tr>
-   <form id="form1" name="form1" method="post" action="<%=basePath%>userLoginAction/updateUserPws.action"> 
+   <form id="form1" name="form1" method="post" action="<%=basePath%>myCompAction/updateUserPws.action"> 
     <td>请输入新密码：</td>
     <td>
     <input type="password" name="pwd" id="pwd" /></td>
@@ -76,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <td colspan="2">
   
       <input type="submit" name="button" id="button" value="提交" />
-      <input type="submit" name="button2" id="button2" value="返回" />
+     <input type="button" name="button2" id="button2" value="返回" onclick="back()"/>
      
     </td>
    
