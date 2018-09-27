@@ -10,7 +10,7 @@
  
  	<select id="getFuzzyAdminList" parameterType="org.great.search.AdminCon" resultMap="lian">
  	     select * from (select t.*,rownum rn from (
- 	     select t.*,r.ROLE,p.PARAM from TBLBACKSTAGE t,TBLROLE r,TBLPARAM p where t.roleid=r.roleid and t.stateid=p.paramid and LOGICID=6
+ 	     select t.*,r.ROLE,p.PARAM from TBLBACKSTAGE t,TBLROLE r,TBLPARAM p where t.roleid=r.roleid and t.stateid=p.paramid and LOGICID=6 and t.ROLEID=2
  	   <if test="adminName!=null and adminName!=''">
 	     and ADMINNAME like CONCAT(CONCAT('%',#{adminName}),'%')
        </if>
@@ -22,7 +22,7 @@
  	
  	<select id="getAllFuzzyAdminList" parameterType="org.great.search.AdminCon" resultMap="lian">
  	     select * from (
- 	     select t.*,r.ROLE,p.PARAM from TBLBACKSTAGE t,TBLROLE r,TBLPARAM p where t.roleid=r.roleid and t.stateid=p.paramid and LOGICID=6
+ 	     select t.*,r.ROLE,p.PARAM from TBLBACKSTAGE t,TBLROLE r,TBLPARAM p where t.roleid=r.roleid and t.stateid=p.paramid and LOGICID=6 and t.ROLEID=2
  	   <if test="adminName!=null and adminName!=''">
 	     and ADMINNAME like CONCAT(CONCAT('%',#{adminName}),'%')
        </if>
@@ -74,8 +74,8 @@
 		</update>
 		
 		<insert id="addAdmin" parameterType="org.great.bean.AdminBean">
-		  insert into TBLBACKSTAGE(ADMINID,ADMINPWD,ADMINNAME,AGE,PHONE,SEX,STATEID,LOGICID,IDNUM,EMAIL) 
-		  values(TBL_BACKSTAGE.Nextval,#{adminPwd},#{adminName},#{age},#{phone},#{sex},3,6,#{idNum},#{email})
+		  insert into TBLBACKSTAGE(ADMINID,ADMINPWD,ADMINNAME,AGE,PHONE,SEX,ROLEID,STATEID,LOGICID,IDNUM,EMAIL) 
+		  values(TBL_BACKSTAGE.Nextval,#{adminPwd},#{adminName},#{age},#{phone},#{sex},2,3,6,#{idNum},#{email})
 		</insert>
 		
 		<insert id="rela" >

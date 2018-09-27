@@ -161,5 +161,14 @@ public class AdminManagerAction {
 		}
 		return new ModelAndView("BackEnd/AddAdmins");
 	}
-	
+	//批量删除管理员
+	@RequestMapping(value="/batchDel.action")
+	public ModelAndView AddAdmin(HttpServletRequest request,String[] data){
+		System.out.println(data);
+		for(int i=0;i<data.length;i++) {
+			int adminId = Integer.parseInt(data[i]);
+			int res = AdminMangerImpBiz.delAdmin(adminId);
+		}
+		return new ModelAndView("redirect:/adminManagerAction/getAdminList.action");
+	}
 }

@@ -43,7 +43,7 @@ String path = request.getScheme() +"://"+request.getServerName()
           <input type="text" id="adminName" name="adminName"  placeholder="姓名" autocomplete="off" class="layui-input" value="${adminCon.adminName==null?"":adminCon.adminName}">
         </div>
         <div id="div">
-          <select id="stateId" name="stateId" lay-filter="aihao" value=="${adminCon.stateId==null?"":adminCon.stateId}">
+          <select id="stateId" name="stateId" lay-filter="aihao" value="${adminCon.stateId==null?"":adminCon.stateId}">
           <option value="0">用户状态</option>
            <c:forEach items="${userState}"  var="us" step="1" varStatus="vs">
            <option value="${us.paramId}" >${us.param}</option>
@@ -76,7 +76,7 @@ String path = request.getScheme() +"://"+request.getServerName()
           <c:forEach items="${adminList}"  var="list" step="1" varStatus="vs">
 			<tr>
 			  <td>
-              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+              <div class="layui-unselect layui-form-checkbox" name="ch" lay-skin="primary" data-id='${list.adminId}'><i class="layui-icon">&#xe605;</i></div>
                </td>
 			   <td>${vs.index+1}</td>
 			   <td>${list.adminName}</td>
@@ -115,7 +115,7 @@ String path = request.getScheme() +"://"+request.getServerName()
     </div>
 </body>
     <script>
-      layui.use('laydate', function(){
+    layui.use('laydate', function(){
         var laydate = layui.laydate;
         
         //执行一个laydate实例
@@ -128,6 +128,18 @@ String path = request.getScheme() +"://"+request.getServerName()
           elem: '#end' //指定元素
         });
       });
+
+      function delAll (argument) {
+
+        var data = tableCheck.getData();
+  
+        layer.confirm('确认要删除吗？'+data,function(index){
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+            window.location.href="<%=path%>adminManagerAction/batchDel.action?data="+data;
+        });
+      }
     </script>
 <script type="text/javascript">
 //跳转页码
