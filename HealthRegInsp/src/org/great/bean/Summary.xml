@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ 
+ <mapper namespace="org.great.mapper.ISummaryMapper">
+   <!--  根据科室ID得到项目ID -->
+   <select id="getThisItemStaff" parameterType="org.great.search.SumCon" resultType="org.great.bean.StaffBean">
+   select * from (select t.*,rownum rn from (
+   select * from TBLSTAFF where STAFFID in(
+   select distinct STAFFID from TBLPERGUIRELA where PERINSPID in(
+   select PERINSPID from TBLGUISETMEAL where GUCHID in(
+   select distinct GUCHID from TBLFINRESULT where GUCHID in(
+   select GUCHID from TBLCHITEM where SUMMSTATEID=12 and itemId= (
+   select itemId from TBLDEPPRORELA where depaId=#{depaId}
+   )))))
+   <if test="staffName!=null and staffName!=''">
+	and STAFFNAME like CONCAT(CONCAT('%',#{staffName}),'%')
+   </if>
+    ) t where rownum &lt;=#{statrRn})where rn&gt;=#{endRn} 
+   </select>
+   
+   
+   <select id="getAllThisItemStaff" parameterType="org.great.search.SumCon" resultType="org.great.bean.StaffBean">
+   select * from TBLSTAFF where STAFFID in(
+   select distinct STAFFID from TBLPERGUIRELA where PERINSPID in(
+   select PERINSPID from TBLGUISETMEAL where GUCHID in(
+   select distinct GUCHID from TBLFINRESULT where GUCHID in(
+   select GUCHID from TBLCHITEM where SUMMSTATEID=12 and itemId= (
+   select itemId from TBLDEPPRORELA where depaId=#{depaId}
+   )))))
+   <if test="staffName!=null and staffName!=''">
+	and STAFFNAME like CONCAT(CONCAT('%',#{staffName}),'%')
+   </if>
+   </select>
+ 		
+ </mapper>
