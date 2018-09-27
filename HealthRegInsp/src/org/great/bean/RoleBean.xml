@@ -30,5 +30,11 @@
 		    <delete id="deleteRole" parameterType="java.lang.Integer">
 		          delete   tblrole where roleId=#{roleId} 
 		    </delete>
+		    
+		    <!-- 查重-->
+		 <select id="checkRole" resultType="org.great.bean.RoleBean">
+			select * from (select * from tblrole ) where 1=1
+			<if test="role!=null">and role=#{role}</if>
+		</select>
  		
  </mapper>

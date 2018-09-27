@@ -289,7 +289,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="unicode.html">
+                        <a _href="<%=path%>logAction/selectAllLog.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>日志查看</cite>
                         </a>

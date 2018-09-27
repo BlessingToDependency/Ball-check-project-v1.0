@@ -55,7 +55,7 @@ public class MangeDeparAction {
 		String depa=request.getParameter("depa");
 		
 		 int pageNo=-1;
-			if(null==page) {
+			if(null==page||"".equals(page)) {
 				pageNo =1;
 				
 			}else {
@@ -107,7 +107,7 @@ public class MangeDeparAction {
 		String msg=(String) session.getAttribute("msg");
 		if(msg.equals("可用科室")) {
 			deparImp.innserDepar(depa);
-		mav.setViewName("BackEnd/add_depar");
+		mav.setViewName("redirect:/maDeparAction/selectDe.action");
 		}
 		else {
 			mav.setViewName("BackEnd/add_depar");
@@ -133,11 +133,16 @@ public class MangeDeparAction {
 	 * 跳转到修改科室界面
 	 */
 	@RequestMapping(value="toUpdateDepar.action")
-	public ModelAndView toUpdateDepar() {
-		String dei=request.getParameter("depaId");
+	public @ResponseBody void toUpdateDepar() throws Exception {
+		
+		String dei=request.getParameter("depId");
 		session.setAttribute("dei", dei);
-		mav.setViewName("BackEnd/updateDeparName");
-		return mav;		
+		PrintWriter out = response.getWriter();
+		String msg="OK";
+		Gson gson1 = new Gson();
+		String str1 = gson1.toJson(msg);
+		out.print(str1);
+		out.close();	
 	}
 	
 	/*
@@ -146,10 +151,16 @@ public class MangeDeparAction {
 	@RequestMapping(value="updateDepar.action")
 	public ModelAndView updateDepar(DeparBean  deparBea) {
 		String dep=(String) session.getAttribute("dei");
+		
 		int depaId=Integer.parseInt(dep);
 		deparBea.setDepaId(depaId);
-	
+		String msg=(String) session.getAttribute("msg");
+		if(msg.equals("可用科室")) {
 		deparImp.updateDepar(deparBea);
+		mav.setViewName("redirect:/maDeparAction/selectDe.action");
+		}else {
+			mav.setViewName("");
+		}
 		
 		return mav;		
 	}
@@ -160,8 +171,9 @@ public class MangeDeparAction {
 	@RequestMapping(value="checkDepar.action")
 	public @ResponseBody void checkDepar(DeparBean  deparBea) throws Exception {
 		String depar=request.getParameter("depa");
+		System.out.println("depa="+depar);
 		deparBea.setDepa(depar);
-		List<DeparBean> deLi=deparImp.selectDeN(deparBea);
+		List<DeparBean> deLi=deparImp.selectDeChe(deparBea);
 		PrintWriter out = response.getWriter();
 		String msg;
 		if(deLi.size()>0) {
