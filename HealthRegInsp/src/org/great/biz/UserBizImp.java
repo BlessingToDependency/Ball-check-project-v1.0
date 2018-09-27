@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.great.bean.BillBean;
 import org.great.bean.SetmealBean;
+import org.great.bean.StaffBean;
+import org.great.bean.StaffMealBean;
 import org.great.bean.UserBean;
 import org.great.mapper.IUserMapper;
 import org.springframework.stereotype.Service;
@@ -71,6 +73,26 @@ public class UserBizImp implements UserBiz {
 		List<SetmealBean>  setList=iUserMapper.showSetmeal(setmealId);
 		return setList;
 		}
+	
+	//上传文档插入数据库
+	@Override
+	public void addStaff(StaffBean staffBean) {
+		// TODO Auto-generated method stub
+		iUserMapper.addStaff(staffBean);
+	}
+	//身份证去重
+	@Override
+	public StaffBean repeatNum(String idNum) {
+		// TODO Auto-generated method stub
+		return iUserMapper.repeatNum(idNum);
+	}
+
+	//为员工选择套餐插入数据库
+	@Override
+	public void bespeakMeal(StaffMealBean staffMealBean) {
+		// TODO Auto-generated method stub
+		iUserMapper.bespeakMeal(staffMealBean);
+	}
 	
 
 

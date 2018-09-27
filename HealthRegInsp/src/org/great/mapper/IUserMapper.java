@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.great.bean.BillBean;
 import org.great.bean.SetmealBean;
+import org.great.bean.StaffBean;
+import org.great.bean.StaffMealBean;
 import org.great.bean.UserBean;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +24,14 @@ public interface IUserMapper {
 	//注册名查重
 	public UserBean userRepeat(@Param("company")String company);
 	
+	//上传文档插入数据库
+	public void addStaff(StaffBean staffBean);
+	
+	//为员工选择套餐插入数据库
+	public void bespeakMeal(StaffMealBean staffMealBean);
+	
+	//身份证去重
+	public StaffBean repeatNum(String idNum);
 
 	//前端修改密码
 	public void  updateUserPws(@Param("pwd")String pwd,@Param("company")String company);

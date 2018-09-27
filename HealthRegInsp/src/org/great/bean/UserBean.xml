@@ -18,16 +18,30 @@
 			
 		</select>
 		
+		
+		
 		<!-- 注册 -->
 		<insert id="userRegister" parameterType="org.great.bean.UserBean">
-
 			insert into tblforeground values (TBL_FOREGROUND.Nextval,#{company},#{pwd},#{address},#{contacts},#{phone},#{balance},#{busNum})
-
 		</insert>
 		
 		<!-- 注册名查重 -->
  		<select id="userRepeat" resultType="org.great.bean.UserBean">
 			select company from tblforeground where company=#{company}
+		</select>
+		
+		<!-- 插入员工信息 -->
+		<insert id="addStaff" parameterType="org.great.bean.StaffBean">
+			insert into tblstaff values(tbl_staff.nextVal,#{staffName},#{age},#{sex},#{idNum},#{phone},#{companyId})
+		</insert>
+		
+		<insert id="bespeakMeal" parameterType="org.great.bean.StaffMealBean">
+			insert into TBLSTAFFMEAL values(#{staffId},#{setmealId})
+		</insert>
+		
+		<!-- 去重身份证 -->
+		<select id="repeatNum" parameterType="java.lang.String" resultType="org.great.bean.StaffBean">
+			select * from tblstaff where idnum = #{idnum}
 		</select>
 		
 		<!-- 前台主页展示套餐 -->

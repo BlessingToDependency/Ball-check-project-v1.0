@@ -8,7 +8,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>用户列表</title>
+    <title>医生主页</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -29,35 +29,20 @@ String path = request.getScheme() +"://"+request.getServerName()
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
     <script type="text/javascript">
-	function info(id){
-	$.ajax({
-		url:"<%=path %>userAdminAction/userInfo.action",
-		data:"staffId="+id,
+	function guchInfo(){
+		alert(11)
+		$.ajax({
+		url:"<%=path %>doctorAction/selectSetmeal.action",
+		data:"guChId="+document.getElementById("guChId").value,
 		dataType:"json",
 		type:"POST",
 		success : function(str){
-			$("#name").val(str.staffName);
-			$("#age").val(str.age);
-			$("#sex").val(str.sex);
-			$("#phone").val(str.phone);
-			$("#idNum").val(str.idNum);
+			alert(str)
 		}
 	});
 };
 </script>
-<script type="text/javascript">
-    $(document).ready(function(){
-       //点击链接的时候调用
-      $("#linkToCart").click(function(){
- 
-          //得到input的值
-          var pages = $("#pages").val();
- 
-          //设置linkToCart的href的值
-          $("#linkToCart").attr("href","<%=path %>userAdminAction/userAdmin.action?pages="+pages+"");
-      });
-    });
-</script>
+
 <script type="text/javascript">
 function checkUser(){
 	document.getElementById("formid").submit();
@@ -78,17 +63,22 @@ function checkUser(){
     </div>
     <div class="x-body">
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so" id="formid" action="<%=path %>userAdminAction/userAdmin.action">
-          <input class="layui-input" placeholder="开始日" name="statTime" id="start">
-          <input class="layui-input" placeholder="截止日" name="stopTime" id="end">
-          <input type="text" name="staffName"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-          <input type="text" name="phone"  placeholder="请输入手机号" autocomplete="off" class="layui-input">
-          <input type="text" name="staffName"  placeholder="请输入条码号" autocomplete="off" class="layui-input">
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach" onclick = "checkUser();"><i class="layui-icon">&#xe615;</i></button>
+        <form class="layui-form layui-col-md12 x-so" id="" action="">
+          <input type="text" id="guChId" name="guChId"  placeholder="请输入导检单号" autocomplete="off" class="layui-input">
+         
+         <button class="layui-btn"  onclick="guchInfo()"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
       <xblock>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html')"><i class="layui-icon"></i>添加</button>
+      <select id="setmealId" name="setmealId" style="width:200px;height:40px;" >
+          <option value="0">--请选择套餐--</option>
+           <option value="" ></option>
+          </select>
+          
+          <select id="itemId" name="itemId" style="width:200px;height:40px;" >
+          <option value="0">--请选择项目--</option>
+           <option value="" ></option>
+          </select>
       </xblock>
        <table class="layui-table">
         <thead>

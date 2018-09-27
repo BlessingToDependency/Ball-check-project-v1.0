@@ -8,7 +8,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>用户列表</title>
+    <title>体检人员信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -77,7 +77,7 @@ function checkUser(){
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
     </div>
     <div class="x-body">
-      <div class="layui-row">
+     <%--  <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="formid" action="<%=path %>userAdminAction/userAdmin.action">
           <input class="layui-input" placeholder="开始日" name="statTime" id="start">
           <input class="layui-input" placeholder="截止日" name="stopTime" id="end">
@@ -86,9 +86,9 @@ function checkUser(){
           <input type="text" name="staffName"  placeholder="请输入条码号" autocomplete="off" class="layui-input">
           <button class="layui-btn"  lay-submit="" lay-filter="sreach" onclick = "checkUser();"><i class="layui-icon">&#xe615;</i></button>
         </form>
-      </div>
+      </div> --%>
       <xblock>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加用户','<%=path %>userMainAction/chooseMeal.action')"><i class="layui-icon"></i>批量预约套餐</button>
       </xblock>
        <table class="layui-table">
         <thead>
@@ -98,10 +98,11 @@ function checkUser(){
             </th>
             <th>ID</th>
             <th>姓名</th>
+             <th>年龄</th>
+              <th>性别</th>
+              <th>身份证号</th>
             <th>手机号</th>
-            <th>体检时间</th>
-            <th>条码号</th>
-            <th>操作</th>
+            <th>选择套餐</th>
         </thead>
         <tbody>
         <c:forEach items="${userList}" var="staffBean">
@@ -109,20 +110,19 @@ function checkUser(){
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-          	<input type="hidden" id="hidden" name="hidden" value="${staffBean.staffId}"/>
+          	<input type="hidden" id="hidden" name="staffId" value="${staffBean.staffId}"/>
             <td>${staffBean.staffId}</td>
             <td><a data-toggle="modal" data-target="#myModal" onclick="info(${staffBean.staffId})">${staffBean.staffName}</a></td>
-            <td>${staffBean.phone}</td>
-            <td>${staffBean.perguirelaBean.partYear}</td>
-             <td>${staffBean.staffId}${staffBean.perguirelaBean.partYear}${staffBean.companyId}${staffBean.perguirelaBean.batchNum}</td>
+            <td>${staffBean.age}</td>
+            <td>${staffBean.sex}</td>
+             <td>${staffBean.idNum}</td>
+             <td>${staffBean.phone}</td>
             <td class="td-status">
               
-              <a title="编辑"  onclick="x_admin_show('编辑','admin-edit.html')" href="javascript:;">
+              <a title="选择套餐"  onclick="x_admin_show('选择套餐','<%=path %>userMainAction/chooseMeal.action?staffId=${staffBean.staffId}')" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
-              <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                <i class="layui-icon">&#xe640;</i>
-              </a>
+           
             </td>
           </tr>
           </c:forEach>

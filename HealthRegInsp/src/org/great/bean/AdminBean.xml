@@ -3,6 +3,7 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
  
  <mapper namespace="org.great.mapper.IAdminMapper">
+		
  		<!-- 后台用户登陆 -->
  		<select id="adminLogin" parameterType="org.great.bean.AdminBean" resultType="org.great.bean.AdminBean">
 			select * from tblbackstage where adminId=#{adminId} and adminPwd=#{adminPwd}
@@ -13,10 +14,41 @@
 			insert into tblbackstage values ("自增长",#{adminPwd},#{adminName},#{age},#{background},#{phone},#{graduated},#{sex},#{postId},#{head},#{depaId},#{roleId},#{stateId},#{logicId})
 		</insert>
 		
+		<!-- 根据导检单id找出套餐 -->
+		<select id="selectSetmeal" parameterType="java.lang.String" resultType="org.great.bean.SetmealBean">
+			select a.* from tblsetmeal a,tblguisetmeal b where a.setmealId = b.setmealId and b.guChId=#{guChId}
+		</select>
+		
 		<!-- 根据用户id查找对应信息 -->
 		<select id="userInfo" parameterType="java.lang.String" resultType="org.great.bean.StaffBean">
 			select * from tblstaff where staffId = #{staffId}
 		</select> 
+		
+		
+		<!-- 公司展示 -->
+		<select id="company" parameterType="org.great.bean.UserBean" resultType="org.great.bean.UserBean">
+			select * from(
+			select z.*,rownum rn from(
+			select * from TblForeground order by company
+			<where>
+				<if test="userBean.company != null"> company=#{company} </if>
+				<if test="userBean.address != null"> and address=#{address} </if>
+				<if test="userBean.contacts != null"> and contacts=#{contacts} </if>
+				<if test="userBean.busNum != null"> and busNum=#{busNum} </if>
+			</where>
+			)z where rownum &lt; =#{pages}*10 )r where r.rn &gt; =(#{pages}-1)*10+1
+		</select>
+		
+		<!-- 公司总数 -->
+		<select id="companyCount" parameterType="org.great.bean.UserBean" resultType="java.lang.Integer">
+			select count(*) from TblForeground  
+			<where>
+				<if test="company != null"> company=#{company} </if>
+				<if test="address != null"> and address=#{address} </if>
+				<if test="contacts != null"> and contacts=#{contacts} </if>
+				<if test="busNum != null"> and busNum=#{busNum} </if>
+			</where>
+		</select>
 		
 		
 		<!--  后台用户管理列表 -->
@@ -24,7 +56,7 @@
 			select * from(
 			select z.*,rownum rn from(
 			select a.*,b.company,c.partYear,c.batchNum from tblstaff a,tblforeground b,tblperguirela c
-			where a.companyId = b.companyId and a.staffId = c.staffId and 1 = 1
+			where a.companyId = b.companyId and a.staffId = c.staffId and a.COMPANYID=#{companyId} 
 			<if test="staffName!=null and staffName!='' ">and a.staffName like concat(concat('%',#{staffName}),'%')</if> 
 			<if test="phone!=null and phone != ''">and a.phone = #{phone}</if>
 			<if test="statTime!=null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
@@ -53,14 +85,15 @@
 		</association>
 		</resultMap>  
 		
+		
 		<!-- 查询后台用户管理列表总数 -->
 		 <select id="userAdminCount" parameterType="org.great.bean.StaffBean" resultType="java.lang.Integer">
 			select count(*) from tblstaff a,tblforeground b,tblperguirela c
-			where a.companyId = b.companyId and a.staffId = c.staffId
-			  <!-- <if test="staffName != null and staffName != ''">and a.staffName like concat(concat('%',#{staffName}),'%')</if>
-			<if test="phone != null and phone != ''">and a.phone = #{phone}</if>
-			<if test="statTime != null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
-			<if test="stopTime != null and stopTime != ''">and c.partYear &lt; = #{stopTime}</if> -->
+			where a.companyId = b.companyId and a.staffId = c.staffId and a.COMPANYID=#{companyId}
+			<if test="staffName!=null and staffName!='' ">and a.staffName like concat(concat('%',#{staffName}),'%')</if> 
+			<if test="phone!=null and phone != ''">and a.phone = #{phone}</if>
+			<if test="statTime!=null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
+			<if test="stopTime!=null and stopTime != ''">and c.partYear &lt; = #{stopTime}</if>
 		</select> 
 		
 		
@@ -158,5 +191,7 @@
 		</association>
 	
 	</resultMap>
+	
+	
 
  </mapper>

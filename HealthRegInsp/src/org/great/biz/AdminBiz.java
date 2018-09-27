@@ -5,9 +5,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.great.bean.AdminBean;
 import org.great.bean.LitemBean;
+import org.great.bean.SetmealBean;
 import org.great.bean.StaffBean;
 import org.great.bean.TermBean;
 import org.great.bean.UserBean;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 public interface AdminBiz {
 	//后台登陆
@@ -15,11 +18,20 @@ public interface AdminBiz {
 	
 	//后台新增用户（注册）
 	public void adminRegister(AdminBean adminBean);
+	
+	//通过导检单id查询套餐
+	public List<SetmealBean> selectSetmeal(String guChId);
+	
+	//后台用户公司展示
+	public List<UserBean> company(UserBean userBean,Integer pages);
+	
+	//后台用户公司总数
+	public Integer companyCount(@Param(value="userBean")UserBean userBean);
 
 	//后台用户管理列表展示
-	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer pages);
+	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages);
 	//后台用户管理列表总数查询
-	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear);
+	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId1);
 	
 	//根据用户id查找对应信息
 	public StaffBean userInfo(String staffId);

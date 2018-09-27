@@ -13,7 +13,7 @@
 <meta name="author" content="order by dede58.com/" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<title>后天健康团检系统</title>
+<title>后天健康团检系统选择套餐</title>
 
 <meta name="description" content="网站描述" />
 
@@ -113,9 +113,8 @@ $('#min').attr('disabled',true);
   <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
 
 
-	<form id="form1" name="form1" method="post" action="<%=path %>userMainAction/buyNow.action">
+	<form id="form1" name="form1" method="post" action="<%=path %>userMainAction/bespeakMeal.action">
   <table width="800" border="1" align="center">
-<c:forEach items="${setList }" var="setmealBean">
     <tr>
       <td rowspan="6">图片轮播区
       <div class="example">
@@ -139,11 +138,17 @@ $('#min').attr('disabled',true);
     });
     </script>
       </td>
+      <c:if test="null !=${staffId }">
+       <input type="hidden" id="" name="staffId" value="${staffId }"/>
+       </c:if>
+<c:forEach items="${setList }" var="setmealBean">
       <td><span class="STYLE2">
+      
+      <input type="hidden" id="" name="setmealId" value="${setmealBean.setmealId }"/>
       <input type="text" value="${setmealBean.setmeal }" name="setmeal" disabled="disabled" style="border:none;"/></span></td>
     </tr>
     <tr>
-      <td><span class="STYLE4">简介：${setmealBean.setmeal }</span></td>
+      <td><span class="STYLE4">主要项目：${setmealBean.itemNick }</span></td>
     </tr>
     <tr>
       <td><span class="STYLE3">优惠价：
@@ -164,14 +169,14 @@ $('#min').attr('disabled',true);
 	</td>
 
     </tr>
+</c:forEach>
     <tr>
       <td><label>
-        <input type="submit" name="Submit" value="立即购买" />
-        <input type="button" name="Submit" value="加入购物车" />
+        <input type="submit" name="Submit" value="立即预约" />
+       <input type="button" name="Submit" onclick="javascript:history.back(-1);" value="返回">
         
       </label></td>
     </tr>
-</c:forEach>
   </table>
 </form>
 <div id="footer">

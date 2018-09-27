@@ -5,8 +5,11 @@ import java.util.List;
 
 
 import javax.annotation.Resource;
+
+import org.apache.ibatis.annotations.Param;
 import org.great.bean.AdminBean;
 import org.great.bean.LitemBean;
+import org.great.bean.SetmealBean;
 import org.great.bean.StaffBean;
 import org.great.bean.TermBean;
 import org.great.bean.UserBean;
@@ -21,6 +24,7 @@ public class AdminBizImp implements AdminBiz{
 	@Resource
 	IAdminMapper iAdminMapper;
 	private List<StaffBean> userList = new ArrayList<StaffBean>();
+	private List<UserBean> companyList;
 	//登陆
 	@Override
 	public AdminBean adminLogin(AdminBean adminBean) {
@@ -37,20 +41,33 @@ public class AdminBizImp implements AdminBiz{
 		iAdminMapper.adminRegister(adminBean);
 	}
 
+	//后台用户公司展示
+	@Override
+	public List<UserBean> company(UserBean userBean, Integer pages) {
+		// TODO Auto-generated method stub
+		companyList = iAdminMapper.company(userBean, pages);
+		return companyList;
+	}
+	//后台用户公司总数
+	@Override
+	public Integer companyCount(UserBean userBean) {
+		// TODO Auto-generated method stub
+		return iAdminMapper.companyCount(userBean);
+	}
 
 	//后台用户管理列表展示
 	@Override
-	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer pages) {
+	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages) {
 		// TODO Auto-generated method stub
-		userList = iAdminMapper.userAdmin( staffName, phone, statTime, stopTime, partYear,pages);
+		userList = iAdminMapper.userAdmin( staffName, phone, statTime, stopTime, partYear,companyId,pages);
 		return userList;
 	}
 
 	//后台用户管理总数
 	@Override
-	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear) {
+	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId1) {
 		// TODO Auto-generated method stub
-		return iAdminMapper.userAdminCount( staffName, phone, statTime, stopTime, partYear);
+		return iAdminMapper.userAdminCount(staffName,phone, statTime, stopTime, partYear,companyId1);
 	}
 	
 	//根据用户id查找对应信息
@@ -125,6 +142,24 @@ public class AdminBizImp implements AdminBiz{
 		List<TermBean> list = iAdminMapper.selectTerm(litemBean);
 		return list;
 	}
+
+
+	@Override
+	public LitemBean selectLitem(LitemBean litemBean) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//通过导检单id查询套餐
+	@Override
+	public List<SetmealBean> selectSetmeal(String guChId) {
+		// TODO Auto-generated method stub
+		return iAdminMapper.selectSetmeal(guChId);
+	}
+
+
+	
+
 	
 	
 }
