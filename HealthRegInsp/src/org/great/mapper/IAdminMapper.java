@@ -1,15 +1,14 @@
 package org.great.mapper;
 
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.AdminBean;
 import org.great.bean.LitemBean;
+import org.great.bean.SetmealBean;
 import org.great.bean.StaffBean;
 import org.great.bean.TermBean;
 import org.great.bean.UserBean;
-import org.great.search.AdminCon;
 import org.springframework.stereotype.Repository;
 /*
  * 后台Mapper
@@ -21,12 +20,21 @@ public interface IAdminMapper {
 	
 	//后台新增用户（注册）
 	public void adminRegister(AdminBean adminBean);
+	
+	//通过导检单id查询套餐
+	public List<SetmealBean> selectSetmeal(@Param("guChId")String guChId);
+	
+	//后台用户公司展示
+	public List<UserBean> company(@Param(value="userBean")UserBean userBean,@Param(value="pages")Integer pages);
 
+	//后台用户公司总数
+	public Integer companyCount(UserBean userBean);
+	
 	//后台用户管理列表展示
-	public List<StaffBean> userAdmin(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("pages")Integer pages);
+	public List<StaffBean> userAdmin(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("companyId")Integer companyId,@Param("pages")Integer pages);
 	
 	//后台用户管理列表总数查询
-	public Integer userAdminCount(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear);
+	public Integer userAdminCount(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("companyId")Integer companyId);
 	
 	//根据用户id查找对应信息
 	public StaffBean userInfo(@Param("staffId")String staffId);

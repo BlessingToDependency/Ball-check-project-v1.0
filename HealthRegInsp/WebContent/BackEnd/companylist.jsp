@@ -8,7 +8,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>¹«Ë¾ÁĞ±í</title>
+    <title>å…¬å¸åˆ—è¡¨</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -18,7 +18,7 @@ String path = request.getScheme() +"://"+request.getServerName()
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
-    <!-- ÈÃIE8/9Ö§³ÖÃ½Ìå²éÑ¯£¬´Ó¶ø¼æÈİÕ¤¸ñ -->
+    <!-- è®©IE8/9æ”¯æŒåª’ä½“æŸ¥è¯¢ï¼Œä»è€Œå…¼å®¹æ …æ ¼ -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -28,34 +28,28 @@ String path = request.getScheme() +"://"+request.getServerName()
 	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
-	//µã»÷¹«Ë¾ÃûÕ¹Ê¾ĞÅÏ¢
+	//ç‚¹å‡»å…¬å¸åå±•ç¤ºä¿¡æ¯
     <script type="text/javascript">
 	function info(id){
 	$.ajax({
-		url:"<%=path %>userAdminAction/userInfo.action",
-		data:"staffId="+id,
+		url:"<%=path %>userAdminAction/userAdmin.action",
+		data:"companyId="+id,
 		dataType:"json",
-		type:"POST",
-		success : function(str){
-			$("#name").val(str.staffName);
-			$("#age").val(str.age);
-			$("#sex").val(str.sex);
-			$("#phone").val(str.phone);
-			$("#idNum").val(str.idNum);
-		}
+		type:"POST"
+	
 	});
 };
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
-       //µã»÷Á´½ÓµÄÊ±ºòµ÷ÓÃ
+       //ç‚¹å‡»é“¾æ¥çš„æ—¶å€™è°ƒç”¨
       $("#linkToCart").click(function(){
  
-          //µÃµ½inputµÄÖµ
+          //å¾—åˆ°inputçš„å€¼
           var pages = $("#pages").val();
  
-          //ÉèÖÃlinkToCartµÄhrefµÄÖµ
-          $("#linkToCart").attr("href","<%=path %>userAdminAction/userAdmin.action?pages="+pages+"");
+          //è®¾ç½®linkToCartçš„hrefçš„å€¼
+          $("#linkToCart").attr("href","<%=path %>userAdminAction/company.action?pages="+pages+"");
       });
     });
 </script>
@@ -69,27 +63,27 @@ function checkUser(){
   <body>
     <div class="x-nav">
       <span class="layui-breadcrumb">
-        <a href="">Ê×Ò³</a>
-        <a href="">ÑİÊ¾</a>
+        <a href="">é¦–é¡µ</a>
+        <a href="">æ¼”ç¤º</a>
         <a>
-          <cite>µ¼º½ÔªËØ</cite></a>
+          <cite>å¯¼èˆªå…ƒç´ </cite></a>
       </span>
-      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="Ë¢ĞÂ">
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="åˆ·æ–°">
         <i class="layui-icon" style="line-height:30px">?</i></a>
     </div>
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="formid" action="<%=path %>userAdminAction/userAdmin.action">
-          <input class="layui-input" placeholder="¿ªÊ¼ÈÕ" name="statTime" id="start">
-          <input class="layui-input" placeholder="½ØÖ¹ÈÕ" name="stopTime" id="end">
-          <input type="text" name="staffName"  placeholder="ÇëÊäÈëÓÃ»§Ãû" autocomplete="off" class="layui-input">
-          <input type="text" name="phone"  placeholder="ÇëÊäÈëÊÖ»úºÅ" autocomplete="off" class="layui-input">
-          <input type="text" name="staffName"  placeholder="ÇëÊäÈëÌõÂëºÅ" autocomplete="off" class="layui-input">
+          <input class="layui-input" placeholder="å¼€å§‹æ—¥" name="statTime" id="start">
+          <input class="layui-input" placeholder="æˆªæ­¢æ—¥" name="stopTime" id="end">
+          <input type="text" name="staffName"  placeholder="è¯·è¾“å…¥ç”¨æˆ·å" autocomplete="off" class="layui-input">
+          <input type="text" name="phone"  placeholder="è¯·è¾“å…¥æ‰‹æœºå·" autocomplete="off" class="layui-input">
+          <input type="text" name="staffName"  placeholder="è¯·è¾“å…¥æ¡ç å·" autocomplete="off" class="layui-input">
           <button class="layui-btn"  lay-submit="" lay-filter="sreach" onclick = "checkUser();"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
       <xblock>
-        <button class="layui-btn" onclick="x_admin_show('Ìí¼ÓÓÃ»§','./admin-add.html')"><i class="layui-icon">¤b</i>Ìí¼Ó</button>
+        <button class="layui-btn" onclick="x_admin_show('æ·»åŠ ç”¨æˆ·','./admin-add.html')"><i class="layui-icon">î˜ˆ</i>æ·»åŠ </button>
       </xblock>
        <table class="layui-table">
         <thead>
@@ -98,32 +92,32 @@ function checkUser(){
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
             <th>ID</th>
-            <th>ĞÕÃû</th>
-            <th>ÊÖ»úºÅ</th>
-            <th>Ìå¼ìÊ±¼ä</th>
-            <th>ÌõÂëºÅ</th>
-            <th>¹«Ë¾</th>
-            <th>²Ù×÷</th>
+            <th>å…¬å¸åç§°</th>
+            <th>åœ°å€</th>
+            <th>è”ç³»äºº</th>
+            <th>è”ç³»ç”µè¯</th>
+            <th>æ“ä½œ</th>
         </thead>
         <tbody>
-        <c:forEach items="${userList}" var="staffBean">
+        <c:forEach items="${uList}" var="userBean">
           <tr>
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-          	<input type="hidden" id="hidden" name="hidden" value="${staffBean.staffId}"/>
-            <td>${staffBean.staffId}</td>
-            <td><a data-toggle="modal" data-target="#myModal" onclick="info(${staffBean.staffId})">${staffBean.staffName}</a></td>
-            <td>${staffBean.phone}</td>
-            <td>${staffBean.perguirelaBean.partYear}</td>
-             <td>${staffBean.staffId}${staffBean.perguirelaBean.partYear}${staffBean.companyId}${staffBean.perguirelaBean.batchNum}</td>
-             <td>${staffBean.userBean.company}</td>
+          	<input type="hidden" id="hidden" name="hidden" value="${userBean.companyId}"/>
+            <td>${userBean.companyId}</td>
+            <td><a onclick="location.href='<%=path %>userAdminAction/userAdmin.action?companyId=${userBean.companyId}'">${userBean.company}</a></td>
+           
+            
+            <td>${userBean.address}</td>
+            <td>${userBean.contacts}</td>
+             <td>${userBean.phone}</td>
             <td class="td-status">
               
-              <a title="±à¼­"  onclick="x_admin_show('±à¼­','admin-edit.html')" href="javascript:;">
+              <a title="ç¼–è¾‘"  onclick="x_admin_show('ç¼–è¾‘','admin-edit.html')" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
-              <a title="É¾³ı" onclick="member_del(this,'ÒªÉ¾³ıµÄid')" href="javascript:;">
+              <a title="åˆ é™¤" onclick="member_del(this,'è¦åˆ é™¤çš„id')" href="javascript:;">
                 <i class="layui-icon">&#xe640;</i>
               </a>
             </td>
@@ -133,69 +127,30 @@ function checkUser(){
       </table>
       <div class="page">
         <div>
-      µ±Ç°£ºµÚ  ${pages } Ò³/ ¹² ${pageCountAll} Ò³
-          <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=1">Ê×Ò³</a>
-          <a class="prev" href="<%=path %>${(pages-1)>0?pages-1:1}">ÉÏÒ»Ò³</a>
-          <a class="next" href="<%=path %>userAdminAction/userAdmin.action?pages=${(pages+1)<=pageCountAll?pages+1:pageCountAll}">ÏÂÒ»Ò³</a>
-          <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=${pageCountAll}">Ä©Ò³</a>
+      å½“å‰ï¼šç¬¬  ${pages } é¡µ/ å…± ${pageCountAll} é¡µ
+          <a class="num" href="<%=path %>userAdminAction/company.action?pages=1">é¦–é¡µ</a>
+          <a class="prev" href="<%=path %>${(pages-1)>0?pages-1:1}">ä¸Šä¸€é¡µ</a>
+          <a class="next" href="<%=path %>userAdminAction/company.action?pages=${(pages+1)<=pageCountAll?pages+1:pageCountAll}">ä¸‹ä¸€é¡µ</a>
+          <a class="num" href="<%=path %>userAdminAction/company.action?pages=${pageCountAll}">æœ«é¡µ</a>
           <input type="text" id="pages" name="code" style="width:50px;height:40px;" autocomplete="off"/>
-           <a class="num" id="linkToCart" href="">Ìø×ª</a>
+           <a class="num" id="linkToCart" href="">è·³è½¬</a>
         </div>
       </div>
 
     </div>
-    <!-- Ä£Ì¬¿ò£¨Modal£© -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel" >
-            Ìå¼ìÈËÔ±ĞÅÏ¢       
-                </h4>
-            </div>
-            
-            <div class="modal-body">
-                 ĞÕÃû£º<input type="text" id="name">
-            </div>
-            <div class="modal-body">
-                ĞÔ±ğ£º<input type="text" id="sex">
-            </div>
-            
-            <div class="modal-body">
-                ÄêÁä£º<input type="text" id="age">
-            </div>
-            <div class="modal-body">
-                µç»°£º<input type="text" id="phone">
-            </div>
-            <div class="modal-body">
-                Éí·İÖ¤ºÅ£º<input type="text" id="idNum">
-            </div>
-           
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">¹Ø±Õ
-                </button>
-                <button type="button" class="btn btn-primary">
-                    Ìá½»¸ü¸Ä
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+  
 <script>
       layui.use('laydate', function(){
         var laydate = layui.laydate;
         
-        //Ö´ĞĞÒ»¸ölaydateÊµÀı
+        //æ‰§è¡Œä¸€ä¸ªlaydateå®ä¾‹
         laydate.render({
-          elem: '#start' //Ö¸¶¨ÔªËØ
+          elem: '#start' //æŒ‡å®šå…ƒç´ 
         });
 
-        //Ö´ĞĞÒ»¸ölaydateÊµÀı
+        //æ‰§è¡Œä¸€ä¸ªlaydateå®ä¾‹
         laydate.render({
-          elem: '#end' //Ö¸¶¨ÔªËØ
+          elem: '#end' //æŒ‡å®šå…ƒç´ 
         });
       });
  </script>
