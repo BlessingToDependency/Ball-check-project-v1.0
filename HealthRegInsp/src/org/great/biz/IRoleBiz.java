@@ -25,4 +25,7 @@ public interface IRoleBiz {
     
     //删除角色
     public  void  deleteRole(int roleId);
+    
+   //查重
+    public List<RoleBean> checkRole(RoleBean roleBean);
 }

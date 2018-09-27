@@ -19,7 +19,7 @@ public interface IDeparMapper {
 	//带分页模糊查找科室
 	public List<DeparBean> selectDe(DeparBean deparBean,RowBounds rowBounds);
 	
-	//去重，查询个数
+	//查询个数
 	public List<DeparBean> selectDeN(DeparBean deparBean);
 	
 	//增加科室
@@ -30,4 +30,7 @@ public interface IDeparMapper {
 	
 	//修改科室名
 	public  void  updateDepar(DeparBean deparBean);
+	
+	//去重
+	public List<DeparBean> selectDeChe(DeparBean deparBean);
 }

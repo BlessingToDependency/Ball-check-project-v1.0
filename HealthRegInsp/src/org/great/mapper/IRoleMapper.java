@@ -26,4 +26,7 @@ public interface IRoleMapper {
      
      //删除角色
      public  void  deleteRole(@Param("roleId")int roleId);
+     
+     //查重
+     public List<RoleBean> checkRole(RoleBean roleBean);
 }

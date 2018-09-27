@@ -56,7 +56,7 @@ public class MangeRoleAction {
 		String page=request.getParameter("page");
 	
 		 int pageNo=-1;
-			if(null==page) {
+			if(null==page||"".equals(page)) {
 				pageNo =1;
 				
 			}else {
@@ -96,12 +96,17 @@ public class MangeRoleAction {
 	 * 跳转到修改角色名窗口
 	 */
 	@RequestMapping(value="tomaRole.action")
-	public  ModelAndView tomaRole() {
+	public  @ResponseBody void tomaRole() throws Exception{
 		String roleI=request.getParameter("roleId");
 		session.setAttribute("roleI", roleI);
 		
-		mav.setViewName("BackEnd/updateRoleName");		
-		return mav;
+		PrintWriter out = response.getWriter();
+		String msg="OK";
+		Gson gson1 = new Gson();
+		String str1 = gson1.toJson(msg);
+		out.print(str1);
+		out.close();
+		
 		
 	}
 	
@@ -112,11 +117,14 @@ public class MangeRoleAction {
 	public  ModelAndView updateRoleNmae(RoleBean roleBean) {
 		
 		String rol=(String) session.getAttribute("roleI");
-		int roleId=Integer.parseInt(rol);
-		System.out.println("----"+roleId);
-		roleBean.setRoleId(roleId);	
+		int roleId=Integer.parseInt(rol);		
+		roleBean.setRoleId(roleId);	String mag=(String) session.getAttribute("msg");
+		if(mag.equals("可用角色")) {		
 		roleBizImp.updateRoleNmae(roleBean);	
-		mav.setViewName("BackEnd/updateRoleName");		
+		mav.setViewName("redirect:/maRoleAction/selectAllRole.action");
+		}else {
+			mav.setViewName("BackEnd/result");
+		}
 		return mav;
 		
 	}
@@ -144,7 +152,7 @@ public class MangeRoleAction {
 	 */
 	@RequestMapping(value="innerRole.action")
 	 public ModelAndView  innerRole(RoleBean roleBean) {
-		System.out.println("1111");
+		
 		String mag=(String) session.getAttribute("msg");
 		if(mag.equals("可用角色")) {
 			
@@ -152,9 +160,9 @@ public class MangeRoleAction {
 		mav.setViewName("redirect:/maRoleAction/selectAllRole.action");
 		}
 		else {
-			mav.setViewName("BackEnd/add_role");
+			mav.setViewName("BackEnd/result");
 		}
-		//mav.setViewName("BackEnd/add_role");
+		
 		return mav;
 	}
 	
@@ -179,7 +187,7 @@ public class MangeRoleAction {
 		String role=request.getParameter("role");
 		roleBean.setRole(role);
 		
-		List<RoleBean>  roleList=roleBizImp.selectRoleNum(roleBean);
+		List<RoleBean>  roleList=roleBizImp.checkRole(roleBean);
 		
 		PrintWriter out = response.getWriter();
 		String msg;
