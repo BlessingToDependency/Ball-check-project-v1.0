@@ -32,6 +32,8 @@ public class AdminBean {
 	private RoleBean roleBean;
 	@Resource
 	private ParamBean paramBean;
+	@Resource 
+	private DeparBean deparBean;
 
  
  
@@ -292,6 +294,18 @@ public class AdminBean {
 
 	public void setParamBean(ParamBean paramBean) {
 		this.paramBean = paramBean;
+	}
+
+
+
+	public DeparBean getDeparBean() {
+		return deparBean;
+	}
+
+
+
+	public void setDeparBean(DeparBean deparBean) {
+		this.deparBean = deparBean;
 	}
 
 	

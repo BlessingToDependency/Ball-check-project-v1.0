@@ -68,6 +68,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 	   
 	    });
 			}
+		/* 增加项目 */
 		function addItem(){
 			$.ajax({
 				type: "post",
@@ -78,7 +79,8 @@ String path = request.getScheme() +"://"+request.getServerName()
 	            success: function(reData){//接受后台发送的数据
 	            	//alert(reData)
 	            	$("#myModal0").empty();
-	                $("#myModal0").prepend("</div></div></form><div class='modal-footer'>"
+	                $("#myModal0").prepend("</div></div><div class='modal-footer'>"
+	                		+"<input  type='submit' value='添加' class='btn btn-default' style='margin-right:50px'>"
 	                		+"<button type='button' class='btn btn-default'"
 	                		+"data-dismiss='modal'>关闭</button></div>"
 	                		
@@ -87,35 +89,87 @@ String path = request.getScheme() +"://"+request.getServerName()
 	            	$.each(reData, function (i, item) { 
 	                	//alert(item0.term);
 	                	//console.log(item.term)
-	                	$("#myModal0").prepend("<input type='checkbox' name='like1[read]' lay-skin='primary' title='阅读'>"
-	                	)
-                    	
+	                	if(i%4==0){
+	                		$("#myModal0").prepend("<br/>");
+	                	}
+	                	$("#myModal0").prepend("<input type='checkbox' name='chbname' value='"+item.termId+"' lay-skin='primary' title='"+item.term+"'>"+item.term)
 		                
                     }); 
-	                	$("#myModal0").prepend("<div class='modal-header'>"
+	                	$("#myModal0").prepend("<div class='modal-header'>"                		
 	                		+"<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>×</button>" 
 	   						+"<h4 class='modal-title' id='myModalLabel'>添加项目</h4></div>"
-	                		+"<form class='layui-form' action=''>"
-	   						+"<div class='layui-form-item'><label class='layui-form-label'>项目名称</label><div class='layui-input-block'>"
+	   						+"<div class='layui-form-item'><label class='layui-form-label'>项目名</label><div class='layui-input-block'>"
 	                		+"<input type='text' name='term' lay-verify='title' autocomplete='off' placeholder='请输入项目名称' class='layui-input'></div></div>"
-	                		+"<div class='layui-form-item'><label class='layui-form-label'>下限值</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='downLimit' lay-verify='title' autocomplete='off' placeholder='请输入下限值' class='layui-input'></div></div>"
-	                		+"<div class='layui-form-item'><label class='layui-form-label'>上限值</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='upLimit' lay-verify='title' autocomplete='off' placeholder='请输入上限值' class='layui-input'></div></div>"
-	                		+"<div class='layui-form-item'><label class='layui-form-label'>计量单位</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='measur' lay-verify='title' autocomplete='off' placeholder='请输入计量单位' class='layui-input'></div></div>"
+	                		+"<div class='layui-form-item'><label class='layui-form-label'>价格</label><div class='layui-input-block'>"
+	                		+"<input type='text' name='price' lay-verify='title' autocomplete='off' placeholder='请输入价格' class='layui-input'></div></div>"
+	                		+"<div class='layui-form-item'><label class='layui-form-label'>简介</label><div class='layui-input-block'>"
+	                		+"<input type='text' name='introd' lay-verify='title' autocomplete='off' placeholder='请输入简介' class='layui-input'></div></div>"
 	                		+"<div class='layui-form-item' pane=''>" 
-	                		+"<label class='layui-form-label'>细项选择</label>"
+	                		+"<label class='layui-form-label'>选择项目包含的细项</label>"
 	                		+"<div class='layui-input-block'>"
 	                	)	                	
 	                $('#myModal').modal('show');
-	                	layui.use('form', function () {
-	                        var form = layui.form;
-	                        form.render('checkbox');
-	                    });
 	            }
 			})	
-	}
+	}	
+	/* 修改项目	 */
+		function amendItem(itemId){
+			//alert(itemId);	
+			$.ajax({
+				type: "post",
+	            url: "<%=path %>adminLitemAction/amendItem.action",
+	            dataType: "json",
+	            data: {itemId: itemId, //发送的数据部分                       
+	            },
+	            success: function(reData){//接受后台发送的数据
+	                    //alert(reData.page);
+	                   /*  var jsonObj=eval("("+reData+")");
+	                    alert(jsonObj); */
+	                    
+	                    //清空div里的内容
+	                    $("#myModal3").empty();
+	                    $("#myModal3").prepend("<div class='modal-footer'>"
+	                    		+"<input  type='submit' value='修改' class='btn btn-default' style='margin-right:50px'>"
+	                    		+"<button type='button' class='btn btn-default'"
+	                    		+"data-dismiss='modal'>关闭</button></div>"
+	                    	)
+	                    $.each(reData.allTlist, function (i, item0) { 
+	                    	//alert(item0.term);
+	                    	if(i%4==0){
+		                		$("#myModal3").prepend("<br/>");
+		                	}	                    		                
+		                	$("#myModal3").prepend("<input type='checkbox' name='chbname' value='"+item0.termId+"' lay-skin='primary' title='"+item0.term+"'>"+item0.term);
+	                    	
+	                    });
+	                    $("#myModal3").prepend("<div class='modal-body'>--未选择项目细项--</div>");
+	                    $.each(reData.termList, function (i, item1) { 
+	                    	//alert(item0.term);
+	                    	if(i%4==0){
+		                		$("#myModal3").prepend("<br/>");
+		                	}	                    		                
+		                	$("#myModal3").prepend("<input type='checkbox' name='chbname' value='"+item1.termId+"' lay-skin='primary' title='"+item1.term+"'checked=''>"+item1.term);
+	                    	
+	                    });
+	                    
+	                    $("#myModal3").prepend("<div class='modal-body'>--以选择项目细项--</div>");
+	                    $.each(reData.list, function (i, item) { 
+	                    	//alert(item.item);
+	                    	$("#myModal3").prepend("<div class='modal-header'>"
+	                    		+"<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>×</button>" 
+        						+"<h4 class='modal-title' id='myModalLabel'>修改项目</h4></div>"
+        						+"<input name='id' type='hidden' value='"+item.itemId+"'>"
+        						+"<div class='modal-body'>项目名：<div class='layui-input-block'><input type='text' name='item' lay-verify='title' autocomplete='off' placeholder='"+item.item+"' class='layui-input' value='"+item.item+"'></div></div>"
+								+"<div class='modal-body'>单价：<div class='layui-input-block'><input type='text' name='price' lay-verify='title' autocomplete='off' placeholder='"+item.price+"' class='layui-input' value='"+item.price+"'></div></div>"
+								+"<div class='modal-body'>简介：<div class='layui-input-block'><textarea name='introd'  lay-verify='title' autocomplete='off' placeholder='"+item.introd+"' class='layui-textarea'>"+item.introd+"</textarea></div></div>"
+	                    	)
+	                    });
+	                    
+	                    $('#myModal2').modal('show');
+        				
+	            }
+	   
+	    });
+			}
 		
 	</script>
 	<script>
@@ -181,8 +235,8 @@ layui.use('form', function(){
             <td>${item.price }</td>
             <td style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden">${item.introd }</td>
             <td class="td-status">
-                 <span class="layui-btn layui-btn-normal layui-btn-mini">修改</span>
-                 <span class="layui-btn layui-btn-danger">删除</span>
+                 <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="amendItem(${item.itemId})">修改</span>
+                 <span class="layui-btn layui-btn-danger"><a href="<%=path%>adminLitemAction/delItem.action?id=${item.itemId}">删除</a></span>
                  <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="myModal(${item.itemId})">查看详情</span>
                  <%-- <span class="layui-btn layui-btn-danger" data-toggle="modal" data-target="#myModal${i.index+1 }">查看详情</span> --%>
 	        </td>
@@ -202,6 +256,7 @@ layui.use('form', function(){
       </div>
     </div>
       <!-- 模态框（Modal） -->
+<form id="from"action="<%=path%>adminLitemAction/addItem.action" method="post" onSubmit="">
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content" id="myModal0">
@@ -227,7 +282,36 @@ layui.use('form', function(){
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+</form>
 
+  <!-- 修改模态框（Modal） -->
+<form id="from"action="<%=path%>adminLitemAction/upDateItem.action" method="post" onSubmit="">
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content" id="myModal3">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					模态框（Modal）标题
+				</h4>
+			</div>
+			<div class="modal-body">
+				在这里添加一些文本
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="btn btn-primary">
+					提交更改
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+</form>
     <script>
       layui.use('laydate', function(){
         var laydate = layui.laydate;

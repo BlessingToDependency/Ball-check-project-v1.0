@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="org.great.mapper.IAdminMapper">
+  <!-- 修改医生状态 （禁用，启用）-->
+ 	      <update id="updateDoctorState" parameterType="org.great.bean.AdminBean">
+ 	         update tblbackstage set stateId=#{stateId} where adminId=#{adminId}
+ 	      </update>
+ 	
+ 	      <!-- 逻辑删除医生 -->
+ 	      <update id="logicDeleteDoc" parameterType="org.great.bean.AdminBean">
+ 	           update  tblbackstage set logicId=#{logicId}  where adminId=#{adminId}
+ 	      </update>
+ 	      
+ 	      <!-- 后台对医生信息进行修改 -->
+ 	      <update id="updateDoctorInfo" parameterType="org.great.bean.AdminBean">
+ 	            update tblbackstage set background=#{background},phone=#{phone},graduated=#{graduated},postId=#{postId},depaId=#{depaId} where adminId=#{adminId}
+ 	      </update>
+ 	      
+ 	      <!-- 查询医生信息 -->
+ 	        <select id="slectDoctorInfo" parameterType="java.lang.Integer" resultMap="adminIn">
+ 	                select t.*,p.post from tblbackstage  t,TBLPOST p
+ 	                  where adminId=#{adminId}
+ 	        </select>
+ 	        
+ 	         <!-- 管理全体医生信息 -->
+ 	        <select id="selectAllDoctor" parameterType="org.great.bean.AdminBean" resultMap="adminIn">
+ 	           select t.*,p.post,m.param,r.depa from tblbackstage  t,TBLPOST p,tblparam m,tbldepar r  where t.postId=p.postId and t.stateId=m.paramId and t.depaId=r.depaId and ROLEID=3
+ 	               <if test="adminBean.adminName!=null">and adminName like '%${adminBean.adminName}%'   </if>
+ 	               <if test="adminBean.postBean.post!=null">and post like '%${adminBean.postBean.post}%'   </if>
+ 	                <if test="adminBean.deparBean.depa!=null">and depa like '%${adminBean.deparBean.depa}%'   </if>
+ 	                
+ 	                
+ 	               
+ 	        </select>
+ 	        
+ 	        <!-- 管理医生(数量) -->
+ 	        <select id="selectAllDoctorN" parameterType="org.great.bean.AdminBean" resultMap="adminIn">
+ 	              select t.*,p.post,m.param,r.depa from tblbackstage  t,TBLPOST p,tblparam m,tbldepar r  where t.postId=p.postId and t.stateId=m.paramId and t.depaId=r.depaId and ROLEID=3
+ 	              <if test="adminBean.adminName!=null">and adminName like '%${adminBean.adminName}%'   </if> 	            
+ 	                 <if test="adminBean.postBean.post!=null">and post like '%${adminBean.postBean.post}%' </if> 
+ 	                 <if test="adminBean.deparBean.depa!=null">and depa like '%${adminBean.deparBean.depa}%' </if>
+ 	                  
+ 	        </select>
+ 	        
+ 	        <!-- 新增医生查重 -->
+ 	           <select id="cheackDoctor" parameterType="org.great.bean.AdminBean" resultType="org.great.bean.AdminBean">
+ 	              select * from (select * from tblbackstage) where 1=1
+ 	                <if test="phone!=null">and phone=#{phone}   </if>
+ 	                <if test="idNum!=null">and idNum =#{idNum}   </if>  
+ 	           </select>
+ 	   
+ 	        
+ 	 <resultMap type="org.great.bean.AdminBean" id="adminIn">
+	    	<id property="adminId" column="adminId"/>
+		   <result property="adminName" column="adminName"/>
+		   <result property="age" column="age"/>
+		   <result property="background" column="background"/>
+	       <result property="phone" column="phone"/>
+		   <result property="graduated" column="graduated"/>
+		   <result property="background" column="background"/>
+		   <result property="sex" column="sex"/>
+		   <result property="postId" column="postId"/>
+		   <result property="head" column="head"/>
+		   <result property="depaId" column="depaId"/>
+		   <result property="roleId" column="roleId"/>
+		   <result property="stateId" column="stateId"/>
+		   <result property="logicId" column="logicId"/>
+		   <result property="idNum" column="idNum"/>
+		   <result property="email" column="email"/>
+		   
+		<association property="postBean" javaType="org.great.bean.PostBean" >
+			<id property="postId" column="postId"/>
+			<result property="post" column="post"/>
+			
+		</association>
+		
+		<association property="paramBean" javaType="org.great.bean.ParamBean" >
+			<id property="paramId" column="paramId"/>
+			<result property="param" column="param"/>
+		</association>
+		
+		<association property="deparBean" javaType="org.great.bean.DeparBean" >
+			<id property="depaId" column="depaId"/>
+			<result property="depa" column="depa"/>
+		</association>
+		
+	 </resultMap>
+ </mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="org.great.mapper.IItemService">
+	<!-- 增加项目对应的细项 -->
+	<insert id="addItemDetail" parameterType="org.great.bean.ItemComBean">
+		insert into TBLITEMCOM VALUES (#{itemId},#{termId})
+	</insert>
+	<!-- 查询项目的Id -->
+	<select id="selectItemId" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT ITEMID FROM TBLITEM where item = #{itemname}
+	</select>
+	<!-- 查询项目不包含的细项信息 -->
+	<select id="selectNinTerm" parameterType="org.great.bean.LitemBean" resultMap="mySelectTerm">
+		select a.ITEMID,b.* from tblitemcom a,tblterm b 
+		where a.ITEMID not in #{itemId} and a.TERMID = b.TERMID
+	</select>
+	<resultMap type="org.great.bean.TermBean" id="mySelectTerm">
+		<id property="termId" column="termId"/>
+		<result property="term" column="term"/>
+		<result property="measur" column="measur"/>
+		<result property="upLimit" column="upLimit"/>
+		<result property="downLimit" column="downLimit"/>
+		<association property="itemComBean" javaType="org.great.bean.ItemComBean">
+		<id property="termId" column="termId"/>
+		<result property="termId" column="termId"/>
+		</association>
+	</resultMap>
+	<!-- 修改项目 -->
+	<update id="upDateTitem" parameterType="org.great.bean.LitemBean">
+			update TBLITEM set ITEM = #{item},PRICE=#{price},INTROD =#{introd} where ITEMID = #{itemId}
+	</update>
+		<!-- 删除项目下对应的细项 -->
+	<delete id="delTitem" parameterType="org.great.bean.LitemBean">
+		DELETE FROM TBLITEMCOM WHERE ITEMID =#{itemId}
+	</delete>
+	<!-- 删除项目 -->
+	<delete id="deleteItem" parameterType="org.great.bean.LitemBean">
+		DELETE FROM TBLITEM WHERE ITEMID = #{itemId}		
+	</delete>
+ </mapper>
