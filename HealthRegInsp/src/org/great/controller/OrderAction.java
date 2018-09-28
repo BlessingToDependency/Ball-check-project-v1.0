@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
+import org.great.bean.ItemConBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
 import org.great.biz.OderBiz;
@@ -83,10 +84,11 @@ public class OrderAction {
 		model.addAttribute("orderList", orderList);	
 		model.addAttribute("count", count);
 		model.addAttribute("setmeal", setmeal);
+	
 		return "BackEnd/order_list";
 	}
 
-	//显示套餐的项目 (加了setmeal了 等待测试）
+/*	//显示套餐的项目 (加了setmeal了 等待测试）
 	@RequestMapping("/showItem.action")  
 	public String  showItem(Model model,Integer setmealId,String setmeal) throws IOException {	
 		System.out.println("显示套餐ID："+setmealId);
@@ -99,23 +101,68 @@ public class OrderAction {
 		model.addAttribute("setmeal", setmeal);
 		return "BackEnd/order_additem";
 		//return "BackEnd/order_list_edit";
+	}*/
+	
+	//显示套餐的项目 
+	@RequestMapping("/showItem.action")  
+	public String  showItem(Model model,Integer setmealId,String setmeal,ItemConBean itemConBean,LitemBean litemBean) throws IOException {	
+		System.out.println("itemConBean："+itemConBean.toString());
+		System.out.println("litemBean："+litemBean.toString());
+//	    List<LitemBean> itemList = oderBizImp.findItemById(setmealId);
+
+		if (null==itemConBean.getCurrentPage()) {
+			 itemConBean.setCurrentPage(1);
+		}
+		
+		int count = oderBizImp.sumOrderByItem(litemBean, itemConBean, setmealId);
+		totalPage = count % 5 > 0 ? count / 5 + 1 : count / 5;
+		if (totalPage==0) {
+			totalPage=1;
+		}
+		List<LitemBean> itemList = oderBizImp.queryItemById(litemBean, itemConBean, setmealId);
+	    List<LitemBean>  allList = oderBizImp.findItemById(setmealId);
+	    Integer maxPrice =itemConBean.getMaxPrice();
+	    Integer minPrice=  itemConBean.getMinPrice();
+	    String  item  = litemBean.getItem();
+	    Integer currentPage= itemConBean.getCurrentPage();
+	    System.out.println("itemList:"+itemList.toString());
+	    //把bean发回去
+		model.addAttribute("itemList",itemList);	
+		model.addAttribute("allList",allList);
+		model.addAttribute("setmealId", setmealId);	
+		model.addAttribute("setmeal", setmeal);
+		model.addAttribute("maxPrice", maxPrice);
+		model.addAttribute("minPrice", minPrice);
+		model.addAttribute("count", count);
+		model.addAttribute("item", item);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("totalPage", totalPage);
+	    session.setAttribute("setmeal", setmeal);
+		return "BackEnd/order_additem";
+		//return "BackEnd/order_list_edit";
 	}
 	
 	
 	//删除套餐
 	@RequestMapping("/delteOrder.action")
-	public ModelAndView  delteOrder(Model model,Integer setmealId) throws IOException {		
-		 
+	public ModelAndView  delteOrder(Model model,Integer setmealId,RedirectAttributes attr) throws IOException {		
+		String setmeal = (String) session.getAttribute("setmeal");
 		oderBizImp.deleteOrder(setmealId);
 		//model.addAttribute("itemList",itemList);	
-		
+		attr.addAttribute("setmeal", setmeal);
+		System.out.println("setmeal:"+setmeal);
 		return   new ModelAndView("redirect:/Order/showOrder.action");
 	}
 	
 	//删除套餐中的项目
 	@RequestMapping("/deleteItem.action")
-	public ModelAndView deleteItem(Integer comId,RedirectAttributes attr,Integer setmealId) {
-		oderBizImp.deleteItem(comId);			
+	public ModelAndView deleteItem(Integer[] data,RedirectAttributes attr,Integer setmealId) {
+		System.out.println("进入函数");
+
+		for (Integer itemId : data) {
+			System.out.println("itemId11111111111111111111111:"+itemId);			
+			oderBizImp.deleteItem(itemId);			
+		}
 		attr.addAttribute("setmealId", setmealId);
 		return new ModelAndView("redirect:/Order/showItem.action");			
 	}

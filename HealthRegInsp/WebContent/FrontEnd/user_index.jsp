@@ -125,18 +125,26 @@
           <li><a href="<%=path%>userLoginAction/toUpPws.action">编辑公司信息</a></li>
           <li><a href="<%=path%>userLoginAction/toUpPws.action">修改密码</a></li>
 
-          
-
         </ul>
-
-      </li><li class="navitem"><a  href="<%=path %>fileAction/fileDownLoad.action" >下载模板</a>
-
+      </li>
+      
+      <li class="navitem">
+      <a  href="<%=path %>fileAction/fileDownLoad.action" >下载模板</a>
+      <a  href="<%=path %>fileAction/fileDownLoad.action" >上传体检人员信息</a>
         <ul class="subnav">
-
-          
-
         </ul>
-      </li><li class="navitem"><a  href="news.html" >新闻动态</a>
+      </li>
+      <div>请选择文件：<input name="fileact" type="file"></div>
+	  <div><input name="submit" type="submit" value="上传"></div>
+	  
+	   <li class="navitem">
+      <a  href="<%=path %>fileAction/fileDownLoad.action" >上传体检人员信息</a>
+        <ul class="subnav">
+        </ul>
+      </li>
+      
+      
+      <li class="navitem"><a  href="news.html" >新闻动态</a>
 
         <ul class="subnav">
 

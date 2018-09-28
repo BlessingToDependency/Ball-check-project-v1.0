@@ -6,11 +6,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
@@ -34,35 +39,17 @@ public class FileAction {
 	/*
 	 * 上传
 	 */
-	@RequestMapping("/fileUpLoad.action")
-    public String testUpload(@RequestParam(value="desc",required=false) String desc,@RequestParam("files")CommonsMultipartFile file) throws Exception{
-       System.out.println("上传="+file);
-		ServletContext servletContext = request.getServletContext();//获取ServletContext的对象 代表当前WEB应用
-        String realPath = servletContext.getRealPath("/uploads");//得到文件上传目的位置的真实路径
-        System.out.println("realPath :"+realPath);
-        File file1 = new File(realPath);
-        if(!file1.exists()){
-            file1.mkdir();   //如果该目录不存在，就创建此抽象路径名指定的目录。 
-        }
-        String prefix = UUID.randomUUID().toString();
-        prefix = prefix.replace("-","");
-        String fileName = prefix+"_"+file.getOriginalFilename();//使用UUID加前缀命名文件，防止名字重复被覆盖
-        
-        InputStream in= file.getInputStream();;//声明输入输出流
-        
-        OutputStream out=new FileOutputStream(new File(realPath+"\\"+fileName));//指定输出流的位置;
-        
-        byte []buffer =new byte[1024];
-        int len=0;
-        while((len=in.read(buffer))!=-1){
-            out.write(buffer, 0, len);
-            out.flush();                //类似于文件复制，将文件存储到输入流，再通过输出流写入到上传位置
-        }                               //这段代码也可以用IOUtils.copy(in, out)工具类的copy方法完成
-        out.close();
-        in.close();
-    
-        return "success";
-    }
+	@RequestMapping(value="/upload.action",method=RequestMethod.POST)
+	public ModelAndView  fileUpload(@RequestParam MultipartFile fileact) throws IllegalStateException, IOException {
+		String filename = fileact.getOriginalFilename();
+		System.out.println("获取到的文件名："+filename);
+		String root = request.getServletContext().getRealPath("/upload");
+		System.out.println(root);
+		fileact.transferTo(new File(root+"/"+filename));
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("back/success");
+		return mav;
+	}
 	
 	/*
 	 * 下载

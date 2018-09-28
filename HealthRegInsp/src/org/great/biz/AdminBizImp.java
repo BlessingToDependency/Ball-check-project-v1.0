@@ -127,9 +127,6 @@ public class AdminBizImp implements AdminBiz{
 	}
 
 
-	/* (non-Javadoc)
-	 * @see org.great.biz.AdminBiz#selectLitem(org.great.bean.LitemBean)
-	 */
 	@Override
 	public LitemBean selectLitem(LitemBean litemBean) {
 		// TODO Auto-generated method stub

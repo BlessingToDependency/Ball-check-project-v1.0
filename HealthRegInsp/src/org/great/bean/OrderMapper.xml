@@ -31,32 +31,58 @@
  			select a.*,b.*,c.comId from tblitem a,tblsetmeal b,tblsetcom c  where b.setmealId = c.setmealId and a.itemId = c.itemId 
  			
  			<if test="null != setmealId and ''!= setmealId">
- 					and c.setmealId = #{setmealId}
+ 					and c.setmealId not in #{setmealId}
  			</if>				
  		</select>
  		
  	<!-- 查询套餐中的项目 -->	
-<!--  		<select id="">
+ 		<select id="queryItemById" resultMap="Tblfile">
  			select e.*,rownum from
 			(select d.* ,rownum rn from
 			(select a.*,b.*,c.comId from tblitem a,tblsetmeal b,tblsetcom c  
 			<where>
-				b.setmealId = c.setmealId and a.itemId = c.itemId
+				b.setmealId = c.setmealId and a.itemId = c.itemId 
 				<if test="null != setmealId and ''!= setmealId">
  					and c.setmealId = #{setmealId}
  				</if>
- 				<if test="">
- 					
+ 				<if test="null!=litemBean.item and ''!=litemBean.item">				
+ 					and  a.item like concat(concat('%',#{litemBean.item}),'%')
+ 				</if>
+ 				<if test="null!=itemConBean.maxPrice and ''!=itemConBean.maxPrice">
+ 					 and	a. price&gt;=#{itemConBean.maxPrice}			
+ 				</if>
+ 				<if test="null!=itemConBean.minPrice and ''!=itemConBean.minPrice">
+ 				      and  a.price &lt;=#{itemConBean.minPrice}				
+ 				</if>
+ 				
+			</where>						
+			)d                                                          
+			where rownum &lt;= (#{itemConBean.currentPage} * #{itemConBean.pagecout}) )e where rn &gt;=((#{itemConBean.currentPage}-1)*#{itemConBean.pagecout}+1)		
+ 		</select>
+ 		
+ 		
+ 	<!-- 计算套餐中项目的总页数 -->
+ 		<select id="sumOrderByItem" resultType="java.lang.Integer">
+ 			select count(*) from
+			(select a.*,b.*,c.comId from tblitem a,tblsetmeal b,tblsetcom c  
+			<where>
+				b.setmealId = c.setmealId and a.itemId = c.itemId 
+				<if test="null != setmealId and ''!= setmealId">
+ 					and c.setmealId = #{setmealId}
+ 				</if>
+ 				<if test="null!=litemBean.item and ''!=litemBean.item">				
+ 					and a.item like concat(concat('%',#{litemBean.item}),'%')
+ 				</if>
+ 				<if test="null!=itemConBean.maxPrice and ''!=itemConBean.maxPrice">
+ 					 and	a. price&gt;=#{itemConBean.maxPrice}			
+ 				</if>
+ 				<if test="null!=itemConBean.minPrice and ''!=itemConBean.minPrice">
+ 				     and   a.price &lt;=#{itemConBean.minPrice}				
  				</if>
  				
 			</where>
-			
-			
-			where b.setmealId = c.setmealId and a.itemId = c.itemId and c.setmealId =1 and a.item like '%内%'  and a. price>=90 and a.price <=140)d
-			where rownum <=5 )e where rn>=1
- 		
- 		
- 		</select> -->
+					)		
+ 		</select>
  		
  		
  		
@@ -73,7 +99,7 @@
 	 	<result column="item" property="item"  />
 	 	<result column="price" property="price"  />
 	 	<result column="introd" property="introd"  />	
-		<!--一对一  从属bean-->
+		<!--一对一  从属bean "tblSetCom"bean里面的属性-->
 		<association property="tblSetCom" javaType="org.great.bean.TblSetCom"  > 
 			<id column="comId"  property="comId" />
 			<result column="itemID" property="itemID"/>

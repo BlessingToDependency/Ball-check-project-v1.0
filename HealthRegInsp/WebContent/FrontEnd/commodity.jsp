@@ -187,21 +187,12 @@ $('#min').attr('disabled',true);
       <td><label>
         <input type="submit" name="Submit" value="立即购买" />
         <input type="button" name="Submit" value="加入购物车" />
+        
       </label></td>
     </tr>
 </c:forEach>
   </table>
 </form>
-<form action="<%=path %>fileAction/fileUpLoad.action" enctype="multipart/form-data">
- <table>
- <tr><td>
-  		<input type="file" name="file"/>
-    	 <input type="text" name="desc"/>
-        <input type="submit" value="提交上传"/>
-        </td></tr>
-         </table>
-</form>
-   
 <div id="footer">
 
   <p>Copyright &copy; 2002-2011 <a href="http://www.adminbuy.cn" target="_blank">团检系统</a> 版权所有　<a class="beian" href="http://www.miitbeian.gov.cn/" style="display:inline; width:auto; color:#8e8e8e" target="_blank">苏ICP12345678</a></p>
