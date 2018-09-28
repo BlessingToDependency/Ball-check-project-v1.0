@@ -10,6 +10,7 @@ package org.great.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.great.bean.ItemConBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
 import org.springframework.stereotype.Repository;
@@ -32,6 +33,13 @@ public interface OrderMapper {
 		
 	//查询套餐中的项目
 	public  List<LitemBean> findItemById (@Param("setmealId")Integer setmealId);
+	
+	
+	//替换上面的那个 分页模糊查询查询套餐中的项目	
+	public  List<LitemBean> queryItemById (@Param(value="litemBean")LitemBean litemBean,@Param("itemConBean")ItemConBean itemConBean,@Param("setmealId")Integer setmealId);
+	
+	//计算套餐中的项目的总页数
+	public  Integer  sumOrderByItem(@Param(value="litemBean")LitemBean litemBean,@Param("itemConBean")ItemConBean itemConBean,@Param("setmealId")Integer setmealId);
 	
 	//删除套餐中
 	public  void  deleteOrder(@Param("setmealId")Integer setmealId);

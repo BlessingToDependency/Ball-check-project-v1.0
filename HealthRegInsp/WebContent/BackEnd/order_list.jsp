@@ -59,7 +59,7 @@
 		</button>
 
 		 <%--   <button class="layui-btn" onclick="x_admin_show('添加用户','<%=path %>Order/addItem.action')"><i class="layui-icon"></i>添加</button> --%>
-		<span class="x-right" style="line-height: 40px">页数：${currentPage}/${totalPage }</span> </xblock>
+		<span class="x-right" style="line-height: 40px">共有数据：${count } 条</span> </xblock>
 		<form id="fileForm" name="fileform" method="post" action="fileShow.action">
 			<table class="layui-table">
 				<thead>

@@ -104,7 +104,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                         </a>
                     </li>
                      <li>
-                        <a _href="<%=path%>Order/showOrder.action">
+                        <a _href="<%=path%>Report/showCompany.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>团检套餐配置</cite>
                         </a>
