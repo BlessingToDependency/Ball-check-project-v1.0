@@ -29,6 +29,5 @@
 		    <!-- 删除角色-->
 		    <delete id="deleteRole" parameterType="java.lang.Integer">
 		          delete   tblrole where roleId=#{roleId} 
-		    </delete>
- 		
+		    </delete>		
  </mapper>
