@@ -59,4 +59,7 @@ public interface OrderMapper {
 	//修改套餐名
 	public void updateOrder(@Param("orderId")Integer setmealId,@Param("orderName")String setmeal);
 	
+	
+	//套餐名查重
+	public SetmealBean checkOrderName(@Param("setMeal") String setMeal);
 }

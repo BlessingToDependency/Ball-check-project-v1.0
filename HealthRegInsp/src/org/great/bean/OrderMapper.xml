@@ -127,5 +127,10 @@
  		<update id="updateOrder">		
  			UPDATE TBLSETMEAL SET SETMEAL = #{orderName} WHERE SETMEALID = #{orderId}
  		</update>
+ 	
+ 	<!--套餐名除重  -->
+ 		<select id="checkOrderName" parameterType="java.lang.String" resultType="org.great.bean.SetmealBean"> 
+ 			 select * from TBLSETMEAL  where setMeal = #{setMeal} 		
+ 		</select>
  		
  </mapper>
