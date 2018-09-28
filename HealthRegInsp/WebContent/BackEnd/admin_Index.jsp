@@ -208,13 +208,13 @@ String path = request.getScheme() +"://"+request.getServerName()
                         </a>
                     </li>
                       <li>
-                        <a _href="unicode.html">
+                        <a _href="<%=path %>adminJurisAction/showRole.action?page=1&role=">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>权限分配</cite>
                         </a>
                     </li>
                       <li>
-                        <a _href="unicode.html">
+                        <a _href="<%=path%>adminPrivilegeAction/selectPrivilege.action?page=1&menu=">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>菜单管理</cite>
                         </a>

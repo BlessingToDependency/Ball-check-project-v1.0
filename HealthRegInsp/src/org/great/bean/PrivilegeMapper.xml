@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="org.great.mapper.PrivilegeServic">
+ 	<!-- 查询权限信息(分页 模糊  条件) -->
+ 	<select id="selectAllPrivilege" parameterType="org.great.bean.JurdisBean" resultType="org.great.bean.JurdisBean">
+ 		select * from ( select  t.*, rownum RN from 
+		(SELECT * FROM TBLJURDIS 
+		<where>
+			<if test="jurdisBean.menu!=null and jurdisBean.menu!=''">
+			and menu like concat(concat('%',#{jurdisBean.menu}),'%')
+			</if>
+		</where>
+		ORDER BY jurisid)t ) where RN &gt;(#{page}*10-10) and RN &lt;= (#{page}*10) 
+ 	</select>
+ 	<!-- 查询权限总条数 -->
+ 	<select id="selectPrivilegeSum" parameterType="org.great.bean.JurdisBean" resultType="java.lang.Integer">
+ 		select count(*) from TBLJURDIS 
+ 		<where>
+ 			<if test="menu!=null and menu!=''">
+			and menu like concat(concat('%',#{menu}),'%')
+			</if>
+ 		</where>	
+ 	</select>
+ 	<!-- 查询单个权限信息 -->
+ 	<select id="selectOnePrivilege" parameterType="java.lang.Integer" resultType="org.great.bean.JurdisBean">
+ 		select * from TBLJURDIS where jurisid = #{jurisId}
+ 	</select>
+ 	
+ </mapper>
