@@ -20,10 +20,11 @@ public class SetmealBean {
     private String picture;//图片
     private  int countAll;//套餐价格
     private  int number;//购买数量
+    private String itemNick;//项目名称
     
     @Resource
     private SetcomBean setcomBean;//关联表
-//    private LitemBean litemBean;
+//  private LitemBean litemBean;
     private ArrayList<LitemBean> litemBean;//项目表
     
     public SetmealBean(){
@@ -111,6 +112,15 @@ public class SetmealBean {
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+	
+
+	public String getItemNick() {
+		return itemNick;
+	}
+
+	public void setItemNick(String itemNick) {
+		this.itemNick = itemNick;
 	}
 
 	@Override

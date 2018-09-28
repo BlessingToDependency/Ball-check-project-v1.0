@@ -9,7 +9,11 @@ String path = request.getScheme() +"://"+request.getServerName()
  <head>
     <meta charset="UTF-8">
     <title>科室管理</title>
-
+   <link rel="stylesheet" href="<%=path%>css/bootstrap.min.css">
+	<script src="<%=path%>js/jquery.min.js"></script>
+	<script src="<%=path%>js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<%=path%>js/jquery.min.js"></script>
+	
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -24,6 +28,12 @@ String path = request.getScheme() +"://"+request.getServerName()
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+         <style>
+     .zt{color: #06F;font-size: 18px;font-weight: 10px;}
+         #div{width:100%; height:50px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
+         #divleft{width:35%; height:48px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:right;}
+         #divright{width:63%; height:48px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
+	</style>
   </head>
   
   <body>
@@ -41,12 +51,12 @@ String path = request.getScheme() +"://"+request.getServerName()
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
 
-          <input type="text" name="depa"  placeholder="请输入科室名" autocomplete="off" class="layui-input" value="<%=request.getAttribute("depa")==null?"":request.getAttribute("depa")%>"/>
+          <input type="text" name="depa" id="depa"  placeholder="请输入科室名" autocomplete="off" class="layui-input" value="<%=request.getAttribute("depa")==null?"":request.getAttribute("depa")%>"/>
           <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
       <xblock>
-        <button class="layui-btn" onclick="x_admin_show('新增科室','<%=path%>maDeparAction/toAddDepar.action')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" data-toggle="modal" data-target="#myModal2"><i class="layui-icon"></i>添加</button>
       </xblock>
       <table class="layui-table">
         <thead>
@@ -54,17 +64,13 @@ String path = request.getScheme() +"://"+request.getServerName()
             <th>科室</th>
             <th>操作</th>
         </thead>
-        <tbody>
-        
-        
-        
-        
+       <tbody>
           <c:forEach items="${deli}"  var="deli"  >
 			<tr>
 			   <td>${deli.depa}</td>
 			  
 	       	   <td class="td-status">
-	       	   <span class="layui-btn layui-btn-normal layui-btn-mini"  onclick="x_admin_show('修改科室名','<%=path%>maDeparAction/toUpdateDepar.action?depaId=${deli.depaId}')">修改</span>
+	       	   <span class="layui-btn layui-btn-normal layui-btn-mini"   onclick="addHid(${deli.depaId});">修改</span>
                  <span class="layui-btn layui-btn-danger" onclick="delectDepa(${deli.depaId})" >删除</span>
 	           </td>
 			</tr>
@@ -80,11 +86,66 @@ String path = request.getScheme() +"://"+request.getServerName()
           <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=1">首页</a>
           <a class="prev" href="<%=path%>maDeparAction/selectDe.action?page=${page-1<1?1:page-1}">上一页</a>
           <a class="next" href="<%=path%>maDeparAction/selectDe.action?page=${(page+1)<=paNum?page+1:paNum}">下一页</a>
-          <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=${paNum}">末页</a>
+          <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=${paNum}">末页</a> 
+           <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" />
+           <a class="num" id="linkToCart" onclick="jump();">跳转</a>
+          
         </div>
       </div>
 
     </div>
+
+  <form id="addfrom" method="post" action="<%=path%>maDeparAction/innserDepar.action">
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">新增科室</h4>
+      </div>
+     <!--  <div class="modal-body"> -->
+        <div id="div">
+             <div id="divleft"><span class="zt">新的科室名:</span></div> 
+             <div id="divright">
+             <input type="text" id="depa2" name="depa" style="width:200px;" class="form-control" placeholder="科室名" onblur="checkDate()"><samp id="us"></samp>
+             </div>          
+        </div>  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-primary">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>	
+
+  <form id="addfrom" method="post" action="<%=path%>maDeparAction/updateDepar.action">
+<button type="button" id="dada" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></button>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">修改科室</h4>
+      </div>
+     <!--  <div class="modal-body"> -->
+        <div id="div">
+             <div id="divleft"><span class="zt">新的科室名:</span></div> 
+             <div id="divright">
+             <input type="text" id="depa3" name="depa" style="width:200px;" class="form-control" placeholder="科室名" onblur="checkDate1()"><samp id="us1"></samp>
+             </div>          
+        </div>  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-primary">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>	
+
+
 
   </body>
 <script type="text/javascript">
@@ -93,6 +154,63 @@ function delectDepa(depaId){
 	 if(r==true){ 
 		 window.location.href="<%=path%>maDeparAction/deleteDepar.action?depaId="+depaId;
 	  }
+}
+</script>
+<script type="text/javascript">
+function checkDate(){
+    
+	  $.ajax({
+		  type:"post",
+ 	   url:"<%=path%>maDeparAction/checkDepar.action",
+ 	   data:{"depa":$("#depa2").val()},
+ 	   dataType:"json",
+			success : function(redata) {//定义各事件发生时回调的函数
+			  console.log(redata);
+			
+		    	$("#us").html(redata);
+		    	
+			}
+		  
+		  
+	  });
+
+} 
+function checkDate1(){
+    
+	  $.ajax({
+		  type:"post",
+	   url:"<%=path%>maDeparAction/checkDepar.action",
+	   data:{"depa":$("#depa3").val()},
+	   dataType:"json",
+			success : function(redata) {//定义各事件发生时回调的函数
+			  console.log(redata);
+			
+			  $("#us1").html(redata);
+			}
+		  
+		  
+	  });
+
+}
+
+function addHid(v){
+	
+	$.ajax({
+		url:"<%=path%>maDeparAction/toUpdateDepar.action",//请求地址
+		data:"depId="+v,//发送至服务器的键值数据
+		dataType:"json",//请求数据格式，如script,json,text等
+		type:"post",//发送方式，get/post
+	    success:function(data){
+	    	//展开模态框
+	    	$("#dada").trigger("click");
+	  }
+	});
+}
+
+//跳转页码
+function jump(){
+	var p=document.getElementById("pageNo").value;
+	window.location.href="<%=path%>maDeparAction/selectDe.action?page="+p;
 }
 </script>
 </html>

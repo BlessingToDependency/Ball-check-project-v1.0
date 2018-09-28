@@ -29,7 +29,7 @@ public class DeparImp implements IdeparBiz {
 		return deList;
 	}
 
-	//去重，查询个数
+	//查询个数
 	@Override
 	public List<DeparBean> selectDeN(DeparBean deparBean) {
 		// TODO Auto-generated method stub
@@ -57,6 +57,14 @@ public class DeparImp implements IdeparBiz {
 	public void updateDepar(DeparBean deparBean) {
 		// TODO Auto-generated method stub
 		iDeparMapper.updateDepar(deparBean);
+	}
+
+	//去重
+	@Override
+	public List<DeparBean> selectDeChe(DeparBean deparBean) {
+		// TODO Auto-generated method stub
+		List<DeparBean> deList=iDeparMapper.selectDeChe(deparBean);
+		return null;
 	}
 
 }

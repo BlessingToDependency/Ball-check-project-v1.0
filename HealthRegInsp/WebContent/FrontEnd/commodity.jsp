@@ -73,21 +73,6 @@
     </script>
 
 <script type="text/javascript">
-<%-- 	$(function(){
-		alert("执行");
-		
-		$.ajax({
-			url:"<%=path %>userMainAction/showSetmeal.action",
-			data:"",
-			dataType:"json",
-			type:"POST",
-			success : function(str){
-				alert("返回")
-			}
-		});
-	}); --%>
-</script>
-<script type="text/javascript">
 $(document).ready(function(){
 //获得文本框对象
    var t = $("#text_box");
@@ -127,12 +112,8 @@ $('#min').attr('disabled',true);
 
   <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
 
-    <ul id="nav">
 
-      <li class="navitem"><a  class='active' href="index.html">首页</a></li>
-
-</ul>
-	<form id="form1" name="form1" method="post" action="<%=path %>userMainAction/buyNow.action" enctype="multipart/form-data">
+	<form id="form1" name="form1" method="post" action="<%=path %>userMainAction/buyNow.action">
   <table width="800" border="1" align="center">
 <c:forEach items="${setList }" var="setmealBean">
     <tr>
@@ -187,21 +168,12 @@ $('#min').attr('disabled',true);
       <td><label>
         <input type="submit" name="Submit" value="立即购买" />
         <input type="button" name="Submit" value="加入购物车" />
+        
       </label></td>
     </tr>
 </c:forEach>
   </table>
 </form>
-<form action="<%=path %>fileAction/fileUpLoad.action" enctype="multipart/form-data">
- <table>
- <tr><td>
-  		<input type="file" name="file"/>
-    	 <input type="text" name="desc"/>
-        <input type="submit" value="提交上传"/>
-        </td></tr>
-         </table>
-</form>
-   
 <div id="footer">
 
   <p>Copyright &copy; 2002-2011 <a href="http://www.adminbuy.cn" target="_blank">团检系统</a> 版权所有　<a class="beian" href="http://www.miitbeian.gov.cn/" style="display:inline; width:auto; color:#8e8e8e" target="_blank">苏ICP12345678</a></p>

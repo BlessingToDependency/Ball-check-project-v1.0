@@ -1,0 +1,23 @@
+/* CSS Document */
+
+boby{ font-family:"宋体"}
+
+#main{width:95%;border:#0F0 1px solid; margin:0px auto;background:#FFFFFF;}
+
+#top{ color:#FF0000; width:100%; height:100%; border:#FF0000 1px solid;font-size:50px;font-family:"Times New Roman";text-align:left;}
+
+
+
+#topp{ width:100%; height:100%; color:#33FFCC; border:#CC33CC 0px solid;font-size:30px;font-family:"Times New Roman";text-align:center;}
+
+
+#backg{ background:#00FFFF;}
+
+#left{width:200px; height:100%;border:#CC33CC 1px solid;font-size:20px;font-family:"Times New Roman"; text-align:center;   float:left;}
+
+#right{width:75%; height:600px; border:#F00 1px solid;  float:right;}
+
+#details{width:300px; height:550px;border:#CC33CC 1px solid;font-size:20px;font-family:"Times New Roman"; text-align:center;float:left;}
+
+.log{ height:70px; color:red; border:#0F0 0px solid; font-size:50px;}
+

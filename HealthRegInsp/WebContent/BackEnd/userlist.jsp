@@ -8,7 +8,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>参数配置</title>
+    <title>用户列表</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -101,7 +101,6 @@ function checkUser(){
             <th>手机号</th>
             <th>体检时间</th>
             <th>条码号</th>
-            <th>公司</th>
             <th>操作</th>
         </thead>
         <tbody>
@@ -116,7 +115,6 @@ function checkUser(){
             <td>${staffBean.phone}</td>
             <td>${staffBean.perguirelaBean.partYear}</td>
              <td>${staffBean.staffId}${staffBean.perguirelaBean.partYear}${staffBean.companyId}${staffBean.perguirelaBean.batchNum}</td>
-             <td>${staffBean.userBean.company}</td>
             <td class="td-status">
               
               <a title="编辑"  onclick="x_admin_show('编辑','admin-edit.html')" href="javascript:;">

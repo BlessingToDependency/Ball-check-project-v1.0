@@ -1,5 +1,7 @@
 package org.great.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -15,7 +17,9 @@ import org.great.biz.UserBiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -122,6 +126,7 @@ public class MyCompAction {
 	 */
 	@RequestMapping(value="/toEditCompInfo.action")
 	public ModelAndView toEditCompInfo() {
+
 		UserBean userBean=(UserBean) session.getAttribute("userBean");
 		//String componey=userBean.getCompany();
 		String componey="公司";
@@ -134,11 +139,21 @@ public class MyCompAction {
 	/*
 	 *编辑公司信息
 	 */
-	@RequestMapping(value="/EditCompInfo.action")
-	 public ModelAndView EditCompInfo(UserBean uBean) {
-		
+	@RequestMapping(value="/EditCompInfo.action",method=RequestMethod.POST)
+	 public ModelAndView EditCompInfo(UserBean uBean,MultipartFile fileact,HttpServletRequest request) {
+		String file = fileact.getOriginalFilename();
+		System.out.println("获取到的文件名:" + file);
+		try {
+			String root = request.getServletContext().getRealPath("/upload"); // 设置文件上传的路径
+			System.out.println(root);
+			fileact.transferTo(new File(root +"/"+ file));
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		uBean.setCompany("公司");
+		uBean.setHead(file);
 		userBizImp.updateCompInfo(uBean);
 		mav.setViewName("FrontEnd/user_index");
 		return mav;

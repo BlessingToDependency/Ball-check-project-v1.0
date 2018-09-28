@@ -66,9 +66,25 @@ String path = request.getScheme() +"://"+request.getServerName()
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="<%=path%>userAdminAction/userAdmin.action">
+                        <a _href="<%=path%>userAdminAction/company.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>会员列表</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b4;</i>
+                    <cite>科室医生</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="<%=path%>doctorAction/doctorMain.action">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>查询</cite>
                         </a>
                     </li>
                 </ul>
@@ -88,7 +104,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                         </a>
                     </li>
                      <li>
-                        <a _href="<%=path%>Order/showOrder.action">
+                        <a _href="<%=path%>Report/showCompany.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>团检套餐配置</cite>
                         </a>
@@ -289,7 +305,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="unicode.html">
+                        <a _href="<%=path%>logAction/selectAllLog.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>日志查看</cite>
                         </a>

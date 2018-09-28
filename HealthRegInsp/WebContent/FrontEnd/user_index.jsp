@@ -14,7 +14,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 <title>后天健康团检系统</title>
-
 <meta name="description" content="网站描述" />
 
 <meta name="keywords" content="关键词" />
@@ -127,18 +126,24 @@
           <li><a href="<%=path%>myCompAction/toEditCompInfo.action" >编辑公司信息</a></li>
           <li><a  href="<%=path%>myCompAction/toUpPws.action"">修改密码</a></li>
 
-          
-
         </ul>
-
-      </li><li class="navitem"><a  href="<%=path %>fileAction/fileDownLoad.action" >下载模板</a>
-
+      </li>
+      
+      <li class="navitem">
+      <a  href="<%=path %>fileAction/fileDownLoad.action" >下载模板</a>
         <ul class="subnav">
-
-          
-
         </ul>
-      </li><li class="navitem"><a  href="news.html" >新闻动态</a>
+      </li>
+      
+	  
+	   <li class="navitem">
+      <a  href="<%=path %>FrontEnd/user_upload.jsp" >上传体检人员信息</a>
+        <ul class="subnav">
+        </ul>
+      </li>
+      
+      
+      <li class="navitem"><a  href="news.html" >新闻动态</a>
 
         <ul class="subnav">
 

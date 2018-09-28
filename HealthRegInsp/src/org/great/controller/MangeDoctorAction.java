@@ -168,7 +168,7 @@ public class MangeDoctorAction {
 		adminBean.setDeparBean(dp);
 		
 		 int pageNo=-1;
-			if(null==page) {
+			if(null==page||"".equals(page)) {
 				pageNo =1;
 				
 			}else {

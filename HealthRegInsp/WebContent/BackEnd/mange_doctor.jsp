@@ -124,11 +124,21 @@ function changeLogic(stateC,id){
           <a class="prev" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=${page-1<1?1:page-1}&adminName=${adminName}&post=${post}&depa=${depa}">上一页</a>
           <a class="next" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=${(page+1)<=paNum?page+1:paNum}&adminName=${adminName}&post=${post}&depa=${depa}">下一页</a>
           <a class="num" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=${paNum}">末页</a>
+           <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" />
+           <a class="num" id="linkToCart" onclick="jump();">跳转</a>
         </div>
       </div>
 
     </div>
 
   </body>
+  <script type="text/javascript">
+//跳转页码
+  function jump(){
+  	var p=document.getElementById("pageNo").value;
+  	window.location.href="<%=path%>maDoctorAction/selectAllDoctor.action?page="+p;
+  }
+  
+  </script>
 
 </html>

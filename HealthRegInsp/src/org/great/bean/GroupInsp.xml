@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="org.great.mapper.IGroupInspMapper">
+ 		
+ 		<!-- 团检单位（分页、搜索）-->
+ 	    <select id="unitList"  parameterType="org.great.search.CompanyCon" resultType="org.great.bean.UserBean">
+ 	     select * from (select t.*,rownum rn from (
+ 	     select * from TBLFOREGROUND where STATEID=3 and PHYEXAMID=8
+ 	    <if test="company!=null and company!=''">
+	     and COMPANY like CONCAT(CONCAT('%',#{company}),'%')
+        </if>
+ 	     ) t where rownum &lt;=#{statrRn})where rn&gt;=#{endRn} 
+		</select>
+		
+		<!-- 团检单位（搜索总记录）-->
+ 	    <select id="allUnitList"  parameterType="org.great.search.CompanyCon" resultType="org.great.bean.UserBean">
+ 	     select * from TBLFOREGROUND where STATEID=3 and PHYEXAMID=8
+ 	    <if test="company!=null and company!=''">
+	     and COMPANY like CONCAT(CONCAT('%',#{company}),'%')
+        </if>
+		</select>
+		
+		<!-- 对应公司人员列表(分页、模糊) -->
+		<select id="staffList"  parameterType="org.great.search.BatchSheetCon" resultType="org.great.bean.StaffBean">
+		select * from (select t.*,rownum rn from (
+		select * from TBLSTAFF where STAFFID in(select STAFFID from TBLPERGUIRELA where COMPANYID=#{companyId}
+		<if test="batch!=0">
+	     and BATCHNUM = #{batch}
+        </if>
+        <if test="partYear!=null and partYear!=''">
+	     and PARTYEAR = #{partYear}
+        </if>
+		)
+		<if test="staffName!=null and staffName!=''">
+	     and STAFFNAME like CONCAT(CONCAT('%',#{staffName}),'%')
+        </if>
+		) t where rownum &lt;=#{statrRn})where rn&gt;=#{endRn} 
+		</select>
+		
+		<!-- 对应公司人员列表(总的模糊) -->
+		<select id="allStaffList"  parameterType="org.great.search.BatchSheetCon" resultType="org.great.bean.StaffBean">
+		select * from TBLSTAFF where STAFFID in(select STAFFID from TBLPERGUIRELA where COMPANYID=#{companyId}
+		<if test="batch!=0">
+	     and BATCHNUM = #{batch}
+        </if>
+        <if test="partYear!=null and partYear!=''">
+	     and PARTYEAR = #{partYear}
+        </if>
+		)
+		<if test="staffName!=null and staffName!=''">
+	     and STAFFNAME like CONCAT(CONCAT('%',#{staffName}),'%')
+        </if>
+		</select>
+		
+		<!-- 对应公司体检的年份 -->
+		<select id="years" resultType="java.lang.String">
+		select distinct PARTYEAR from TBLPERGUIRELA where COMPANYID = #{companyId}
+		</select>
+		
+		<!-- 获取公司对应年份的批次号 -->
+		<select id="batchNum" resultType="java.lang.String">
+		 select distinct BATCHNUM from TBLPERGUIRELA where COMPANYID=#{companyId} and PARTYEAR=#{partYear}
+		</select>
+	
+	    <select id="setMealid" resultType="java.lang.String">
+	    select distinct SETMEALID from TBLSTAFFMEAL where STAFFID=#{smid}
+	    </select>
+	    
+	    <insert id="maintain">
+	    insert TBLGUISETMEAL(GUCHID,SETMEALID) values(#{guChId},#{setmealId})
+	    </insert>
+	   
+ 		
+ </mapper>

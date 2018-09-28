@@ -27,4 +27,7 @@ public interface IdeparBiz {
 		
 		//修改科室名
 		public  void  updateDepar(DeparBean deparBean);
+		
+		//去重
+		public List<DeparBean> selectDeChe(DeparBean deparBean);
 }

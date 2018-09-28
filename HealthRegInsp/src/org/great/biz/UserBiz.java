@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.great.bean.BillBean;
 import org.great.bean.SetmealBean;
+import org.great.bean.StaffBean;
+import org.great.bean.StaffMealBean;
 import org.great.bean.UserBean;
 
 /*
@@ -16,6 +18,15 @@ public interface UserBiz {
 	
 	//前台用户注册
 	public void userRegister(UserBean userBean);
+	
+	//上传文档插入数据库
+	public void addStaff(StaffBean staffBean);
+	
+	//为员工选择套餐插入数据库
+	public void bespeakMeal(StaffMealBean staffMealBean);
+	
+	//身份证去重
+	public StaffBean repeatNum(String idNum);
 	
 	//ajax判断注册名是否重复
 	public UserBean userRepeat(String company);
