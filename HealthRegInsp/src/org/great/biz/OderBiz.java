@@ -55,7 +55,8 @@ public interface OderBiz {
    	//修改套餐名
  	public void updateOrder(Integer setmealId,String setmeal);
 	
- 	
+ 	//套餐名查重
+ 	public SetmealBean checkOrderName(@Param("setMeal") String setMeal);
  	
  	
 }

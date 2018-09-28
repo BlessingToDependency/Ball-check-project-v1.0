@@ -101,7 +101,7 @@ public class ReportAction {
 	//展示总结单
 	@RequestMapping("/showUser.action")
 	public  String  showUser(Model model, Integer companyId,PerguirelaBean pBean,String staffName) {
-	 System.out.println("pBean:"+pBean.toString());
+	// System.out.println("pBean:"+pBean.toString());
 	 Integer count = reportBizImp.countUser(companyId,pBean, staffName);
 	 totalPage = count % 5 > 0 ? count / 5 + 1 : count / 5;
 		if (totalPage==0) {
@@ -116,12 +116,14 @@ public class ReportAction {
 		List<String> orderyear = reportBizImp.queryYear();		
 		model.addAttribute("orderyear", orderyear);
 		model.addAttribute("pBean", pBean);
+		System.out.println("pBean:"+pBean.toString());
 		model.addAttribute("slist", slist);
 		model.addAttribute("companyId", companyId);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("count", count);
-		
+		model.addAttribute("staffName", staffName);
+		System.out.println("staffName:"+staffName);
 		session.setAttribute("companyId", companyId);
 		
 		return "BackEnd/report_user";		
@@ -155,10 +157,11 @@ public class ReportAction {
 	//插入总结
 	@RequestMapping("insertTotall.action")
 	public ModelAndView insertTotall(TotalBean totalBean,RedirectAttributes attr) {
-		totalBean.setTotalId(7);
-		totalBean.setDoctor("王俊贤");
-		totalBean.setGuChId("6");
-		totalBean.setDocSummary(15);
+		System.out.println("totalBean:"+totalBean.toString());
+
+		totalBean.setDoctor("王俊贤");  //登录得到
+		totalBean.setGuChId("6");   //得到小结表
+		totalBean.setDocSummary(15); //这个保留
 		System.out.println("totalBean:"+totalBean.toString());
 		reportBizImp.insertTotal(totalBean);
 		Integer  companyId =  (Integer) session.getAttribute("companyId");

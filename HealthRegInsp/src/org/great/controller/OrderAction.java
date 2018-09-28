@@ -37,6 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
+import com.mchange.rmi.Checkable;
 import com.sun.swing.internal.plaf.metal.resources.metal;
 
 /** 
@@ -88,20 +89,6 @@ public class OrderAction {
 		return "BackEnd/order_list";
 	}
 
-/*	//显示套餐的项目 (加了setmeal了 等待测试）
-	@RequestMapping("/showItem.action")  
-	public String  showItem(Model model,Integer setmealId,String setmeal) throws IOException {	
-		System.out.println("显示套餐ID："+setmealId);
-	    List<LitemBean> itemList = oderBizImp.findItemById(setmealId);
-	    List<LitemBean>  allList = oderBizImp.findItemById(null);
-	    System.out.println("itemList:"+itemList.toString());
-		model.addAttribute("itemList",itemList);	
-		model.addAttribute("allList",allList);
-		model.addAttribute("setmealId", setmealId);	
-		model.addAttribute("setmeal", setmeal);
-		return "BackEnd/order_additem";
-		//return "BackEnd/order_list_edit";
-	}*/
 	
 	//显示套餐的项目 
 	@RequestMapping("/showItem.action")  
@@ -137,7 +124,7 @@ public class OrderAction {
 		model.addAttribute("item", item);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("totalPage", totalPage);
-	    session.setAttribute("setmeal", setmeal);
+	    session.setAttribute("setMeal", setmeal);
 		return "BackEnd/order_additem";
 		//return "BackEnd/order_list_edit";
 	}
@@ -145,23 +132,30 @@ public class OrderAction {
 	
 	//删除套餐
 	@RequestMapping("/delteOrder.action")
-	public ModelAndView  delteOrder(Model model,Integer setmealId,RedirectAttributes attr) throws IOException {		
-		String setmeal = (String) session.getAttribute("setmeal");
-		oderBizImp.deleteOrder(setmealId);
+	public ModelAndView  delteOrder(Model model,Integer[] setmealId,RedirectAttributes attr) throws IOException {		
+		String setmeal = (String) session.getAttribute("setMeal");
+		
+		for (Integer dataId : setmealId) {
+			
+			oderBizImp.deleteOrder(dataId);
+		}
 		//model.addAttribute("itemList",itemList);	
 		attr.addAttribute("setmeal", setmeal);
 		System.out.println("setmeal:"+setmeal);
 		return   new ModelAndView("redirect:/Order/showOrder.action");
 	}
 	
+	
+	
+	
 	//删除套餐中的项目
 	@RequestMapping("/deleteItem.action")
-	public ModelAndView deleteItem(Integer[] data,RedirectAttributes attr,Integer setmealId) {
-		System.out.println("进入函数");
+	public ModelAndView deleteItem(Integer[] itemId,RedirectAttributes attr,Integer setmealId) {
+		System.out.println("itemId函数:"+itemId);
 
-		for (Integer itemId : data) {
+		for (Integer dataId : itemId) {
 			System.out.println("itemId11111111111111111111111:"+itemId);			
-			oderBizImp.deleteItem(itemId);			
+			oderBizImp.deleteItem(dataId);			
 		}
 		attr.addAttribute("setmealId", setmealId);
 		return new ModelAndView("redirect:/Order/showItem.action");			
@@ -180,6 +174,19 @@ public class OrderAction {
 			
 		return new ModelAndView("redirect:/Order/showItem.action");		
 	}
+	
+	//套餐除重名
+	@RequestMapping(value="checkOrderName.action",method=RequestMethod.POST)
+	@ResponseBody
+	public Integer checkOrderName(String setmeal) {
+		Integer msg = 0;
+		if (null==oderBizImp.checkOrderName(setmeal)) {
+			msg =1;
+		}
+		
+		return msg;	
+	}
+	
 	
 	//增加套餐中的项目
 	@RequestMapping("/addItem.action")
