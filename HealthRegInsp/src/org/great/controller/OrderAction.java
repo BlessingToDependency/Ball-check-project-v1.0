@@ -63,7 +63,7 @@ public class OrderAction {
 //	private Integer currentPage;
 	private Integer totalPage;
 	
-	//显示套餐 增加字段，，，，，，，，，，，，，，，
+	//显示套餐 增加字段
 	@RequestMapping("/showOrder.action")
 	public String showOrder(HttpServletRequest request,Model model,SetmealBean setmealBean,Integer currentPage) {
 		
@@ -99,7 +99,7 @@ public class OrderAction {
 		model.addAttribute("allList",allList);
 		model.addAttribute("setmealId", setmealId);	
 		model.addAttribute("setmeal", setmeal);
-		return "BackEnd/order_additem";
+		return "BackEnd/order_additem"; ssdfsdfsdfsdfdsfdsfdsfsdfsdf
 		//return "BackEnd/order_list_edit";
 	}*/
 	
@@ -108,7 +108,7 @@ public class OrderAction {
 	public String  showItem(Model model,Integer setmealId,String setmeal,ItemConBean itemConBean,LitemBean litemBean) throws IOException {	
 		System.out.println("itemConBean："+itemConBean.toString());
 		System.out.println("litemBean："+litemBean.toString());
-//	    List<LitemBean> itemList = oderBizImp.findItemById(setmealId);
+//	    List<LitemBean> itemList = oderBizImp.findItemById(setmealId);fffff
 
 		if (null==itemConBean.getCurrentPage()) {
 			 itemConBean.setCurrentPage(1);

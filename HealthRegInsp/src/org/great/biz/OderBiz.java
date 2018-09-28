@@ -31,7 +31,7 @@ public interface OderBiz {
 	//查询套餐中的项目
 	public  List<LitemBean> findItemById (Integer setmealId);
 	
-	//替换上面的那个 分页模糊查询查询套餐中的项目	
+	//替换上面的那个 分页模糊查询查询套餐中的项目	////
 	public  List<LitemBean> queryItemById (LitemBean litemBean,ItemConBean itemConBean,Integer setmealId);
 	
 	
