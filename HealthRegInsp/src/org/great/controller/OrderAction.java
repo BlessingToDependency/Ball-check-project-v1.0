@@ -63,7 +63,7 @@ public class OrderAction {
 //	private Integer currentPage;
 	private Integer totalPage;
 	
-	//显示套餐
+	//显示套餐 增加字段，，，，，，，，，，，，，，，
 	@RequestMapping("/showOrder.action")
 	public String showOrder(HttpServletRequest request,Model model,SetmealBean setmealBean,Integer currentPage) {
 		

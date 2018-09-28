@@ -78,7 +78,7 @@ String path = request.getScheme() +"://"+request.getServerName()
             <th>操作</th>
         </thead>
         <tbody>
-          <c:forEach items="${slist}"  var="list" step="1" varStatus="vs">
+          <c:forEach items="${sumList}"  var="list" step="1" varStatus="vs">
 			<tr>
 			   <td>${vs.index+1}</td>
 			   <td>${list.staffName}</td>

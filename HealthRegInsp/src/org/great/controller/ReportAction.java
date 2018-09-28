@@ -148,7 +148,7 @@ public class ReportAction {
 		
 		List<SmallBean> sumList = reportBizImp.querySmall(staffId);
 		model.addAttribute("sumList", sumList);
-		
+		//增加字段。。。。。。。。。。。。。。。。。。。。。。
 		return "BackEnd/report_summary";		
 	}
 	

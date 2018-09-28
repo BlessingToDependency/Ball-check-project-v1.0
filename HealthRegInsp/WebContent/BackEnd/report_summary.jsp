@@ -52,7 +52,7 @@ String path = request.getScheme() +"://"+request.getServerName()
             <th>提示</th>
         </thead>
         <tbody>
-       <%--    <c:forEach items="${slist}"  var="list" step="1" varStatus="vs">
+          <c:forEach items="${slist}"  var="list" step="1" varStatus="vs">
 			<tr>
 			   <td>${vs.index+1}</td>
 			   <td>${list.staffName}</td>
@@ -60,7 +60,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 			   <td>${list.sex}</td>
 			   <td>${list.idNum}</td>			       	   
 			</tr>
-			</c:forEach> --%>
+			</c:forEach>
         </tbody>
       </table>
        
