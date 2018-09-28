@@ -11,6 +11,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
+import org.great.bean.ItemConBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
 import org.great.mapper.OrderMapper;
@@ -105,5 +107,28 @@ public class OderBizImp implements OderBiz{
 		
 		orderMapper.updateOrder(setmealId, setmeal);		
 	}
+
+	/* (non-Javadoc)
+	 * @see org.great.biz.OderBiz#queryItemById(org.great.bean.LitemBean, org.great.bean.ItemConBean, java.lang.Integer)
+	 */
+	@Override
+	public List<LitemBean> queryItemById(LitemBean litemBean, ItemConBean itemBean, Integer setmealId) {
+	
+		return orderMapper.queryItemById(litemBean, itemBean, setmealId);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.great.biz.OderBiz#sumOrderByItem(org.great.bean.ItemConBean, java.lang.Integer)
+	 */
+	@Override
+	public Integer sumOrderByItem(LitemBean litemBean,ItemConBean itemConBean, Integer setmealId) {
+		
+		return orderMapper.sumOrderByItem(litemBean, itemConBean, setmealId);
+	}
+
+	
+	
+
+	
 
 }

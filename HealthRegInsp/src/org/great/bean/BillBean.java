@@ -14,6 +14,10 @@ public class BillBean {
    private int setmealId;//套餐ID
    private int actCharge;//实际收费
    private String currentTime;//当前时间
+   private String orderTime;  //下单时间
+   private UserBean userBean;  //后台用户表
+   
+   
    public BillBean() {
 	   
    }
@@ -75,7 +79,41 @@ public String getCurrentTime() {
 public void setCurrentTime(String currentTime) {
 	this.currentTime = currentTime;
 }
-   
+
+
+/**
+ * @return the orderTime
+ */
+public String getOrderTime() {
+	return orderTime;
+}
+
+
+/**
+ * @param orderTime the orderTime to set
+ */
+public void setOrderTime(String orderTime) {
+	this.orderTime = orderTime;
+}
+
+
+/**
+ * @return the userBean
+ */
+public UserBean getUserBean() {
+	return userBean;
+}
+
+
+/**
+ * @param userBean the userBean to set
+ */
+public void setUserBean(UserBean userBean) {
+	this.userBean = userBean;
+}
+
+
+
    
    
    
