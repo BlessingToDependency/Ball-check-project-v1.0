@@ -6,6 +6,46 @@
  	<!-- 查询所有的细项 -->
  	<select id="selectAllTerm" resultType="org.great.bean.TermBean">
  		select * from TBLTERM ORDER BY TERMID
- 	</select> 	
+ 	</select>
+ 	<!-- 分页 模糊 条件 查询细项 --> 	
+ 	<select id="selectTerm" resultType="org.great.bean.TermBean" parameterType="org.great.bean.TermBean">
+ 		select * from ( select  t.*, rownum RN from 
+		(SELECT * FROM TBLTERM 
+		<where>
+			<if test="termBean.term !=null and termBean.term !=''">
+			and term like CONCAT(CONCAT('%',#{termBean.term}),'%')
+			</if>
+		</where>
+		ORDER BY termId)t ) where RN &gt; (#{page}*10-10) and RN &lt;= (#{page}*10) 
+ 	</select>
+ 	<!-- 分页 模糊 条件 查询细项总数 -->
+ 	<select id="selectTermSum" resultType="java.lang.Integer" parameterType="org.great.bean.TermBean">
+ 		select count(*) from TBLTERM 
+ 		<where>
+			<if test="term !=null and term !=''">
+			and term like CONCAT(CONCAT('%',#{term}),'%')
+			</if>
+		</where>
+ 	</select>
+ 	<!-- 增加细项 -->
+ 	<insert id="addTerm" parameterType="org.great.bean.TermBean">
+ 		insert into TBLTERM VALUES (TBL_TERM.nextval,#{term},#{measur},#{upLimit},#{downLimit},#{none})
+ 	</insert>
+ <!-- 	查询单个细项信息 -->
+ 	<select id="selectOneTerm" resultType="org.great.bean.TermBean" parameterType="java.lang.Integer">
+ 		select * from TBLTERM where TERMID = #{termId}
+ 	</select>
+ 	<!-- 修改细项信息 -->
+ 	<update id="upDateTerm" parameterType="org.great.bean.TermBean">
+ 		update TBLTERM set term = #{term},measur =#{measur},upLimit=#{upLimit},downLimit=#{downLimit},none=#{none} where termId = #{termId}
+ 	</update>
+ 	<!-- 删除细项 -->
+ 	<delete id="deleteTerm" parameterType="java.lang.Integer">
+ 		DELETE FROM TBLTERM WHERE TERMID = #{termId}
+ 	</delete>
+ 	<!-- 删除项目细项中关于细项的数据 -->
+ 	<delete id="deleteTermCom" parameterType="java.lang.Integer">
+ 		DELETE FROM TBLITEMCOM WHERE TERMID = #{termId}
+ 	</delete>
  
  </mapper>

@@ -32,5 +32,46 @@
 	and STAFFNAME like CONCAT(CONCAT('%',#{staffName}),'%')
    </if>
    </select>
+   
+   
+   <select id="getIntFace" resultType="java.lang.Integer">
+   select INTFACEID from TBLDEPAR where DEPAID=#{depeId}
+   </select>
+   
+   <select id="getItem" resultType="org.great.bean.LitemBean">
+   select * from TBLITEM where ITEMID=(
+   select ITEMID from TBLDEPPRORELA where DEPAID=#{depeId})
+   </select>
+   
+   <!-- 获取体检用户在该科室中体检的项目中的细项结果集 -->
+   <select id="getFinresultList"  resultMap="usMap">
+   select * from TBLFINRESULT where GUCHID=#{guChId} and ITEMID=#{itemId}
+   </select>
+
+    <select id="term" parameterType="java.lang.Integer"
+		resultType="org.great.bean.TermBean">
+		select * from TBLTERM where TERMID =#{id}
+	</select>
+
+	 <resultMap type="org.great.bean.FinresultBean" id="usMap">
+	    <id property="termId" column="TERMID" />
+
+		<association property="termBean" column="TERMID"
+			javaType="org.great.bean.FinresultBean" select="term">
+		</association>
+
+	</resultMap>
+   
+   
+   <select id="imageFile" resultType="java.lang.String">
+   select imageFile from tblguchimagerela where ITEMID=#{itemId} and GUCHID=#{guChId}
+   </select>
+   
+   <insert id="subSumm" parameterType="org.great.search.GuchIDdItemID">
+   insert into tblsmall values(TBL_SMALL.Nextval,#{guChId},#{itemId},#{doctor},#{sumCont})
+   </insert>
+   
+   
+   
  		
  </mapper>

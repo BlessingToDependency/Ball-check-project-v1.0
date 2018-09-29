@@ -30,6 +30,24 @@ function changeLogic(stateC,id){
 	 }
 }
 
+function changerole(v){
+	
+	$.ajax({
+		url:"<%=path%>maRoleAction/selectR.action",//请求地址
+		data:"adminId="+v,//发送至服务器的键值数据
+		dataType:"json",//请求数据格式，如script,json,text等
+		type:"post",//发送方式，get/post
+	    success:function(data){
+	    	//展开模态框
+	    	$("#dada").trigger("click");
+	    	$("#roleId").find("option").remove();
+	    	$.each(data, function(i, item) {
+		    	  $("#roleId").append("<option value="+item.roleId+">"+ item.role+ "</option>");
+			});
+	    	
+	  }
+	});
+} 
 </script>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -40,11 +58,20 @@ function changeLogic(stateC,id){
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
+     <link rel="stylesheet" href="<%=path%>css/bootstrap.min.css">	
+	<script src="<%=path%>js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<%=path%>js/jquery.min.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+         <style>
+     .zt{color: #06F;font-size: 18px;font-weight: 10px;}
+         #div{width:100%; height:50px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
+         #divleft{width:35%; height:48px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:right;}
+         #divright{width:63%; height:48px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
+	</style>
   </head>
   
   <body>
@@ -77,6 +104,7 @@ function changeLogic(stateC,id){
             <th>医生名字</th>
             <th>年龄</th>
             <th>手机号</th>
+            <th>角色</th>
             <th>职务</th>
             <th>科室</th>
             <th>用户状态</th>
@@ -92,16 +120,17 @@ function changeLogic(stateC,id){
 			   <td>${list.adminName}</td>
 			   <td>${list.age}</td>
 			   <td>${list.phone}</td>
+			      <td>${list.roleBean.role}</td>
 			   <td>${list.postBean.post}</td>
 			   <td>${list.deparBean.depa}</td>
 			   <td>${list.paramBean.param}</td>
 	       	   <td class="td-status">
-	       	   <span class="layui-btn layui-btn-normal layui-btn-mini"  onclick="x_admin_show('修改信息医生','<%=path%>maDoctorAction/toUpdateDoctorInfo.action?adminId=${list.adminId}')">修改</span>
-                 <span class="layui-btn layui-btn-danger" onclick="changeLogic(${list.logicId},${list.adminId})">
+	       	   <span class="layui-btn layui-btn-normal layui-btn-mini"  onclick="x_admin_show('修改信息医生','<%=path%>maDoctorAction/toUpdateDoctorInfo.action?adminId=${list.adminId}')" style="width:80px">修改</span>
+                 <span class="layui-btn layui-btn-danger" onclick="changeLogic(${list.logicId},${list.adminId})"  style="width:80px">
                          <c:if test="${list.logicId==6}"> 删除 </c:if>
                          <c:if test="${list.logicId==5}"> 已删除 </c:if>
                                                               </span>
-                    <span class="layui-btn  layui-btn-warm" onclick="changeState(${list.stateId},${list.adminId})">
+                    <span class="layui-btn  layui-btn-warm" onclick="changeState(${list.stateId},${list.adminId})" style="width:80px">
                         <c:if test="${list.stateId==3}">
                                                               禁用
                         </c:if>
@@ -109,6 +138,7 @@ function changeLogic(stateC,id){
                                                               启用
                         </c:if>
                               </span>
+                          <span class="layui-btn  layui-btn-warm"  style="width:90px" onclick="changerole(${list.adminId});">更改角色</span>       
 	           </td>
 			</tr>
 		
@@ -131,6 +161,32 @@ function changeLogic(stateC,id){
 
     </div>
 
+ <form id="addfrom" method="post" action="<%=path%>maRoleAction/updateRoleNmae.action">
+<button type="button" id="dada" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></button>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">更改角色</h4>
+      </div>
+     <!--  <div class="modal-body"> -->
+          <div id="div">
+             <div id="divleft"><span class="zt">新的角色:</span></div> 
+             <div id="divright">
+             <select class="form-control" id="roleId" name="roleId" style="width:200px;">
+                 <option value="0">--请选择--</option>
+                 </select>
+             </div>          
+          </div>      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-primary">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>	
   </body>
   <script type="text/javascript">
 //跳转页码
@@ -138,7 +194,8 @@ function changeLogic(stateC,id){
   	var p=document.getElementById("pageNo").value;
   	window.location.href="<%=path%>maDoctorAction/selectAllDoctor.action?page="+p;
   }
-  
+ 
+ 
   </script>
 
 </html>

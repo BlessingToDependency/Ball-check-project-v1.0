@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="<%=path %>BackEnd/css/admin.css">
 <script src="<%=path %>FrontEnd/js/jquery.js"></script>
 <script src="<%=path %>FrontEnd/js/pintuer.js"></script>
+<script  src="<%=path%>js/jquery.min.js"></script>
 <script type="text/javascript">
 function getCode(){
 	//得到图片对象
@@ -27,6 +28,26 @@ function getCode(){
 	var image = document.getElementById("imgCode");
 	image.src="<%=path%>front/validatecode.action?" + Math.random();
 	}
+<!--这个函数就是在userName的文本框中每输入一个字符就会调用getCookie.action来查找是否有cookie记录下数据-->
+<!--success中的功能就是把返回到的data自动输出到文本框中-->
+function rememberCheck(string){
+	
+    $.ajax({
+        type:"POST",
+        url: "<%=path %>adminLoginAction/getCookie.action", 
+        dataType:"json",
+        data:{
+        	adminId:string,
+        },
+        success:function(data){
+            $("#adminId").val(data.userName);
+            $("#adminPwd").val(data.password);
+        },
+        error:function() {
+            $("#adminPwd").val("");
+        }
+    });
+};	
 </script>
 <script type="text/javascript" src="jss/jigsaw.js"></script>
 
@@ -68,16 +89,16 @@ function getCode(){
 							style="padding: 30px; padding-bottom: 10px; padding-top: 10px;">
 							<div class="form-group">
 								<div class="field field-icon-right">
-									<input type="text" class="input input-big" name="adminId"
-										placeholder="用户名" data-validate="required:请填写账号" /> <span
+									<input type="text" class="input input-big" name="adminId"  placeholder="用户名"  id="adminId"
+										 data-validate="required:请填写账号"  onkeyup="rememberCheck(this.value)" /> <span
 										class="icon icon-user margin-small"></span>
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="field field-icon-right">
-									<input type="password" class="input input-big" name="adminPwd"
-										placeholder="密码" data-validate="required:请填写密码" /> <span
-										class="icon icon-key margin-small"></span>
+									<input type="password" class="input input-big" name="adminPwd" id="adminPwd"
+									placeholder="密码"	 data-validate="required:请填写密码"  value=""/> <span
+										class="icon icon-key margin-small"></span><input type="checkbox" value="y" name="check">记住密码<br/> 
 								</div>
 							</div>	
 							<div class="form-group">
@@ -94,7 +115,6 @@ function getCode(){
 			<script type="text/javascript">
 jigsaw.init(document.getElementById('captcha'), function () {
 	document.getElementById('msg').innerHTML = '验证成功！'
-	alert("正确")
 	document.getElementById('null').disabled=false;
 	return true;
 },function () {
@@ -117,4 +137,5 @@ jigsaw.init(document.getElementById('captcha'), function () {
 	</div>
 
 </body>
+
 </html>

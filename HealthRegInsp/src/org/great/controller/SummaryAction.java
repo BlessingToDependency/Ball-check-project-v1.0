@@ -1,6 +1,13 @@
 package org.great.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.great.bean.AdminBean;
+import org.great.bean.FinresultBean;
+import org.great.bean.LitemBean;
 import org.great.bean.ParamBean;
 import org.great.bean.StaffBean;
 import org.great.bean.UserBean;
@@ -20,6 +29,7 @@ import org.great.biz.IMissInspBiz;
 import org.great.biz.IParamConfigBiz;
 import org.great.biz.ISummaryBiz;
 import org.great.search.AdminCon;
+import org.great.search.GuchIDdItemID;
 import org.great.search.SumCon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -86,9 +96,110 @@ public class SummaryAction {
 	
 	//进行小结
 	@RequestMapping(value="/makeSummary.action")
-	public ModelAndView Summary(HttpServletRequest request){
-
-		 
+	public ModelAndView Summary(HttpServletRequest request,String guChId){
+		//得到登录对象信息
+		AdminBean adminBean = (AdminBean) request.getSession().getAttribute("adminBean");
+		//得到对应的科室ID
+		int depeId =adminBean.getDepaId();
+		//根据科室跳转到不同的小结页面
+		int incFace = SummaryBizImp.intFace(depeId);
+		//获取该科室体检的项目
+	    LitemBean item= SummaryBizImp.getItem(depeId);
+		ModelAndView mav = new ModelAndView();
+		//这是进行影像小结
+		if(incFace==102) {
+			//获取数据用户小结记录
+			GuchIDdItemID giBean=new  GuchIDdItemID();
+			giBean.setGuChId(guChId);
+			giBean.setItemId(item.getItemId());
+			giBean.setDoctor(adminBean.getAdminName());
+			giBean.setItem(item.getItem());
+			request.setAttribute("giBean", giBean);
+			
+			mav.setViewName("BackEnd/ImageSumm");
+		}
+		//这是进行检验小结
+		else if(incFace==103) {
+			//获取该体检人员该项目中的体检项目中的细项结果
+			List<FinresultBean> finrList = SummaryBizImp.getFinresultList(guChId, item.getItemId());
+			//展示的细项结果
+			request.setAttribute("finrList", finrList);
+			//获取数据用户小结记录
+			GuchIDdItemID giBean=new  GuchIDdItemID();
+			giBean.setGuChId(guChId);
+			giBean.setItemId(item.getItemId());
+			giBean.setDoctor(adminBean.getAdminName());
+			giBean.setItem(item.getItem());
+			request.setAttribute("giBean", giBean);
+			
+			mav.setViewName("BackEnd/TestSumm");
+		}
+		//这是进行普通小结
+		else {
+			//获取该体检人员该项目中的体检项目中的细项结果
+			List<FinresultBean> finrList = SummaryBizImp.getFinresultList(guChId, item.getItemId());
+			//展示的细项结果
+			request.setAttribute("finrList", finrList);
+			//获取数据用户小结记录
+			GuchIDdItemID giBean=new  GuchIDdItemID();
+			giBean.setGuChId(guChId);
+			giBean.setItemId(item.getItemId());
+			giBean.setDoctor(adminBean.getAdminName());
+			giBean.setItem(item.getItem());
+			request.setAttribute("giBean", giBean);
+			
+			mav.setViewName("BackEnd/OrdinarySumm");
+		}
+		return mav;
+	}
+	
+	//影像小结获得影像图片
+	@RequestMapping(value="/getImage.action")
+	
+	public ModelAndView getImage(HttpServletRequest request,HttpServletResponse response,GuchIDdItemID giBean){
+		//根据导检单号以及项目ID找到对应图片
+		
+		List<String> fileNameList= SummaryBizImp.imageFile(giBean.getGuChId(), giBean.getItemId());
+		for(int i=0;i<fileNameList.size();i++) {
+			String fileName = fileNameList.get(i);
+			String root = request.getServletContext().getRealPath("/upload/"+giBean.getGuChId()+"/"); // 设置文件的路径
+			File file=new File(root + fileName);
+			try {
+				InputStream inputStream=new FileInputStream(file);
+				OutputStream output = response.getOutputStream();// 得到输出流
+				
+				BufferedInputStream bis = new BufferedInputStream(inputStream);// 输入缓冲流
+				BufferedOutputStream bos = new BufferedOutputStream(output);// 输出缓冲流
+				byte data[] = new byte[4096];// 缓冲字节数
+				int size = 0;
+				size = bis.read(data);
+				while (size != -1) {
+					bos.write(data, 0, size);
+					size = bis.read(data);
+				}
+				bis.close();
+				bos.flush();// 清空输出缓冲流
+				bos.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+            return null;
+	}
+	
+	
+	//提交小结结果
+	@RequestMapping(value="/submitSummary.action")
+	public ModelAndView SubmitSummary(HttpServletRequest request,GuchIDdItemID giBean){
+		int res = SummaryBizImp.subSumm(giBean);
+		if(res>0) {
+			return new ModelAndView("redirect:/doctorSummaryAction/getThisItemStaff.action");
+		}
 		return null;
 	}
+	
 }

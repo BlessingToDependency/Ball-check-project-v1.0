@@ -19,10 +19,17 @@ public class StaffBean {
      private String napany;
      private int medicalId;//体检状态
      private String myGuChId ;//最新导检单号
+
      
 
 
 	 private String statTime;//开始时间
+   private int printGuCh; //打印导检单状态
+     
+
+
+	private String statTime;//开始时间
+
      private String stopTime;//结束时间
      
      @Resource
@@ -34,6 +41,30 @@ public class StaffBean {
 	public StaffBean() {
 		super();
 	}
+
+
+
+	public StaffBean(int staffId, String staffName, int age, String sex, String idNum, long phone, int companyId,
+			String napany, int medicalId, String myGuChId, int printGuCh, String statTime, String stopTime,
+			UserBean userBean, PerguirelaBean perguirelaBean) {
+		super();
+		this.staffId = staffId;
+		this.staffName = staffName;
+		this.age = age;
+		this.sex = sex;
+		this.idNum = idNum;
+		this.phone = phone;
+		this.companyId = companyId;
+		this.napany = napany;
+		this.medicalId = medicalId;
+		this.myGuChId = myGuChId;
+		this.printGuCh = printGuCh;
+		this.statTime = statTime;
+		this.stopTime = stopTime;
+		this.userBean = userBean;
+		this.perguirelaBean = perguirelaBean;
+	}
+
 
 
 	public int getStaffId() {
@@ -106,6 +137,7 @@ public class StaffBean {
 	}
 
 
+
 	public int getMedicalId() {
 		return medicalId;
 	}
@@ -117,6 +149,47 @@ public class StaffBean {
 
 
 
+
+=======
+
+	public String getNapany() {
+		return napany;
+	}
+
+
+	public void setNapany(String napany) {
+		this.napany = napany;
+	}
+
+
+	public int getMedicalId() {
+		return medicalId;
+	}
+
+
+	public void setMedicalId(int medicalId) {
+		this.medicalId = medicalId;
+	}
+
+
+	public String getMyGuChId() {
+		return myGuChId;
+	}
+
+
+	public void setMyGuChId(String myGuChId) {
+		this.myGuChId = myGuChId;
+	}
+
+
+	public int getPrintGuCh() {
+		return printGuCh;
+	}
+
+
+	public void setPrintGuCh(int printGuCh) {
+		this.printGuCh = printGuCh;
+	}
 
 
 	public String getStatTime() {
@@ -141,6 +214,7 @@ public class StaffBean {
 
 	public UserBean getUserBean() {
 		return userBean;
+
 	}
 
 
@@ -190,6 +264,26 @@ public class StaffBean {
 	public void setMyGuChId(String myGuChId) {
 		this.myGuChId = myGuChId;
 	}
+
+	}
+
+
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
+	}
+
+
+	public PerguirelaBean getPerguirelaBean() {
+		return perguirelaBean;
+	}
+
+
+	public void setPerguirelaBean(PerguirelaBean perguirelaBean) {
+		this.perguirelaBean = perguirelaBean;
+	}
+
+
+	
 
      
      

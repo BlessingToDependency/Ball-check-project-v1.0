@@ -6,14 +6,13 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.RoleBean;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /*
  * 角色Mapper
  */
 @Repository
 public interface IRoleMapper {
-	//查询所有角色
+	//带条件分页查询所有角色
      public   List<RoleBean>    selectAllRole(RoleBean roleBean,RowBounds rowBounds);
      
      //查询角色个数
@@ -30,5 +29,10 @@ public interface IRoleMapper {
      
      //查重
      public List<RoleBean> checkRole(RoleBean roleBean);
-
+     
+     //查询所有角色
+     public List<RoleBean>  selectR();
+     
+    
 }
+

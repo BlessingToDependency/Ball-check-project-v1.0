@@ -4,19 +4,30 @@
  <mapper namespace="org.great.mapper.IlogMapper">
  		
  		<!-- 获取日志-->
- 	    <select id="selectAllLog" resultType="org.great.bean.LogBean" parameterType="org.great.bean.LogBean">
+ 	    <select id="selectAllLog"  resultType="org.great.bean.LogBean" parameterType="org.great.bean.LogBean">
 			select * from (select * from tbllog) where 1=1
 			<if test="name!=null">and name like '%${name}%'   </if>
+		
 		</select>
 		
 		<!-- 获取日志个数-->
  		    <select id="selectLogNu" resultType="org.great.bean.LogBean" parameterType="org.great.bean.LogBean">
 			select * from (select * from tbllog) where 1=1
-			<if test="name!=null">and name like '%${name}%'   </if>
+			 <if test="name!=null">and name like '%${name}%'   </if>
+	
 		    </select>
 		    
 		<!-- 删除日志-->    
 		<delete id="deleteLog" parameterType="java.lang.Integer">
 		       delete from tbllog where logId=#{logId}
 		</delete>
+		
+		<!-- 保存日志-->  
+		<insert id="saveLog"  parameterType="org.great.bean.LogBean">
+		    insert into tbllog(logId,time,name,module,commite,method) values(TBL_LOG.nextval,#{time},#{name},#{module},#{commite},#{method})
+		
+		</insert>
+	
+	 
+		
  </mapper>
