@@ -8,23 +8,23 @@ String path = request.getScheme() +"://"+request.getServerName()
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>单位团检开单</title>
+    <title>体检公司列表</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="shortcut icon" href="<%=path%>/favicon.ico" type="image/x-icon" />
+    <link href="<%=path%>css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="<%=path%>/css/font.css">
     <link rel="stylesheet" href="<%=path%>/css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <%-- <script src="<%=path%>js/bootstrap.min.js"></script> --%>
+     <style>
+     .zt{color: #06F;font-size: 18px;font-weight: 10px;}
+         #div{width:20%; height:40px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
+	</style>
   </head>
-  
   <body>
     <div class="x-nav">
       <span class="layui-breadcrumb">
@@ -38,67 +38,119 @@ String path = request.getScheme() +"://"+request.getServerName()
     </div>
     <div class="x-body">
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-          <input class="layui-input" placeholder="开始日" name="start" id="start">
-          <input class="layui-input" placeholder="截止日" name="end" id="end">
-          <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        <form class="layui-form layui-col-md12 x-so"  method="post" action="<%=path %>openBillAction/massInspList.action">
+        <div id="div">
+          <input type="text" id="company" name="company"  placeholder="公司名称" autocomplete="off" class="layui-input" value="${companyCon.company==null?"":companyCon.company}">
+        </div>
+          <button class="layui-btn" type="submit" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
-
+      <xblock>
+        <span class="x-right" style="line-height:40px">共有数据:${allRecord}条</span>
+      </xblock>
       <table class="layui-table">
         <thead>
           <tr>
+            <th>
+              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
             <th>ID</th>
-            <th>单位名称</th>
-            <th>单位地址</th>
+            <th>公司名称</th>
             <th>联系人</th>
             <th>电话</th>
+            <th>公司地址</th>
             <th>操作</th>
         </thead>
         <tbody>
           <c:forEach items="${openBillList}"  var="list" step="1" varStatus="vs">
-			<c:if test="${vs.index%2 == 0}">
-			<tr   style="background-color:cyan">
+			<tr>
+			  <td>
+              <div class="layui-unselect layui-form-checkbox" name="ch" lay-skin="primary" data-id='${list.companyId}'><i class="layui-icon">&#xe605;</i></div>
+               </td>
 			   <td>${vs.index+1}</td>
 			   <td>${list.company}</td>
-			   <td>${list.address}</td>
 			   <td>${list.contacts}</td>
 			   <td>${list.phone}</td>
-	       	   <td class="td-status">
-                 <a href="<%=path%>demo/userManger!enable.action?name=${list.company}"><span class="layui-btn layui-btn-normal layui-btn-mini">批量开单</span>启用</a>
-	           </td>
-			</tr>
-			</c:if>
-			
-		   <c:if test="${vs.index%2 == 1}">
-			<tr   style="background-color:pink">
-			    <td>${vs.index+1}</td>
-			   <td>${list.company}</td>
 			   <td>${list.address}</td>
-			   <td>${list.contacts}</td>
-			   <td>${list.phone}</td>
 	       	   <td class="td-status">
-               <span class="layui-btn layui-btn-normal layui-btn-mini">批量开单</span>
+                 <a href="<%=path%>openBillAction/staff.action?companyId=${list.companyId}" ><span class="layui-btn layui-btn-warm" style="width:120px;">查看体检人员</span></a>
 	           </td>
 			</tr>
-			</c:if>
 			</c:forEach>
         </tbody>
       </table>
-      <div class="page">
+       
+        <div class="page">
         <div>
-          <a class="prev" href="">&lt;&lt;</a>
-          <a class="num" href="">1</a>
-          <span class="current">2</span>
-          <a class="num" href="">3</a>
-          <a class="num" href="">489</a>
-          <a class="next" href="">&gt;&gt;</a>
+      当前：第  ${pageNo} 页/ 共 ${AllPage} 页
+          <a class="num" href="<%=path %>openBillAction/massInspList.action?pageNo=1&company=${companyCon.company}">首页</a>
+          <a class="prev" href="<%=path %>openBillAction/massInspList.action?pageNo=${pageNo-1}&company=${companyCon.company}" onclick="return chageNO(this)">上一页</a>
+          <a class="next" href="<%=path %>openBillAction/massInspList.action?pageNo=${pageNo+1}&company=${companyCon.company}" onclick="return chageNE(this)">下一页</a>
+          <a class="num" href="<%=path %>openBillAction/massInspList.action?pageNo=${AllPage}&company=${companyCon.company}">末页</a>
+          <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off"/>
+           <a class="num" id="linkToCart" onclick="jump();">跳转</a>
         </div>
       </div>
 
+
     </div>
+</body>
+    <script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#start' //指定元素
+        });
 
-  </body>
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#end' //指定元素
+        });
+      });
 
+      function delAll (argument) {
+
+        var data = tableCheck.getData();
+  
+        layer.confirm('确认要删除吗？'+data,function(index){
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+            window.location.href="<%=path%>openBillAction/massInspList.action?data="+data;
+        });
+      }
+    </script>
+<script type="text/javascript">
+//跳转页码
+function jump(){
+	var p=document.getElementById("pageNo").value;
+	window.location.href="<%=path%>openBillAction/massInspList.action?pageNo="+p+"&company=${companyCon.company}";
+}
+//上一页限制
+function chageNO(v){
+	 var url = v.href;
+	 var a=url.indexOf('=',1);
+	 var a2=a+1;
+	 var b=a2+2;
+	 var num = parseInt(url.substring(a2,b));
+	 if(num<1){
+		 return false;
+	 }
+	 return true;
+}
+//下一页限制
+function chageNE(v){
+	 var url = v.href;
+	 var a=url.indexOf('=',1);
+	 var a2=a+1;
+	 var b=a2+2;
+	 var num = parseInt(url.substring(a2,b));
+	 if(num>${AllPage}){
+		 return false;
+	 }
+	 return true;
+}
+</script> 
 </html>

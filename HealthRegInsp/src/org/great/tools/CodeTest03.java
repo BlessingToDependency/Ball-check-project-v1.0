@@ -148,13 +148,13 @@ import org.jbarcode.util.ImageUtil;
         //测试  
         public static void main(String[] args) throws FileNotFoundException, IOException {  
             List<String> list=new ArrayList<String>();  
-            list.add("KJ4.1-0127-0001");  
-            list.add("KJ4.1-0128-0001");  
+            list.add("KJ4.1-0127-0001-1231");  
+            /*list.add("KJ4.1-0128-0001");  
             list.add("KJ4.1-0129-0001");  
-            list.add("KJ4.1-0130-0001");  
+            list.add("KJ4.1-0130-0001"); */ 
             if(list!=null && list.size()>0){  
                 for(String message:list){  
-                    CodeTest03.createBarcode(message, new File("D:\\codeImg\\"+message+".png"),"苏交科");  
+                    CodeTest03.createBarcode(message, new File("D:\\codeImg\\"+message+".png"),"苏adasd");  
                 }  
             }     
             
