@@ -3,13 +3,109 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
  
  <mapper namespace="org.great.mapper.ReportMapper">
+     
+   
+	<!--展示有开单体检的公司  -->
+ 	<select id="showCompany" parameterType="java.lang.String"  resultMap="company" >
+ 		select d.*,rownum from
+		(select c.* ,rownum rn from
+		(select a.ordertime ,b.* from  tblbill  a,  TBLFOREGROUND b   
+		<where>
+				a.companyId = b.companyId
+			<if test="null != company and ''!=company " >
+				and  b.company  like concat(concat('%',#{company}),'%')
+			</if>
+		</where>
+		 order by a.ordertime desc)c where rownum &lt;=(#{currentPage} * #{pagecount}))d where rn&gt;=((#{currentPage}-1)*#{pagecount}+1)	
+ 	</select>
+ 	
+ 	<resultMap type="org.great.bean.BillBean" id="company">
+ 		<result column="billId" property="billId"/>
+ 		<result column="companyId" property="companyId"/>
+ 		<result column="ordNum" property="ordNum"/>
+ 		<result column="actNum" property="actNum"/>
+ 		<result column="setmealId" property="setmealId"/>
+ 		<result column="actCharge" property="actCharge"/>
+ 		<result column="orderTime" property="orderTime"/>	
+ 	<association property="userBean" javaType="org.great.bean.UserBean">
+ 		<id column="companyId" property="companyId"/>
+ 		<result column="company" property="company"/>	
+ 	</association>	
+ 	</resultMap>
+ 	<!-- 计算公司总页数 -->
+ 	<select id="countPage" resultType="java.lang.Integer" >
+ 		select count(*) from
+		(select a.ordertime ,b.* from  tblbill  a,  TBLFOREGROUND b  
+		<where>
+					a.companyId = b.companyId  
+				<if test="null != company and ''!=company">
+					and  b.company  like concat(concat('%',#{company}),'%')
+				</if>			
+		</where>		
+	    order by a.ordertime desc)
+ 	
+ 	</select>
+   
+  <!-- 展示公司的职员 --> 
+    <select id="findUserById"  resultMap="queryUser" parameterType="org.great.bean.PerguirelaBean">
+    
+    		select e.*,rownum from 
+			(select d.*,rownum rn from
+			(select  a.* from  TBLSTAFF a ,TBLPERGUIRELA b
+    	<where>
+    			  a.staffId =b.staffId  and b.companyId = #{companyId,jdbcType=VARCHAR}
+    			
+    			<if test="null != pBean.partYear and ''!= pBean.partYear">
+    				and b.partyear =#{pBean.partYear}
+    			</if>
+    			<if test="null != pBean.batchNum and ''!= pBean.batchNum"> 			
+    				and b.BATCHNUM = #{pBean.batchNum }   			
+    			</if> 			
+    			<if test="null!=staffName and ''!=staffName ">
+    				and  a.staffname  like concat(concat('%',#{staffName}),'%')  			
+    			</if> 
+    		
+    	</where>     
+    				 ) d where  rownum &lt;= (#{pBean.currentPage} * #{pagecount}) )e where rn&gt;= ((#{pBean.currentPage}-1)*#{pagecount}+1)
+    </select>
+    <resultMap type="org.great.bean.StaffBean" id="queryUser">
+    	<result column="staffId"  property="staffId"/>
+    	<result column="staffName"  property="staffName"/>
+   		<result column="age"  property="age"/>
+   		<result column="sex"  property="sex"/>
+   		<result column="idNum"  property="idNum"/>
+   		<result column="phone"  property="phone"/>
+   		<result column="companyId"  property="companyId" />
+   		<result column="idNum"  property="idNum"/> 
+   		<association property="perguirelaBean" javaType="org.great.bean.PerguirelaBean">
+   			<id column="staffId" property="staffId"/>
+   			<result column="partYear"  property="partYear"/>
+   			<result column="batchNum"  property="batchNum"/>
+   		</association>
+    </resultMap>
+    
+
    
    
-  <!--报告展示  -->
-   <select id="">
-   
-   
-   </select>
+ 
+   <!--计算展示的员工数量  -->
+   	 <select id="countUser" resultType="java.lang.Integer" parameterType="org.great.bean.PerguirelaBean">
+   			 select count(*) from
+			 (select  b.*,a.staffname from  TBLSTAFF a ,TBLPERGUIRELA b
+   	 	<where>
+   	 		 a.staffId =b.staffId and b.companyId = #{companyId}
+   	 		 <if test="null != pBean.partYear and ''!= pBean.partYear">
+    				and b.partyear =#{pBean.partYear}
+    			</if>
+    			<if test="null != pBean.batchNum and ''!= pBean.batchNum"> 			
+    				and b.BATCHNUM = #{pBean.batchNum }   			
+    			</if> 			
+    			<if test="null!=staffName and ''!=staffName ">
+    				and  a.staffname  like concat(concat('%',#{staffName}),'%')  			
+    			</if> 	 	
+   	 	</where>
+   	 		)  	 
+   	 </select>
    
    
   <!--用户报告  -->
@@ -20,7 +116,29 @@
  		SELECT * FROM tbltotal where  GUCHID  =#{guChId}  
  	</select>
  	
+ 	<!--得到年份  -->
+ 	<select id="queryYear" resultType="java.lang.String"> 	
+ 		select distinct partyear from TBLPERGUIRELA	
+ 	</select>
  	
+ 	<!--得到批次号  -->
+ 	<select id="queryBatch" resultType="java.lang.Integer"  parameterType="org.great.bean.PerguirelaBean">
+ 		select distinct batchnum from TBLPERGUIRELA where partyear =#{partYear} and companyId = #{companyId}
+ 	</select>
  	
+ 	<!--得到小结  -->
+ 	 <select id="querySmall" resultType="java.lang.Integer" parameterType="org.great.bean.SmallBean">
+ 	    select b.* from TBLPERGUIRELA a, TBLSMALL b ,TBLGUISETMEAL c
+ 	     where a.PERINSPID = c.PERINSPID and c.GUCHID = b.GUCHID and a.staffId = #{staffId}
+ 	 </select>
+ 	 
+ 	 <!-- 插入总结 tbl_total.nextval-->
+ 	 <insert id="insertTotal" parameterType="org.great.bean.TotalBean">
+ 	 	INSERT INTO TBLTOTAL (TOTALID, GUCHID, DOCTOR, PROPOSAL, LIFEGUID, DOCSUMMARY, SUGGEST) 
+ 	 	VALUES (tbl_total.nextval, #{guChId}, #{doctor}, #{proposal}, #{lifeGuid}, #{docSummary}, #{suggest})	 
+ 	 </insert>
+ 	 
+ 	 
+ 	 
  </mapper>
  

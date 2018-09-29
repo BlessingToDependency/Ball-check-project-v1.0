@@ -54,7 +54,7 @@ String path = request.getScheme() +"://"+request.getServerName()
           var pages = $("#pages").val();
  
           //设置linkToCart的href的值
-          $("#linkToCart").attr("href","<%=path %>userAdminAction/userAdmin.action?pages="+pages+"");
+          $("#linkToCart").attr("href","<%=path %>fileAction/companyStaffList.action?pages="+pages+"");
       });
     });
 </script>
@@ -102,6 +102,7 @@ function checkUser(){
               <th>性别</th>
               <th>身份证号</th>
             <th>手机号</th>
+            <th>已选择套餐</th>
             <th>选择套餐</th>
         </thead>
         <tbody>
@@ -117,11 +118,11 @@ function checkUser(){
             <td>${staffBean.sex}</td>
              <td>${staffBean.idNum}</td>
              <td>${staffBean.phone}</td>
+             <td>已选择套餐名</td>
             <td class="td-status">
-              
-              <a title="选择套餐"  onclick="x_admin_show('选择套餐','<%=path %>userMainAction/chooseMeal.action?staffId=${staffBean.staffId}')" href="javascript:;">
-                <i class="layui-icon">&#xe642;</i>
-              </a>
+              <span class="layui-btn layui-btn-primary">
+              <a title="选择套餐" onclick="x_admin_show('选择套餐','<%=path %>userMainAction/chooseMeal.action?staffId=${staffBean.staffId}')" href="javascript:;">选择套餐</a>
+              </a></span>
            
             </td>
           </tr>
@@ -131,10 +132,10 @@ function checkUser(){
       <div class="page">
         <div>
       当前：第  ${pages} 页/ 共 ${pageCountAll} 页
-          <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=1">首页</a>
-          <a class="prev" href="<%=path %>${(pages-1)>0?pages-1:1}">上一页</a>
-          <a class="next" href="<%=path %>userAdminAction/userAdmin.action?pages=${(pages+1)<=pageCountAll?pages+1:pageCountAll}">下一页</a>
-          <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=${pageCountAll}">末页</a>
+          <a class="num" href="<%=path %>fileAction/companyStaffList.action?pages=1">首页</a>
+          <a class="prev" href="<%=path %>fileAction/companyStaffList.action?pages=${(pages-1)>0?pages-1:1}">上一页</a>
+          <a class="next" href="<%=path %>fileAction/companyStaffList.action?pages=${(pages+1)<=pageCountAll?pages+1:pageCountAll}">下一页</a>
+          <a class="num" href="<%=path %>fileAction/companyStaffList.action?pages=${pageCountAll}">末页</a>
           <input type="text" id="pages" name="code" style="width:50px;height:40px;" autocomplete="off"/>
            <a class="num" id="linkToCart" href="">跳转</a>
         </div>

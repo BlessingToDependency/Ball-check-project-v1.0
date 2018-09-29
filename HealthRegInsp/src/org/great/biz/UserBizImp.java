@@ -5,7 +5,9 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.great.bean.BillBean;
+import org.great.bean.PerguirelaBean;
 import org.great.bean.SetmealBean;
+import org.great.bean.ShoppingCartBean;
 import org.great.bean.StaffBean;
 import org.great.bean.StaffMealBean;
 import org.great.bean.UserBean;
@@ -100,7 +102,19 @@ public class UserBizImp implements UserBiz {
 		// TODO Auto-generated method stub
 		iUserMapper.bespeakMeal(staffMealBean);
 	}
-	
 
+	//加入购物车
+	@Override
+	public void addShoppingCart(ShoppingCartBean shoppingCartBean) {
+		// TODO Auto-generated method stub
+		iUserMapper.addShoppingCart(shoppingCartBean);
+	}
+
+	//插入员工导检单关系表
+	@Override
+	public void addPerguirela(PerguirelaBean perguirelaBean) {
+		// TODO Auto-generated method stub
+		iUserMapper.addPerguirela(perguirelaBean);
+	}
 
 }

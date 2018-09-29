@@ -47,6 +47,13 @@ public class RoleBean {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "RoleBean [roleId=" + roleId + ", role=" + role + "]";
+	}
 	
 	
 	

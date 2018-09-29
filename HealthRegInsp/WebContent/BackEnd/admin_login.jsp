@@ -114,7 +114,6 @@ function rememberCheck(string){
 			<script type="text/javascript">
 jigsaw.init(document.getElementById('captcha'), function () {
 	document.getElementById('msg').innerHTML = '验证成功！'
-	alert("正确")
 	document.getElementById('null').disabled=false;
 	return true;
 },function () {
