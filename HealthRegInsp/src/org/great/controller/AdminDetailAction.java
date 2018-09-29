@@ -1,10 +1,13 @@
 package org.great.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.apache.ibatis.annotations.Param;
+import org.great.bean.LitemBean;
 import org.great.bean.TermBean;
 import org.great.biz.ParticularBiz;
 import org.springframework.stereotype.Controller;
@@ -161,4 +164,29 @@ public class AdminDetailAction {
 		return new ModelAndView(url);
 	}
 
+	/*
+	 * @Description:细项查重
+	* @param termBean
+	* @return（展示方法参数和返回值）
+	 */
+	@RequestMapping("/repetitionDetail.action")
+	@ResponseBody
+	public Map<String,Object> repetitionDetail(TermBean termBean){
+//		System.out.println(termBean.toString());
+		Map<String,Object> map = new HashMap<String,Object>();
+		if(!termBean.getTerm().equals("")) {
+		//调用细项查重方法
+		List<TermBean> list = particularBizImpl.repetitionTerm(termBean.getTerm());
+		
+			if(list.size()==0) {
+				map.put("hint", "尚未增加");
+			}else {
+				map.put("hint", "已经增加");
+			}
+		}else {
+			map.put("hint", "不能为空");
+		}
+		return map;
+		
+	}
 }

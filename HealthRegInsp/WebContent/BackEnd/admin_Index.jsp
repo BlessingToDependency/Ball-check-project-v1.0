@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+     
     <%
 String path = request.getScheme() +"://"+request.getServerName()
 	+":"+request.getServerPort()+ request.getContextPath()+"/";%>
@@ -10,7 +12,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 	<title>团检系统</title>
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <!-- <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" /> -->
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -57,8 +59,30 @@ String path = request.getScheme() +"://"+request.getServerName()
     <div class="left-nav">
       <div id="side-nav">
         <ul id="nav">
-        
-         <li>
+        	
+            <c:forEach items="${parentList}" var="parent" varStatus="varSt">
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b4;</i>
+                    <cite>${parent.menu }</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                <c:forEach items="${sonList}" var="son" varStatus="status">
+                 <c:if test="${son.parId == parent.jurisId}">
+                    <li>
+                        <a _href="<%=path%>${son.url }">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>${son.menu }</cite>
+                        </a>
+                    </li>
+                    </c:if>
+                </c:forEach>
+                </ul>
+            </li>
+           </c:forEach> 
+           
+          <%-- <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b4;</i>
                     <cite>会员管理</cite>
@@ -311,7 +335,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>   --%>
         </ul>
       </div>
     </div>

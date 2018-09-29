@@ -47,5 +47,9 @@
  	<delete id="deleteTermCom" parameterType="java.lang.Integer">
  		DELETE FROM TBLITEMCOM WHERE TERMID = #{termId}
  	</delete>
+ 	<!-- 	细项查重 -->
+ 	<select id="repetitionTerm" resultType="org.great.bean.TermBean" parameterType="java.lang.String">
+ 		select * from TBLTERM where term = #{term}
+ 	</select>
  
  </mapper>

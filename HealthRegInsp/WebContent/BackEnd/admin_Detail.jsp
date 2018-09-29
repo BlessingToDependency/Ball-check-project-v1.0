@@ -8,7 +8,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 <html>
 <head>
 <meta charset="UTF-8">
-<title>项目配置管理</title>
+<title>细项配置管理</title>
  <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -68,7 +68,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 	   
 	    });
 			}
-		/* 增加项目 */
+		/* 增加细项 */
 		function addItem(){
 	            	//清空
 	            	$("#myModal0").empty();   
@@ -76,7 +76,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 	                		+"<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>×</button>" 
 	   						+"<h4 class='modal-title' id='myModalLabel'>添加细项</h4></div>"
 	   						+"<div class='layui-form-item'><label class='layui-form-label'>细项名</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='term' lay-verify='title' autocomplete='off' placeholder='请输入细项名称' class='layui-input'></div></div>"
+	                		+"<input type='text'id='term' name='term' lay-verify='title' autocomplete='off' placeholder='请输入细项名称' class='layui-input' onblur='repetition()'><span id='t'></span></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>下限值</label><div class='layui-input-block'>"
 	                		+"<input type='text' name='downLimit' lay-verify='title' autocomplete='off' placeholder='请输入下限值，例如4.0~' class='layui-input'></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>上限值</label><div class='layui-input-block'>"
@@ -137,11 +137,25 @@ String path = request.getScheme() +"://"+request.getServerName()
 		
 	</script>
 	<script>
-layui.use('form', function(){
-  var form = layui.form;
-  form.render('checkbox'); //刷新select选择框渲染
-  //各种基于事件的操作，下面会有进一步介绍
-});
+	function repetition(){
+/* 		alert($("#term").val()) */
+		$.ajax({
+			url:"<%=path%>adminDetailAction/repetitionDetail.action",
+			type:"post",
+			dataType:"json",
+			data: {term: $("#term").val(), //发送的数据部分    
+            },
+            success:function(reData){
+				//alert(reData.hint)
+			if(reData.hint=="尚未增加"){
+            	$("#t").css("color","#0F0");
+			}else{
+				$("#t").css("color","red");
+			}
+				$("#t").html(reData.hint);
+			}
+			})	
+			}
 </script>
 </head>
 <body>

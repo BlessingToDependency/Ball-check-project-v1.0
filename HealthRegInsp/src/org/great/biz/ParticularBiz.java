@@ -35,4 +35,7 @@ public interface ParticularBiz {
 	
 	//删除项目细项关系中关于细项的数据
 	public void deleteTermCom(@Param("termId") Integer termId);
+	
+	//细项查重
+	public List<TermBean> repetitionTerm(@Param("term") String term);
 }

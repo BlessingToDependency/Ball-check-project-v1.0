@@ -82,4 +82,12 @@ public class ParticularBizImpl implements ParticularBiz{
 		iParticularService.deleteTermCom(termId);
 	}
 
+	//细项查重
+	@Override
+	public List<TermBean> repetitionTerm(String term) {
+		// TODO Auto-generated method stub
+		List<TermBean> tb = iParticularService.repetitionTerm(term);
+		return tb;
+	}
+
 }
