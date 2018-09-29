@@ -38,4 +38,8 @@
 	<delete id="deleteItem" parameterType="org.great.bean.LitemBean">
 		DELETE FROM TBLITEM WHERE ITEMID = #{itemId}		
 	</delete>
+	<!-- 项目名查重 -->
+	<select id="duplicateChecking" parameterType="org.great.bean.LitemBean" resultType="org.great.bean.LitemBean">
+			SELECT * FROM TBLITEM where ITEM = #{item}
+	</select>
  </mapper>

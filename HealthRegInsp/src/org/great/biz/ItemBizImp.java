@@ -66,4 +66,12 @@ public class ItemBizImp implements ItemBiz{
 		
 	}
 
+	//项目名查重
+	@Override
+	public List<LitemBean> duplicateChecking(LitemBean litemBean) {
+		// TODO Auto-generated method stub
+		List<LitemBean> list = iItemService.duplicateChecking(litemBean);
+		return list;
+	}
+
 }

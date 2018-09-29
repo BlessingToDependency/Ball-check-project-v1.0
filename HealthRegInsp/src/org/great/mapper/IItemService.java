@@ -33,4 +33,7 @@ public interface IItemService {
 	
 	//删除项目
 	public void deleteItem(LitemBean litemBean);
+	
+	//项目名查重
+	public List<LitemBean> duplicateChecking(LitemBean litemBean);
 }
