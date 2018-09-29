@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.RoleBean;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /*
  * 角色Mapper
@@ -26,4 +27,8 @@ public interface IRoleMapper {
      
      //删除角色
      public  void  deleteRole(@Param("roleId")int roleId);
+     
+     //查重
+     public List<RoleBean> checkRole(RoleBean roleBean);
+
 }

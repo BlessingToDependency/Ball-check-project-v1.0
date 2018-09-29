@@ -51,5 +51,13 @@ public class RoleBizImp implements IRoleBiz {
 		// TODO Auto-generated method stub
 		iroleMapper.deleteRole(roleId);
 	}
+
+	//查重
+	@Override
+	public List<RoleBean> checkRole(RoleBean roleBean) {
+		// TODO Auto-generated method stub
+		List<RoleBean> roleList=iroleMapper.checkRole(roleBean);
+		return roleList;
+	}
 	
 }

@@ -14,7 +14,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 <title>后天健康团检系统</title>
-
 <meta name="description" content="网站描述" />
 
 <meta name="keywords" content="关键词" />
@@ -161,8 +160,6 @@
       </li><li class="navitem"><a  href="contact.html" >联系我们</a>
 
         <ul class="subnav">
-
-          
 
         </ul>
 

@@ -59,7 +59,7 @@
 		</button>
 
 		 <%--   <button class="layui-btn" onclick="x_admin_show('添加用户','<%=path %>Order/addItem.action')"><i class="layui-icon"></i>添加</button> --%>
-		<span class="x-right" style="line-height: 40px">页数：${currentPage}/${totalPage }</span> </xblock>
+		<span class="x-right" style="line-height: 40px">共有数据：${count } 条</span> </xblock>
 		<form id="fileForm" name="fileform" method="post" action="fileShow.action">
 			<table class="layui-table">
 				<thead>
@@ -79,7 +79,7 @@
 					<c:forEach items="${orderList}" var="list" varStatus="vs">
 						<tr>
 							<td>
-								<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'>
+								<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='${list.setmealId }'>
 									<i class="layui-icon">&#xe605;</i>
 								</div>
 							</td>
@@ -130,7 +130,7 @@
 		<form method="post" action="<%=path %>Order/addOrder.action?" enctype="multipart/form-data">
 			<div class="modal-body"> 
 		
-				套餐名字：<input name="setmeal" type="text">			
+				套餐名字：<input name="setmeal" type="text" id="orderName"><span id="hiden"></span>			
 			</div>
 			<div class="modal-body">
 				套餐折扣：<input name="discount" type="text">
@@ -142,7 +142,7 @@
 				<button type="button" class="btn btn-default" 
 						data-dismiss="modal">关闭
 				</button>
-				<input type="submit" value="提交" class="btn btn-primary"> 
+				<input type="submit" value="提交" class="btn btn-primary" id="checkName"> 
 				<!-- <button type="submit" class="btn btn-primary"> 
                    	 提交
                 </button>-->
@@ -153,20 +153,29 @@
 </div><!-- /.modal -->
 
 
-	<script>
-      layui.use('laydate', function(){
-        var laydate = layui.laydate;
-        
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#end' //指定元素
-        });
-      });
+<script>
+	  /*添加套餐除重*/
+    $(document).ready(function(){	
+    	  $("#orderName").blur(function(){
+    		$.ajax({
+    			url:"<%=path%>Order/checkOrderName.action",
+    		    data:"setmeal="+$("#orderName").val(),
+    		    type:"post",
+    		    dataType:"json",
+    		    success:function(redata){
+    		    	if(redata==1){
+    		    		$("#hiden").css("color", "green");
+    		    		$("#hiden").html("套餐名可用");	
+    		    		document.getElementById('checkName').disabled=false;
+    		   		}else{
+    		   			$("#hiden").css("color", "red");
+    		    		$("#hiden").html("套餐已存在");	
+    		    		document.getElementById('checkName').disabled=true;
+    		   		}
+    		    }
+    		   });
+    		});
+    	});
     </script>
 	<script>
 </script>
@@ -180,6 +189,19 @@
           $("#linkToCart").attr("href","<%=path%>Order/showOrder.action?currentPage="+currentPage);
       });
     });
+    
+    function delAll (argument) {
+
+        var setmealId = tableCheck.getData();
+  
+        layer.confirm('确认要删除吗？'+setmealId,function(index){
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+            window.location.href="<%=path %>Order/delteOrder.action?setmealId="+setmealId;
+        });
+      }
+    
 </script>
 	<script type="text/javascript">
 	function info(id){

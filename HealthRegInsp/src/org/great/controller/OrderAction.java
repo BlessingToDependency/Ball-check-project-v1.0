@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
+import org.great.bean.ItemConBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
 import org.great.biz.OderBiz;
@@ -36,6 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
+import com.mchange.rmi.Checkable;
 import com.sun.swing.internal.plaf.metal.resources.metal;
 
 /** 
@@ -83,20 +85,46 @@ public class OrderAction {
 		model.addAttribute("orderList", orderList);	
 		model.addAttribute("count", count);
 		model.addAttribute("setmeal", setmeal);
+	
 		return "BackEnd/order_list";
 	}
 
-	//显示套餐的项目 (加了setmeal了 等待测试）
+	
+	//显示套餐的项目 
 	@RequestMapping("/showItem.action")  
-	public String  showItem(Model model,Integer setmealId,String setmeal) throws IOException {	
-		System.out.println("显示套餐ID："+setmealId);
-	    List<LitemBean> itemList = oderBizImp.findItemById(setmealId);
-	    List<LitemBean>  allList = oderBizImp.findItemById(null);
+	public String  showItem(Model model,Integer setmealId,String setmeal,ItemConBean itemConBean,LitemBean litemBean) throws IOException {	
+		System.out.println("itemConBean："+itemConBean.toString());
+		System.out.println("litemBean："+litemBean.toString());
+//	    List<LitemBean> itemList = oderBizImp.findItemById(setmealId);
+
+		if (null==itemConBean.getCurrentPage()) {
+			 itemConBean.setCurrentPage(1);
+		}
+		
+		int count = oderBizImp.sumOrderByItem(litemBean, itemConBean, setmealId);
+		totalPage = count % 5 > 0 ? count / 5 + 1 : count / 5;
+		if (totalPage==0) {
+			totalPage=1;
+		}
+		List<LitemBean> itemList = oderBizImp.queryItemById(litemBean, itemConBean, setmealId);
+	    List<LitemBean>  allList = oderBizImp.findItemById(setmealId);
+	    Integer maxPrice =itemConBean.getMaxPrice();
+	    Integer minPrice=  itemConBean.getMinPrice();
+	    String  item  = litemBean.getItem();
+	    Integer currentPage= itemConBean.getCurrentPage();
 	    System.out.println("itemList:"+itemList.toString());
+	    //把bean发回去
 		model.addAttribute("itemList",itemList);	
 		model.addAttribute("allList",allList);
 		model.addAttribute("setmealId", setmealId);	
 		model.addAttribute("setmeal", setmeal);
+		model.addAttribute("maxPrice", maxPrice);
+		model.addAttribute("minPrice", minPrice);
+		model.addAttribute("count", count);
+		model.addAttribute("item", item);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("totalPage", totalPage);
+	    session.setAttribute("setMeal", setmeal);
 		return "BackEnd/order_additem";
 		//return "BackEnd/order_list_edit";
 	}
@@ -104,18 +132,31 @@ public class OrderAction {
 	
 	//删除套餐
 	@RequestMapping("/delteOrder.action")
-	public ModelAndView  delteOrder(Model model,Integer setmealId) throws IOException {		
-		 
-		oderBizImp.deleteOrder(setmealId);
-		//model.addAttribute("itemList",itemList);	
+	public ModelAndView  delteOrder(Model model,Integer[] setmealId,RedirectAttributes attr) throws IOException {		
+		String setmeal = (String) session.getAttribute("setMeal");
 		
+		for (Integer dataId : setmealId) {
+			
+			oderBizImp.deleteOrder(dataId);
+		}
+		//model.addAttribute("itemList",itemList);	
+		attr.addAttribute("setmeal", setmeal);
+		System.out.println("setmeal:"+setmeal);
 		return   new ModelAndView("redirect:/Order/showOrder.action");
 	}
 	
+	
+	
+	
 	//删除套餐中的项目
 	@RequestMapping("/deleteItem.action")
-	public ModelAndView deleteItem(Integer comId,RedirectAttributes attr,Integer setmealId) {
-		oderBizImp.deleteItem(comId);			
+	public ModelAndView deleteItem(Integer[] itemId,RedirectAttributes attr,Integer setmealId) {
+		System.out.println("itemId函数:"+itemId);
+
+		for (Integer dataId : itemId) {
+			System.out.println("itemId11111111111111111111111:"+itemId);			
+			oderBizImp.deleteItem(dataId);			
+		}
 		attr.addAttribute("setmealId", setmealId);
 		return new ModelAndView("redirect:/Order/showItem.action");			
 	}
@@ -133,6 +174,19 @@ public class OrderAction {
 			
 		return new ModelAndView("redirect:/Order/showItem.action");		
 	}
+	
+	//套餐除重名
+	@RequestMapping(value="checkOrderName.action",method=RequestMethod.POST)
+	@ResponseBody
+	public Integer checkOrderName(String setmeal) {
+		Integer msg = 0;
+		if (null==oderBizImp.checkOrderName(setmeal)) {
+			msg =1;
+		}
+		
+		return msg;	
+	}
+	
 	
 	//增加套餐中的项目
 	@RequestMapping("/addItem.action")

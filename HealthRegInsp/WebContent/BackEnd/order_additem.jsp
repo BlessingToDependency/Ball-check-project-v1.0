@@ -9,7 +9,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 <html>
 <head>
 <meta charset="UTF-8">
-<title>项目配置管理</title>
+<title>项目添加管理</title>
  <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -92,23 +92,23 @@ String path = request.getScheme() +"://"+request.getServerName()
     </div>
     <div class="x-body">
       <div class="layui-row">
-       <form class="layui-form layui-col-md12 x-so">
+       <form class="layui-form layui-col-md12 x-so"  method="post" action="<%=path %>Order/showItem.action?setmealId=${setmealId }">
 <!--           <input class="layui-input" placeholder="开始日" name="start" id="start">
           <input class="layui-input" placeholder="截止日" name="end" id="end"> -->
-          <input type="text" name="itemName"  value="" placeholder="请输入项目名" autocomplete="off" class="layui-input">
-          <input type="text" name="peakPrice" value=""  placeholder="请输入最低价格" autocomplete="off" class="layui-input">
-          <input type="text" name="bottomPrice"  value="" placeholder="请输入最高价格" autocomplete="off" class="layui-input">
+          <input type="text" name="item"  value="${item }" placeholder="请输入项目名" autocomplete="off" class="layui-input">
+          <input type="text" name="maxPrice" value="${maxPrice }"  placeholder="请输入最低价格" autocomplete="off" class="layui-input">
+          <input type="text" name="minPrice"  value="${minPrice }" placeholder="请输入最高价格" autocomplete="off" class="layui-input">
           <input name="page" type="hidden" value="1">        
           <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
      <%--  <form id="fileForm" name="fileform" method="post" action="<%=path %>Order/addOrder.action"> --%>  
       <xblock> <%-- onclick="window.location.href='<%=path %>Order/addOrder.action?setItem=${setItem}'" --%>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量添加</button>
+        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
   <!--     	<input type= "submit" /> -->
         <button class="layui-btn"  data-toggle="modal" data-target="#myModal" ><i class="layui-icon"></i>添加</button>
         <span> 更改套餐名：<a data-toggle="modal" data-target="#editModal">${setmeal} </a>   </span>
-        <span class="x-right" style="line-height:40px">共有数据：${sum } 条</span>
+        <span class="x-right" style="line-height:40px">共有数据：${count } 条</span>
       </xblock>
   
       <table class="layui-table" width="100%" style="table-layout:fixed;">
@@ -117,7 +117,7 @@ String path = request.getScheme() +"://"+request.getServerName()
             <th width="5%">
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th width="5%">序列</th>
+            <th width="7%">序列</th>
             <th width="10%">项目</th>
             <th width="8%">单价</th>
             <th>简介</th>
@@ -127,8 +127,8 @@ String path = request.getScheme() +"://"+request.getServerName()
         <c:forEach items="${itemList }" var="item" varStatus="i">
           <tr>
             <td>
-             <input type="checkbox" name="setItem" id="setItem" value="${item.itemId }"  />
-           <%--    <div class="layui-unselect layui-form-checkbox" name="setItem" id="setItem" value="${item.itemId }"   lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div> --%>
+          <%--    <input type="checkbox" name="setItem" id="setItem" value="${item.itemId }"  /> --%>
+              <div class="layui-unselect layui-form-checkbox" name="setItem" id="setItem" value="${item.itemId }"   lay-skin="primary" data-id='${item.tblSetCom.comId}'><i class="layui-icon">&#xe605;</i></div>
             </td>
             <td>${i.index+1 }</td>
             <td>${item.item }</td>
@@ -136,7 +136,7 @@ String path = request.getScheme() +"://"+request.getServerName()
             <td style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden">${item.introd }</td>
             <td class="td-status">
                  <%-- <span class="layui-btn layui-btn-normal layui-btn-mini" id="myModal" onClick="myModal(${item.itemId})">查看详情</span> --%>
-                  <span class="layui-btn layui-btn-normal layui-btn-mini"><a onclick="return confirm('确认删除?')"   href="<%=path %>Order/deleteItem.action?comId=${list.tblSetCom.comId}&setmealId=${setmealId}">删除 </a></span>
+                  <span class="layui-btn layui-btn-normal layui-btn-mini"><a onclick="return confirm('确认删除?')"   href="<%=path %>Order/deleteItem.action?comId=${item.tblSetCom.comId}&setmealId=${setmealId}">删除 </a></span>
 	        </td>
           </tr> 
       </c:forEach>  
@@ -173,12 +173,12 @@ String path = request.getScheme() +"://"+request.getServerName()
 					<c:forEach items="${allList}" var="list" varStatus="vs">
 						<tr>
 							<td>
-								<!-- <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'>
+							<!-- 	<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'>
 									<i class="layui-icon">&#xe605;</i>
 								</div> -->
 								   <input type="checkbox" name="itembox" id="itembox" value="${list.itemId }"  />
 							</td>
-							<td>${ (currentPage) *5+(vs.index+1)}</td>
+							<td>${vs.index+1}</td>
 							<td>${list.item }</td>
 							<td>${list.price}</td>
 							<c:set var="quesdes" value="${fn:substring(list.introd, 0, 25)}" />	
@@ -196,16 +196,16 @@ String path = request.getScheme() +"://"+request.getServerName()
 					</div>
 				</form>	
 				<div class="page">
-			<div>
+	<%-- 		<div>  
 				当前：第 ${currentPage } 页/ 共 ${totalPage} 页 <a class="num"
-					href="<%=path %>Order/showOrder.action?currentPage=1&setmeal=${setmeal}">首页</a> <a class="prev"
-					href="<%=path %>Order/showOrder.action?currentPage=${(currentPage-1)>0?currentPage-1:1}&setmeal=${setmeal}">上一页</a>
+					href="<%=path %>Order/showItem.action?currentPage=1&setmealId=${setmealId }&item=${item }&maxPrice=${maxPrice}&minPrice=${minPrice}">首页</a> <a class="prev"
+					href="<%=path %>Order/showItem.action?currentPage=${(currentPage-1)>0?currentPage-1:1}&setmealId=${setmealId }&item=${item }&maxPrice=${maxPrice}&minPrice=${minPrice}">上一页</a>
 				<a class="next"
-					href="<%=path%>Order/showOrder.action?currentPage=${(currentPage+1)<=totalPage?currentPage+1:totalPage}&setmeal=${setmeal}">下一页</a>
-				<a class="num" href="<%=path %>Order/showOrder.action?currentPage=${totalPage}&setmeal=${setmeal}">末页</a>
+					href="<%=path%>Order/showItem.action?currentPage=${(currentPage+1)<=totalPage?currentPage+1:totalPage}&setmealId=${setmealId }&item=${item }&maxPrice=${maxPrice}&minPrice=${minPrice}">下一页</a>
+				<a class="num" href="<%=path %>Order/showItem.action?currentPage=${totalPage}&setmealId=${setmealId }&item=${item }&maxPrice=${maxPrice}&minPrice=${minPrice}">末页</a>
 				<input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> <a
-					class="num" id="linkToCart" href="">跳转</a>
-			</div>
+					class="num" id="linkToCart" href="">跳转222</a>
+			</div> --%>
 		</div>
 			</div>
 			<!-- /.modal-content -->
@@ -242,7 +242,7 @@ String path = request.getScheme() +"://"+request.getServerName()
      
      <!--  </form> -->
    	<div class="page">
-			<div>
+		<%-- 	<div>
 				当前：第 ${currentPage } 页/ 共 ${totalPage} 页 <a class="num"
 					href="<%=path %>Order/showOrder.action?currentPage=1&setmeal=${setmeal}">首页</a> <a class="prev"
 					href="<%=path %>Order/showOrder.action?currentPage=${(currentPage-1)>0?currentPage-1:1}&setmeal=${setmeal}">上一页</a>
@@ -251,48 +251,22 @@ String path = request.getScheme() +"://"+request.getServerName()
 				<a class="num" href="<%=path %>Order/showOrder.action?currentPage=${totalPage}&setmeal=${setmeal}">末页</a>
 				<input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> <a
 					class="num" id="linkToCart" href="">跳转</a>
+			</div> --%>
+			<div>  
+				当前：第 ${currentPage } 页/ 共 ${totalPage} 页 <a class="num"
+					href="<%=path %>Order/showItem.action?currentPage=1&setmealId=${setmealId }&item=${item }&maxPrice=${maxPrice}&minPrice=${minPrice}">首页</a> <a class="prev"
+					href="<%=path %>Order/showItem.action?currentPage=${(currentPage-1)>0?currentPage-1:1}&setmealId=${setmealId }&item=${item }&maxPrice=${maxPrice}&minPrice=${minPrice}">上一页</a>
+				<a class="next"
+					href="<%=path%>Order/showItem.action?currentPage=${(currentPage+1)<=totalPage?currentPage+1:totalPage}&setmealId=${setmealId }&item=${item }&maxPrice=${maxPrice}&minPrice=${minPrice}">下一页</a>
+				<a class="num" href="<%=path %>Order/showItem.action?currentPage=${totalPage}&setmealId=${setmealId }&item=${item }&maxPrice=${maxPrice}&minPrice=${minPrice}">末页</a>
+				<input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> <a
+					class="num" id="linkToCart" href="">跳转</a>
 			</div>
 		</div>
 
     </div>
     <script>
-      layui.use('laydate', function(){
-        var laydate = layui.laydate;
-        
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#end' //指定元素
-        });
-      });
-
-       /*用户-停用*/
-      function member_stop(obj,id){
-          layer.confirm('确认要停用吗？',function(index){
-
-              if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-              }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
-              
-          });
-      }
+  
 
       /*用户-删除*/
       function member_del(obj,id){
@@ -307,12 +281,13 @@ String path = request.getScheme() +"://"+request.getServerName()
 
       function delAll (argument) {
 
-        var data = tableCheck.getData();
+        var itemId = tableCheck.getData();
   
-        layer.confirm('确认要删除吗？'+data,function(index){
+        layer.confirm('确认要删除吗？'+itemId,function(index){
             //捉到所有被选中的，发异步进行删除
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
+            window.location.href="<%=path %>Order/deleteItem.action?setmealId=${setmealId }&itemId="+itemId;
         });
       }
     </script>
