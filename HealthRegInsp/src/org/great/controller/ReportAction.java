@@ -9,7 +9,10 @@ package org.great.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletConfig;
@@ -20,10 +23,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.type.IntegerTypeHandler;
+import org.great.bean.AdminBean;
 import org.great.bean.BillBean;
+import org.great.bean.LitemBean;
 import org.great.bean.PerguirelaBean;
 import org.great.bean.SmallBean;
 import org.great.bean.StaffBean;
+import org.great.bean.TermBean;
 import org.great.bean.TotalBean;
 import org.great.biz.ReportBiz;
 import org.great.biz.ReportBizImp;
@@ -123,7 +129,7 @@ public class ReportAction {
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("count", count);
 		model.addAttribute("staffName", staffName);
-		System.out.println("staffName:"+staffName);
+		System.out.println("slist:"+slist.toString());
 		session.setAttribute("companyId", companyId);
 		
 		return "BackEnd/report_user";		
@@ -144,13 +150,25 @@ public class ReportAction {
 		out.close();
 	}
 	
+
+	
 	//获取小结、展示小结
 	@RequestMapping(value="showSmall.action")
-	public String showSmall(Model model,Integer staffId) {
+	public String showSmall(Model model,StaffBean staffBean) {
+		System.out.println("myGuChId:"+staffBean.getMyGuChId());
 		
-		List<SmallBean> sumList = reportBizImp.querySmall(staffId);
-		model.addAttribute("sumList", sumList);
-		
+		List<SmallBean> smList = reportBizImp.queryItem(staffBean);		
+		List<TermBean>   tList  = null;
+		System.out.println("smList:"+smList.toString());
+		Map<SmallBean, List<TermBean> > map = new HashMap<SmallBean, List<TermBean>>();
+		for (Iterator<SmallBean> iterator = smList.iterator(); iterator.hasNext();) {
+			SmallBean smallBean = (SmallBean) iterator.next();					
+			tList =reportBizImp.querySection(smallBean);
+			map.put(smallBean, tList);
+		}	
+		model.addAttribute("itemMap", map);  
+		model.addAttribute("staffBean", staffBean);  
+		System.out.println("itemMap:"+map.toString());	
 		return "BackEnd/report_summary";		
 	}
 	
@@ -158,9 +176,11 @@ public class ReportAction {
 	@RequestMapping("insertTotall.action")
 	public ModelAndView insertTotall(TotalBean totalBean,RedirectAttributes attr) {
 		System.out.println("totalBean:"+totalBean.toString());
-
-		totalBean.setDoctor("王俊贤");  //登录得到
-		totalBean.setGuChId("6");   //得到小结表
+		//session.setAttribute("adminBean", adminBean);
+		AdminBean adminBean =   (AdminBean) session.getAttribute("adminBean");
+		System.out.println("adminBean:"+adminBean.toString());
+		totalBean.setDoctor(adminBean.getAdminName());  //登录得到
+	//	totalBean.setGuChId("6");   //得到小结表
 		totalBean.setDocSummary(15); //这个保留
 		System.out.println("totalBean:"+totalBean.toString());
 		reportBizImp.insertTotal(totalBean);

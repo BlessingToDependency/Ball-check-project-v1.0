@@ -16,8 +16,13 @@ public class StaffBean {
      private String idNum;//身份证号
      private long phone;//电话
      private int companyId;//公司ID
+     private String napany;
+     private int medicalId;//体检状态
+     private String myGuChId ;//最新导检单号
      
-     private String statTime;//开始时间
+
+
+	 private String statTime;//开始时间
      private String stopTime;//结束时间
      
      @Resource
@@ -29,93 +34,162 @@ public class StaffBean {
 	public StaffBean() {
 		super();
 	}
+
+
 	public int getStaffId() {
 		return staffId;
 	}
+
+
 	public void setStaffId(int staffId) {
 		this.staffId = staffId;
 	}
+
+
 	public String getStaffName() {
 		return staffName;
 	}
+
+
 	public void setStaffName(String staffName) {
 		this.staffName = staffName;
 	}
+
+
 	public int getAge() {
 		return age;
 	}
+
+
 	public void setAge(int age) {
 		this.age = age;
 	}
+
+
 	public String getSex() {
 		return sex;
 	}
+
+
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+
+
 	public String getIdNum() {
 		return idNum;
 	}
+
+
 	public void setIdNum(String idNum) {
 		this.idNum = idNum;
 	}
-	
+
+
 	public long getPhone() {
 		return phone;
 	}
+
 
 	public void setPhone(long phone) {
 		this.phone = phone;
 	}
 
+
 	public int getCompanyId() {
 		return companyId;
 	}
+
+
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
 	}
 
-	public UserBean getUserBean() {
-		return userBean;
+
+	public int getMedicalId() {
+		return medicalId;
 	}
 
-	public void setUserBean(UserBean userBean) {
-		this.userBean = userBean;
+
+	public void setMedicalId(int medicalId) {
+		this.medicalId = medicalId;
 	}
 
-	public PerguirelaBean getPerguirelaBean() {
-		return perguirelaBean;
-	}
 
-	public void setPerguirelaBean(PerguirelaBean perguirelaBean) {
-		this.perguirelaBean = perguirelaBean;
-	}
 
-	
+
 
 	public String getStatTime() {
 		return statTime;
 	}
 
+
 	public void setStatTime(String statTime) {
 		this.statTime = statTime;
 	}
+
 
 	public String getStopTime() {
 		return stopTime;
 	}
 
+
 	public void setStopTime(String stopTime) {
 		this.stopTime = stopTime;
 	}
 
-	@Override
-	public String toString() {
-		return "StaffBean [staffId=" + staffId + ", staffName=" + staffName + ", age=" + age + ", sex=" + sex
-				+ ", idNum=" + idNum + ", phone=" + phone + ", companyId=" + companyId + ", statTime=" + statTime
-				+ ", stopTime=" + stopTime + ", userBean=" + userBean + ", perguirelaBean=" + perguirelaBean + "]";
+
+	public UserBean getUserBean() {
+		return userBean;
 	}
 
+
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
+	}
+
+
+	public PerguirelaBean getPerguirelaBean() {
+		return perguirelaBean;
+	}
+
+
+	public void setPerguirelaBean(PerguirelaBean perguirelaBean) {
+		this.perguirelaBean = perguirelaBean;
+	}
+  
+
+
+	/**
+	 * @return the napany
+	 */
+	public String getNapany() {
+		return napany;
+	}
+
+
+	/**
+	 * @param napany the napany to set
+	 */
+	public void setNapany(String napany) {
+		this.napany = napany;
+	}
+
+
+	/**
+	 * @return the myGuChId
+	 */
+	public String getMyGuChId() {
+		return myGuChId;
+	}
+
+
+	/**
+	 * @param myGuChId the myGuChId to set
+	 */
+	public void setMyGuChId(String myGuChId) {
+		this.myGuChId = myGuChId;
+	}
 
      
      
