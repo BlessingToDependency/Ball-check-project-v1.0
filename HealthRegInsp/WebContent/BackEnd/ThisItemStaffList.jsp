@@ -75,7 +75,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 			   <td>${list.idNum}</td>
 			    <td>${list.phone}</td>
 	       	   <td class="td-status">
-                 <a href="<%=path%>doctorSummaryAction/makeSummary.action?guChId=${list.newGuChId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return dele();">进行小结</span></a>
+                 <a href="<%=path%>doctorSummaryAction/makeSummary.action?guChId=${list.myGuChId}" ><span class="layui-btn layui-btn-danger" style="width:80px;">进行小结</span></a>
 	           </td>
 			</tr>
 			</c:forEach>
@@ -129,39 +129,6 @@ String path = request.getScheme() +"://"+request.getServerName()
 function jump(){
 	var p=document.getElementById("pageNo").value;
 	window.location.href="<%=path%>doctorSummaryAction/getThisItemStaff.action?pageNo="+p+"&staffName=${sunCon.staffName}";
-}
-
-//启用弹窗确认
-function disable(){
-	 var r=confirm("确定启用该用户吗？")
-	 if(r==true){
-		 return true;
-	 }
-	 return false;
-}
-//禁用弹窗确认
-function disable(){
-	 var r=confirm("确定要禁用该用户吗？")
-	 if(r==true){
-		 return true;
-	 }
-	 return false;
-}
-//重置弹窗确认
-function resPwd(){
-	 var r=confirm("确定要重置该用户的密码吗？")
-	 if(r==true){
-		 return true;
-	 }
-	 return false;
-}
-//删除弹窗确认
-function dele(){
-	 var r=confirm("确定要删除该用户吗？")
-	 if(r==true){
-		 return true;
-	 }
-	 return false;
 }
 
 //上一页限制

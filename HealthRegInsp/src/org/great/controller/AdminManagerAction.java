@@ -84,7 +84,6 @@ public class AdminManagerAction {
 		mav.setViewName("BackEnd/AdminMangerList");
 		return mav;
 	}
-	
 	//启用
 	@RequestMapping(value="/enableAdmin.action")
 	public ModelAndView Enable(HttpServletRequest request,int adid){

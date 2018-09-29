@@ -6,9 +6,12 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.great.bean.AdminBean;
+import org.great.bean.FinresultBean;
+import org.great.bean.LitemBean;
 import org.great.bean.StaffBean;
 import org.great.mapper.IParamMapper;
 import org.great.mapper.ISummaryMapper;
+import org.great.search.GuchIDdItemID;
 import org.great.search.SumCon;
 import org.springframework.stereotype.Repository;
 
@@ -43,6 +46,37 @@ public class SummaryBizImp implements ISummaryBiz {
 		//得到了该项目还未做小结的导检单列表
 		List<StaffBean> guChList = iSummaryMapper.getAllThisItemStaff(sunCon);
 		return guChList;
+	}
+	//根据所在科室获得对应的小结页面
+	@Override
+	public int intFace(int depaId) {
+		
+		return iSummaryMapper.getIntFace(depaId);
+	}
+	//根据所在科室找到对应的检查的项目ID
+	@Override
+	public LitemBean getItem(int depeId) {
+		
+		return iSummaryMapper.getItem(depeId);
+	}
+	 //根据导检单ID和项目ID得到该用户该项目细项结果
+	@Override
+	public List<FinresultBean> getFinresultList(String guChId, int itemId) {
+		List<FinresultBean> finrList = iSummaryMapper.getFinresultList(guChId, itemId);
+		return finrList;
+	}
+	
+	//提交小结内容
+	@Override
+	public int subSumm(GuchIDdItemID giBean) {
+		int res= iSummaryMapper.subSumm(giBean);
+		return res;
+	}
+	 //获得影视文件
+	@Override
+	public List<String> imageFile(String guChId, int itemId) {
+		List<String> list = iSummaryMapper.imageFile(guChId, itemId);
+		return list;
 	}
 	
 

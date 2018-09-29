@@ -147,11 +147,6 @@ public class AdminBizImp implements AdminBiz{
 	}
 
 
-	@Override
-	public LitemBean selectLitem(LitemBean litemBean) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	//通过导检单id查询套餐
 	@Override
