@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface IRoleMapper {
-	//查询所有角色
+	//带条件分页查询所有角色
      public   List<RoleBean>    selectAllRole(RoleBean roleBean,RowBounds rowBounds);
      
      //查询角色个数
@@ -29,4 +29,9 @@ public interface IRoleMapper {
      
      //查重
      public List<RoleBean> checkRole(RoleBean roleBean);
+     
+     //查询所有角色
+     public List<RoleBean>  selectR();
+     
+    
 }

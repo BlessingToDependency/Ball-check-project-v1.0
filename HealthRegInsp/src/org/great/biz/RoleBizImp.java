@@ -14,7 +14,7 @@ public class RoleBizImp implements IRoleBiz {
 
 	@Resource
 	private IRoleMapper iroleMapper;
-	//查询所有角色
+	//带条件分页查询所有角色
 	@Override
 	public List<RoleBean> selectAllRole(RoleBean roleBean,RowBounds rowBounds) {
 		// TODO Auto-generated method stub
@@ -57,6 +57,14 @@ public class RoleBizImp implements IRoleBiz {
 	public List<RoleBean> checkRole(RoleBean roleBean) {
 		// TODO Auto-generated method stub
 		List<RoleBean> roleList=iroleMapper.checkRole(roleBean);
+		return roleList;
+	}
+
+	//查询角色
+	@Override
+	public List<RoleBean> selectR() {
+		// TODO Auto-generated method stub
+		List<RoleBean> roleList=iroleMapper.selectR();
 		return roleList;
 	}
 	

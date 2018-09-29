@@ -156,7 +156,7 @@ public class MangeDoctorAction {
 		String adminName=request.getParameter("adminName");
 		
 		String post=request.getParameter("post");
-		System.out.println("aa="+post);
+	
 		
 		
 		pb.setPost(post);		
@@ -176,8 +176,8 @@ public class MangeDoctorAction {
 				
 			}
 		
-		int start = 3*pageNo-3; 
-		int pagesize =3;
+		int start = 5*pageNo-5; 
+		int pagesize =5;
 		RowBounds rowBounds = new RowBounds(start,pagesize);
 
 		List<AdminBean> adLis=adminBizImp.selectAllDoctor(adminBean, rowBounds);
@@ -192,11 +192,11 @@ public class MangeDoctorAction {
 		
 		int paNum=0;
 		mav.addObject("page", pageNo);
-		if(paN%3==0) {
-			paNum=paN/3;
+		if(paN%5==0) {
+			paNum=paN/5;
 		}
-		if(paN%3!=0) {
-			paNum=paN/3+1;
+		if(paN%5!=0) {
+			paNum=paN/5+1;
 	}
 		mav.addObject("paNum", paNum);
 		mav.addObject("adminName", adminBean.getAdminName());

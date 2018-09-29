@@ -14,6 +14,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.great.bean.AdminBean;
 import org.great.bean.RoleBean;
 import org.great.biz.IRoleBiz;
+import org.great.core.SystemLog;
 import org.great.mapper.IRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,6 +53,7 @@ public class MangeRoleAction {
 	 * 查询角色
 	 */
 	@RequestMapping(value="selectAllRole.action")
+/*	@SystemLog(module="角色管理",methods="日志")*/
 	public ModelAndView selectAllRole() {
 		String page=request.getParameter("page");
 	
@@ -65,8 +67,8 @@ public class MangeRoleAction {
 			}
 		
 			
-		int start = 3*pageNo-3; 
-		int pagesize =3;
+		int start = 5*pageNo-5; 
+		int pagesize =5;
 		RowBounds rowBounds = new RowBounds(start,pagesize);
 		
 		String role=request.getParameter("role");
@@ -79,11 +81,11 @@ public class MangeRoleAction {
 		int paNum=0;
 		int num=roleNum.size();
 		
-		if(num%3==0) {
-			paNum=num/3;
+		if(num%5==0) {
+			paNum=num/5;
 		}
-		if(num%3!=0) {
-			paNum=num/3+1;
+		if(num%5!=0) {
+			paNum=num/5+1;
 	}
 		 mav.addObject("paNum", paNum);		
 		session.setAttribute("roleList", roleList);
@@ -204,4 +206,19 @@ public class MangeRoleAction {
 		out.close();
 	}
 	
+	/*
+	 * 查角色
+	 */
+	@RequestMapping(value="selectR.action")
+	public  @ResponseBody void selectR() throws Exception{
+		String adminId=request.getParameter("adminId");
+		System.out.println("adminId====="+adminId);
+		List<RoleBean> roList=roleBizImp.selectR();
+		request.setAttribute("roList", roList);
+		PrintWriter out = response.getWriter();
+		Gson gson1 = new Gson();
+		String str1 = gson1.toJson(roList);
+		out.print(str1);
+		out.close();	
+	}
 }
