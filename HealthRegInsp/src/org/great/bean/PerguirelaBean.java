@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
  *员工导检单关系表 
  * 
  */
-
 @Component
 public class PerguirelaBean {
     private int staffId;//人员ID
     private String partYear;//年份
     private int companyId;//公司ID
     private int batchNum;//批次号
+    private int perInspId;//人员导检ID（主键）
     
     
     public PerguirelaBean() {
@@ -49,6 +49,20 @@ public class PerguirelaBean {
 	}
 	public void setBatchNum(int batchNum) {
 		this.batchNum = batchNum;
+	}
+
+	public int getPerInspId() {
+		return perInspId;
+	}
+
+	public void setPerInspId(int perInspId) {
+		this.perInspId = perInspId;
+	}
+
+	@Override
+	public String toString() {
+		return "PerguirelaBean [staffId=" + staffId + ", partYear=" + partYear + ", companyId=" + companyId
+				+ ", batchNum=" + batchNum + ", perInspId=" + perInspId + "]";
 	}
     
     

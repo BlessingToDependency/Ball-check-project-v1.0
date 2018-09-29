@@ -102,6 +102,13 @@ $('#min').attr('disabled',true);
    
 });
 </script> 
+<script type="text/javascript">
+function checkUser(){
+	alert(111);
+	window.location.reload();
+}
+	</script>
+
 </head>
 
 <body>
@@ -113,35 +120,14 @@ $('#min').attr('disabled',true);
   <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
 
 
-	<form id="form1" name="form1" method="post" action="<%=path %>userMainAction/bespeakMeal.action">
+	<form id="form1" name="form1" method="post" target="_blank" action="<%=path %>userMainAction/bespeakMeal.action?staffId=${staffId}">
   <table width="800" border="1" align="center">
-    <tr>
-      <td rowspan="6">图片轮播区
-      <div class="example">
-        <ul>
-            <li><img src="<%=path%>images/1.jpg" alt="1"/></li>
-            <li><img src="<%=path%>images/2.jpg" alt="2"/></li>
-            <li><img src="<%=path%>images/3.jpg" alt="3"/></li>
-            <li><img src="<%=path%>images/4.jpg" alt="4"/></li>
-        </ul>
-        <ol>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ol>
-    </div>
-     <script>
-    $(function(){
-        <!--调用Luara示例-->
-        $(".example").luara({width:"500",height:"334",interval:4000,selected:"seleted"});
-    });
-    </script>
-      </td>
+   
       <c:if test="null !=${staffId }">
-       <input type="hidden" id="" name="staffId" value="${staffId }"/>
+       <input type="hidden" id="staffId" name="staffId" value="${staffId }"/>
        </c:if>
 <c:forEach items="${setList }" var="setmealBean">
+ 		<tr>
       <td><span class="STYLE2">
       
       <input type="hidden" id="" name="setmealId" value="${setmealBean.setmealId }"/>
@@ -172,8 +158,8 @@ $('#min').attr('disabled',true);
 </c:forEach>
     <tr>
       <td><label>
-        <input type="submit" name="Submit" value="立即预约" />
-       <input type="button" name="Submit" onclick="javascript:history.back(-1);" value="返回">
+        <input type="submit" value="立即预约" />
+       <input type="button" name="Submit"   onclick="javascript:history.back(-1);" value="返回">
         
       </label></td>
     </tr>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.AdminBean;
+import org.great.bean.FinresultBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
 import org.great.bean.StaffBean;
@@ -12,6 +13,7 @@ import org.great.bean.TermBean;
 import org.great.bean.UserBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 public interface AdminBiz {
 	//后台登陆
@@ -20,11 +22,23 @@ public interface AdminBiz {
 	//后台新增用户（注册）
 	public void adminRegister(AdminBean adminBean);
 	
-	//通过导检单id查询套餐
-	public List<SetmealBean> selectSetmeal(String guChId);
+	//通过导检单id和科室id查询细项
+	public List<TermBean> selectSetmeal(String guChId,Integer depaId);
+	
+	//通过导检单id查询项目id
+	public Integer selectItem(String guChId,Integer depaId);
+	
+	//科室插入体检人员信息
+	public void addFinresult(FinresultBean finresultBean);
 	
 	//后台用户公司展示
 	public List<UserBean> company(UserBean userBean,Integer pages);
+	
+	//禁用公司
+	public void disableCompany(String companyId,String stateId);
+	
+	//删除公司
+	public void deleteCompany(String companyId,String logicId);
 	
 	//后台用户公司总数
 	public Integer companyCount(@Param(value="userBean")UserBean userBean);

@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import org.great.bean.AdminBean;
+import org.great.bean.FinresultBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
 import org.great.bean.StaffBean;
@@ -147,21 +148,14 @@ public class AdminBizImp implements AdminBiz{
 	}
 
 
+
+
+	//通过导检单id查询细项
 	@Override
-	public LitemBean selectLitem(LitemBean litemBean) {
+	public List<TermBean> selectSetmeal(String guChId,Integer depaId) {
 		// TODO Auto-generated method stub
-		return null;
+		return iAdminMapper.selectSetmeal(guChId,depaId);
 	}
-
-	//通过导检单id查询套餐
-	@Override
-	public List<SetmealBean> selectSetmeal(String guChId) {
-		// TODO Auto-generated method stub
-		return iAdminMapper.selectSetmeal(guChId);
-	}
-
-
-	
 
 	
 	//管理医生(查看所有医生)
@@ -187,6 +181,34 @@ public class AdminBizImp implements AdminBiz{
 			// TODO Auto-generated method stub
 			List<AdminBean> al=iAdminMapper.cheackDoctor(adminBean);
 			return al;
+		}
+
+		//禁用公司
+		@Override
+		public void disableCompany(String companyId,String stateId) {
+			// TODO Auto-generated method stub
+			iAdminMapper.disableCompany(companyId,stateId);
+		}
+
+		//删除公司
+		@Override
+		public void deleteCompany(String companyId, String logicId) {
+			// TODO Auto-generated method stub
+			iAdminMapper.deleteCompany(companyId,logicId);
+		}
+
+		//科室插入体检人员信息
+		@Override
+		public void addFinresult(FinresultBean finresultBean) {
+			// TODO Auto-generated method stub
+			iAdminMapper.addFinresult(finresultBean);
+		}
+
+		//通过导检单id查询项目id
+		@Override
+		public Integer selectItem(String guChId,Integer depaId) {
+			// TODO Auto-generated method stub
+			return iAdminMapper.selectItem(guChId,depaId);
 		}
 	
 }
