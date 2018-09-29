@@ -7,15 +7,21 @@
  */
 package org.great.biz;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.apache.ibatis.annotations.Param;
 import org.great.bean.BillBean;
+import org.great.bean.LitemBean;
 import org.great.bean.PerguirelaBean;
 import org.great.bean.SmallBean;
 import org.great.bean.StaffBean;
+import org.great.bean.TermBean;
 import org.great.bean.TotalBean;
 import org.great.mapper.ReportMapper;
 import org.springframework.stereotype.Service;
@@ -95,9 +101,26 @@ public class ReportBizImp implements ReportBiz {
 	 * @see org.great.biz.ReportBiz#querySmall(java.lang.Integer)
 	 */
 	@Override
-	public List<SmallBean> querySmall(Integer staffId) {
+	public Map<String, LitemBean>querySmall(StaffBean staffBean) {
 	
-		return reportMapper.querySmall(staffId);
+		List<LitemBean> list  = reportMapper.querySmall(staffBean);
+		Map<String, LitemBean> map = new  HashMap<String, LitemBean>();
+		
+		
+		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+			LitemBean litemBean = (LitemBean) iterator.next();			
+			map.put(litemBean.getItem(), litemBean);		
+		}
+	
+	    Set set = map.keySet();
+	    Iterator it = set.iterator();
+	    while(it.hasNext()){
+	        String key = (String) it.next();
+	        LitemBean value = (LitemBean) map.get(key);
+	        System.out.println(key + "=" + value);
+	    }
+		
+		return map;
 	}
 	/* (non-Javadoc)
 	 * @see org.great.biz.ReportBiz#insertTotal(org.great.bean.TotalBean)
@@ -106,6 +129,22 @@ public class ReportBizImp implements ReportBiz {
 	public void insertTotal(TotalBean totalBean) {
 		
 		 reportMapper.insertTotal(totalBean);
+	}
+	/* (non-Javadoc)
+	 * @see org.great.biz.ReportBiz#queryItem(org.great.bean.StaffBean)
+	 */
+	@Override
+	public List<SmallBean> queryItem(StaffBean staffBean) {
+		
+		return reportMapper.queryItem(staffBean);
+	}
+	/* (non-Javadoc)
+	 * @see org.great.biz.ReportBiz#querySection(org.great.bean.StaffBean)
+	 */
+	@Override
+	public List<TermBean> querySection(SmallBean  smallBean) {
+		
+		return reportMapper.querySection(smallBean);
 	}
 
 

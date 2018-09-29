@@ -11,9 +11,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.great.bean.BillBean;
+import org.great.bean.LitemBean;
 import org.great.bean.PerguirelaBean;
 import org.great.bean.SmallBean;
 import org.great.bean.StaffBean;
+import org.great.bean.TermBean;
 import org.great.bean.TotalBean;
 import org.springframework.stereotype.Repository;
 
@@ -50,9 +52,15 @@ public interface ReportMapper {
     public List<Integer> queryBatch(PerguirelaBean pBean);
     
     //得到小结
-    public List<SmallBean> querySmall(@Param("staffId")Integer staffId);
+    public List<LitemBean> querySmall(StaffBean  staffBean);
        
     //插入总结
     public void insertTotal(TotalBean totalBean);
+    
+    //得到那个总结中的小结项目
+    public List<SmallBean>  queryItem (StaffBean  staffBean);
+    
+    //得到小结项目中的科室
+    public List<TermBean> querySection(SmallBean  staffBean);
     
 }
