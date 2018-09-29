@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="org.great.mapper.JurisdictionService">
+ 	 <!--  查询角色 分页 模糊条件 -->  
+		 <select id="sleectRole" parameterType="org.great.bean.RoleBean" resultType="org.great.bean.RoleBean">
+		 		select * from ( select  t.*, rownum RN from 
+				(SELECT * FROM TBLROLE 
+				<where>
+					<if test="roleBean.role!=null and roleBean.role!=''">and ROLE like concat(concat('%',#{roleBean.role}),'%')</if>
+				</where>
+				ORDER BY ROLEID)t ) where RN &gt;(#{page}*10-10) and RN &lt;= (#{page}*10) 
+		 </select>
+		  <!-- 查询角色总个数 -->
+		  <select id="selectRoleSum" resultType="java.lang.Integer" parameterType="org.great.bean.RoleBean">
+		  		select count(*) from TBLROLE
+		  		<where>
+		  			<if test="role!=null and role!=''">
+		  		 	and ROLE like concat(concat('%',#{role}),'%') 
+		  		 	</if>
+		  		</where>
+		  		ORDER BY ROLEID
+		  </select>
+		  <!-- 查询所有的权限 -->
+		  <select id="selectAllJurd" resultType="org.great.bean.JurdisBean">
+		  		SELECT * FROM TBLJURDIS ORDER BY JURISID
+		  </select>
+		  <!-- 查询单个指定角色信息 -->
+		  <select id="sleectOneRole" resultType="org.great.bean.RoleBean" parameterType="java.lang.Integer">
+		  			SELECT * FROM TBLROLE where ROLEID = #{roleId}
+		  </select>
+		  <!-- 查询用户拥有的权限 -->
+		  <select id="selectOneJurd" parameterType="java.lang.Integer" resultType="org.great.bean.JurdisBean">
+		  		select a.* from TBLJURDIS a,TBLJURREL b where b.JURISID = a.JURISID and b.ROLEID =#{roleId} ORDER BY a.JURISID
+		  </select>
+		  <!-- 查询所有的父权限 -->
+		  <select id="selectParentJurd" resultType="org.great.bean.JurdisBean">
+		  		SELECT * FROM TBLJURDIS where PARID = 0 ORDER BY JURISID
+		  </select>
+		<!--   查询所有的子权限 -->
+		<select id="selectSonJurd" resultType="org.great.bean.JurdisBean">
+			SELECT * FROM TBLJURDIS where PARID not in 0 ORDER BY JURISID
+		</select>
+		<!-- 查询用户拥有的父权限 -->
+		 <select id="selectAllParentJurd" parameterType="java.lang.Integer" resultType="org.great.bean.JurdisBean">
+		  		select a.* from TBLJURDIS a,TBLJURREL b where b.JURISID = a.JURISID and b.ROLEID =#{roleId} and PARID = 0 ORDER BY a.JURISID
+		 </select>
+		 <!-- 查询用户拥有的子权限 -->
+		 <select id="selectAllSonJurd" parameterType="java.lang.Integer" resultType="org.great.bean.JurdisBean">
+		  		select a.* from TBLJURDIS a,TBLJURREL b where b.JURISID = a.JURISID and b.ROLEID =#{roleId} and PARID not in 0 ORDER BY a.JURISID
+		 </select>
+		 <!-- 删除指定角色的所有权限 -->
+		 <delete id="deleteJurrel" parameterType="java.lang.Integer">
+		 	DELETE FROM TBLJURREL WHERE ROLEID = #{roleId}
+		 </delete>
+		 <!-- 增加指定角色的权限 -->
+		 <insert id="addJurrel" parameterType="java.lang.Integer">
+		 	insert into TBLJURREL VALUES (#{jurisId},#{roleId})
+		 </insert>
+		  
+ 
+ </mapper>

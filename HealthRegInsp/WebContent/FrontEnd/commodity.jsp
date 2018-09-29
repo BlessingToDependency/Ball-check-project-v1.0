@@ -35,9 +35,6 @@
 
 <script type="text/javascript" src="<%=path%>js/org1470120033.js" data-main="indexMain"></script>
 
-<!--渐隐样式-->
- <link rel="stylesheet" href="../csss/luara.css"/>
-  <link rel="stylesheet" href="../csss/style.css"/>
 <meta http-equiv="mobile-agent" content="format=xhtml;url=/m/index.php">
 <script type="text/javascript">if(window.location.toString().indexOf('pref=padindex') != -1){}else{if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){if(window.location.href.indexOf("?mobile")<0){try{if(/Android|Windows Phone|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){window.location.href="/m/index.php";}else if(/iPad/i.test(navigator.userAgent)){}else{}}catch(e){}}}}</script>
 <style type="text/css">
@@ -47,30 +44,7 @@
 .STYLE4 {font-size: 16px}
 -->
 </style>
-<script>
 
-       window.onload=function (){
-
-		   var aId = document.getElementById('newslist')
-
-           var aLi=aId.getElementsByTagName('li');
-
-           for(var i=0;i<aLi.length;i++){
-
-               if(i%2==0){
-
-                   // 0/2余数0  1/2余数1 2/2余数0 3/2余数1
-
-                  aLi[i].className='wow newstitem right' //增加CSS名
-               }
-
-               else{
-                   aLi[i].className='wow newstitem left' //增加CSS名
-               }
-           }
-       }    
-
-    </script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -102,48 +76,37 @@ $('#min').attr('disabled',true);
    
 });
 </script> 
+<script type="text/javascript">
+    $(document).ready(function(){
+       //点击的时候调用
+      $("#linkToCart").click(function(){
+    	 var cartNumber = $("#text_box").val();
+    	 var setmealId = $("#setmealId").val();
+    	 
+          //设置linkToCart的href的值
+          $("#linkToCart").attr("href","<%=path %>userMainAction/addShoppingCart.action?cartNumber="+cartNumber+"&setmealId="+setmealId+"");
+      });
+    });
+</script>
+
 </head>
 
 <body>
-<script src="<%=path%>js/jquery-1.8.3.min.js"></script>
-    <!--Luara js文件-->
-    <script src="<%=path%>js/jquery.luara.0.0.1.min.js"></script>
 <div id="header">
 
   <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
 
 
-	<form id="form1" name="form1" method="post" action="<%=path %>userMainAction/buyNow.action">
+	<form id="formid"  method="post" action="<%=path %>userMainAction/bespokeNow.action">
   <table width="800" border="1" align="center">
 <c:forEach items="${setList }" var="setmealBean">
     <tr>
-      <td rowspan="6">图片轮播区
-      <div class="example">
-        <ul>
-            <li><img src="<%=path%>images/1.jpg" alt="1"/></li>
-            <li><img src="<%=path%>images/2.jpg" alt="2"/></li>
-            <li><img src="<%=path%>images/3.jpg" alt="3"/></li>
-            <li><img src="<%=path%>images/4.jpg" alt="4"/></li>
-        </ul>
-        <ol>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ol>
-    </div>
-     <script>
-    $(function(){
-        <!--调用Luara示例-->
-        $(".example").luara({width:"500",height:"334",interval:4000,selected:"seleted"});
-    });
-    </script>
-      </td>
       <td><span class="STYLE2">
+      <input type="hidden" id="setmealId" value="${setmealBean.setmealId}"/>
       <input type="text" value="${setmealBean.setmeal }" name="setmeal" disabled="disabled" style="border:none;"/></span></td>
     </tr>
     <tr>
-      <td><span class="STYLE4">简介：${setmealBean.setmeal }</span></td>
+      <td><span class="STYLE4">主要项目：${setmealBean.itemNick }</span></td>
     </tr>
     <tr>
       <td><span class="STYLE3">优惠价：
@@ -158,7 +121,7 @@ $('#min').attr('disabled',true);
     <tr>
       <td>购买数量：
       	<input id="min" name="" type="button" value="-" />  
-		<input id="text_box" name="number" type="text" value="1"style="width:30px;"/>  
+		<input id="text_box" name="cartNumber" type="text" value="1"style="width:30px;"/>  
 		<input id="add" name="" type="button" value="+" /> 
 		价格：<input id="total" name="countAll" type="text" value="${setmealBean.discount*setmealBean.countAll }"style="width:30px;"/>  
 	</td>
@@ -166,9 +129,8 @@ $('#min').attr('disabled',true);
     </tr>
     <tr>
       <td><label>
-        <input type="submit" name="Submit" value="立即购买" />
-        <input type="button" name="Submit" value="加入购物车" />
-        
+        <a id="linkToCart">加入购物车</a>
+         <input type="button" name="Submit" onclick="javascript:history.back(-1);" value="返回">
       </label></td>
     </tr>
 </c:forEach>

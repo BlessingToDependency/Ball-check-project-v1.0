@@ -104,7 +104,7 @@
 
         </ul>
 
-      </li><li class="navitem"><a  href="tese.html" >医疗特色</a>
+      </li><li class="navitem"><a  href="<%=path %>userMainAction/shoppingCart.action" >我的购物车</a>
 
         <ul class="subnav">
 
@@ -160,8 +160,6 @@
       </li><li class="navitem"><a  href="contact.html" >联系我们</a>
 
         <ul class="subnav">
-
-          
 
         </ul>
 
@@ -322,39 +320,29 @@
 <!-- ------------------------ -->
 
              <c:forEach items="${setList }" var="setmealBean">
-   	
-   
                 <li id="projectitem_0" class="projectitem wow"> 
                 <a href="<%=path %>userMainAction/showSetmeal.action?setmealId=${setmealBean.setmealId}" class="projectitem_content" target="_self">
-
                   <div class="projectitem_wrapper">
-
                     <div class="project_img"> <img src="<%=path%>images/1-1F5041UT40-L.jpg" width="650" height="385" /> </div>
-
                     <div class="project_info">
-
                       <div>
                         <p class="title">${setmealBean.setmeal}
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                        	 销量：${setmealBean.salsvolume} </p>
                         <p class="title" align="right">
                         <span style="text-decoration:line-through;">
-                        	原价：<%-- ${setmealBean.litemBean.price} --%> 
+                        	原价：
                         	${setmealBean.countAll}
                         	</span>
-                        	&emsp;&emsp;
+                        	&emsp;
                         	优惠价格：${setmealBean.discount*setmealBean.countAll}
-              	  </p>
-
+              	 		 </p>
                       </div>
-
                     </div>
-
                   </div>
-
-                  </a> 
-                  </li>
-                  </c:forEach>
+                </a> 
+              </li>
+           </c:forEach>
 
 
 

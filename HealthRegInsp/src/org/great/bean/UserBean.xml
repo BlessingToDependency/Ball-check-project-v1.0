@@ -15,14 +15,12 @@
 					and pwd=#{pwd}
 				</if>
 			</where>
-			
+			and stateId=3 and logicId=6
 		</select>
-		
-		
 		
 		<!-- 注册 -->
 		<insert id="userRegister" parameterType="org.great.bean.UserBean">
-			insert into tblforeground values (TBL_FOREGROUND.Nextval,#{company},#{pwd},#{address},#{contacts},#{phone},#{balance},#{busNum})
+			insert into tblforeground values (TBL_FOREGROUND.Nextval,#{company},#{pwd},#{head},#{address},#{contacts},#{phone},0,#{busNum},3,6,8)
 		</insert>
 		
 		<!-- 注册名查重 -->
@@ -30,13 +28,24 @@
 			select company from tblforeground where company=#{company}
 		</select>
 		
+		<!-- 加入购物车 -->
+		<insert id="addShoppingCart" parameterType="org.great.bean.ShoppingCartBean">
+			insert into tblshoppingCart values(tbl_shoppingCart.nextVal,#{companyId},#{setmealId},#{cartNumber})
+		</insert>
+		
 		<!-- 插入员工信息 -->
 		<insert id="addStaff" parameterType="org.great.bean.StaffBean">
 			insert into tblstaff values(tbl_staff.nextVal,#{staffName},#{age},#{sex},#{idNum},#{phone},#{companyId})
 		</insert>
 		
+		<!-- 先插入员工导检单关系表 -->
+		<insert id="addPerguirela" parameterType="org.great.bean.PerguirelaBean">
+			insert into tblperguirela values(#{staffId},(Select Extract(year from sysdate) from dual),#{companyId},#{batchNum},tbl_perguirela.nextVal)
+		</insert>
+		
+		<!-- 为某一位员工选择套餐:人员套餐关系表(tblpeoplesetmal) -->
 		<insert id="bespeakMeal" parameterType="org.great.bean.StaffMealBean">
-			insert into TBLSTAFFMEAL values(#{staffId},#{setmealId})
+			insert into tblpeoplesetmal values(#{setmealId},(select max(perInspId) from tblperguirela))
 		</insert>
 		
 		<!-- 去重身份证 -->

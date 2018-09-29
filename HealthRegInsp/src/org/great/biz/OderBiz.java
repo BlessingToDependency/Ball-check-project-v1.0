@@ -10,6 +10,7 @@ package org.great.biz;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.great.bean.ItemConBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
 
@@ -30,6 +31,14 @@ public interface OderBiz {
 	//查询套餐中的项目
 	public  List<LitemBean> findItemById (Integer setmealId);
 	
+	//替换上面的那个 分页模糊查询查询套餐中的项目	
+	public  List<LitemBean> queryItemById (LitemBean litemBean,ItemConBean itemConBean,Integer setmealId);
+	
+	
+	//计算套餐中的项目的总页数
+	public  Integer  sumOrderByItem(LitemBean litemBean,ItemConBean itemConBean,Integer setmealId);
+	
+	
 	//删除套餐
 	public  void  deleteOrder(Integer setmealId);
 	
@@ -46,4 +55,8 @@ public interface OderBiz {
    	//修改套餐名
  	public void updateOrder(Integer setmealId,String setmeal);
 	
+ 	//套餐名查重
+ 	public SetmealBean checkOrderName(@Param("setMeal") String setMeal);
+ 	
+ 	
 }

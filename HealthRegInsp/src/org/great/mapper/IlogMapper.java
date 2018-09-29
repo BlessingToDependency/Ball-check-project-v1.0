@@ -10,11 +10,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IlogMapper {
       //查询日志
-	 public List<LogBean> selectAllLog(RowBounds rowBounds,LogBean logBean);
+	 public List<LogBean> selectAllLog(LogBean logBean,RowBounds rowBounds);
 	 
 	 //查询个数
 	 public List<LogBean>  selectLogNu(LogBean logBean);
 	 
 	 //删除日志
 	 public void  deleteLog(@Param("logId")int logId);
+	 
+	 //保存日志
+	 public void  saveLog(LogBean log);
 }

@@ -25,6 +25,9 @@
 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="<%=path%>css/calendar.css" type="text/css" />
+<script type="text/javascript" src="<%=path%>js/calendar.js"></script>
+
 
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 <!--[if lt IE 9]>
@@ -42,9 +45,7 @@
 	</div>
 	<div class="x-body">
 		<div class="layui-row">
-			<form class="layui-form layui-col-md12 x-so" >
-			   <input class="layui-input" placeholder="开始日" name="start" id="start">
-               <input class="layui-input" placeholder="截止日" name="end" id="end">
+			<form class="layui-form layui-col-md12 x-so" >			  
 				<input type="text" name="name" value="<%=request.getAttribute("name")==null?"":request.getAttribute("name")%>" placeholder="请输入操作人" autocomplete="off"
 					class="layui-input">
 				<button class="layui-btn" lay-filter="sreach">
@@ -58,7 +59,7 @@
 		</button>
 	
 
-		 <%--   <button class="layui-btn" onclick="x_admin_show('添加用户','<%=path %>Order/addItem.action')"><i class="layui-icon"></i>添加</button> --%>
+		
 		<span class="x-right" style="line-height: 40px">页数：${currentPage}/${totalPage }</span> </xblock>
 		<form id="fileForm" name="fileform" method="post" action="fileShow.action">
 			<table class="layui-table">
@@ -79,9 +80,7 @@
 					<c:forEach items="${logList}" var="list" varStatus="vs">
 						<tr>
 							<td>
-								<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'>
-									<i class="layui-icon">&#xe605;</i>
-								</div>
+								<div class="layui-unselect layui-form-checkbox" name="ch" lay-skin="primary" data-id='${list.logId}'><i class="layui-icon">&#xe605;</i></div>
 							</td>
 
 							<td>${list.logId}</td>
@@ -118,5 +117,30 @@ function jump(){
 	var p=document.getElementById("pageNo").value;
 	window.location.href="<%=path%>logAction/selectAllLog.action?page="+p;
 }
+layui.use('laydate', function(){
+    var laydate = layui.laydate;
+    
+    //执行一个laydate实例
+    laydate.render({
+      elem: '#start' //指定元素
+    });
+
+    //执行一个laydate实例
+    laydate.render({
+      elem: '#end' //指定元素
+    });
+  });
+
+  function delAll (argument) {
+
+    var data = tableCheck.getData();
+
+    layer.confirm('确认要删除吗？'+data,function(index){
+        //捉到所有被选中的，发异步进行删除
+        layer.msg('删除成功', {icon: 1});
+        $(".layui-form-checked").not('.header').parents('tr').remove();
+        window.location.href="<%=path%>logAction/batchDel.action?data="+data;
+    });
+  }
 </script>
 </html>

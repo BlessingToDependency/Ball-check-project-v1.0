@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component;
 public class FinresultBean {
       private String guChId;//导检单ID
       private int  termId;//细项ID
+
       private String termVal;//细项值
+
       private int itemId;//项目ID
       
       @Resource
@@ -22,7 +24,9 @@ public class FinresultBean {
     	  
       }
 
+
 	public FinresultBean(String guChId, int termId, String termVal, int itemId, TermBean termBean) {
+
 		super();
 		this.guChId = guChId;
 		this.termId = termId;
@@ -46,6 +50,7 @@ public class FinresultBean {
 	public void setTermId(int termId) {
 		this.termId = termId;
 	}
+
 
 	public String getTermVal() {
 		return termVal;

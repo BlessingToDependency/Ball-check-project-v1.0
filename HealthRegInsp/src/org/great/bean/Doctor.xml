@@ -25,7 +25,8 @@
  	        
  	         <!-- 管理全体医生信息 -->
  	        <select id="selectAllDoctor" parameterType="org.great.bean.AdminBean" resultMap="adminIn">
- 	           select t.*,p.post,m.param,r.depa from tblbackstage  t,TBLPOST p,tblparam m,tbldepar r  where t.postId=p.postId and t.stateId=m.paramId and t.depaId=r.depaId and ROLEID=3
+ 	           select t.*,p.post,m.param,r.depa,l.role from tblbackstage  t,TBLPOST p,tblparam m,tbldepar r,tblrole l  where t.postId=p.postId and t.stateId=m.paramId and t.depaId=r.depaId 
+ 	           and t.ROLEID=3  and l.roleId=t.roleId
  	               <if test="adminBean.adminName!=null">and adminName like '%${adminBean.adminName}%'   </if>
  	               <if test="adminBean.postBean.post!=null">and post like '%${adminBean.postBean.post}%'   </if>
  	                <if test="adminBean.deparBean.depa!=null">and depa like '%${adminBean.deparBean.depa}%'   </if>
@@ -36,7 +37,7 @@
  	        
  	        <!-- 管理医生(数量) -->
  	        <select id="selectAllDoctorN" parameterType="org.great.bean.AdminBean" resultMap="adminIn">
- 	              select t.*,p.post,m.param,r.depa from tblbackstage  t,TBLPOST p,tblparam m,tbldepar r  where t.postId=p.postId and t.stateId=m.paramId and t.depaId=r.depaId and ROLEID=3
+ 	              select t.*,p.post,m.param,r.depa from tblbackstage  t,TBLPOST p,tblparam m,tbldepar r  where t.postId=p.postId and t.stateId=m.paramId and t.depaId=r.depaId and t.ROLEID=3
  	              <if test="adminBean.adminName!=null">and adminName like '%${adminBean.adminName}%'   </if> 	            
  	                 <if test="adminBean.postBean.post!=null">and post like '%${adminBean.postBean.post}%' </if> 
  	                 <if test="adminBean.deparBean.depa!=null">and depa like '%${adminBean.deparBean.depa}%' </if>
@@ -83,6 +84,11 @@
 		<association property="deparBean" javaType="org.great.bean.DeparBean" >
 			<id property="depaId" column="depaId"/>
 			<result property="depa" column="depa"/>
+		</association>
+		
+		<association property="roleBean" javaType="org.great.bean.RoleBean" >
+			<id property="roleId" column="roleId"/>
+			<result property="role" column="role"/>
 		</association>
 		
 	 </resultMap>
