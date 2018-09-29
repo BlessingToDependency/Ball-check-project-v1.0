@@ -40,6 +40,26 @@ public class UserAdminAction {
 	@Autowired
 	private HttpServletResponse response;
 
+	//禁用公司
+	@RequestMapping("/disableCompany.action")
+	public ModelAndView disableCompany(String companyId,String stateId) {
+		if(stateId.equals("3")) {
+			stateId = "4";
+		}else {
+			stateId = "3";
+		}
+		adminBizImp.disableCompany(companyId,stateId);
+		return new ModelAndView("redirect:/userAdminAction/company.action");
+	}
+	
+	//删除公司
+	@RequestMapping("/deleteCompany.action")
+	public ModelAndView deleteCompany(String companyId,String logicId) {
+		adminBizImp.deleteCompany(companyId,logicId);
+		return new ModelAndView("redirect:/userAdminAction/company.action");
+	}
+	
+	
 	//展示公司列表
 	@RequestMapping("/company.action")
 	public ModelAndView company(UserBean userBean,Integer pages)throws Exception{

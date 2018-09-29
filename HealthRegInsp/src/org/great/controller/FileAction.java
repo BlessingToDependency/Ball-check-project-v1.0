@@ -63,9 +63,9 @@ public class FileAction {
 	public ModelAndView  fileUpload(@RequestParam MultipartFile fileact) throws IllegalStateException, Exception {
 		//判断当前用户是否存在
 		UserBean ub = (UserBean) request.getSession().getAttribute("userBean");
-		if(null == ub) {
+		if(null != ub) {
 //			int companyId = userBean.getCompanyId();//公司id
-			int id = 1;//先写死
+			int id = ub.getCompanyId();//先写死
 			String filename = fileact.getOriginalFilename();
 			System.out.println("获取到的文件名："+filename);
 			String root = request.getServletContext().getRealPath("/upload");
@@ -125,7 +125,7 @@ public class FileAction {
 	public ModelAndView companyStaffList(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages) {
 		UserBean ub = (UserBean) request.getSession().getAttribute("userBean");
 //		ub.getCompanyId();//当前公司id
-		companyId = 1;//先写死
+		companyId = ub.getCompanyId();//先写死
 		//查询出当前公司的员工
 		String page = String.valueOf(pages);
 		if(page==null ||"null".equals(page)|| "".equals(page)||"0".equals(page)) {
@@ -171,14 +171,6 @@ public class FileAction {
 		ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(body, headers, statusCode);
 		return response;
 
-		//public ResponseEntity（T  body，
-		//                       MultiValueMap < String，String > headers，
-		//                       HttpStatus  statusCode）
-		//HttpEntity使用给定的正文，标题和状态代码创建一个新的。
-		//参数：
-		//body - 实体机构
-		//headers - 实体头
-		//statusCode - 状态码
 	}
 
 }

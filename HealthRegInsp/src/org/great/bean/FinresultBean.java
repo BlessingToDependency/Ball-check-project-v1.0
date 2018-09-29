@@ -8,7 +8,7 @@ package org.great.bean;
 public class FinresultBean {
       private String guChId;//导检单ID
       private int  termId;//细项ID
-      private int termVal;////细项值
+      private String termVal;////细项值
       private int itemId;//项目ID
       
       public FinresultBean() {
@@ -16,7 +16,7 @@ public class FinresultBean {
       }
       
       
-	public FinresultBean(String guChId, int termId, int termVal, int itemId) {
+	public FinresultBean(String guChId, int termId, String termVal, int itemId) {
 		super();
 		this.guChId = guChId;
 		this.termId = termId;
@@ -35,10 +35,10 @@ public class FinresultBean {
 	public void setTermId(int termId) {
 		this.termId = termId;
 	}
-	public int getTermVal() {
+	public String getTermVal() {
 		return termVal;
 	}
-	public void setTermVal(int termVal) {
+	public void setTermVal(String termVal) {
 		this.termVal = termVal;
 	}
 	public int getItemId() {

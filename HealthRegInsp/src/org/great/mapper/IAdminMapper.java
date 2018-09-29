@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.AdminBean;
+import org.great.bean.FinresultBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
 import org.great.bean.StaffBean;
@@ -21,12 +22,24 @@ public interface IAdminMapper {
 	//后台新增用户（注册）
 	public void adminRegister(AdminBean adminBean);
 	
-	//通过导检单id查询套餐
-	public List<SetmealBean> selectSetmeal(@Param("guChId")String guChId);
+	//通过导检单id和科室id查询细项
+	public List<TermBean> selectSetmeal(@Param("guChId")String guChId,@Param("depaId")Integer depaId);
+	
+	//通过导检单id查询项目id
+	public Integer selectItem(@Param("guChId")String guChId,@Param("depaId")Integer depaId);
+	
+	//科室插入体检人员信息
+	public void addFinresult(FinresultBean finresultBean);
 	
 	//后台用户公司展示
 	public List<UserBean> company(@Param(value="userBean")UserBean userBean,@Param(value="pages")Integer pages);
 
+	//禁用公司
+	public void disableCompany(@Param(value="companyId")String companyId,@Param(value="stateId")String stateId);
+	
+	//删除公司
+	public void deleteCompany(@Param(value="companyId")String companyId,@Param(value="logicId")String logicId);
+		
 	//后台用户公司总数
 	public Integer companyCount(UserBean userBean);
 	

@@ -136,7 +136,7 @@
 			flag = true;
 		}
 		//用户名只能是15位以下的字母或数字
-		var regExp = new RegExp("^[a-zA-Z0-9_]{1,15}$");
+	/* 	var regExp = new RegExp("^[a-zA-Z0-9_]{1,15}$");
 		if(!regExp.test(username)){
 			$.pt({
         		target: $("#login-username"),
@@ -147,29 +147,33 @@
         		content:"用户名必须为15位以下的字母或数字"
         	});
 			flag = true;
-		}
+		} */
 		
-		if(flag){
+		/* if(flag){
 			return false;
 		}else{//登录
 			//调用后台登录验证的方法
 			alert('登录成功');
 			return false;
-		}
+		} */
 	}
 	
 	//注册
 	function register(){
-		var username = $("#register-username").val(),
-			password = $("#register-password").val(),
-			repassword = $("#register-repassword").val(),
-			code = $("#register-code").val(),
+		var company = $("#company").val(),
+			pwd = $("#pwd").val(),
+			pwd2 = $("#pwd2").val(),
+			address = $("#address").val(),
+			contacts = $("#contacts").val(),
+			phone = $("#phone").val(),
+			busNum = $("#busNum").val(),
+			
 			flag = false,
 			validatecode = null;
 		//判断用户名密码是否为空
-		if(username == ""){
+		if(company == ""){
 			$.pt({
-        		target: $("#register-username"),
+        		target: $("#company"),
         		position: 'r',
         		align: 't',
         		width: 'auto',
@@ -178,9 +182,20 @@
         	});
 			flag = true;
 		}
-		if(password == ""){
+		if(pwd == ""){
 			$.pt({
-        		target: $("#register-password"),
+        		target: $("#pwd"),
+        		position: 'r',
+        		align: 't',
+        		width: 'auto',
+        		height: 'auto',
+        		content:"密码不能为空"
+        	});
+			flag = true;
+		}
+		if(pwd2 == ""){
+			$.pt({
+        		target: $("#pwd"),
         		position: 'r',
         		align: 't',
         		width: 'auto',
@@ -189,9 +204,9 @@
         	});
 			flag = true;
 		}else{
-			if(password != repassword){
+			if(pwd2 != pwd){
 				$.pt({
-	        		target: $("#register-repassword"),
+	        		target: $("#pwd"),
 	        		position: 'r',
 	        		align: 't',
 	        		width: 'auto',
@@ -201,35 +216,54 @@
 				flag = true;
 			}
 		}
-		//用户名只能是15位以下的字母或数字
-		var regExp = new RegExp("^[a-zA-Z0-9_]{1,15}$");
-		if(!regExp.test(username)){
+		if(address == ""){
 			$.pt({
-        		target: $("#register-username"),
+        		target: $("#address"),
         		position: 'r',
         		align: 't',
         		width: 'auto',
         		height: 'auto',
-        		content:"用户名必须为15位以下的字母或数字"
+        		content:"地址不能为空"
         	});
 			flag = true;
 		}
-		//检查用户名是否已经存在
-		//调后台代码检查用户名是否已经被注册
-		
-		//检查注册码是否正确
-		//调后台方法检查注册码，这里写死为11111111
-		if(code != '11111111'){
+		if(contacts == ""){
 			$.pt({
-		        target: $("#register-code"),
-		        position: 'r',
-		        align: 't',
-		        width: 'auto',
-		        height: 'auto',
-		        content:"注册码不正确"
-		       });
+        		target: $("#contacts"),
+        		position: 'r',
+        		align: 't',
+        		width: 'auto',
+        		height: 'auto',
+        		content:"联系人不能为空"
+        	});
 			flag = true;
 		}
+		if(phone == ""){
+			$.pt({
+        		target: $("#phone"),
+        		position: 'r',
+        		align: 't',
+        		width: 'auto',
+        		height: 'auto',
+        		content:"手机号不能为空"
+        	});
+			flag = true;
+		}
+		if(busNum == ""){
+			$.pt({
+        		target: $("#busNum"),
+        		position: 'r',
+        		align: 't',
+        		width: 'auto',
+        		height: 'auto',
+        		content:"工商号不能为空"
+        	});
+			flag = true;
+		}
+		//用户名只能是15位以下的字母或数字
+	
+		//检查用户名是否已经存在
+		//调后台代码检查用户名是否已经被注册
 		
 		
 		if(flag){
@@ -385,7 +419,7 @@ body{
 		<div class="wrapper">
 			<!-- 登录页面 -->
 			<div class="login sign-in-htm">
-				<form class="container offset1 loginform">
+				<form class="container offset1 loginform" action="<%=path%>userLoginAction/userLogin.action">
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="login-owl">
 						<div class="hand"></div>
@@ -398,15 +432,15 @@ body{
 					<div class="pad input-container">
 						<section class="content">
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="text" id="login-username" 
-									autocomplete="off" placeholder="请输入用户名" tabindex="1" maxlength="15" />
+								<input class="input__field input__field--hideo" type="text" id="login-username" name="login_username"
+									autocomplete="off" placeholder="请输入公司名" tabindex="1" maxlength="15" />
 								<label class="input__label input__label--hideo" for="login-username">
 									<i class="fa fa-fw fa-user icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
 							</span>
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="password" id="login-password" placeholder="请输入密码" tabindex="2" maxlength="15"/>
+								<input class="input__field input__field--hideo" type="password" id="login-password" name="login_password" placeholder="请输入密码" tabindex="2" maxlength="15"/>
 								<label class="input__label input__label--hideo" for="login-password">
 									<i class="fa fa-fw fa-lock icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
@@ -417,7 +451,7 @@ body{
 					<div class="form-actions">
 						<a tabindex="4" class="btn pull-left btn-link text-muted" onClick="goto_forget()">忘记密码?</a>
 						<a tabindex="5" class="btn btn-link text-muted" onClick="goto_register()">注册</a>
-						<input class="btn btn-primary" type="button" tabindex="3" onClick="login()" value="登录" 
+						<input class="btn btn-primary" type="submit" tabindex="3" onClick="login()" value="登录" 
 							style="color:white;"/>
 					</div>
 				</form>
@@ -468,7 +502,7 @@ body{
 			</div>
 			<!-- 注册页面 -->
 			<div class="login sign-up-htm">
-				<form action="#" method="post" class="container offset1 loginform">
+				<form action="<%=path %>userLoginAction/userRegister.action" method="post" class="container offset1 loginform">
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="register-owl">
 						<div class="hand"></div>
@@ -481,29 +515,53 @@ body{
 					<div class="pad input-container">
 						<section class="content">
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="text" id="register-username" 
-									autocomplete="off" placeholder="请输入用户名" maxlength="15"/>
+								<input class="input__field input__field--hideo" type="text" id="company" name="company"
+									autocomplete="off" placeholder="请输入公司名" maxlength="50"/>
 								<label class="input__label input__label--hideo" for="register-username">
 									<i class="fa fa-fw fa-user icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
 							</span>
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="password" id="register-password" placeholder="请输入密码" maxlength="15"/>
+								<input class="input__field input__field--hideo" type="password" id="pwd" name="pwd" placeholder="请输入密码" maxlength="15"/>
 								<label class="input__label input__label--hideo" for="register-password">
 									<i class="fa fa-fw fa-lock icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
 							</span>
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="password" id="register-repassword" placeholder="请确认密码" maxlength="15"/>
+								<input class="input__field input__field--hideo" type="password" id="pwd2" placeholder="请确认密码" maxlength="15"/>
 								<label class="input__label input__label--hideo" for="register-repassword">
 									<i class="fa fa-fw fa-lock icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
 							</span>
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="text" id="register-code" autocomplete="off" placeholder="请输入注册码"/>
+								<input class="input__field input__field--hideo" type="text" id="address" name="address" autocomplete="off" placeholder="请输入公司地址"/>
+								<label class="input__label input__label--hideo" for="register-code">
+									<i class="fa fa-fw fa-wifi icon icon--hideo"></i>
+									<span class="input__label-content input__label-content--hideo"></span>
+								</label>
+							</span>
+							
+							<span class="input input--hideo">
+								<input class="input__field input__field--hideo" type="text" id="contacts" name="contacts" autocomplete="off" placeholder="请输入联系人姓名"/>
+								<label class="input__label input__label--hideo" for="register-code">
+									<i class="fa fa-fw fa-wifi icon icon--hideo"></i>
+									<span class="input__label-content input__label-content--hideo"></span>
+								</label>
+							</span>
+							
+							<span class="input input--hideo">
+								<input class="input__field input__field--hideo" type="text" id="phone" name="phone" autocomplete="off" placeholder="请输入手机号"/>
+								<label class="input__label input__label--hideo" for="register-code">
+									<i class="fa fa-fw fa-wifi icon icon--hideo"></i>
+									<span class="input__label-content input__label-content--hideo"></span>
+								</label>
+							</span>
+							
+							<span class="input input--hideo">
+								<input class="input__field input__field--hideo" type="text" id="busNum" name="busNum" autocomplete="off" placeholder="请输入公司工商号"/>
 								<label class="input__label input__label--hideo" for="register-code">
 									<i class="fa fa-fw fa-wifi icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
@@ -513,7 +571,7 @@ body{
 					</div>
 					<div class="form-actions">
 						<a class="btn pull-left btn-link text-muted" onClick="goto_login()">返回登录</a>
-						<input class="btn btn-primary" type="button" onClick="register()" value="注册" 
+						<input class="btn btn-primary" type="submit" onClick="register()" value="注册" 
 							style="color:white;"/>
 					</div>
 				</form>
