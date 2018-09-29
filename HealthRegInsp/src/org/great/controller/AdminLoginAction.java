@@ -1,8 +1,15 @@
 package org.great.controller;
 
+
 import java.util.List;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
+
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,6 +20,8 @@ import org.great.biz.JurisdictionBiz;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 /*
  * 后台登陆
  */
@@ -37,15 +46,23 @@ public class AdminLoginAction {
 	/*
 	 * 后台登陆
 	 */
-	@RequestMapping("adminLogin.action")
-	public ModelAndView adminLogin(HttpServletRequest request,HttpServletResponse response,
-			Model model,AdminBean aBean) {
+
+	@RequestMapping(value="adminLogin.action",method=RequestMethod.POST)
+	public ModelAndView adminLogin(HttpServletRequest request,HttpServletResponse response,AdminBean aBean,Model model)throws UnsupportedEncodingException {
+
 		System.out.println("后台登陆"+aBean.getAdminId()+aBean.getAdminPwd());
 		adminBean = adminBizImp.adminLogin(aBean);
+		 String flag = request.getParameter("isLogin");
 		if(null != adminBean) {
+			model.addAttribute("user",adminBean); 
+			if(request.getParameter("check")!=null) {
+				
+		      addCookie(""+aBean.getAdminId(),aBean.getAdminPwd(), response, request);
+		   }
 			HttpSession session = request.getSession();
 			session.setAttribute("adminBean", adminBean);
 			System.out.println("登陆成功");
+
 			//查询所有权限
 			List<JurdisBean> allList = jurisdictionBizImp.selectAllJurd();
 			//查询当前用户拥有的父权限
@@ -64,6 +81,52 @@ public class AdminLoginAction {
 		}
 		return mav;
 	}
+	
+	/**
+     * 添加Cookie
+     * @param userName
+     * @param password
+     * @param response
+     * @param request
+     * @throws UnsupportedEncodingException
+     */
+    public static void addCookie(String userName,String password,HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException{
+    	
+        //创建cookie
+        Cookie nameCookie = new Cookie(userName, password);
+        nameCookie.setPath(request.getContextPath()+"/");//设置cookie路径
+        //设置cookie保存的时间 单位：秒
+        nameCookie.setMaxAge(7*24*60*60);
+        //将cookie添加到响应
+        response.addCookie(nameCookie);            
+    }
+	
+    /**
+     * 获取到Cookie
+　　　* 先把所有的Cookie获取到，然后遍历cookie，如果有符合项就取出来，用map装起来发到页面中
+     * @param userName
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value="/getCookie.action",method=RequestMethod.POST)
+    public Map<String, String> initCookie(String adminId, HttpServletRequest request){
+    	
+        Cookie[] cookie = request.getCookies();
+        Map<String, String> map = new HashMap<>();
+        
+        for(Cookie c : cookie) {
+        	
+            if(c.getName().equals(adminId)) {
+                String password = c.getValue();
+              
+                map.put("userName", adminId);
+                map.put("password", password);
+                return map;
+            }
+        }
+        return null;
+    }
 	/*
 	 * 新增用户
 	 */
@@ -125,9 +188,7 @@ public class AdminLoginAction {
 		return mav;		
 	}
 	
-	/*
-	 * 查询医生信息
-	 */
+
 	
 }  
 

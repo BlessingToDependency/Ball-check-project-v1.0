@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.great.bean.LitemBean;
 import org.great.bean.TermBean;
 import org.great.biz.ParticularBiz;
+import org.great.core.SystemLog;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 */ 
 @Controller
 @RequestMapping("/adminDetailAction")
+
 public class AdminDetailAction {
 	
 	@Resource

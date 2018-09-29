@@ -49,10 +49,11 @@ String path = request.getScheme() +"://"+request.getServerName()
     $(document).ready(function(){
        //点击链接的时候调用
       $("#linkToCart").click(function(){
- 
           //得到input的值
           var pages = $("#pages").val();
- 
+          if(pages>${pageCountAll}){
+            	return; 
+            }
           //设置linkToCart的href的值
           $("#linkToCart").attr("href","<%=path %>userAdminAction/userAdmin.action?pages="+pages+"");
       });
@@ -101,7 +102,7 @@ function checkUser(){
             <th>手机号</th>
             <th>体检时间</th>
             <th>条码号</th>
-            <th>操作</th>
+             <th>体检状态</th>
         </thead>
         <tbody>
         <c:forEach items="${userList}" var="staffBean">
@@ -115,15 +116,10 @@ function checkUser(){
             <td>${staffBean.phone}</td>
             <td>${staffBean.perguirelaBean.partYear}</td>
              <td>${staffBean.staffId}${staffBean.perguirelaBean.partYear}${staffBean.companyId}${staffBean.perguirelaBean.batchNum}</td>
-            <td class="td-status">
-              
-              <a title="编辑"  onclick="x_admin_show('编辑','admin-edit.html')" href="javascript:;">
-                <i class="layui-icon">&#xe642;</i>
-              </a>
-              <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                <i class="layui-icon">&#xe640;</i>
-              </a>
-            </td>
+       	  <td>
+       	  <c:if test="${staffBean.medicalId==83}">体检结束</c:if>
+       	  <c:if test="${staffBean.medicalId==82}">未体检</c:if>
+       	  </td>
           </tr>
           </c:forEach>
         </tbody>

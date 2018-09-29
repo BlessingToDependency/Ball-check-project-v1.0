@@ -17,7 +17,7 @@ public class LogBizImp implements ILogBiz {
 	@Override
 	public List<LogBean> selectAllLog(RowBounds rowBounds,LogBean logBean) {
 		// TODO Auto-generated method stub
-		List<LogBean> logList=ilogMapper.selectAllLog(rowBounds,logBean);
+		List<LogBean> logList=ilogMapper.selectAllLog(logBean,rowBounds);
 		return logList;
 	}
    
@@ -34,6 +34,14 @@ public class LogBizImp implements ILogBiz {
 	public void deleteLog(int logId) {
 		// TODO Auto-generated method stub
 		ilogMapper.deleteLog(logId);
+		
+	}
+
+	//保存日志
+	@Override
+	public void saveLog(LogBean log) {
+		// TODO Auto-generated method stub
+		ilogMapper.saveLog(log);
 		
 	}
 

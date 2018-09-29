@@ -42,7 +42,7 @@ String path = request.getScheme() +"://"+request.getServerName()
         <form   method="post" action="<%=path %>Report/showUser.action">
         <input type="hidden" name="companyId" id="companyId" value="${companyId}"/>
         <div id="div">
-          <input type="text" id="staffName" name="staffName"  placeholder="姓名" autocomplete="off" class="layui-input" value="${batchSheetCon.staffName==null?"":batchSheetCon.staffName}">
+          <input type="text" id="staffName" name="staffName"  placeholder="姓名" autocomplete="off" class="layui-input" value="${staffName==null?"":staffName}">
         </div>
          <div id="div">
           <select id="partYear" name="partYear" style="width:90%;height:40px;" value="${pBean.partYear==null?"":pBean.partYear}">
@@ -54,7 +54,7 @@ String path = request.getScheme() +"://"+request.getServerName()
           </div>
           
           <div id="div">
-          <select id="batch" name="batch" style="width:90%;height:40px;" value="${pBean.batchNum==null?"":pBean.batchNum}">
+          <select id="batchNum" name="batchNum" style="width:90%;height:40px;" value="${pBean.batchNum==null?"":pBean.batchNum}">
           <option value="">批次</option>
            <option value="${pBean.batchNum}" ${pBean.batchNum==null ? '':'selected = "selected"'}>${pBean.batchNum}</option>
           </select>
@@ -87,7 +87,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 			   <td>${list.idNum}</td>
 			    <td>${list.phone}</td>
 	       	   <td class="td-status">                 
-	           	<a href="<%=path%>Report/showSmall.action?staffId=1000" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return dele();">总结</span></a>
+	           	<a href="<%=path%>Report/showSmall.action?staffId=${list.staffId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return dele();">总结</span></a>
 	          	<!-- ?guChId=${guChId} -->
 	           </td>
 			</tr>
@@ -97,10 +97,10 @@ String path = request.getScheme() +"://"+request.getServerName()
         <div class="page">
         <div>
       		当前：第  ${currentPage} 页/ 共 ${totalPage} 页
-           <a class="num" href="<%=path %>Report/showUser.action?currentPage=1&companyId=${companyId }">首页</a> 
-           <a class="prev" href="<%=path %>Report/showUser.action?currentPage=${(currentPage-1)>0?currentPage-1:1}&companyId=${companyId }">上一页</a>
-		   <a class="next" 	href="<%=path%>Report/showUser.action?currentPage=${(currentPage+1)<=totalPage?currentPage+1:totalPage}&companyId=${companyId }">下一页</a>
-		   <a class="num" href="<%=path %>Report/showUser.action?currentPage=${totalPage}&companyId=${companyId}">末页</a>
+           <a class="num" href="<%=path %>Report/showUser.action?currentPage=1&companyId=${companyId }&staffName=${staffName }&partYear=${pBean.partYear }&batchNum=${pBean.batchNum }">首页</a> 
+           <a class="prev" href="<%=path %>Report/showUser.action?currentPage=${(currentPage-1)>0?currentPage-1:1}&companyId=${companyId }&staffName=${staffName }&partYear=${pBean.partYear }&batchNum=${pBean.batchNum }">上一页</a>
+		   <a class="next" 	href="<%=path%>Report/showUser.action?currentPage=${(currentPage+1)<=totalPage?currentPage+1:totalPage}&companyId=${companyId }&staffName=${staffName }&partYear=${pBean.partYear }&batchNum=${pBean.batchNum }">下一页</a>
+		   <a class="num" href="<%=path %>Report/showUser.action?currentPage=${totalPage}&companyId=${companyId}&staffName=${staffName }&partYear=${pBean.partYear }&batchNum=${pBean.batchNum }">末页</a>
 		   <input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> <a
 					class="num" id="linkToCart" href="">跳转</a>
         </div>
@@ -123,13 +123,13 @@ $(document).ready(function(){
 					type:"post",//发送方式，get/post
 					success:function(redata) {//定义各事件发生时回调的函数
 		
-				     	$("#batch").find("option").remove();
+				     	$("#batchNum").find("option").remove();
 					
-						$("#batch").append("<option value=0>批次</option>");
+						$("#batchNum").append("<option value=0>批次</option>");
 						
 						$.each(redata, function(i, item) {
 							
-							$("#batch").append("<option value="+item+">"+ item+ "</option>");
+							$("#batchNum").append("<option value="+item+">"+ item+ "</option>");
 						
 						});
 					}

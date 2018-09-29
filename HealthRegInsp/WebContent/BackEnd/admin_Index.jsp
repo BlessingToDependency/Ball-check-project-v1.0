@@ -98,6 +98,29 @@ String path = request.getScheme() +"://"+request.getServerName()
                 </ul>
             </li>
             
+                  <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b4;</i>
+                    <cite>医生作结</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="<%=path%>doctorSummaryAction/getThisItemStaff.action">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>医生小结</cite>
+                        </a>
+                    </li>
+                      <li>
+                        <a _href="<%=path%>adminParamAction/systemParam.action">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>医生总结</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            
+            
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b4;</i>
@@ -113,6 +136,11 @@ String path = request.getScheme() +"://"+request.getServerName()
                     </li>
                 </ul>
             </li>
+            
+            
+            
+            
+            
             <!--体检报告  -->
          <li>
                 <a href="javascript:;">
@@ -145,7 +173,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="<%=path%>adminOpenBillAction/systemParam.action">
+                        <a _href="<%=path%>openBillAction/massInspList.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>团检单位列表</cite>
                         </a>

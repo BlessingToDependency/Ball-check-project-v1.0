@@ -29,25 +29,61 @@ String path = request.getScheme() +"://"+request.getServerName()
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
     <script type="text/javascript">
-	function guchInfo(){
-		alert(11)
+    $(document).ready(function(){
+    	$("#clickButton").click(function(){
+    		var guChIdnum = document.getElementById("guChIdnum").value;
 		$.ajax({
-		url:"<%=path %>doctorAction/selectSetmeal.action",
-		data:"guChId="+document.getElementById("guChId").value,
-		dataType:"json",
-		type:"POST",
-		success : function(str){
-			alert(str)
-		}
+			url:"<%=path %>doctorAction/selectSetmeal.action",
+			data:"guChId="+guChIdnum,
+			dataType:"json",
+			type:"post",
+			success:function(a) {
+				
+			$("#guChId").val(guChIdnum);
+			
+			 var strHtml="";
+			$.each(a, function(i, item) {
+				str="~";
+				if(item.none==null){
+					item.none="";
+					str="";
+				}
+				if(item.measur==null){
+					item.measur="";
+					str="";
+				}
+				if(item.downLimit==null){
+					item.downLimit="";
+					str="";
+				}
+				if(item.upLimit==null){
+					item.upLimit="";
+					str="";
+				}
+				strHtml+="<tr>"+
+				"<th>"+item.termId+"</th>"+
+				"<th>"+item.term+"</th>"+
+				"<th>"+"<input type="+"text value="+"'"+item.none+"'"+"name=termVal"+">"+"</th>"+
+				"<th>"+item.measur+"</th>"+
+				"<th>"+item.downLimit+str+item.upLimit+
+				"<input type="+"hidden value="+"'"+item.termId+"'"+"name=termId"+">"+
+				"</th>"+
+				"</tr>";
+			});
+			$("#tbody-result").html(strHtml);
+			/* document.getElementById("guChId").value.guChIdnum; */
+			}
+		});
 	});
-};
+}); 
+    
 </script>
-
 <script type="text/javascript">
-function checkUser(){
+function checkSub(){
 	document.getElementById("formid").submit();
 }
-	</script>
+</script>
+
   </head>
   
   <body>
@@ -62,115 +98,33 @@ function checkUser(){
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
     </div>
     <div class="x-body">
+   
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so" id="" action="">
-          <input type="text" id="guChId" name="guChId"  placeholder="请输入导检单号" autocomplete="off" class="layui-input">
-         
-         <button class="layui-btn"  onclick="guchInfo()"><i class="layui-icon">&#xe615;</i></button>
-        </form>
+        <form class="layui-form layui-col-md12 x-so" id="" action=""> 
+          <input type="text" id="guChIdnum" name="guChIdnum"  placeholder="请输入导检单号" class="layui-input">
+       <input type="button" id="clickButton" value="查询"/>
+        <input type="button" onclick = "checkSub();" value="提交"/>
+         </form> 
       </div>
-      <xblock>
-      <select id="setmealId" name="setmealId" style="width:200px;height:40px;" >
-          <option value="0">--请选择套餐--</option>
-           <option value="" ></option>
-          </select>
-          
-          <select id="itemId" name="itemId" style="width:200px;height:40px;" >
-          <option value="0">--请选择项目--</option>
-           <option value="" ></option>
-          </select>
-      </xblock>
-       <table class="layui-table">
+      <form id="formid" action="<%=path %>doctorAction/addFinresult.action">
+      <input type="hidden" name="guChId" id="guChId"/> 
+       <table class="layui-table" id="table_id">
         <thead>
           <tr>
-            <th>
-              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-            </th>
             <th>ID</th>
-            <th>姓名</th>
-            <th>手机号</th>
-            <th>体检时间</th>
-            <th>条码号</th>
-            <th>操作</th>
+            <th>细项</th>
+            <th>默认值</th>
+            <th>单位</th>
+            <th>参考范围</th>
+           </tr>
         </thead>
-        <tbody>
-        <c:forEach items="${userList}" var="staffBean">
-          <tr>
-            <td>
-              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
-          	<input type="hidden" id="hidden" name="hidden" value="${staffBean.staffId}"/>
-            <td>${staffBean.staffId}</td>
-            <td><a data-toggle="modal" data-target="#myModal" onclick="info(${staffBean.staffId})">${staffBean.staffName}</a></td>
-            <td>${staffBean.phone}</td>
-            <td>${staffBean.perguirelaBean.partYear}</td>
-             <td>${staffBean.staffId}${staffBean.perguirelaBean.partYear}${staffBean.companyId}${staffBean.perguirelaBean.batchNum}</td>
-            <td class="td-status">
-              
-              <a title="编辑"  onclick="x_admin_show('编辑','admin-edit.html')" href="javascript:;">
-                <i class="layui-icon">&#xe642;</i>
-              </a>
-              <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                <i class="layui-icon">&#xe640;</i>
-              </a>
-            </td>
-          </tr>
-          </c:forEach>
+        <tbody id="tbody-result">
         </tbody>
       </table>
-      <div class="page">
-        <div>
-      当前：第  ${pages} 页/ 共 ${pageCountAll} 页
-          <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=1">首页</a>
-          <a class="prev" href="<%=path %>${(pages-1)>0?pages-1:1}">上一页</a>
-          <a class="next" href="<%=path %>userAdminAction/userAdmin.action?pages=${(pages+1)<=pageCountAll?pages+1:pageCountAll}">下一页</a>
-          <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=${pageCountAll}">末页</a>
-          <input type="text" id="pages" name="code" style="width:50px;height:40px;" autocomplete="off"/>
-           <a class="num" id="linkToCart" href="">跳转</a>
-        </div>
-      </div>
+      </form>
 
     </div>
-    <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel" >
-            体检人员信息       
-                </h4>
-            </div>
-            
-            <div class="modal-body">
-                 姓名：<input type="text" id="name">
-            </div>
-            <div class="modal-body">
-                性别：<input type="text" id="sex">
-            </div>
-            
-            <div class="modal-body">
-                年龄：<input type="text" id="age">
-            </div>
-            <div class="modal-body">
-                电话：<input type="text" id="phone">
-            </div>
-            <div class="modal-body">
-                身份证号：<input type="text" id="idNum">
-            </div>
-           
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                </button>
-                <button type="button" class="btn btn-primary">
-                    提交更改
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+   
 <script>
       layui.use('laydate', function(){
         var laydate = layui.laydate;

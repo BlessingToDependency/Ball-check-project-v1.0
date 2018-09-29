@@ -18,26 +18,30 @@ String path = request.getScheme() +"://"+request.getServerName()
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<style type="text/css">
+
+.main td{ height:10px; border:#CCCCCC 1px solid;}
+#zsdiv1{width:30%; margin: 2px 2px 2px 2px; border:gray 3px solid; text-align:right; float:left;}
+#zsdiv2{width:18%; margin: 2px 2px 2px 2px; border:gray 3px solid; text-align:center; float:left;}
+#zsdiv3{width:30%; margin: 2px 2px 2px 2px; border:gray 3px solid; text-align:left; float:left;}
+       
+</style>
   </head>
   
    <body>
     <div class="x-body">
-        <form action="" method="post" class="layui-form layui-form-pane">
+        <form method="post" action="<%=path%>doctorSummaryAction/submitSummary.action">
+     
+     <input type="hidden" id="guChId" name="guChId" value="${giBean.guChId}">
+     <input type="hidden" id="itemId" name="itemId" value="${giBean.itemId}">
+     <input type="hidden" id="doctor" name="doctor" value="${giBean.doctor}">
+      
                 <div class="layui-form-item layui-form-text">
-         <blockquote class="layui-elem-quote">第三代 </blockquote>
+         <blockquote class="layui-elem-quote">${giBean.item}</blockquote>
       <pre class="layui-code" lay-title="JavaScript" lay-skin="notepad">
-          //xcity城市插件 基于于jquery与layui form 模块，使用之前先确认这两者是否引入 
-          //插件文件为 xcity.js,引入 
-          select lay-filter 属性值 为必须 "province/city/area"
-          //初始化
-          $('#x-city').xcity();
-          //传默认值 
-          $('#x-city').xcity('广东','广州市','东山区');
+      <c:forEach items="${finrList}" var="list" step="1" varStatus="vs">
+      <span><div id="zsdiv1">${list.termBean.term}</div></span><span><div id="zsdiv2">${list.termVal}</div></span> <span><div id="zsdiv3">${list.termBean.measur}</div></span>
+     </c:forEach>
       </pre>
                 </div>
                 <div class="layui-form-item layui-form-text">
@@ -45,12 +49,12 @@ String path = request.getScheme() +"://"+request.getServerName()
                        小结内容：
                     </label>
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>
+                        <textarea placeholder="请输入内容" id="sumCont" name="sumCont" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item" style="text-align:center;">
-                <button class="layui-btn" lay-submit="" lay-filter="add">提交</button>
-                <button class="layui-btn" lay-submit="" lay-filter="add">返回</button>
+                <button type="submit" class="layui-btn">提交</button>
+                 <a href="<%=path%>doctorSummaryAction/getThisItemStaff.action"><button type="button" class="layui-btn">返回</button></a>
               </div>
             </form>
     </div>

@@ -47,6 +47,9 @@ String path = request.getScheme() +"://"+request.getServerName()
  
           //得到input的值
           var pages = $("#pages").val();
+          if(pages>${pageCountAll}){
+          	return; 
+          }
  
           //设置linkToCart的href的值
           $("#linkToCart").attr("href","<%=path %>userAdminAction/company.action?pages="+pages+"");
@@ -73,18 +76,13 @@ function checkUser(){
     </div>
     <div class="x-body">
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so" id="formid" action="<%=path %>userAdminAction/userAdmin.action">
-          <input class="layui-input" placeholder="开始日" name="statTime" id="start">
-          <input class="layui-input" placeholder="截止日" name="stopTime" id="end">
-          <input type="text" name="staffName"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-          <input type="text" name="phone"  placeholder="请输入手机号" autocomplete="off" class="layui-input">
-          <input type="text" name="staffName"  placeholder="请输入条码号" autocomplete="off" class="layui-input">
+        <form class="layui-form layui-col-md12 x-so" id="formid" action="<%=path %>userAdminAction/company.action">
+          <input type="text" name="company"  placeholder="请输入公司名" autocomplete="off" class="layui-input">
+          <input type="text" name="contacts"  placeholder="请输入联系人" autocomplete="off" class="layui-input">
+          <input type="text" name="busNum"  placeholder="请输入工商号" autocomplete="off" class="layui-input">
           <button class="layui-btn"  lay-submit="" lay-filter="sreach" onclick = "checkUser();"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
-      <xblock>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html')"><i class="layui-icon"></i>添加</button>
-      </xblock>
        <table class="layui-table">
         <thead>
           <tr>
@@ -96,6 +94,7 @@ function checkUser(){
             <th>地址</th>
             <th>联系人</th>
             <th>联系电话</th>
+            <th>状态</th>
             <th>操作</th>
         </thead>
         <tbody>
@@ -111,15 +110,26 @@ function checkUser(){
             
             <td>${userBean.address}</td>
             <td>${userBean.contacts}</td>
-             <td>${userBean.phone}</td>
+            <td>${userBean.phone}</td>
+            <td>
+            <c:if test="${userBean.stateId==3}">启用</c:if>
+            <c:if test="${userBean.stateId==4}">禁用</c:if>
+            </td>
             <td class="td-status">
               
-              <a title="编辑"  onclick="x_admin_show('编辑','admin-edit.html')" href="javascript:;">
-                <i class="layui-icon">&#xe642;</i>
-              </a>
-              <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                <i class="layui-icon">&#xe640;</i>
-              </a>
+              <span class="layui-btn layui-btn-warm  layui-btn-mini">
+              <c:if test="${userBean.stateId==3}">
+              <a onclick="return confirm('确认禁用?')" href="<%=path %>userAdminAction/disableCompany.action?companyId=${userBean.companyId}&stateId=${userBean.stateId}">启用</a>
+              </c:if>
+              <c:if test="${userBean.stateId==4}">
+              <a onclick="return confirm('确认启用?')" href="<%=path %>userAdminAction/disableCompany.action?companyId=${userBean.companyId}&stateId=${userBean.stateId}">禁用</a>
+              </c:if>
+              </span>
+              
+              <span class="layui-btn layui-btn-warm  layui-btn-mini">
+              <a onclick="return confirm('确认删除,该操作不可更改?')" href="<%=path %>userAdminAction/disableCompany.action?companyId=${userBean.companyId}&logicId=${userBean.logicId}">刪除</a>
+              </span>
+              
             </td>
           </tr>
           </c:forEach>
@@ -129,7 +139,7 @@ function checkUser(){
         <div>
       当前：第  ${pages } 页/ 共 ${pageCountAll} 页
           <a class="num" href="<%=path %>userAdminAction/company.action?pages=1">首页</a>
-          <a class="prev" href="<%=path %>${(pages-1)>0?pages-1:1}">上一页</a>
+          <a class="prev" href="<%=path %>userAdminAction/company.action?pages=${(pages-1)>0?pages-1:1}">上一页</a>
           <a class="next" href="<%=path %>userAdminAction/company.action?pages=${(pages+1)<=pageCountAll?pages+1:pageCountAll}">下一页</a>
           <a class="num" href="<%=path %>userAdminAction/company.action?pages=${pageCountAll}">末页</a>
           <input type="text" id="pages" name="code" style="width:50px;height:40px;" autocomplete="off"/>

@@ -18,4 +18,7 @@ public interface ILogBiz {
 	 
 	 //删除日志
 	 public void  deleteLog(int logId);
+	 
+	//保存日志
+	public void  saveLog(LogBean log);
 }

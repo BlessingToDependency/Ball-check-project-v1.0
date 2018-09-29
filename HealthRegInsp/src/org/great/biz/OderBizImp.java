@@ -126,6 +126,15 @@ public class OderBizImp implements OderBiz{
 		return orderMapper.sumOrderByItem(litemBean, itemConBean, setmealId);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.great.biz.OderBiz#checkOrderName(java.lang.String)
+	 */
+	@Override
+	public SetmealBean checkOrderName(String setMeal) {
+			
+		return orderMapper.checkOrderName(setMeal);
+	}
+
 	
 	
 

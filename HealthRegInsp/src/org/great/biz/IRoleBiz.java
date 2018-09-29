@@ -28,4 +28,7 @@ public interface IRoleBiz {
     
    //查重
     public List<RoleBean> checkRole(RoleBean roleBean);
+    
+    //查询所有角色
+    public List<RoleBean>  selectR();
 }

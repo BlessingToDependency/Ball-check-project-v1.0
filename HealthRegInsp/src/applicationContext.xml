@@ -14,8 +14,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd"
 	default-init-method="myinit" default-destroy-method="mydestroy"  default-lazy-init="true">
 	
-	
-		<!-- 配置数据库连接池 -->
+
 	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
@@ -43,5 +42,7 @@
 
 	<!-- 开启组件扫描 -->
 	<context:component-scan base-package="org.great" />
+	
+	
 	
 </beans>

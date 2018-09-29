@@ -48,15 +48,16 @@ public class UserLoginAction {
 	 */
 
 	@RequestMapping("/userLogin.action")
-	public ModelAndView userLogin(UserBean uBean) {
+	public ModelAndView userLogin(UserBean uBean,String login_username,String login_password) {
+		uBean.setCompany(login_username);
+		uBean.setPwd(login_password);
 		userBean = userBizImp.userLogin(uBean);
 		//登陆成功则进入if
 		if(null != userBean) {
-		
 			session.setAttribute("userBean", userBean);
-			mav.setViewName("success");//登陆成功后跳转主页
+			return new ModelAndView("redirect:/userMainAction/showSetmeal.action");
 		}else {
-			mav.setViewName("login");//登陆失败
+			mav.setViewName("user_login");//登陆失败
 		}
 		return mav;
 	}
@@ -69,7 +70,7 @@ public class UserLoginAction {
 	
 		uBean.setHead("images/user.png");//设置默认头像
 		userBizImp.userRegister(uBean);
-		mav.setViewName("login");
+//		mav.setViewName("login");
 		return mav;
 	}
 	
