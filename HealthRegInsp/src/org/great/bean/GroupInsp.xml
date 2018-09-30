@@ -67,28 +67,36 @@
 	    select distinct SETMEALID from TBLSTAFFMEAL where STAFFID=#{smid}
 	    </select>
 	    
-	    <select id="getPerInspId" resultType="java.lang.Integer">
+	    <select id="getPerInspId" resultType="org.great.bean.PerguirelaBean">
 	    select * from TBLPERGUIRELA where PARTYEAR=#{partYear} and COMPANYID=#{companyId} and BATCHNUM=#{batchNum} and STAFFID=#{staffId}
 	    </select>
 	    
 	    <select id="setMeaList" resultType="java.lang.Integer">
-	    select setmealId from tblpeoplesetmal where perInspId=#{perInspId}
+	    select setmealId from TBLPEOPLESETMAL where PERINSPID=#{perInspId}
 	    </select>
 	    
 	     <select id="itemList" resultType="java.lang.Integer">
 	    select ITEMID from TBLSETCOM where SETMEALID=#{setmealId}
 	    </select>
 	    
+	    <select id="getStaffInfo" resultType="org.great.bean.StaffBean">
+	    select * from TBLSTAFF where STAFFID=#{staffId}
+	    </select>
+	    
 	    <insert id="maintain">
-	    insert TBLGUISETMEAL(GUCHID,SETMEALID) values(#{guChId},#{setmealId})
+	    insert into TBLGUISETMEAL(GUCHID,SETMEALID) values(#{guChId},#{setmealId})
 	    </insert>
 	    
 	    <insert id="intoGucHSet">
-	    insert TBLGUISETMEAL(GUCHID,SETMEALID,PERINSPID) values(#{guChId},#{setmealId},#{perInspId})
+	    insert into TBLGUISETMEAL(GUCHID,SETMEALID,PERINSPID) values(#{guChId},#{setmealId},#{perInspId})
 	    </insert>
 	    
 	    <insert id="intoGuChItem">
-	    insert TBLCHITEM(GUCHID,ITEMID,SUMMSTATEID) values(#{guChId},#{itemId},12)
+	    insert into TBLCHITEM(GUCHID,ITEMID,SUMMSTATEID) values(#{guChId},#{itemId},12)
+	    </insert>
+	    
+	     <insert id="addImages">
+	    insert into TBLGUCHIMAGERELA(GUCHID,IMAGEFILE,ITEMID) values(#{guChId},#{filename},#{itemId})
 	    </insert>
 	    
 	    <update id="updateNewGuChid">

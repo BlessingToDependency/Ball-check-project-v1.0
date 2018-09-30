@@ -115,7 +115,9 @@ public class SummaryAction {
 			giBean.setDoctor(adminBean.getAdminName());
 			giBean.setItem(item.getItem());
 			request.setAttribute("giBean", giBean);
-			
+			//根据导检单号以及项目ID找到对应图片
+			List<String> fileNameList= SummaryBizImp.imageFile(giBean.getGuChId(), giBean.getItemId());
+			request.setAttribute("fileNameList", fileNameList);
 			mav.setViewName("BackEnd/ImageSumm");
 		}
 		//这是进行检验小结
@@ -156,13 +158,8 @@ public class SummaryAction {
 	//影像小结获得影像图片
 	@RequestMapping(value="/getImage.action")
 	
-	public ModelAndView getImage(HttpServletRequest request,HttpServletResponse response,GuchIDdItemID giBean){
-		//根据导检单号以及项目ID找到对应图片
-		
-		List<String> fileNameList= SummaryBizImp.imageFile(giBean.getGuChId(), giBean.getItemId());
-		for(int i=0;i<fileNameList.size();i++) {
-			String fileName = fileNameList.get(i);
-			String root = request.getServletContext().getRealPath("/upload/"+giBean.getGuChId()+"/"); // 设置文件的路径
+	public ModelAndView getImage(HttpServletRequest request,HttpServletResponse response,String fileName,String guChId){
+		String root = request.getServletContext().getRealPath("/upload/"+guChId+"/"); // 设置文件的路径
 			File file=new File(root + fileName);
 			try {
 				InputStream inputStream=new FileInputStream(file);
@@ -187,7 +184,7 @@ public class SummaryAction {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+	
             return null;
 	}
 	

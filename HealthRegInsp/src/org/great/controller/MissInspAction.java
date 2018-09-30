@@ -2,6 +2,8 @@ package org.great.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 
 import org.great.bean.AdminBean;
 import org.great.bean.ParamBean;
@@ -18,11 +21,14 @@ import org.great.bean.UserBean;
 import org.great.biz.IMissInspBiz;
 import org.great.search.BatchSheetCon;
 import org.great.search.CompanyCon;
+import org.great.tools.PhoneCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.google.gson.Gson;
 /*
  * 团检单位开单
@@ -84,7 +90,8 @@ public class MissInspAction {
 	//跳转到单位人员信息展示界面
 	@RequestMapping(value="/staff.action")
 	public ModelAndView staffList(HttpServletRequest request,BatchSheetCon batchSheetCon,Integer pageNo){
-		
+		//获得公司ID
+		request.getSession().setAttribute("cId", batchSheetCon.getCompanyId());
 		int page=0;//当前页初始值
 		String pno = pageNo+"";   //转换成String
 		if("null".equals(pno) || "".equals(pno)){
@@ -152,9 +159,11 @@ public class MissInspAction {
 	
 	//开单
 	@RequestMapping(value="/openBill.action")
-	public ModelAndView OpenBill(HttpServletRequest request,String partYear,int companyId,int batchNum,int staffId){
+	public ModelAndView OpenBill(HttpServletRequest request,String partYear,int companyId,int batchNum,int staffId,RedirectAttributes attr){
+		//从session中得到公司id
+		int cid=(int) request.getSession().getAttribute("cId");
 		//得到用户的导检单号
-		String guChId = partYear+"-"+companyId+"-"+batchNum+"-"+staffId;
+		String guChId = "CY-jx1803-"+partYear+"-"+companyId+"-"+batchNum+"-"+staffId;
 		//更新 员工表中的  最新导检单号字段内容
 		int re = MissInspBizImp.updateNewGuChid(staffId, guChId);
 		//得到  员工导检单关系表  中的 人员导检对象
@@ -162,7 +171,7 @@ public class MissInspAction {
 		//获取套餐ID
 		List<Integer> setMealList = MissInspBizImp.setMeaList(pgb.getPerInspId());
 		for(int i=0;i<setMealList.size();i++) {
-			//得到项目ID
+			//得到套餐ID
 			int setmealId = setMealList.get(i);
 			//维护  <导检单对应套餐表>
 			int in = MissInspBizImp.intoGucHSet(setmealId, pgb.getPerInspId(), guChId);
@@ -177,29 +186,76 @@ public class MissInspAction {
 		}
 	    //把员工中的状态改为已经打印
 		int res = MissInspBizImp.updatePrint(staffId);
+		//根据员工id得到体检人员的信息
+		StaffBean staff = MissInspBizImp.getStaffInfo(staffId);
+		//得到用户的手机号进行短信提醒用户已经预约了时间
+		String phone = staff.getPhone()+"";
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+		String time = df.format(new Date());
+		String tis =time+"号起的5个工作日内的公司体检";
+		try {
+			PhoneCode.Code(phone, staff.getStaffName(),tis);
+		} catch (ClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//跳转到导检单的页面（十一期间拓展一下）
 		System.out.println("展示导检单内容，并能实现打印");
-		
-		return null;
+		BatchSheetCon batchSheetCon = new BatchSheetCon();
+		batchSheetCon.setCompanyId(cid);
+		attr.addAttribute("batchSheetCon", batchSheetCon);
+		return new ModelAndView("redirect:/openBillAction/staff.action");
 	}
 	//批量开单
 	@RequestMapping(value="/batchOpenBill.action")
-	public ModelAndView batchOpenBill(HttpServletRequest request,String partYear,int companyId,int batchNum,String[] data){
+	public ModelAndView batchOpenBill(HttpServletRequest request,String partYear,int companyId,int batchNum,String[] data,RedirectAttributes attr){
+		//从session中得到公司id
+		int cid=(int) request.getSession().getAttribute("cId");
 		for(int i=0;i<data.length;i++) {
 			int staffId = Integer.parseInt(data[i]);
 			//得到用户的导检单号
 			String guChId = "CY-jx1803-"+partYear+"-"+companyId+"-"+batchNum+"-"+staffId;
-			System.out.println(guChId);
-			//根据员工ID得到所选的套餐ID
-			List<String> list =MissInspBizImp.setMealid(staffId);
-			for(int j=0;i<list.size();j++) {
-				int a = Integer.parseInt(list.get(j));
-				//维护导检单ID 和 对应 套餐表
-				int res = MissInspBizImp.maintain(guChId, a);
+			//更新 员工表中的  最新导检单号字段内容
+			int re = MissInspBizImp.updateNewGuChid(staffId, guChId);
+			//得到  员工导检单关系表  中的 人员导检对象
+			PerguirelaBean pgb = MissInspBizImp.getPerInspId(partYear, companyId, batchNum, staffId);
+			//获取套餐ID
+			List<Integer> setMealList = MissInspBizImp.setMeaList(pgb.getPerInspId());
+			for(int k=0;k<setMealList.size();k++) {
+				//得到套餐ID
+				int setmealId = setMealList.get(k);
+				//维护  <导检单对应套餐表>
+				int in = MissInspBizImp.intoGucHSet(setmealId, pgb.getPerInspId(), guChId);
+			    //得到该套餐下的所有项目ID
+				List<Integer> itemList = MissInspBizImp.itemList(setmealId);
+				for(int j =0;j<itemList.size();j++) {
+					//得到项目ID
+					int itemId = itemList.get(j);
+					//维护  <导检单对应项目表>
+					int ir = MissInspBizImp.intoGuChItem(itemId, guChId);
+				}
+			}
+		    //把员工中的状态改为已经打印
+			int res = MissInspBizImp.updatePrint(staffId);
+			//根据员工id得到体检人员的信息
+			StaffBean staff = MissInspBizImp.getStaffInfo(staffId);
+			//得到用户的手机号进行短信提醒用户已经预约了时间
+			String phone = staff.getPhone()+"";
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+			String time = df.format(new Date());
+			String tis =time+"号起的5个工作日内的公司体检";
+			try {
+				PhoneCode.Code(phone, staff.getStaffName(),tis);
+			} catch (ClientException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		//跳转到导检单的页面
 		System.out.println("展示导检单内容，并能实现打印");
-		return null;
+		BatchSheetCon batchSheetCon = new BatchSheetCon();
+		batchSheetCon.setCompanyId(cid);
+		attr.addAttribute("batchSheetCon", batchSheetCon);
+		return new ModelAndView("redirect:/openBillAction/staff.action");
 	}
 }

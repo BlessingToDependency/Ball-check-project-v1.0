@@ -35,8 +35,6 @@ public interface ISummaryMapper {
 	//提交小结内容
     public int subSumm(GuchIDdItemID giBean);
     
-    
-    
     //获得影视文件
     public List<String> imageFile(@Param("guChId")String guChId,@Param("itemId")int itemId);
 }

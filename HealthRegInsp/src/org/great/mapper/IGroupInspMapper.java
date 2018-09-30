@@ -58,4 +58,10 @@ public interface IGroupInspMapper {
     
     //把员工中的状态改为已经打印
     public int updatePrint(@Param("staffId")int staffId);
+    
+    //得到员工信息
+    public StaffBean getStaffInfo(@Param("staffId")int staffId);
+    
+    //添加影像ID
+    public int addImages(@Param("guChId")String guChId,@Param("filename")String filename,@Param("itemId")int itemId);
 }
