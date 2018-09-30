@@ -43,4 +43,12 @@ public class UserBillAction {
 		return mav;
 		
 	}
+	
+	@RequestMapping("/billInfo.action")
+	public ModelAndView billInfo() {
+		
+		
+		mav.setViewName("FrontEnd/user_Bill");
+		return mav;
+	}
 }

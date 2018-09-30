@@ -106,8 +106,8 @@ String path = request.getScheme() +"://"+request.getServerName()
 					superList.push(selectedList[i].split('/')[0]);
 				}
 			}			
-/* 			alert(superList)
-			alert(childList) */
+ 			alert(superList)
+			alert(childList)
 			$.ajax({
 				type: "post",
 	            url: "<%=path%>adminJurisAction/amendJuris.action",
