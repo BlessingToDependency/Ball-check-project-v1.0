@@ -45,6 +45,26 @@ String path = request.getScheme() +"://"+request.getServerName()
 	});
 };
 </script>
+<!-- 导出excel -->
+<script type="text/javascript">
+	function exportExcel(){
+		var staffName=$("#staffName").val();
+		var statTime=$("#start").val();
+		var stopTime=$("#end").val();
+		var phone=$("#phone").val();
+		var myGuChId=$("#myGuChId").val();
+		var companyId=$("#companyId").val();
+	$.ajax({
+		url:"<%=path %>fileAction/exportExcel.action",
+		data:"companyId="+$("#companyId").val(),
+		dataType:"json",
+		type:"POST",
+		success : function(str){
+			alert(11)
+		}
+	});
+};
+</script>
 <script type="text/javascript">
     $(document).ready(function(){
        //点击链接的时候调用
@@ -82,15 +102,17 @@ function checkUser(){
         <form class="layui-form layui-col-md12 x-so" id="formid" action="<%=path %>userAdminAction/userAdmin.action">
           <input class="layui-input" placeholder="开始日" name="statTime" id="start">
           <input class="layui-input" placeholder="截止日" name="stopTime" id="end">
-          <input type="text" name="staffName"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-          <input type="text" name="phone"  placeholder="请输入手机号" autocomplete="off" class="layui-input">
-          <input type="text" name="staffName"  placeholder="请输入条码号" autocomplete="off" class="layui-input">
+          <input type="text" id="staffName" name="staffName"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+          <input type="text" id="phone" name="phone"  placeholder="请输入手机号" autocomplete="off" class="layui-input">
+          <input type="text" id="myGuChId" name="myGuChId"  placeholder="请输入条码号" autocomplete="off" class="layui-input">
           <button class="layui-btn"  lay-submit="" lay-filter="sreach" onclick = "checkUser();"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
       <xblock>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="exportExcel()"><i class="layui-icon"></i>导出excel</button>
+   <!--  <input type="button" onclick="exportExcel()" value="导出" /> -->
       </xblock>
+      <form id="exportForm" action="">
        <table class="layui-table">
         <thead>
           <tr>
@@ -110,6 +132,7 @@ function checkUser(){
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
+            <input type="hidden" id="companyId" name="companyId" value="${staffBean.companyId}"/>
           	<input type="hidden" id="hidden" name="hidden" value="${staffBean.staffId}"/>
             <td>${staffBean.staffId}</td>
             <td><a data-toggle="modal" data-target="#myModal" onclick="info(${staffBean.staffId})">${staffBean.staffName}</a></td>
@@ -124,6 +147,7 @@ function checkUser(){
           </c:forEach>
         </tbody>
       </table>
+      </form>
       <div class="page">
         <div>
       当前：第  ${pages} 页/ 共 ${pageCountAll} 页

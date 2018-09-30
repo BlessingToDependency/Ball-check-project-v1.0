@@ -1,5 +1,6 @@
 package org.great.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -126,19 +127,31 @@ public class AdminJurisAction {
 		//调用删除角色所有权限
 		jurisdictionBizImp.deleteJurrel(roleBean.getRoleId());
 		
-//		System.out.println(superList);
-//		System.out.println(childList);
+		System.out.println(superList);
+		System.out.println(childList);
 		
+		if(superList!=null) {
 		//子权限
 		for(int i =0;i<superList.length;i++) {
-//			System.out.println(superList[i]);
+			System.out.println(superList[i]);
 			//调用增加角色权限方法
 			jurisdictionBizImp.addJurrel(superList[i], roleBean.getRoleId());
 		}
-		//父权限
-		for(int i =0;i<childList.length;i++) {
-//			System.out.println(childList[i]);
-			jurisdictionBizImp.addJurrel(childList[i], roleBean.getRoleId());
+		}
+		if(childList!=null) {
+			//去重
+			List<Integer> list = new ArrayList<Integer>();    
+		    for (int i=0; i<childList.length; i++) {    
+		        if(!list.contains(childList[i])) {    
+		            list.add(childList[i]);    
+		        }    
+		    }    
+		for(int i =0;i<list.size();i++) {
+			System.out.println(list.get(i));
+			
+			jurisdictionBizImp.addJurrel(list.get(i), roleBean.getRoleId());
+			}
+		
 		}
 		map.put("win", "设置成功");
 		return map;

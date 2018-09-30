@@ -98,20 +98,20 @@ public class UserAdminAction {
 	
 	//用户管理列表展示
 	@RequestMapping("userAdmin.action")
-	public ModelAndView userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages) {
+	public ModelAndView userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,String myGuChId,Integer pages) {
 //		String count = request.getParameter("pages");
 		String page = String.valueOf(pages);
 		if(page==null ||"null".equals(page)|| "".equals(page)||"0".equals(page)) {
 			pages=1;
 		}
 		//分页
-		int countAll=adminBizImp.userAdminCount( staffName, phone, statTime, stopTime, partYear,companyId);//当前用户总个数
+		int countAll=adminBizImp.userAdminCount( staffName, phone, statTime, stopTime, partYear,companyId,myGuChId);//当前用户总个数
 		if(countAll%10>0||countAll==0) {
 			pageCountAll=countAll/10+1;
 		}else {
 			pageCountAll=countAll/10;
 		}
-		userList = adminBizImp.userAdmin( staffName, phone, statTime, stopTime, partYear,companyId,pages);
+		userList = adminBizImp.userAdmin( staffName, phone, statTime, stopTime, partYear,companyId,pages,myGuChId);
 		
 		mav.setViewName("BackEnd/userlist");
 		request.setAttribute("userList", userList);

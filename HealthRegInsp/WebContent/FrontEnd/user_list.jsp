@@ -118,7 +118,10 @@ function checkUser(){
             <td>${staffBean.sex}</td>
              <td>${staffBean.idNum}</td>
              <td>${staffBean.phone}</td>
-             <td>已选择套餐名</td>
+             <td>
+             <c:if test="${staffBean.orderId==126}">未预约</c:if>
+              <c:if test="${staffBean.orderId==125}">已预约</c:if>
+             </td>
             <td class="td-status">
               <span class="layui-btn layui-btn-primary">
               <a title="选择套餐" onclick="x_admin_show('选择套餐','<%=path %>userMainAction/chooseMeal.action?staffId=${staffBean.staffId}')" href="javascript:;">选择套餐</a>

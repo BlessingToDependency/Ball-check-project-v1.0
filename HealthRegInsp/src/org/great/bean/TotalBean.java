@@ -15,6 +15,8 @@ public class TotalBean {
     private String suggest; //建议
     private String lifeGuid;//生活保健指导
     private Integer  docSummary; //总结状态
+    private String  summaryDate;  //总结日期
+    
     
     public TotalBean (){
     	
@@ -30,15 +32,14 @@ public class TotalBean {
 	}
 	
 		
-	
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "TotalBean [totalId=" + totalId + ", guChId=" + guChId + ", doctor=" + doctor + ", proposal=" + proposal
-				+ ", suggest=" + suggest + ", lifeGuid=" + lifeGuid + ", docSummary=" + docSummary + "]";
+				+ ", suggest=" + suggest + ", lifeGuid=" + lifeGuid + ", docSummary=" + docSummary + ", summaryDate="
+				+ summaryDate + "]";
 	}
 
 	public int getTotalId() {
@@ -98,6 +99,20 @@ public class TotalBean {
 	 */
 	public void setDocSummary(Integer docSummary) {
 		this.docSummary = docSummary;
+	}
+
+	/**
+	 * @return the summaryDate
+	 */
+	public String getSummaryDate() {
+		return summaryDate;
+	}
+
+	/**
+	 * @param summaryDate the summaryDate to set
+	 */
+	public void setSummaryDate(String summaryDate) {
+		this.summaryDate = summaryDate;
 	}
     
     

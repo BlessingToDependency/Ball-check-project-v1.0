@@ -99,7 +99,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 	                		+"<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>×</button>" 
 	   						+"<h4 class='modal-title' id='myModalLabel'>添加项目</h4></div>"
 	   						+"<div class='layui-form-item'><label class='layui-form-label'>项目名</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='term' lay-verify='title' autocomplete='off' placeholder='请输入项目名称' class='layui-input'></div></div>"
+	                		+"<input type='text' id='term' name='term' lay-verify='title' autocomplete='off' placeholder='请输入项目名称' onblur='repetition()' class='layui-input'><span id='t'></span></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>价格</label><div class='layui-input-block'>"
 	                		+"<input type='text' name='price' lay-verify='title' autocomplete='off' placeholder='请输入价格' class='layui-input'></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>简介</label><div class='layui-input-block'>"
@@ -173,12 +173,29 @@ String path = request.getScheme() +"://"+request.getServerName()
 		
 	</script>
 	<script>
-layui.use('form', function(){
-  var form = layui.form;
-  form.render('checkbox'); //刷新select选择框渲染
-  //各种基于事件的操作，下面会有进一步介绍
-});
-</script>
+/* 	$(document).ready(function() { */
+/* 		$("#term").blur(function(){ */
+	function repetition(){
+			$.ajax({
+				url:"<%=path%>adminLitemAction/repetition.action",
+				type:"post",
+				dataType:"json",
+				data: {item: $("#term").val(), //发送的数据部分    
+	            },
+                success:function(reData){
+					//alert(reData.hint)
+				if(reData.hint=="尚未增加"){
+                	$("#t").css("color","#0F0");
+				}else{
+					$("#t").css("color","red");
+				}
+					$("#t").html(reData.hint);
+				}
+				})	
+				}
+/* 			})  */
+/*     }); */
+	</script>
 </head>
 <body>
  <div class="x-nav">

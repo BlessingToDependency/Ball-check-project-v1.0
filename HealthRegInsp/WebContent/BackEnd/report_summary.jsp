@@ -40,31 +40,38 @@ String path = request.getScheme() +"://"+request.getServerName()
     <div class="x-body">       
       <xblock>
 
-        <span class="x-right" style="line-height:40px">共有数据:${allRecord}条</span>
+        <span class="x-right" style="line-height:40px"></span>
       </xblock>
       <table class="layui-table">
+      <c:forEach items="${itemMap}"  var="map" step="1">
+      <blockquote class="layui-elem-quote">${map.key.litemBean.item} </blockquote>
         <thead>
           <tr>
-            <th>项目</th>
+            <th>细项</th>
             <th>结果</th>
             <th>单位</th>
             <th>参考值</th>
-            <th>提示</th>
+         
         </thead>
         <tbody>
-       <%--    <c:forEach items="${slist}"  var="list" step="1" varStatus="vs">
+          <c:forEach items="${map.value}"  var="list" step="1" varStatus="vs">
 			<tr>
-			   <td>${vs.index+1}</td>
-			   <td>${list.staffName}</td>
-			   <td>${list.age}</td>
-			   <td>${list.sex}</td>
-			   <td>${list.idNum}</td>			       	   
+			   <td>${list.term}</td>
+			   <td>${list.finresultBean.termVal}  </td>
+			   <td>${list.measur}</td>
+			   <td>${list.none}</td>
+			  	       	   
 			</tr>
-			</c:forEach> --%>
+			</c:forEach>
+			<thead>
+          <tr>
+            <th colspan="4">小结：   ${itemMap.key.sumCont}   ${itemMap.key.doctor}</th>  
+           </tr>     
+        </thead>		
         </tbody>
+    </c:forEach>   
       </table>
-       
-        <form action="<%=path%>Report/insertTotall.action" method="post">
+        <form action="<%=path%>Report/insertTotall.action?guChId=${staffBean.myGuChId}" method="post">
      		 <table class="layui-table">
 				<thead>
      			   <tr>
