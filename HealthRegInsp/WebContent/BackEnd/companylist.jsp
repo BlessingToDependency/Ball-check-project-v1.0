@@ -119,15 +119,15 @@ function checkUser(){
               
               <span class="layui-btn layui-btn-warm  layui-btn-mini">
               <c:if test="${userBean.stateId==3}">
-              <a onclick="return confirm('确认禁用?')" href="<%=path %>userAdminAction/disableCompany.action?companyId=${userBean.companyId}&stateId=${userBean.stateId}">启用</a>
+              <a onclick="return confirm('确认禁用?')" href="<%=path %>userAdminAction/disableCompany.action?companyId=${userBean.companyId}&stateId=${userBean.stateId}">禁用</a>
               </c:if>
               <c:if test="${userBean.stateId==4}">
-              <a onclick="return confirm('确认启用?')" href="<%=path %>userAdminAction/disableCompany.action?companyId=${userBean.companyId}&stateId=${userBean.stateId}">禁用</a>
+              <a onclick="return confirm('确认启用?')" href="<%=path %>userAdminAction/disableCompany.action?companyId=${userBean.companyId}&stateId=${userBean.stateId}">启用</a>
               </c:if>
               </span>
               
               <span class="layui-btn layui-btn-warm  layui-btn-mini">
-              <a onclick="return confirm('确认删除,该操作不可更改?')" href="<%=path %>userAdminAction/disableCompany.action?companyId=${userBean.companyId}&logicId=${userBean.logicId}">刪除</a>
+              <a onclick="return confirm('确认删除,该操作不可更改?')" href="<%=path %>userAdminAction/deleteCompany.action?companyId=${userBean.companyId}&logicId=${userBean.logicId}">刪除</a>
               </span>
               
             </td>

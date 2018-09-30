@@ -13,7 +13,7 @@ public class FinresultBean {
       private String guChId;//导检单ID
       private int  termId;//细项ID
 
-      private String termVal;//细项值
+      private String termVal;////细项值
 
       private int itemId;//项目ID
       
@@ -24,8 +24,23 @@ public class FinresultBean {
     	  
       }
 
+      
+      
+	
+	/** 
+	 * @Title:FinresultBean
+	 * @Description:TODO 
+	 * @param guChId
+	 * @param termId
+	 * @param termVal
+	 * @param itemId 
+	 */ 
+
+
+
 
 	public FinresultBean(String guChId, int termId, String termVal, int itemId, TermBean termBean) {
+
 
 		super();
 		this.guChId = guChId;
@@ -34,6 +49,21 @@ public class FinresultBean {
 		this.itemId = itemId;
 		this.termBean = termBean;
 	}
+
+
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "FinresultBean [guChId=" + guChId + ", termId=" + termId + ", termVal=" + termVal + ", itemId=" + itemId
+				+ "]";
+	}
+
+
+
 
 	public String getGuChId() {
 		return guChId;
@@ -52,13 +82,7 @@ public class FinresultBean {
 	}
 
 
-	public String getTermVal() {
-		return termVal;
-	}
 
-	public void setTermVal(String termVal) {
-		this.termVal = termVal;
-	}
 
 	public int getItemId() {
 		return itemId;
@@ -68,6 +92,28 @@ public class FinresultBean {
 		this.itemId = itemId;
 	}
 
+
+
+
+	/**
+	 * @return the termVal
+	 */
+	public String getTermVal() {
+		return termVal;
+	}
+
+
+
+	/**
+	 * @param termVal the termVal to set
+	 */
+	public void setTermVal(String termVal) {
+		this.termVal = termVal;
+	}
+      
+      
+          
+
 	public TermBean getTermBean() {
 		return termBean;
 	}
@@ -76,5 +122,5 @@ public class FinresultBean {
 		this.termBean = termBean;
 	}
 
-	
+
 }

@@ -20,7 +20,7 @@ public class StaffBean {
      private int medicalId;//体检状态
      private String myGuChId ;//最新导检单号
      private int printGuCh; //打印导检单状态
-     
+     private int orderId;//预约状态
 
 
 	private String statTime;//开始时间
@@ -56,6 +56,22 @@ public class StaffBean {
 		this.stopTime = stopTime;
 		this.userBean = userBean;
 		this.perguirelaBean = perguirelaBean;
+	}
+
+
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "StaffBean [staffId=" + staffId + ", staffName=" + staffName + ", age=" + age + ", sex=" + sex
+				+ ", idNum=" + idNum + ", phone=" + phone + ", companyId=" + companyId + ", napany=" + napany
+				+ ", medicalId=" + medicalId + ", myGuChId=" + myGuChId + ", printGuCh=" + printGuCh + ", orderId="
+				+ orderId + ", statTime=" + statTime + ", stopTime=" + stopTime + ", userBean=" + userBean
+				+ ", perguirelaBean=" + perguirelaBean + "]";
 	}
 
 
@@ -206,6 +222,16 @@ public class StaffBean {
 
 	public void setPerguirelaBean(PerguirelaBean perguirelaBean) {
 		this.perguirelaBean = perguirelaBean;
+	}
+
+
+	public int getOrderId() {
+		return orderId;
+	}
+
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 
 

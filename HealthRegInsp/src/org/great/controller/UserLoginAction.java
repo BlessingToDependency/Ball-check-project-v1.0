@@ -57,7 +57,7 @@ public class UserLoginAction {
 			session.setAttribute("userBean", userBean);
 			return new ModelAndView("redirect:/userMainAction/showSetmeal.action");
 		}else {
-			mav.setViewName("user_login");//登陆失败
+			mav.setViewName("FrontEnd/user_login");//登陆失败
 		}
 		return mav;
 	}
