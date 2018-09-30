@@ -15,10 +15,6 @@ public class FinresultBean {
 
       private String termVal;////细项值
 
-
-      private String termVal;//细项值
-
-
       private int itemId;//项目ID
       
       @Resource
@@ -39,7 +35,7 @@ public class FinresultBean {
 	 * @param termVal
 	 * @param itemId 
 	 */ 
-	public FinresultBean(String guChId, int termId, String termVal, int itemId) {
+
 
 
 
@@ -86,14 +82,7 @@ public class FinresultBean {
 	}
 
 
-	
-	public String getTermVal() {
-		return termVal;
-	}
 
-	public void setTermVal(String termVal) {
-		this.termVal = termVal;
-	}
 
 	public int getItemId() {
 		return itemId;

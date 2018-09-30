@@ -19,17 +19,11 @@ public class StaffBean {
      private String napany;
      private int medicalId;//体检状态
      private String myGuChId ;//最新导检单号
-
-     
-
-
-	 private String statTime;//开始时间
-   private int printGuCh; //打印导检单状态
-     
+     private int printGuCh; //打印导检单状态
+     private int orderId;//预约状态
 
 
 	private String statTime;//开始时间
-
      private String stopTime;//结束时间
      
      @Resource
@@ -41,7 +35,6 @@ public class StaffBean {
 	public StaffBean() {
 		super();
 	}
-
 
 
 	public StaffBean(int staffId, String staffName, int age, String sex, String idNum, long phone, int companyId,
@@ -64,7 +57,6 @@ public class StaffBean {
 		this.userBean = userBean;
 		this.perguirelaBean = perguirelaBean;
 	}
-
 
 
 	public int getStaffId() {
@@ -137,21 +129,6 @@ public class StaffBean {
 	}
 
 
-
-	public int getMedicalId() {
-		return medicalId;
-	}
-
-
-	public void setMedicalId(int medicalId) {
-		this.medicalId = medicalId;
-	}
-
-
-
-
-=======
-
 	public String getNapany() {
 		return napany;
 	}
@@ -214,7 +191,6 @@ public class StaffBean {
 
 	public UserBean getUserBean() {
 		return userBean;
-
 	}
 
 
@@ -231,60 +207,19 @@ public class StaffBean {
 	public void setPerguirelaBean(PerguirelaBean perguirelaBean) {
 		this.perguirelaBean = perguirelaBean;
 	}
-  
 
 
-	/**
-	 * @return the napany
-	 */
-	public String getNapany() {
-		return napany;
+	public int getOrderId() {
+		return orderId;
 	}
 
 
-	/**
-	 * @param napany the napany to set
-	 */
-	public void setNapany(String napany) {
-		this.napany = napany;
-	}
-
-
-	/**
-	 * @return the myGuChId
-	 */
-	public String getMyGuChId() {
-		return myGuChId;
-	}
-
-
-	/**
-	 * @param myGuChId the myGuChId to set
-	 */
-	public void setMyGuChId(String myGuChId) {
-		this.myGuChId = myGuChId;
-	}
-
-	}
-
-
-	public void setUserBean(UserBean userBean) {
-		this.userBean = userBean;
-	}
-
-
-	public PerguirelaBean getPerguirelaBean() {
-		return perguirelaBean;
-	}
-
-
-	public void setPerguirelaBean(PerguirelaBean perguirelaBean) {
-		this.perguirelaBean = perguirelaBean;
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 
 
 	
-
      
      
 }

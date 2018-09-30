@@ -219,6 +219,24 @@
    	 	 
  	 </resultMap>
  	 
+ 	
+ 	<!--判断小结是否结束  -->
+ 	<select id="checkSmall" resultType="org.great.bean.SmallBean" parameterType="org.great.bean.StaffBean">
+ 		
+ 		 select * from TBLSMALL where guChId = #{myGuChId} and itemId = #{itemId}
+ 	
+ 	</select>
+ 	
+ 	 
+ 	 <!--判断该项目是否完成小结  -->
+ 	 
+ 	 <select id="checkItem"  resultType="java.lang.Integer"  parameterMap="org.great.bean.StaffBean">
+ 	 
+ 	  select itemId from tblsetcom where  setmealId =( select  setmealId from  TBLGUISETMEAL  
+ 	  where guChId =#{myGuChId})
+ 	  
+ 	 </select>
+ 	 
  	 
  </mapper>
  

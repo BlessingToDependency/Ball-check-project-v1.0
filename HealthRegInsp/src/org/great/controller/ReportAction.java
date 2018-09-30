@@ -154,8 +154,17 @@ public class ReportAction {
 	
 	//获取小结、展示小结
 	@RequestMapping(value="showSmall.action")
-	public String showSmall(Model model,StaffBean staffBean) {
+	public ModelAndView showSmall(Model model,StaffBean staffBean,RedirectAttributes attr) {
+		ModelAndView mav  = new ModelAndView();
 		System.out.println("myGuChId:"+staffBean.getMyGuChId());
+		List<Integer> intList = reportBizImp.collectItem(staffBean);
+		Integer  companyId =  (Integer) session.getAttribute("companyId");
+		attr.addAttribute("companyId", companyId);
+		for (Integer itemId : intList) {
+			if (null == reportBizImp.checkSmall(staffBean, itemId)) {
+				return new ModelAndView("redirect:/Report/showUser.action");
+			}
+		}
 		
 		List<SmallBean> smList = reportBizImp.queryItem(staffBean);		
 		List<TermBean>   tList  = null;
@@ -166,10 +175,14 @@ public class ReportAction {
 			tList =reportBizImp.querySection(smallBean);
 			map.put(smallBean, tList);
 		}	
-		model.addAttribute("itemMap", map);  
-		model.addAttribute("staffBean", staffBean);  
-		System.out.println("itemMap:"+map.toString());	
-		return "BackEnd/report_summary";		
+		mav.addObject("itemMap", map);
+		mav.addObject("staffBean", staffBean);
+		mav.setViewName("BackEnd/report_summary");
+		
+		//model.addAttribute("itemMap", map);  
+		//model.addAttribute("staffBean", staffBean);  
+		//System.out.println("itemMap:"+map.toString());	
+		return mav;		
 	}
 	
 	//插入总结
@@ -189,6 +202,9 @@ public class ReportAction {
 		//少了参数 用户ID？
 		return new ModelAndView("redirect:/Report/showUser.action");		
 	}
+	
+	
+	
 	
 	
 	/**

@@ -63,4 +63,12 @@ public interface ReportMapper {
     //得到小结项目中的科室
     public List<TermBean> querySection(SmallBean  staffBean);
     
+    
+    //判断小结
+    public List<SmallBean> checkSmall(@Param("staffBean")StaffBean  staffBean ,@Param("itemId")Integer itemId);
+    
+    
+    //获取套餐中的项目
+    public List<Integer> collectItem(StaffBean staffBean);
+    
 }
