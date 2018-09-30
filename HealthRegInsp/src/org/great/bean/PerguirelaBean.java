@@ -32,14 +32,7 @@ public class PerguirelaBean {
 	
 	
 	
-	/* 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "PerguirelaBean [staffId=" + staffId + ", partYear=" + partYear + ", companyId=" + companyId
-				+ ", batchNum=" + batchNum + ", staffBean=" + staffBean + ", currentPage=" + currentPage + "]";
-	}
+	
 
 	public int getStaffId() {
 		return staffId;
@@ -79,6 +72,7 @@ public class PerguirelaBean {
 	public String toString() {
 		return "PerguirelaBean [staffId=" + staffId + ", partYear=" + partYear + ", companyId=" + companyId
 				+ ", batchNum=" + batchNum + ", perInspId=" + perInspId + "]";
+	}
 
 	/**
 	 * @return the staffBean

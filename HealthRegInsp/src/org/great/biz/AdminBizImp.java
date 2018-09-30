@@ -61,17 +61,17 @@ public class AdminBizImp implements AdminBiz{
 
 	//后台用户管理列表展示
 	@Override
-	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages) {
+	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages,String myGuChId) {
 		// TODO Auto-generated method stub
-		userList = iAdminMapper.userAdmin( staffName, phone, statTime, stopTime, partYear,companyId,pages);
+		userList = iAdminMapper.userAdmin( staffName, phone, statTime, stopTime, partYear,companyId,pages,myGuChId);
 		return userList;
 	}
 
 	//后台用户管理总数
 	@Override
-	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId1) {
+	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId1,String myGuChId) {
 		// TODO Auto-generated method stub
-		return iAdminMapper.userAdminCount(staffName,phone, statTime, stopTime, partYear,companyId1);
+		return iAdminMapper.userAdminCount(staffName,phone, statTime, stopTime, partYear,companyId1,myGuChId);
 	}
 	
 	//根据用户id查找对应信息
@@ -216,6 +216,14 @@ public class AdminBizImp implements AdminBiz{
 		public Integer selectItem(String guChId,Integer depaId) {
 			// TODO Auto-generated method stub
 			return iAdminMapper.selectItem(guChId,depaId);
+		}
+
+		//查询当前公司下用户并下载
+		@Override
+		public List<StaffBean> exportExcel(String staffName, Long phone, String statTime, String stopTime,
+				String partYear, Integer companyId,String myGuChId) {
+			// TODO Auto-generated method stub
+			return iAdminMapper.exportExcel(staffName, phone, statTime, stopTime, partYear, companyId,myGuChId);
 		}
 	
 }

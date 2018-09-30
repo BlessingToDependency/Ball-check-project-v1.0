@@ -117,4 +117,10 @@ public class UserBizImp implements UserBiz {
 		iUserMapper.addPerguirela(perguirelaBean);
 	}
 
+	@Override
+	public void updateState(PerguirelaBean perguirelaBean) {
+		// TODO Auto-generated method stub
+		iUserMapper.updateState(perguirelaBean);
+	}
+
 }

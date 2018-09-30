@@ -25,6 +25,9 @@ public interface IAdminMapper {
 	//通过导检单id和科室id查询细项
 	public List<TermBean> selectSetmeal(@Param("guChId")String guChId,@Param("depaId")Integer depaId);
 	
+	//查询当前公司下用户并下载
+	public List<StaffBean> exportExcel(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("companyId")Integer companyId,@Param("myGuChId")String myGuChId);
+	
 	//通过导检单id查询项目id
 	public Integer selectItem(@Param("guChId")String guChId,@Param("depaId")Integer depaId);
 	
@@ -44,10 +47,10 @@ public interface IAdminMapper {
 	public Integer companyCount(UserBean userBean);
 	
 	//后台用户管理列表展示
-	public List<StaffBean> userAdmin(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("companyId")Integer companyId,@Param("pages")Integer pages);
+	public List<StaffBean> userAdmin(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("companyId")Integer companyId,@Param("pages")Integer pages,@Param("myGuChId")String myGuChId);
 	
 	//后台用户管理列表总数查询
-	public Integer userAdminCount(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("companyId")Integer companyId);
+	public Integer userAdminCount(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("companyId")Integer companyId,@Param("myGuChId")String myGuChId);
 	
 	//根据用户id查找对应信息
 	public StaffBean userInfo(@Param("staffId")String staffId);

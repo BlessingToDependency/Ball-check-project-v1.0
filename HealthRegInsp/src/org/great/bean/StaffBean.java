@@ -20,7 +20,7 @@ public class StaffBean {
      private int medicalId;//体检状态
      private String myGuChId ;//最新导检单号
      private int printGuCh; //打印导检单状态
-     
+     private int orderId;//预约状态
 
 
 	private String statTime;//开始时间
@@ -206,6 +206,16 @@ public class StaffBean {
 
 	public void setPerguirelaBean(PerguirelaBean perguirelaBean) {
 		this.perguirelaBean = perguirelaBean;
+	}
+
+
+	public int getOrderId() {
+		return orderId;
+	}
+
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 
 
