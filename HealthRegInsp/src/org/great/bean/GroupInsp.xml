@@ -67,9 +67,37 @@
 	    select distinct SETMEALID from TBLSTAFFMEAL where STAFFID=#{smid}
 	    </select>
 	    
+	    <select id="getPerInspId" resultType="java.lang.Integer">
+	    select * from TBLPERGUIRELA where PARTYEAR=#{partYear} and COMPANYID=#{companyId} and BATCHNUM=#{batchNum} and STAFFID=#{staffId}
+	    </select>
+	    
+	    <select id="setMeaList" resultType="java.lang.Integer">
+	    select setmealId from tblpeoplesetmal where perInspId=#{perInspId}
+	    </select>
+	    
+	     <select id="itemList" resultType="java.lang.Integer">
+	    select ITEMID from TBLSETCOM where SETMEALID=#{setmealId}
+	    </select>
+	    
 	    <insert id="maintain">
 	    insert TBLGUISETMEAL(GUCHID,SETMEALID) values(#{guChId},#{setmealId})
 	    </insert>
+	    
+	    <insert id="intoGucHSet">
+	    insert TBLGUISETMEAL(GUCHID,SETMEALID,PERINSPID) values(#{guChId},#{setmealId},#{perInspId})
+	    </insert>
+	    
+	    <insert id="intoGuChItem">
+	    insert TBLCHITEM(GUCHID,ITEMID,SUMMSTATEID) values(#{guChId},#{itemId},12)
+	    </insert>
+	    
+	    <update id="updateNewGuChid">
+	    update TBLSTAFF set myGuChId=#{myGuChId} where STAFFID=#{staffId}
+	    </update>
+	    
+	    <update id="updatePrint">
+	    update TBLSTAFF set PRINTGUCH=123 where STAFFID=#{staffId}
+	    </update>
 	   
  		
  </mapper>

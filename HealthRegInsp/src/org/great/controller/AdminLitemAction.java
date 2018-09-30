@@ -283,5 +283,30 @@ public class AdminLitemAction {
 
 		
 	}
+	
+	/*
+	 * @Description:项目查重 
+	* @return（展示方法参数和返回值）
+	 */
+	@RequestMapping("/repetition.action")
+	@ResponseBody
+	public Map<String,Object> repetition(LitemBean litemBean){
+//		System.out.println("11111");
+		Map<String,Object> map = new HashMap<String,Object>();
+		if(!litemBean.getItem().equals("")) {
+		//调用项目查重方法
+		List<LitemBean> list = itemBizImp.duplicateChecking(litemBean);
+		
+			if(list.size()==0) {
+				map.put("hint", "尚未增加");
+			}else {
+				map.put("hint", "已经增加");
+			}
+		}else {
+			map.put("hint", "不能为空");
+		}
+		return map;
+		
+	}
 }
 

@@ -27,36 +27,34 @@ String path = request.getScheme() +"://"+request.getServerName()
   
    <body>
     <div class="x-body">
-        <form action="" method="post" class="layui-form layui-form-pane">
-                <div class="layui-form-item layui-form-text">
-         <blockquote class="layui-elem-quote">第三代 </blockquote>
+     <form method="post" action="<%=path%>doctorSummaryAction/submitSummary.action">
+     
+     <input type="hidden" id="guChId" name="guChId" value="${giBean.guChId}">
+     <input type="hidden" id="itemId" name="itemId" value="${giBean.itemId}">
+     <input type="hidden" id="doctor" name="doctor" value="${giBean.doctor}">
+      
+       <div class="layui-form-item layui-form-text">
+         <blockquote class="layui-elem-quote">${giBean.item} </blockquote>
       <pre class="layui-code">
-          <table  width="100%" border="0" cellspacing="0" cellpadding="0" class="main" class="layui-table layui-input-block">
-              <tbody>
-                 <tr style="background-color:cyan;">
-                    <td colspan="2">
-                         <span style="font-size: 16px;;color:orange">细项</span>
-                    </td>
-                    <td>
-                         <span style="font-size: 16px;;color:orange">结果</span>
-                    </td>
-                    <td>
-                         <span style="font-size: 16px;;color:orange">单位</span>
-                    </td>
-                    <td>
-                         <span style="font-size: 16px;;color:fuchsia;">参考</span>
-                    </td>
-                  </tr>
-                  <tr>
-                     <td>
-                                    的说法是否是
-                     </td>
-                     <td>
-                               撒大大
-                     </td>
-                  </tr>
-               </tbody>
-            </table>
+         <table class="layui-table">
+        <thead>
+          <tr style="background-color:orange;">
+            <th colspan="2">细项</th>
+            <th>结果</th>
+            <th>参考</th>
+            <th>单位</th>
+        </thead>
+        <tbody>
+          <c:forEach items="${finrList}" var="list" step="1" varStatus="vs">
+			<tr>
+			   <td colspan="2">${list.termBean.term}</td>
+			   <td>${list.termVal}</td>
+			   <td>${list.termBean.none}</td>
+			   <td>${list.termBean.measur}</td>
+			</tr>
+			</c:forEach>
+        </tbody>
+      </table>
       </pre>
                 </div>
                 <div class="layui-form-item layui-form-text">
@@ -64,38 +62,15 @@ String path = request.getScheme() +"://"+request.getServerName()
                        小结内容：
                     </label>
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>
+                        <textarea placeholder="请输入内容" id="sumCont" name="sumCont" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item" style="text-align:center;">
-                <button class="layui-btn" lay-submit="" lay-filter="add">提交</button>
-                <button class="layui-btn" lay-submit="" lay-filter="add">返回</button>
+                <button type="submit" class="layui-btn">提交</button>
+                 <a href="<%=path%>doctorSummaryAction/getThisItemStaff.action"><button type="button" class="layui-btn">返回</button></a>
               </div>
             </form>
     </div>
-    <script>
-        layui.use(['form','layer'], function(){
-            $ = layui.jquery;
-          var form = layui.form
-          ,layer = layui.layer;
-        
-          //监听提交
-          form.on('submit(add)', function(data){
-            console.log(data);
-            //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6},function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
-          });
-          
-          
-        });
-    </script>
-
   </body>
 
 </html>

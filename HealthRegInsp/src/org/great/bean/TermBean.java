@@ -19,9 +19,26 @@ public class TermBean {
      private String none;//参考值
      @Resource
      private ItemComBean itemComBean;//项目细项关系Bean
+     private FinresultBean finresultBean; //检查细项结果表
+     private SmallBean  smallBean; //小结记录表
+     private LitemBean litemBean;  //细项结果表
+     
      public  TermBean() {
     	 
      }
+     
+     /* (non-Javadoc)
+ 	 * @see java.lang.Object#toString()
+ 	 */
+ 	@Override
+ 	public String toString() {
+ 		return "TermBean [termId=" + termId + ", term=" + term + ", measur=" + measur + ", upLimit=" + upLimit
+ 				+ ", downLimit=" + downLimit + ", none=" + none + ", itemComBean=" + itemComBean + ", finresultBean="
+ 				+ finresultBean + ", smallBean=" + smallBean + ", litemBean=" + litemBean + "]";
+ 	}
+     
+         
+     
 	public Integer getTermId() {
 		return termId;
 	}
@@ -58,10 +75,42 @@ public class TermBean {
 	public void setNone(String none) {
 		this.none = none;
 	}
-	@Override
-	public String toString() {
-		return "TermBean [termId=" + termId + ", term=" + term + ", measur=" + measur + ", upLimit=" + upLimit
-				+ ", downLimit=" + downLimit + ", none=" + none + ", itemComBean=" + itemComBean + "]";
+	
+	/**
+	 * @return the finresultBean
+	 */
+	public FinresultBean getFinresultBean() {
+		return finresultBean;
+	}
+	/**
+	 * @param finresultBean the finresultBean to set
+	 */
+	public void setFinresultBean(FinresultBean finresultBean) {
+		this.finresultBean = finresultBean;
+	}
+	/**
+	 * @return the smallBean
+	 */
+	public SmallBean getSmallBean() {
+		return smallBean;
+	}
+	/**
+	 * @param smallBean the smallBean to set
+	 */
+	public void setSmallBean(SmallBean smallBean) {
+		this.smallBean = smallBean;
+	}
+	/**
+	 * @return the litemBean
+	 */
+	public LitemBean getLitemBean() {
+		return litemBean;
+	}
+	/**
+	 * @param litemBean the litemBean to set
+	 */
+	public void setLitemBean(LitemBean litemBean) {
+		this.litemBean = litemBean;
 	}
 	
      

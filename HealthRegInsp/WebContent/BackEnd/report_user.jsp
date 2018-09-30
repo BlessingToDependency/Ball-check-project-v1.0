@@ -87,7 +87,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 			   <td>${list.idNum}</td>
 			    <td>${list.phone}</td>
 	       	   <td class="td-status">                 
-	           	<a href="<%=path%>Report/showSmall.action?staffId=${list.staffId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return dele();">总结</span></a>
+	           	<a href="<%=path%>Report/showSmall.action?staffId=${list.staffId}&myGuChId=${list.myGuChId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return dele();">总结</span></a>
 	          	<!-- ?guChId=${guChId} -->
 	           </td>
 			</tr>
