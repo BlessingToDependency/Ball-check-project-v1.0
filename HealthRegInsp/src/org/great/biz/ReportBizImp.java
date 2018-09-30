@@ -146,6 +146,24 @@ public class ReportBizImp implements ReportBiz {
 		
 		return reportMapper.querySection(smallBean);
 	}
+	/* (non-Javadoc)
+	 * @see org.great.biz.ReportBiz#checkSmall(org.great.bean.SmallBean)
+	 */
+	@Override
+	public List<SmallBean> checkSmall(StaffBean  staffBean ,Integer itemId) {
+		
+		
+		
+		return reportMapper.checkSmall( staffBean , itemId);
+	}
+	/* (non-Javadoc)
+	 * @see org.great.biz.ReportBiz#collectItem(org.great.bean.StaffBean)
+	 */
+	@Override
+	public List<Integer> collectItem(StaffBean staffBean) {
+		
+		return reportMapper.collectItem(staffBean);
+	}
 
 
 

@@ -53,7 +53,7 @@
 			(select d.*,rownum rn from
 			(select  a.* from  TBLSTAFF a ,TBLPERGUIRELA b
     	<where>
-    			  a.staffId =b.staffId    and b.companyId = #{companyId,jdbcType=VARCHAR}
+    			  a.staffId =b.staffId  and b.companyId = #{companyId,jdbcType=VARCHAR}
     			
     			<if test="null != pBean.partYear and ''!= pBean.partYear">
     				and b.partyear =#{pBean.partYear}
@@ -127,46 +127,13 @@
  		select distinct batchnum from TBLPERGUIRELA where partyear =#{partYear} and companyId = #{companyId}
  	</select>
  	
- 	<!--得到小结  -->
-<!--  	 <select id="querySmall" resultMap="showSmall" parameterType="org.great.bean.StaffBean">
- 	 
- 	 	select  e.item , k.*,h.termVal, f.sumcont from TBLSMALL f ,tblfinresult h ,TBLITEM e  ,TBLTERM k where  k.termId = h.termId and f.guChId = h.guChId and e.itemId =h.itemID  and f.guChId in
-		(select  d.guChId from TBLGUISETMEAL d ,  tblstaff g  where  g.myGuchId= d.guChId  and  g.staffId =#{staffId} and g.myGuchId = #{myGuChId})
- 	 
+		 <!-- 	得到小结  -->
+ 	 <select id="querySmall" resultType="java.lang.Integer" parameterType="org.great.bean.SmallBean">
+ 	    select b.* from TBLPERGUIRELA a, TBLSMALL b ,TBLGUISETMEAL c
+ 	     where a.PERINSPID = c.PERINSPID and c.GUCHID = b.GUCHID and a.staffId = #{staffId}
  	 </select>
- 	 	 
- 	 <resultMap type="org.great.bean.TermBean" id="smallBean"> 
- 	 	<result column="termId"  property="termId"/>
-    	<result column="term"  property="term"/>
-   		<result column="measur"  property="measur"/>
-   		<result column="sex"  property="sex"/>
-   		<result column="idNum"  property="idNum"/>
-   		<result column="phone"  property="phone"/> 
- 	 	 	 	 
- 	 <association   property="litemBean"   javaType="org.great.bean.LitemBean" >
- 	 	<result column="itemId"  property="itemId"/>
-    	<result column="item"  property="item"/>
-   		<result column="price"  property="price"/>
-   		<result column="introd"  property="introd"/>
-  
-  	 </association>
-   	 <association property="finresultBean" javaType="org.great.bean.FinresultBean">
-   			<result column="guChId"  property="guChId"/>
-   			<result column="termId"  property="termId"/>
-   			<result column="termVal"  property="termVal"/>
-   			<result column="itemId"  property="itemId"/>
-   	</association>
  	 
- 	 <association property="smallBean" javaType="org.great.bean.SmallBean">
-   			<id column="sumId" property="sumId" />
-   			<result column="guChId"  property="guChId"/>
-   			<result column="itemId"  property="itemId"/>
-   			<result column="doctor"  property="doctor"/>
-   			<result column="sumCont"  property="sumCont"/>
-   		</association>	 
- 	 </resultMap> -->
- 	 
- 	 <!--得到项目  -->
+ 	 	 <!--得到项目  -->
  	 <select id="queryItem" resultMap="showMySmall" parameterType="org.great.bean.StaffBean" >
  	 	select  e.item , f.*  from TBLSMALL f  ,TBLITEM e  ,  tblstaff g  where  g.myGuchId= f.guChId and f.itemId =e.itemId  and  g.staffId = #{staffId} and g.myGuChId = #{myGuChId} 
  	 	 
@@ -186,15 +153,16 @@
    			<result column="introd"  property="introd"/>
    	 </association>		 
  	 </resultMap>
- 	 	 
+ 	 
+ 	 
  	 <!-- 插入总结 tbl_total.nextval-->
  	 <insert id="insertTotal" parameterType="org.great.bean.TotalBean">
- 	 	INSERT INTO TBLTOTAL (TOTALID, GUCHID, DOCTOR, PROPOSAL, LIFEGUID, DOCSUMMARY, SUGGEST,summarydate) 
- 	 	VALUES (tbl_total.nextval, #{guChId}, #{doctor}, #{proposal}, #{lifeGuid}, #{docSummary}, #{suggest},(select to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') from dual))	 
+ 	 	INSERT INTO TBLTOTAL (TOTALID, GUCHID, DOCTOR, PROPOSAL, LIFEGUID, DOCSUMMARY, SUGGEST) 
+ 	 	VALUES (tbl_total.nextval, #{guChId}, #{doctor}, #{proposal}, #{lifeGuid}, #{docSummary}, #{suggest})	 
  	 </insert>
  	 
- 	 
- 	 <!-- 得到科室 -->
+
+ 	  <!-- 得到科室 -->
  	 <select id="querySection" resultMap="mySection" parameterType="org.great.bean.StaffBean">
  	 		 select  a.*，b.termVal from tblfinresult b ,TBLTERM a ,TBLITEMCOM c 
  	 		 where   a.termId = b.termId and a.termId=c.termId and  c .itemId  =#{itemId} and b.guChId =#{guChId}
@@ -215,9 +183,28 @@
    			<result column="termVal"  property="termVal"/>
    			<result column="itemId"  property="itemId"/>  	 
    	 </association>	
-   	 	 
-   	 	 
+   	 	    	 	 
  	 </resultMap>
+ 	 
+
+
+		
+ 	<!--判断小结是否结束  -->
+ 	<select id="checkSmall" resultType="org.great.bean.SmallBean" parameterType="org.great.bean.StaffBean">
+ 		
+ 		 select * from TBLSMALL where guChId = #{staffBean.myGuChId} and itemId = #{itemId}
+ 	
+ 	</select>
+ 	
+
+ 	  <!--判断该项目是否完成小结  -->
+ 	 
+ 	 <select id="collectItem"   parameterType="org.great.bean.StaffBean"  resultType="java.lang.Integer" >
+ 	 
+ 	  select itemId from tblsetcom where  setmealId =( select  setmealId from  TBLGUISETMEAL  
+ 	  where guChId =#{myGuChId})
+ 	  
+ 	 </select>
  	 
  	 
  </mapper>

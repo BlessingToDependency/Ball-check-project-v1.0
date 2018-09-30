@@ -11,7 +11,7 @@ import org.jbarcode.encode.EAN8Encoder;
 import org.jbarcode.paint.EAN13TextPainter;
 import org.jbarcode.paint.EAN8TextPainter;
 import org.jbarcode.paint.WidthCodedPainter;
-import org.junit.Test;
+
 
 import sun.misc.BASE64Encoder;
 

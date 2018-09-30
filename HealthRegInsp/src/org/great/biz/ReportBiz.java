@@ -62,4 +62,11 @@ public interface ReportBiz {
      //得到小结项目中的科室
      public List<TermBean> querySection(SmallBean  smallBean);
      
+     
+     //判断小结是否都完成
+     public List<SmallBean>   checkSmall(StaffBean  staffBean ,Integer itemId);
+     
+     //获取套餐中的项目
+     public List<Integer> collectItem(StaffBean staffBean);
+     
 }

@@ -9,13 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.great.test.TsecIm;
-import org.junit.Test;
+
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 public class Printing {
-	  @Test
+
 	  public void exportSimpleWord() throws Exception{  
 		  // 要填充的数据, 注意map的key要和word中${xxx}的xxx一致  
 		  Map<String,String> dataMap = new HashMap<String,String>(); 
