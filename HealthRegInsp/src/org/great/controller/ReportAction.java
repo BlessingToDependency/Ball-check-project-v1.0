@@ -165,7 +165,7 @@ public class ReportAction {
 				return new ModelAndView("redirect:/Report/showUser.action");
 			}
 		}
-		
+		  
 		List<SmallBean> smList = reportBizImp.queryItem(staffBean);		
 		List<TermBean>   tList  = null;
 		System.out.println("smList:"+smList.toString());
@@ -181,7 +181,7 @@ public class ReportAction {
 		
 		//model.addAttribute("itemMap", map);  
 		//model.addAttribute("staffBean", staffBean);  
-		//System.out.println("itemMap:"+map.toString());	
+		System.out.println("itemMap:"+map.toString());	
 		return mav;		
 	}
 	

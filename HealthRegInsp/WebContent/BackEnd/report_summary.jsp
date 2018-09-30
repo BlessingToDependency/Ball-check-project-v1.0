@@ -57,7 +57,7 @@ String path = request.getScheme() +"://"+request.getServerName()
           <c:forEach items="${map.value}"  var="list" step="1" varStatus="vs">
 			<tr>
 			   <td>${list.term}</td>
-			   <td>${list.finresultBean.termVal}</td>
+			   <td>${list.finresultBean.termVal}  </td>
 			   <td>${list.measur}</td>
 			   <td>${list.none}</td>
 			  	       	   
@@ -65,7 +65,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 			</c:forEach>
 			<thead>
           <tr>
-            <th colspan="4">小结：${itemMap.key.sumCont}</th>  
+            <th colspan="4">小结：   ${itemMap.key.sumCont}   ${itemMap.key.doctor}</th>  
            </tr>     
         </thead>		
         </tbody>
@@ -75,7 +75,7 @@ String path = request.getScheme() +"://"+request.getServerName()
      		 <table class="layui-table">
 				<thead>
      			   <tr>
-                   <th>体检总结及建议${staffBean.myGuChId}</th>     
+                   <th>体检总结及建议</th>     
                    </tr>    
         		</thead>
         				<tr>

@@ -59,6 +59,22 @@ public class StaffBean {
 	}
 
 
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "StaffBean [staffId=" + staffId + ", staffName=" + staffName + ", age=" + age + ", sex=" + sex
+				+ ", idNum=" + idNum + ", phone=" + phone + ", companyId=" + companyId + ", napany=" + napany
+				+ ", medicalId=" + medicalId + ", myGuChId=" + myGuChId + ", printGuCh=" + printGuCh + ", orderId="
+				+ orderId + ", statTime=" + statTime + ", stopTime=" + stopTime + ", userBean=" + userBean
+				+ ", perguirelaBean=" + perguirelaBean + "]";
+	}
+
+
 	public int getStaffId() {
 		return staffId;
 	}
