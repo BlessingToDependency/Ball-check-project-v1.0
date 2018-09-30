@@ -18,7 +18,7 @@ public class CreateXLS{
 			//以及单元格内容为test
 			Label labelTable=new Label(0,0,"传一体检信息表");
 			Label label=new Label(0,1,"公司：");
-			Label label0=new Label(0,2,"ID");
+			Label label0=new Label(0,2,"序号");
 			Label label1=new Label(1,2,"体检人姓名");
 			Label label2=new Label(2,2,"年龄");
 			Label label3=new Label(3,2,"性别");

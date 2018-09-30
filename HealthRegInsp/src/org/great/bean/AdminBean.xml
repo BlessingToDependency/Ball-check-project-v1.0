@@ -50,7 +50,9 @@ a.guChId=#{guChId} and e.depaId=#{depaId}
 				<if test="userBean.address != null and userBean.address !=''"> and address like concat(concat('%',#{userBean.address}),'%')</if>
 				<if test="userBean.contacts != null and userBean.contacts !=''"> and contacts like concat(concat('%',#{userBean.contacts}),'%')</if>
 				<if test="userBean.busNum != null and userBean.busNum !=''"> and busNum=#{userBean.busNum} </if>
+				and logicId =6
 			</where>
+			
 			order by company)z where rownum &lt; =#{pages}*10 )r where r.rn &gt; =(#{pages}-1)*10+1
 		</select>
 		
@@ -71,11 +73,48 @@ a.guChId=#{guChId} and e.depaId=#{depaId}
 		
 		<!-- 删除公司 -->
 		<update id="deleteCompany">
-			update tblforeground set logicId=#{logicId} where companyId=#{companyId}
+			update tblforeground set logicId=7 where companyId=#{companyId}
 		</update>
 		
+		<!-- 通过公司id生成excel并导出exportExcel -->
+		<select id="exportExcel" parameterType="org.great.bean.StaffBean" resultMap="exportExcel">
+		select a.*,b.company,c.partYear,c.batchNum from tblstaff a,tblforeground b,tblperguirela c
+			where a.companyId = b.companyId and a.staffId = c.staffId and a.COMPANYID=#{companyId} 
+			<if test="staffName!=null and staffName!='' ">and a.staffName like concat(concat('%',#{staffName}),'%')</if> 
+			<if test="phone!=null and phone != ''">and a.phone = #{phone}</if>
+			<if test="statTime!=null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
+			<if test="stopTime!=null and stopTime != ''">and c.partYear &lt; = #{stopTime}</if>
+			<if test="myGuChId!=null and myGuChId != ''">and a.myGuChId = #{myGuChId}</if>
+		</select>
+		<!-- 员工表 -->
+		<resultMap type="org.great.bean.StaffBean" id="exportExcel">
+			<id property="staffId" column="STAFFID"/>
+			<result property="staffName" column="staffName"/>
+			<result property="age" column="age"/>
+			<result property="sex" column="sex"/>
+			<result property="idNum" column="idNum"/>
+			<result property="phone" column="phone"/>
+			<result property="companyId" column="companyId"/>
+			<result property="orderId" column="orderId"/>
+			<result property="medicalId" column="medicalId"/>
+			<result property="myGuChId" column="myGuChId"/>
+			
 		
-		<!--  后台用户管理列表 -->
+		<!-- 前台公司表 -->
+		<association property="userBean" javaType="org.great.bean.UserBean" column="companyId">
+			<result property="company" column="company"/>
+		</association>
+		
+		<!-- 员工导检单关系表 -->
+		<association property="perguirelaBean" javaType="org.great.bean.PerguirelaBean">
+			<result property="partYear" column="partYear"/>
+			<result property="batchNum" column="batchNum"/>
+		</association>
+		</resultMap>  
+		
+		
+		
+		<!--  后台用户体检人管理列表 -->
 		<select id="userAdmin" parameterType="org.great.bean.StaffBean" resultMap="userAdmin">
 			select * from(
 			select z.*,rownum rn from(
@@ -85,6 +124,7 @@ a.guChId=#{guChId} and e.depaId=#{depaId}
 			<if test="phone!=null and phone != ''">and a.phone = #{phone}</if>
 			<if test="statTime!=null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
 			<if test="stopTime!=null and stopTime != ''">and c.partYear &lt; = #{stopTime}</if>
+			<if test="myGuChId!=null and myGuChId != ''">and a.myGuChId = #{myGuChId}</if>
 			order by a.staffName)z where rownum &lt; =#{pages}*10 )r where r.rn &gt; =(#{pages}-1)*10+1
 		</select>
 		<!-- 员工表 -->
@@ -96,6 +136,9 @@ a.guChId=#{guChId} and e.depaId=#{depaId}
 			<result property="idNum" column="idNum"/>
 			<result property="phone" column="phone"/>
 			<result property="companyId" column="companyId"/>
+			<result property="orderId" column="orderId"/>
+			<result property="medicalId" column="medicalId"/>
+			
 		
 		<!-- 前台公司表 -->
 		<association property="userBean" javaType="org.great.bean.UserBean" column="companyId">
@@ -118,6 +161,7 @@ a.guChId=#{guChId} and e.depaId=#{depaId}
 			<if test="phone!=null and phone != ''">and a.phone = #{phone}</if>
 			<if test="statTime!=null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
 			<if test="stopTime!=null and stopTime != ''">and c.partYear &lt; = #{stopTime}</if>
+			<if test="myGuChId!=null and myGuChId != ''">and a.myGuChId = #{myGuChId}</if>
 		</select> 
 		
 		

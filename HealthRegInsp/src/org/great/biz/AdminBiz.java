@@ -22,6 +22,9 @@ public interface AdminBiz {
 	//后台新增用户（注册）
 	public void adminRegister(AdminBean adminBean);
 	
+	//查询当前公司下用户并下载
+	public List<StaffBean> exportExcel(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,String myGuChId);
+	
 	//通过导检单id和科室id查询细项
 	public List<TermBean> selectSetmeal(String guChId,Integer depaId);
 	
@@ -44,9 +47,9 @@ public interface AdminBiz {
 	public Integer companyCount(@Param(value="userBean")UserBean userBean);
 
 	//后台用户管理列表展示
-	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages);
+	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages,String myGuChId);
 	//后台用户管理列表总数查询
-	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId1);
+	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId1,String myGuChId);
 	
 	//根据用户id查找对应信息
 	public StaffBean userInfo(String staffId);
