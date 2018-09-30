@@ -98,7 +98,7 @@ public class ReportAction {
 		return "BackEnd/report_company";
 		
 	}
-	//展示总结单
+	/*//展示总结单
 	@RequestMapping("/showUser.action")
 	public  String  showUser(Model model, Integer companyId,PerguirelaBean pBean,String staffName) {
 	// System.out.println("pBean:"+pBean.toString());
@@ -127,7 +127,7 @@ public class ReportAction {
 		session.setAttribute("companyId", companyId);
 		
 		return "BackEnd/report_user";		
-	}
+	}*/
 	
 
 	//ajax动态获取批次号

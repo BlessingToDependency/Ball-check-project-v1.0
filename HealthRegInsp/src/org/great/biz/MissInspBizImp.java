@@ -71,7 +71,7 @@ public class MissInspBizImp implements IMissInspBiz{
 		int res =iGroupInspMapper.maintain(guChId, setmealId);
 		return res;
 	}
-	//得到  员工导检单关系表  中的 人员导检ID
+	//得到  员工导检单关系表  中的 人员导检
 	@Override
 	public PerguirelaBean getPerInspId(String partYear, int companyId, int batchNum, int staffId) {
 		PerguirelaBean pgb =iGroupInspMapper.getPerInspId(partYear, companyId, batchNum, staffId);
@@ -111,6 +111,17 @@ public class MissInspBizImp implements IMissInspBiz{
 	@Override
 	public int updatePrint(int staffId) {
 		int res = iGroupInspMapper.updatePrint(staffId);
+		return res;
+	}
+	  //得到员工信息
+	@Override
+	public StaffBean getStaffInfo(int staffId) {
+		return iGroupInspMapper.getStaffInfo(staffId);
+	}
+	   //添加影像ID
+	@Override
+	public int addImages(String guChId, String filename, int itemId) {
+		int res= iGroupInspMapper.addImages(guChId, filename, itemId);
 		return res;
 	} 
 }

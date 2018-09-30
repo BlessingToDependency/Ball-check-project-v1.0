@@ -8,7 +8,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>影像小结</title>
+    <title>影像体检</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -27,7 +27,7 @@ String path = request.getScheme() +"://"+request.getServerName()
   
    <body>
     <div class="x-body">
-         <form method="post" action="<%=path%>doctorSummaryAction/submitSummary.action">
+         <form action="<%=path%>imageAction/fileact.action" method="post" enctype="multipart/form-data">
      
      <input type="hidden" id="guChId" name="guChId" value="${giBean.guChId}">
      <input type="hidden" id="itemId" name="itemId" value="${giBean.itemId}">
@@ -38,12 +38,33 @@ String path = request.getScheme() +"://"+request.getServerName()
       <pre class="layui-code" lay-title="JavaScript" lay-skin="notepad">
         <table  width="100%" border="0" cellspacing="0" cellpadding="0" class="main" class="layui-table layui-input-block">
                <tbody>
-                 <tr>
-                   <c:forEach items="${fileNameList}"  var="fileName" step="1" varStatus="vs">
-                    <td>
-                       <img src="<%=path%>doctorSummaryAction/getImage.action?fileName=${fileName}&guChId=${giBean.guChId}" id="img2" style="width: 15rem; height: 10rem;">
+                   <tr>
+                     <td >
+                              <input type="file" name="fileact" id="fileact1" multiple="multiple"/>
+                              <img src="<%=path%>images/bg.jpg" id="img1" style="width: 15rem; height: 8rem;">
                     </td>
-                    </c:forEach>
+                    <td>
+                              <input type="file" name="fileact" id="fileact2" multiple="multiple"/>
+                              <img src="<%=path%>images/bg.jpg" id="img2" style="width: 15rem; height: 8rem;">
+                    </td>
+                    <td>
+                              <input type="file" name="fileact" id="fileact3" multiple="multiple"/>
+                              <img src="<%=path%>images/bg.jpg" id="img3" style="width: 15rem; height: 8rem;">
+                    </td>
+                  </tr>
+                    <tr>
+                  <td >
+                     <input type="file" name="fileact" id="fileact4" multiple="multiple"/>
+                              <img src="<%=path%>images/bg.jpg" id="img4" style="width: 15rem; height: 8rem;">
+                    </td>
+                    <td>
+                          <input type="file" name="fileact" id="fileact5" multiple="multiple"/>
+                              <img src="<%=path%>images/bg.jpg" id="img5" style="width: 15rem; height: 8rem;">
+                    </td>
+                    <td>
+                          <input type="file" name="fileact" id="fileact6" multiple="multiple"/>
+                              <img src="<%=path%>images/bg.jpg" id="img6" style="width: 15rem; height: 8rem;">
+                    </td>
                   </tr>
                
                </tbody>
@@ -53,7 +74,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                 </div>
                 <div class="layui-form-item layui-form-text">
                     <label for="desc" class="layui-form-label">
-                       小结内容：
+                       检查结果：
                     </label>
                     <div class="layui-input-block">
                         <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>
@@ -85,6 +106,27 @@ String path = request.getScheme() +"://"+request.getServerName()
 			console.log("objUrl = " + objUrl);
 			if (objUrl) {
 				$("#img3").attr("src", objUrl);
+			}
+		});
+		$("#fileact4").change(function() {
+			var objUrl = getObjectURL(this.files[0]);//获取文件信息  
+			console.log("objUrl = " + objUrl);
+			if (objUrl) {
+				$("#img4").attr("src", objUrl);
+			}
+		});
+		$("#fileact5").change(function() {
+			var objUrl = getObjectURL(this.files[0]);//获取文件信息  
+			console.log("objUrl = " + objUrl);
+			if (objUrl) {
+				$("#img5").attr("src", objUrl);
+			}
+		});
+		$("#fileact6").change(function() {
+			var objUrl = getObjectURL(this.files[0]);//获取文件信息  
+			console.log("objUrl = " + objUrl);
+			if (objUrl) {
+				$("#img6").attr("src", objUrl);
 			}
 		});
 		function getObjectURL(file) {

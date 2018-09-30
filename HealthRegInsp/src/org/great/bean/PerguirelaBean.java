@@ -14,9 +14,7 @@ public class PerguirelaBean {
     private String partYear;//年份
     private int companyId;//公司ID
     private int batchNum;//批次号
-    
     private int perInspId;//人员导检ID
-    private int setmealId;//套餐ID
     
     
     public PerguirelaBean() {
@@ -24,14 +22,13 @@ public class PerguirelaBean {
     }
 
 
-	public PerguirelaBean(int staffId, String partYear, int companyId, int batchNum, int perInspId, int setmealId) {
+	public PerguirelaBean(int staffId, String partYear, int companyId, int batchNum, int perInspId) {
 		super();
 		this.staffId = staffId;
 		this.partYear = partYear;
 		this.companyId = companyId;
 		this.batchNum = batchNum;
 		this.perInspId = perInspId;
-		this.setmealId = setmealId;
 	}
 
 
@@ -84,17 +81,6 @@ public class PerguirelaBean {
 		this.perInspId = perInspId;
 	}
 
-
-	public int getSetmealId() {
-		return setmealId;
-	}
-
-
-	public void setSetmealId(int setmealId) {
-		this.setmealId = setmealId;
-	}
-    
-	
 }
 
 

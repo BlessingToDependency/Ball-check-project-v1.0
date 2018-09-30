@@ -51,7 +51,7 @@ String path = request.getScheme() +"://"+request.getServerName()
        
         <div id="div">
           <select id="partYear" name="partYear" style="width:90%;height:40px;" value="${batchSheetCon.partYear==null?"":batchSheetCon.partYear}">
-          <option value="">年份</option>
+          <option value="0">年份</option>
            <c:forEach items="${years}"  var="year" step="1" varStatus="vs">
            <option value="${year}" ${batchSheetCon.partYear==year ? 'selected = "selected"':''}>${year}</option>
            </c:forEach>
@@ -176,11 +176,20 @@ function openBill(v){
 	var staffId=v;
 	//年份
 	var partYear=document.getElementById("partYear").value;
+	if(partYear==0){
+		var r=confirm("请选择年份")
+	}else{
 	//批次号
 	var batchNum=document.getElementById("batch").value;
+		if(batchNum==0){
+			var r=confirm("请选择批次号")
+		}else{
 	//公司ID
 	var companyId=document.getElementById("companyId").value;
 	window.location.href="<%=path%>openBillAction/openBill.action?partYear="+partYear+"&companyId="+companyId+"&batchNum="+batchNum+"&staffId="+staffId;
+			
+		}
+	}
 }
 
 //启用弹窗确认

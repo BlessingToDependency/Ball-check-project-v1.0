@@ -52,10 +52,16 @@ public interface IMissInspBiz {
 	//获取用户体检的套餐ID集合
     public List<Integer> itemList(int setmealId);
     
-  //维护  <导检单对应项目表>
+    //维护  <导检单对应项目表>
     public int intoGuChItem(int itemId,String guChId);
     
-  //把员工中的状态改为已经打印
+    //把员工中的状态改为已经打印
     public int updatePrint(int staffId);
+    
+    //得到员工信息
+    public StaffBean getStaffInfo(int staffId);
+    
+    //添加影像ID
+    public int addImages(String guChId,String filename,int itemId);
 
 }

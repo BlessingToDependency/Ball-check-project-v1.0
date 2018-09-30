@@ -33,7 +33,6 @@ public interface ISummaryBiz {
     //提交小结内容
     public int subSumm(GuchIDdItemID giBean);
     
-    
-  //获得影视文件
+    //获得影视文件
     public List<String> imageFile(String guChId,int itemId);
 }
