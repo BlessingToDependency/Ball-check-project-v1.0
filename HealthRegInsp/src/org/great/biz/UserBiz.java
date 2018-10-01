@@ -27,6 +27,9 @@ public interface UserBiz {
 	//插入员工导检单关系表
 	public void addPerguirela(PerguirelaBean perguirelaBean);
 	
+	//修改员工预约状态
+	public void updateState(PerguirelaBean perguirelaBean);
+	
 	//为员工选择套餐插入数据库
 	public void bespeakMeal(StaffMealBean staffMealBean);
 	

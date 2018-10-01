@@ -157,8 +157,7 @@ public class UserMainAction {
 			perguirelaBean.setCompanyId(userBean.getCompanyId());//公司id
 			perguirelaBean.setBatchNum(1);//批次
 			
-			//先插入员工导检单关系表
-			userBizImp.addPerguirela(perguirelaBean);
+			
 			
 			//修改当前员工预约状态
 			userBizImp.updateState(perguirelaBean);
