@@ -3,6 +3,7 @@ package org.great.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.great.bean.PerguirelaBean;
 import org.great.bean.StaffBean;
 import org.great.bean.UserBean;
 import org.great.biz.AdminBiz;
@@ -168,7 +169,7 @@ public class FileAction {
 	 * 上传
 	 */
 	@RequestMapping(value="/fileUpload.action",method=RequestMethod.POST)
-	public ModelAndView  fileUpload(@RequestParam MultipartFile fileact) throws IllegalStateException, Exception {
+	public ModelAndView  fileUpload(@RequestParam MultipartFile fileact,PerguirelaBean perguirelaBean) throws IllegalStateException, Exception {
 		//判断当前用户是否存在
 		UserBean ub = (UserBean) request.getSession().getAttribute("userBean");
 		if(null != ub) {
@@ -216,6 +217,16 @@ public class FileAction {
 				//2再插入员工表
 				userBizImp.addStaff(staffBean);
 				//3再改公司表开单状态
+				
+				
+				UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
+				
+				perguirelaBean.setPartYear(staffBean.getIdNum());
+				
+				perguirelaBean.setCompanyId(userBean.getCompanyId());//公司id
+				perguirelaBean.setBatchNum(1);//批次
+				//先插入员工导检单关系表
+				userBizImp.addPerguirela(perguirelaBean);
 				
 			}
 			return new ModelAndView("redirect:/fileAction/companyStaffList.action");

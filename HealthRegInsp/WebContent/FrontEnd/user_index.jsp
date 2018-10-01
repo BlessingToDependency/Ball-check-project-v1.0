@@ -8,7 +8,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<!-- ------------------------------购物车------------------------ -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
 
+	<title>右侧购物车</title>
+	
+	<link rel="stylesheet" href="<%=path %>css/css/base.css">
+	<link rel="stylesheet" href="<%=path %>css/css/home.css">
+
+<!-- ------------------------购物车-------------------- -->
 <meta charset="utf-8" />
 <meta name="author" content="order by dede58.com/" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -663,6 +676,197 @@
   <p>Copyright &copy; 2002-2011 <a href="http://www.adminbuy.cn" target="_blank">团检系统</a> 版权所有　<a class="beian" href="http://www.miitbeian.gov.cn/" style="display:inline; width:auto; color:#8e8e8e" target="_blank">苏ICP12345678</a></p>
 
 </div>
+
+
+
+<!-- ----------------------------购物车------------------------------ -->
+<div class="global_toolbar">
+		<div class="toolbar_btn center" style="top: 50%; margin-top: -150px;">
+			<a href="#" id="needtohelp_0_GetPricing" class="bar_forum bar_project_consulting">
+				<samp>
+					<i class="iconi icon-LiveChat1">
+						<img src="<%=path %>images/icon/car-0.png" alt="">
+					</i>
+				</samp>
+				<em>
+					<i>项目咨询</i>
+				</em>
+			</a>
+			<a id="needtohelp_0_shoppingCart" class="bar_cart " data-id="global_toolbar">
+				<samp>
+					<i class="iconi icon-LiveChat1">
+						<img src="<%=path %>images/icon/car-1.png" alt="">
+					</i>
+				</samp>
+				<em>
+					<i>购物车</i>
+				</em>
+				<span id="lmliCount" style="display: block;">5</span>
+			</a>
+			<a href="#" id="needtohelp_0_forum" class="bar_forum">
+				<samp>
+					<i class="iconi icon-LiveChat1">
+						<img src="<%=path %>images/icon/car-2.png" alt="">
+					</i>
+				</samp>
+				<em>
+					<i>查找经销商</i>
+				</em>
+			</a>
+			<a href="#" id="needtohelp_0_GetQuote" class="bar_forum bar_inquire">
+				<samp>
+					<i class="iconi icon-LiveChat1">
+						<img src="<%=path %>images/icon/car-3.png" alt="">
+					</i>
+				</samp>
+				<em>
+					<i>售前咨询</i>
+				</em>
+			</a>
+			<a href="#" id="needtohelp_0_contactus" class="bar_contact bar_forum" data-id="contact_column">
+				<samp>
+					<i class="iconi icon-LiveChat1">
+						<img src="<%=path %>images/icon/car-4.png" alt="">
+					</i>
+				</samp>
+				<em>
+					<i>更多联系方式</i>
+				</em>
+			</a>
+		</div>
+		<div class="toolbar_content">
+			<div class="css_column cart_column js_column" id="shop_cart">
+				<h4>
+					购物车<a href="javascript:void(0)" class="icon-close " >X</a>
+				</h4>
+				<div id="resultData">
+					<ul style="height: auto;">
+						<li class="clearfix" data-url="7002728">
+							<input type="checkbox" class="checkbox_c " name="checkbox_c_Name" data-url="" checked="checked">
+							<span class="check"></span>
+							<div class="img_con">
+								<img src="<%=path %>images/pd/pd1.jpg" alt="">
+							</div>
+							<div class="product_name">
+								<span title="CE12808">CE12808</span>
+								<a href="javascript:void(0)" class="del_pro_btn" onClick="">删除</a>
+							</div>
+							<div class="amount_btn clearfix">
+								<input type="text" value="1" class="spinnerExample" onBlur="isDigit(this)">
+							</div>
+						</li>
+						<li class="clearfix" data-url="7002720">
+							<input type="checkbox" class="checkbox_c" name="checkbox_c_Name" data-url="7002720|" checked="checked">
+							<span class="check"></span>
+							<div class="img_con">
+								<img src="<%=path %>images/pd/pd2.jpg" alt="">
+							</div>
+							<div class="product_name">
+								<span title="CE12804">CE12804</span>
+								<a href="javascript:void(0)" class="del_pro_btn" onClick="">删除</a>
+							</div>
+							<div class="amount_btn clearfix">
+								<input type="text" value="9" class="spinnerExample" onBlur="isDigit(this)">
+							</div>
+						</li>
+						<li class="clearfix" data-url="7097193">
+							<input type="checkbox" class="checkbox_c" name="checkbox_c_Name" data-url="7097193|" checked="checked"/>
+							<span class="check"></span>
+							<div class="img_con">
+								<img src="<%=path %>images/pd/pd2.jpg" alt="">
+							</div>
+							<div class="product_name">
+								<span title="AR1220EV">AR1220EV</span>
+								<a href="javascript:void(0)" class="del_pro_btn" onClick="">删除</a>
+							</div>
+							<div class="amount_btn clearfix">
+								<input type="text" value="1" class="spinnerExample" onBlur="isDigit(this)">
+							</div>
+						</li>
+						<li class="clearfix" data-url="7115213">
+							<input type="checkbox" class="checkbox_c" name="checkbox_c_Name" data-url="7115213|" checked="checked">
+							<span class="check"></span>
+							<div class="img_con">
+								<img src="<%=path %>images/pd/pd1.jpg" alt="">
+							</div>
+							<div class="product_name">
+								<span title="S5700-28P-PWR-LI-AC">S5700-28...</span>
+								<a href="javascript:void(0)" class="del_pro_btn" onClick="">删除</a>
+							</div>
+							<div class="amount_btn clearfix">
+								<input type="text" value="1" class="spinnerExample" onBlur="isDigit(this)">
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="count_info clearfix">
+					<label>
+						<input type="checkbox" class="select_all" checked="checkbox">
+						<span class="check"></span>
+						<span class="text">全选</span>
+					</label>
+					<p>
+						共计： <span>12</span>
+						个产品
+					</p>
+				</div>
+				<div class="more shop-more clearfix">
+					<a href="#" target="">购买更多产品</a>
+				</div>
+				<div class="shop_function_btn clearfix">
+					<a href="#" class="more redbtn-moddle1" id="btn_popup_login">
+						<span>登录</span>
+					</a>
+					<a href="#" class="go_btn more redbtn-moddle1">
+						<span>寻求报价</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 登录弹窗 默认隐藏 begin -->
+	<div style="display: none;" class="popup_login">
+		<div class="login_form">
+			<a class="close_popup" href="javascript:void(0)">
+				<img src="<%=path %>images/icon/icon-clo.png" alt="">
+			</a>
+			<h3>登录</h3>
+			<div>
+				<div class="form_block">
+	                        <span class="username_icon input_icon">
+	                            <img src="<%=path %>images/icon/user.png" alt="">
+	                        </span>
+					<input type="text" placeholder="帐号/邮箱" maxlength="52" name="userNamepopup" id="userNamepopup">
+				</div>
+				<div class="form_block">
+	                        <span class="password_icon input_icon">
+	                            <img src="<%=path %>images/icon/password.png" alt="">
+	                        </span>
+					<input type="password" placeholder="密码" maxlength="52" name="pwdpopup" id="pwdpopup">
+				</div>
+				<div class="tips_error"></div>
+				<input type="button" class="form_login_btn" id="btnLoginpopup" value="登录">
+			</div>
+			<div class="login_else_info clearfix">
+	                    <span>
+	                        <a href="#">忘记密码</a>
+	                        <label>|</label>
+	                        <a href="#">修改密码</a>
+	                    </span>
+				<div class="need_reg">
+					没有帐号？<a href="#">立即创建一个</a>
+				</div>
+			</div>
+			<div class="other-sign-in-methods"></div>
+		</div>
+		<input type="hidden" value="用户名不能为空" id="userNamepopupErrMsg">
+		<input type="hidden" value="密码不能为空" id="passwordpopupErrMsg">
+	</div>
+	<!-- 登录弹窗 默认隐藏 end -->
+
+	<script type="text/javascript" src="<%=path %>js/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="<%=path %>js/js/common.js"></script>
 
 </body>
 </html>
