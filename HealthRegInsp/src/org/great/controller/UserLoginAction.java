@@ -23,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 @Controller
-@RequestMapping("/userLoginAction")
+@RequestMapping("userLoginAction")
 public class UserLoginAction {
 	@Resource 
 	private UserBean userBean;//前台用户bean
@@ -42,6 +42,16 @@ public class UserLoginAction {
 	private ServletContext servletContext;
 	
 	ModelAndView mav = new ModelAndView();
+	
+	
+	/*
+	 * 跳转到登陆页面
+	 */
+	@RequestMapping("/jumpLogin.action")
+	public ModelAndView jumpLogin() {
+		mav.setViewName("FrontEnd/user_login");
+		return mav;
+	}
 	
 	/*
 	 * 用户登陆

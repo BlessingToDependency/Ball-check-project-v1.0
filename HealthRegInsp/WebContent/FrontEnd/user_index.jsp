@@ -9,6 +9,7 @@
 <html>
 <head>
 <!-- ------------------------------购物车------------------------ -->
+<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-touch-fullscreen" content="yes">
 	<meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,10 +17,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="format-detection" content="telephone=no">
 
-	<title>右侧购物车</title>
+	<title></title>
 	
-	<link rel="stylesheet" href="<%=path %>css/css/base.css">
-	<link rel="stylesheet" href="<%=path %>css/css/home.css">
+	<link rel="stylesheet" href="../css/css/base.css">
+	<link rel="stylesheet" href="../css/css/home.css">
 
 <!-- ------------------------购物车-------------------- -->
 <meta charset="utf-8" />
@@ -52,37 +53,70 @@
 <script type="text/javascript">if(window.location.toString().indexOf('pref=padindex') != -1){}else{if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){if(window.location.href.indexOf("?mobile")<0){try{if(/Android|Windows Phone|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){window.location.href="/m/index.php";}else if(/iPad/i.test(navigator.userAgent)){}else{}}catch(e){}}}}</script>
 
 <script>
-
        window.onload=function (){
-
 		   var aId = document.getElementById('newslist')
-
            var aLi=aId.getElementsByTagName('li');
-
            for(var i=0;i<aLi.length;i++){
-
                if(i%2==0){
-
                    // 0/2余数0  1/2余数1 2/2余数0 3/2余数1
-
                   aLi[i].className='wow newstitem right' //增加CSS名
-
                }
-
                else{
-
                    aLi[i].className='wow newstitem left' //增加CSS名
-
                }
-
            }
-
        }    
+</script>
 
-    </script>
 
+<!-- 拼接购物车 -->
+<script type="text/javascript">
+function shoppingInfo(){
+	$.ajax({
+		url:"<%=path %>userMainAction/shoppingCart.action",
+		dataType:"json",
+		type:"POST",
+		success : function(a){
+			alert(a);
+			if(null != a && "" != a){
+				 var strHtml="";
+				 var strBuy="";
+				 
+					$.each(a, function(i, item) {
+						strHtml+="<li class='clearfix' data-url=''>"+
+						"<input type='checkbox' class='checkbox_c' name='checkbox_c_Name' data-url='' checked='checked'>"+
+						
+						"<div class='img_con'>"+
+						"<img src='../images/pd/pd1.jpg' alt=''>"+
+						"</div>"+
+						"<div class='product_name'>"+
+						"<span title='S5700-28P-PWR-LI-AC'>"+item.setmeal+"&emsp;&emsp;"+item.countAll*item.discount*item.acrtNumber+" 元"+"</span>"+
+						"<a href='javascript:void(0)' class='del_pro_btn' onClick=''>删除</a>"+
+						"</div>"+
+						"<div class='amount_btn clearfix'>"+
+						"<input type='text' value='"+item.acrtNumber+"'  onBlur='isDigit(this)' class='spinnerExample'>"+
+						"</div>"+
+					"</li>";
+					
+					});
+					strBuy+="<a href='<%=path%>userLoginAction/jumpLogin.action' class='more redbtn-moddle1' id='btn_popup_login'>"+
+						"<span id='login'>去购买</span>"+
+						"</a>";
+					$("#shoppingShow").html(strHtml);
+					$("#div_login").html(strBuy);
+			}else{
+				var strLogin="";
+				alert("为空")
+				strLogin+="<a href='<%=path%>userLoginAction/jumpLogin.action' class='more redbtn-moddle1' id='btn_popup_login'>"+
+				"<span id='login'>去登录</span>"+
+				"</a>";
+				$("#div_login").html(strLogin);
+			}
+		}
+	});
+}
+</script>
 </head>
-
 <body>
 
 <div id="header">
@@ -176,7 +210,7 @@
           
         </ul>
 
-      </li><li class="navitem"><a  href="contact.html" >联系我们</a>
+      </li><li class="navitem"><a  href="<%=path%>userLoginAction/jumpLogin.action" >去登陆</a>
 
         <ul class="subnav">
 
@@ -682,7 +716,9 @@
   <p>Copyright &copy; 2002-2011 <a href="http://www.adminbuy.cn" target="_blank">团检系统</a> 版权所有　<a class="beian" href="http://www.miitbeian.gov.cn/" style="display:inline; width:auto; color:#8e8e8e" target="_blank">苏ICP12345678</a></p>
 
 </div>
-
+ 
+ 
+ 
 
 
 <!-- ----------------------------购物车------------------------------ -->
@@ -691,28 +727,32 @@
 			<a href="#" id="needtohelp_0_GetPricing" class="bar_forum bar_project_consulting">
 				<samp>
 					<i class="iconi icon-LiveChat1">
-						<img src="<%=path %>images/icon/car-0.png" alt="">
+						<img src="../images/icon/car-0.png" alt="">
 					</i>
 				</samp>
 				<em>
 					<i>项目咨询</i>
 				</em>
 			</a>
-			<a id="needtohelp_0_shoppingCart" class="bar_cart " data-id="global_toolbar">
+			
+			<!-- ----------------购物车图-------------- -->
+			<a id="needtohelp_0_shoppingCart" class="bar_cart " data-id="global_toolbar" onclick="shoppingInfo()">
 				<samp>
 					<i class="iconi icon-LiveChat1">
-						<img src="<%=path %>images/icon/car-1.png" alt="">
+						<img src="../images/icon/car-1.png" alt="">
 					</i>
 				</samp>
 				<em>
 					<i>购物车</i>
 				</em>
-				<span id="lmliCount" style="display: block;">5</span>
+				<span id="lmliCount" style="display: block;"></span>
 			</a>
+			<!-- ---------------------------------------------------- -->
+			
 			<a href="#" id="needtohelp_0_forum" class="bar_forum">
 				<samp>
 					<i class="iconi icon-LiveChat1">
-						<img src="<%=path %>images/icon/car-2.png" alt="">
+						<img src="../images/icon/car-2.png" alt="">
 					</i>
 				</samp>
 				<em>
@@ -722,7 +762,7 @@
 			<a href="#" id="needtohelp_0_GetQuote" class="bar_forum bar_inquire">
 				<samp>
 					<i class="iconi icon-LiveChat1">
-						<img src="<%=path %>images/icon/car-3.png" alt="">
+						<img src="../images/icon/car-3.png" alt="">
 					</i>
 				</samp>
 				<em>
@@ -732,7 +772,7 @@
 			<a href="#" id="needtohelp_0_contactus" class="bar_contact bar_forum" data-id="contact_column">
 				<samp>
 					<i class="iconi icon-LiveChat1">
-						<img src="<%=path %>images/icon/car-4.png" alt="">
+						<img src="../images/icon/car-4.png" alt="">
 					</i>
 				</samp>
 				<em>
@@ -746,86 +786,36 @@
 					购物车<a href="javascript:void(0)" class="icon-close " >X</a>
 				</h4>
 				<div id="resultData">
-					<ul style="height: auto;">
-						<li class="clearfix" data-url="7002728">
-							<input type="checkbox" class="checkbox_c " name="checkbox_c_Name" data-url="" checked="checked">
-							<span class="check"></span>
-							<div class="img_con">
-								<img src="<%=path %>images/pd/pd1.jpg" alt="">
-							</div>
-							<div class="product_name">
-								<span title="CE12808">CE12808</span>
-								<a href="javascript:void(0)" class="del_pro_btn" onClick="">删除</a>
-							</div>
-							<div class="amount_btn clearfix">
-								<input type="text" value="1" class="spinnerExample" onBlur="isDigit(this)">
-							</div>
-						</li>
-						<li class="clearfix" data-url="7002720">
-							<input type="checkbox" class="checkbox_c" name="checkbox_c_Name" data-url="7002720|" checked="checked">
-							<span class="check"></span>
-							<div class="img_con">
-								<img src="<%=path %>images/pd/pd2.jpg" alt="">
-							</div>
-							<div class="product_name">
-								<span title="CE12804">CE12804</span>
-								<a href="javascript:void(0)" class="del_pro_btn" onClick="">删除</a>
-							</div>
-							<div class="amount_btn clearfix">
-								<input type="text" value="9" class="spinnerExample" onBlur="isDigit(this)">
-							</div>
-						</li>
-						<li class="clearfix" data-url="7097193">
-							<input type="checkbox" class="checkbox_c" name="checkbox_c_Name" data-url="7097193|" checked="checked"/>
-							<span class="check"></span>
-							<div class="img_con">
-								<img src="<%=path %>images/pd/pd2.jpg" alt="">
-							</div>
-							<div class="product_name">
-								<span title="AR1220EV">AR1220EV</span>
-								<a href="javascript:void(0)" class="del_pro_btn" onClick="">删除</a>
-							</div>
-							<div class="amount_btn clearfix">
-								<input type="text" value="1" class="spinnerExample" onBlur="isDigit(this)">
-							</div>
-						</li>
+					<ul style="height: auto;" id="shoppingShow">
+					
+					<%-- <c:forEach items="shoppingList" var="shoppingCartBean">
 						<li class="clearfix" data-url="7115213">
 							<input type="checkbox" class="checkbox_c" name="checkbox_c_Name" data-url="7115213|" checked="checked">
 							<span class="check"></span>
 							<div class="img_con">
-								<img src="<%=path %>images/pd/pd1.jpg" alt="">
+								<img src="../images/pd/pd1.jpg" alt="">
 							</div>
 							<div class="product_name">
-								<span title="S5700-28P-PWR-LI-AC">S5700-28...</span>
+								<span title="S5700-28P-PWR-LI-AC">${shoppingList.setmealId }</span>
 								<a href="javascript:void(0)" class="del_pro_btn" onClick="">删除</a>
 							</div>
 							<div class="amount_btn clearfix">
 								<input type="text" value="1" class="spinnerExample" onBlur="isDigit(this)">
 							</div>
 						</li>
+					</c:forEach> --%>
+						
 					</ul>
 				</div>
 				<div class="count_info clearfix">
 					<label>
 						<input type="checkbox" class="select_all" checked="checkbox">
-						<span class="check"></span>
-						<span class="text">全选</span>
 					</label>
-					<p>
-						共计： <span>12</span>
-						个产品
-					</p>
 				</div>
-				<div class="more shop-more clearfix">
-					<a href="#" target="">购买更多产品</a>
-				</div>
-				<div class="shop_function_btn clearfix">
-					<a href="#" class="more redbtn-moddle1" id="btn_popup_login">
-						<span>登录</span>
-					</a>
-					<a href="#" class="go_btn more redbtn-moddle1">
-						<span>寻求报价</span>
-					</a>
+				<div class="shop_function_btn clearfix" id="div_login">
+				
+					
+					
 				</div>
 			</div>
 		</div>
@@ -835,19 +825,19 @@
 	<div style="display: none;" class="popup_login">
 		<div class="login_form">
 			<a class="close_popup" href="javascript:void(0)">
-				<img src="<%=path %>images/icon/icon-clo.png" alt="">
+				<img src="../images/icon/icon-clo.png" alt="">
 			</a>
 			<h3>登录</h3>
 			<div>
 				<div class="form_block">
 	                        <span class="username_icon input_icon">
-	                            <img src="<%=path %>images/icon/user.png" alt="">
+	                            <img src="img/icon/user.png" alt="">
 	                        </span>
 					<input type="text" placeholder="帐号/邮箱" maxlength="52" name="userNamepopup" id="userNamepopup">
 				</div>
 				<div class="form_block">
 	                        <span class="password_icon input_icon">
-	                            <img src="<%=path %>images/icon/password.png" alt="">
+	                            <img src="../images/icon/password.png" alt="">
 	                        </span>
 					<input type="password" placeholder="密码" maxlength="52" name="pwdpopup" id="pwdpopup">
 				</div>
@@ -871,8 +861,8 @@
 	</div>
 	<!-- 登录弹窗 默认隐藏 end -->
 
-	<script type="text/javascript" src="<%=path %>js/js/jquery-1.11.1.min.js"></script>
-	<script type="text/javascript" src="<%=path %>js/js/common.js"></script>
+	<script type="text/javascript" src="../js/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="../js/js/common.js"></script>
 
 </body>
 </html>
