@@ -1,5 +1,7 @@
 package org.great.bean;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Component;
 
 /*
@@ -11,7 +13,15 @@ public class ShoppingCartBean {
 	private Integer cartId;//购物车id
 	private Integer companyId;//公司id
 	private Integer setmealId;//套餐id
-	private Integer cartNumber;//数量
+	private Integer acrtNumber;//数量
+	private ArrayList<SetmealBean> setmealBean;//套餐表
+	
+	
+	 private String setmeal;//套餐
+	 private String picture;//图片
+	 private  int countAll;//套餐价格
+	 private double discount;//优惠折扣
+	
 	public ShoppingCartBean() {
 		super();
 	}
@@ -33,11 +43,42 @@ public class ShoppingCartBean {
 	public void setSetmealId(Integer setmealId) {
 		this.setmealId = setmealId;
 	}
-	public Integer getCartNumber() {
-		return cartNumber;
+
+	public Integer getAcrtNumber() {
+		return acrtNumber;
 	}
-	public void setCartNumber(Integer cartNumber) {
-		this.cartNumber = cartNumber;
+	public void setAcrtNumber(Integer acrtNumber) {
+		this.acrtNumber = acrtNumber;
+	}
+	public ArrayList<SetmealBean> getSetmealBean() {
+		return setmealBean;
+	}
+	public void setSetmealBean(ArrayList<SetmealBean> setmealBean) {
+		this.setmealBean = setmealBean;
+	}
+	public String getSetmeal() {
+		return setmeal;
+	}
+	public void setSetmeal(String setmeal) {
+		this.setmeal = setmeal;
+	}
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	public int getCountAll() {
+		return countAll;
+	}
+	public void setCountAll(int countAll) {
+		this.countAll = countAll;
+	}
+	public double getDiscount() {
+		return discount;
+	}
+	public void setDiscount(double discount) {
+		this.discount = discount;
 	}
 	
 	

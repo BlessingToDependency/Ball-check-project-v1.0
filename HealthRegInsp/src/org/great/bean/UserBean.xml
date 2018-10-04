@@ -28,9 +28,38 @@
 			select company from tblforeground where company=#{company}
 		</select>
 		
+		<!-- 查询购物车 -->
+		<select id="shoppingCart" parameterType="java.lang.Integer" resultMap="shoppingCart">
+			select a.*,b.cartid,b.acrtNumber,b.companyId,d.* from tblsetmeal a,TBLSHOPPINGCART b,tblitem d,tblsetcom f 
+where a.setmealId=b.setmealId and a.setmealId = f.setmealId and d.itemId = f.itemId and b.companyId=#{companyId}
+		</select>
+		
+		<!-- 套餐表 -->
+		 <resultMap type="org.great.bean.ShoppingCartBean" id="shoppingCart">
+		    <result property="cartId" column="cartId"/> 
+			<result property="companyId" column="companyId"/>
+			<result property="acrtNumber" column="acrtNumber"/>
+		 
+		 <collection property="setmealBean" ofType="org.great.bean.SetmealBean" >
+			<id property="setmealId" column="setmealId"/> 
+			<result property="setmeal" column="setmeal"/>
+			<result property="discount" column="discount"/>
+			<result property="salsvolume" column="salsvolume"/>
+			<result property="picture" column="picture"/>
+			
+			<collection property="litemBean" ofType="org.great.bean.LitemBean" >
+			<id property="itemId" column="itemId"/>
+			<result property="item" column="item"/>
+			<result property="price" column="price"/>
+			<result property="introd" column="introd"/> 
+			</collection>
+		</collection>
+		</resultMap> 
+
+		
 		<!-- 加入购物车 -->
 		<insert id="addShoppingCart" parameterType="org.great.bean.ShoppingCartBean">
-			insert into tblshoppingCart values(tbl_shoppingCart.nextVal,#{companyId},#{setmealId},#{cartNumber})
+			insert into tblshoppingCart values(tbl_shoppingCart.nextVal,#{companyId},#{setmealId},#{acrtNumber})
 		</insert>
 		
 		<!-- 插入员工信息 -->

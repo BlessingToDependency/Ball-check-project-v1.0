@@ -36,6 +36,9 @@ public interface UserBiz {
 	//加入购物车
 	public void addShoppingCart(ShoppingCartBean shoppingCartBean);
 	
+	//查询购物车
+	public List<ShoppingCartBean> shoppingCart(Integer companyId);
+	
 	//身份证去重
 	public StaffBean repeatNum(String idNum);
 	

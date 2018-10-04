@@ -4,6 +4,7 @@ package org.great.controller;
  */
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -19,8 +20,12 @@ import org.great.biz.UserBiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -42,39 +47,74 @@ public class UserMainAction {
 	@Autowired
 	private HttpServletResponse response;
 	
+	private List<ShoppingCartBean> shoppingList;//购物车list
+	
+//	Gson gson = new Gson();
 	
 	//我的购物车
 	@RequestMapping("shoppingCart.action")
-	public ModelAndView shoppingCart(ShoppingCartBean shoppingCartBean) {
+	@ResponseBody
+	public List<ShoppingCartBean> shoppingCart(ShoppingCartBean shoppingCartBean) throws Exception{
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
+//		PrintWriter out = response.getWriter();
 		if(null != userBean) {
-			System.out.println("购物车");
-			userBean.getCompanyId();//当前公司id
+			int count = 0;
 			
-			mav.setViewName("FrontEnd/");
+			shoppingList = userBizImp.shoppingCart(userBean.getCompanyId());//查询语句
+			System.out.println("shoppingList="+shoppingList.size());
+			for(int i=0;i<shoppingList.size();i++) {
+				
+				ShoppingCartBean scb = shoppingList.get(i);
+				int countAll = 0;
+				double discount = 0;
+				String setmeal = null;
+				String picture = null;
+				for(int j=0;j<shoppingList.get(i).getSetmealBean().size();j++) {
+					discount = shoppingList.get(i).getSetmealBean().get(j).getDiscount();
+					setmeal = shoppingList.get(i).getSetmealBean().get(j).getSetmeal();
+					picture = shoppingList.get(i).getSetmealBean().get(j).getPicture();
+					for(int z=0;z<shoppingList.get(i).getSetmealBean().get(j).getLitemBean().size();z++) {
+						count = shoppingList.get(i).getSetmealBean().get(j).getLitemBean().get(z).getPrice();
+						countAll = countAll+count;
+					}
+					System.out.println(discount);
+					scb.setDiscount(discount);
+				}
+				
+				System.out.println("countAll="+countAll);
+				scb.setCountAll(countAll);
+				scb.setSetmeal(setmeal);
+				scb.setPicture(picture);
+			}
+			
 		}else {
-			System.out.println("登陆去");
-			mav.setViewName("FrontEnd/user_login");
+			System.out.println("查询购物车登陆去");
+			return null;
 		}
-		return mav;
+		return shoppingList;
 	}
 	//加入购物车
 	@RequestMapping("addShoppingCart.action")
-	public ModelAndView addShoppingCart(ShoppingCartBean shoppingCartBean) {
+	public ModelAndView addShoppingCart(ShoppingCartBean shoppingCartBean)throws Exception {
 		System.out.println("进入");
+		PrintWriter out = response.getWriter();
+		Gson gson = new Gson();
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
 		if(null != userBean) {
 			System.out.println("加入购物车");
-			userBean.getCompanyId();//当前公司id
-			System.out.println(shoppingCartBean.getSetmealId()+"---"+shoppingCartBean.getCartNumber());
+			shoppingCartBean.setCompanyId(userBean.getCompanyId());//当前公司id
+			System.out.println(shoppingCartBean.getSetmealId()+"---"+shoppingCartBean.getAcrtNumber());
 			//插入购物车
 			userBizImp.addShoppingCart(shoppingCartBean);
-			
-			mav.setViewName("FrontEnd/");
+			String strCon = gson.toJson(1);
+			out.print(strCon);
 		}else {
-			System.out.println("登陆去");
+			String strCon = gson.toJson(2);
+			out.print(strCon);
+			System.out.println("加入购物车登陆去");
 			mav.setViewName("FrontEnd/user_login");
 		}
+		out.close();
 		return mav;
 	}
 	
@@ -84,7 +124,6 @@ public class UserMainAction {
 	public ModelAndView showSetmeal(String setmealId) throws Exception{
 		List<SetmealBean> setList=userBizImp.showSetmeal(setmealId);
 		int count = 0;
-		
 		//计算价格
 		for(int i=0;i<setList.size();i++) {
 			SetmealBean sb = setList.get(i);
@@ -100,8 +139,9 @@ public class UserMainAction {
 			sb.setCountAll(countAll);
 		}  
 		if(null != setmealId) {
-			mav.setViewName("FrontEnd/commodity");
+			mav.setViewName("FrontEnd/user_purchase");
 		}else {
+//			mav.addObject("shoppingList", shoppingList);
 			mav.setViewName("FrontEnd/user_index");
 		}
 		System.out.println(setList.size());
@@ -156,8 +196,6 @@ public class UserMainAction {
 			
 			perguirelaBean.setCompanyId(userBean.getCompanyId());//公司id
 			perguirelaBean.setBatchNum(1);//批次
-			
-			
 			
 			//修改当前员工预约状态
 			userBizImp.updateState(perguirelaBean);

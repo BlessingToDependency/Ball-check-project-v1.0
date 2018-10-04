@@ -26,6 +26,9 @@ public interface IUserMapper {
 	//加入购物车
 	public void addShoppingCart(ShoppingCartBean shoppingCartBean);
 	
+	//查询购物车
+	public List<ShoppingCartBean> shoppingCart(@Param("companyId")Integer companyId);
+	
 	//注册名查重
 	public UserBean userRepeat(@Param("company")String company);
 	

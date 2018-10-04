@@ -123,4 +123,11 @@ public class UserBizImp implements UserBiz {
 		iUserMapper.updateState(perguirelaBean);
 	}
 
+	//查询购物车
+	@Override
+	public List<ShoppingCartBean> shoppingCart(Integer companyId) {
+		// TODO Auto-generated method stub
+		return iUserMapper.shoppingCart(companyId);
+	}
+
 }
