@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
+/*
+ * 上传影像文件
+ */
 @Controller
 @RequestMapping("/imageAction")
 public class ImageExaminAction {

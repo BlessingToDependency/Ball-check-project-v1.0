@@ -3,6 +3,8 @@ package org.great.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.great.bean.DeparBean;
+import org.great.bean.LitemBean;
 import org.great.bean.PerguirelaBean;
 import org.great.bean.StaffBean;
 import org.great.bean.UserBean;
@@ -64,4 +66,13 @@ public interface IGroupInspMapper {
     
     //添加影像ID
     public int addImages(@Param("guChId")String guChId,@Param("filename")String filename,@Param("itemId")int itemId);
+
+    //获得单位信息
+    public UserBean getCompany(@Param("companyId")int companyId);
+    
+    //获得项目信息
+    public LitemBean getItemInfo(@Param("itemId")int itemId);
+    
+    //得到科室信息
+    public DeparBean getDeparInfo(@Param("itemId")int itemId);
 }

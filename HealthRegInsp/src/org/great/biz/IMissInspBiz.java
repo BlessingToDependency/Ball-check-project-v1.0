@@ -8,6 +8,7 @@ import org.great.bean.StaffBean;
 import org.great.bean.UserBean;
 import org.great.search.BatchSheetCon;
 import org.great.search.CompanyCon;
+import org.great.search.MedicalCheckup;
 
 /*
  * 团检单位开单Biz接口
@@ -63,5 +64,8 @@ public interface IMissInspBiz {
     
     //添加影像ID
     public int addImages(String guChId,String filename,int itemId);
+    
+    //在本地硬盘上生成导检单
+    public int addConInspSheet(List<Integer> itemList,MedicalCheckup mck);
 
 }
