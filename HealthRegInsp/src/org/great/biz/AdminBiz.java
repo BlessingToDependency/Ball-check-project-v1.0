@@ -92,6 +92,9 @@ public interface AdminBiz {
 	//新增医生查重
 	public List<AdminBean>  cheackDoctor(AdminBean adminBean);
 	
+	//医生更改角色
+	public void updateRole( int adminId,int roleId);
+	
 	
 
 

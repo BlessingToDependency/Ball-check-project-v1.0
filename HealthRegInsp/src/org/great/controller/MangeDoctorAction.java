@@ -311,6 +311,20 @@ public class MangeDoctorAction {
     	
     }
     
+    /*
+     * 更改角色
+     */
+    @RequestMapping(value="/updateRole.action")
+    public ModelAndView updateRole() {
+    	String admin=(String) session.getAttribute("uadminId");
+    	int adminId=Integer.parseInt(admin);
+    	String ro=request.getParameter("roleId");
+    	int roleId=Integer.parseInt(ro);
+    	System.out.println("-------------"+adminId+"-----------------"+roleId);
+    	adminBizImp.updateRole(adminId, roleId);
+    	
+		return mav;
+    }
  
     
 

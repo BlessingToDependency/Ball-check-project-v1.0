@@ -9,11 +9,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
- <script type="text/javascript" src="<%=basePath%>js/jquery.validate.min.js"></script>
- <script type="text/javascript" src="<%=basePath%>js/messages_zh.js"></script>
+
 <title>Insert title here</title>
-<meta name="keywords" content="" />
+<script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
+
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="<%=basePath%>/favicon.ico" type="image/x-icon" />
+    <link href="<%=basePath%>css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<%=basePath%>/css/font.css">
+    <link rel="stylesheet" href="<%=basePath%>/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<%=basePath%>/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="<%=basePath%>/js/xadmin.js"></script>
+    
+ <meta name="keywords" content="" />
 
 <meta name="description" content="" />
 
@@ -27,11 +39,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <link rel="stylesheet" type="text/css" href="<%=basePath%>css/style.css" />
 
-<link rel="stylesheet" type="text/css" href="<%=basePath%>css/999.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>css/999.css" /> 
 
-<script type="text/javascript" src="<%=basePath%>js/jquery-1.11.3.min.js"></script>
 
-<script type="text/javascript" src="<%=basePath%>js/org1470120033.js" data-main="baseMain"></script>
+
+<%-- <script type="text/javascript" src="<%=basePath%>js/org1470120033.js" data-main="baseMain"></script> --%>
 
 <meta http-equiv="mobile-agent" content="format=xhtml;url=/m/list.php?tid=6">
 
@@ -42,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  function checkDate(){
 
 	  $.ajax({
-		  type:"post",
+	   type:"post",
    	   url:"<%=basePath%>myCompAction/validateCompPws.action",
    	   data:{"pwd":$("#acc").val()},
    	   dataType:"json",
@@ -57,47 +69,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 } 
  
-/*  $.validator.setDefaults({
-	    submitHandler: function() {
-	      alert("提交事件!");
+ layui.use(['form','layer'], function(){
+	    $ = layui.jquery;
+	  var form = layui.form
+	  ,layer = layui.layer;
+
+	  //自定义验证规则
+	  form.verify({
+	     pass: [/(.+){6,12}$/, '密码必须6到12位']
+	    ,repass: function(value){
+	        if($('#L_pass').val()!=$('#L_repass').val()){
+	            return '两次密码不一致';
+	        }
 	    }
-	});
-$().ready(function() {
-	// 在键盘按下并释放及提交后验证提交表单
-	  $("#form1").validate({
-	      rules: {
-	    	  pwd:{required:true,minlength:6},	
-	   	   pwdOk:{required:true,minlength:6,equalTo:"#pwd"}
-	      }
-	
-	  });
-	}); */
-/*  $(document).ready(function(){
-		
-		$("#form1").on("submit",function(event){
-                alert("1111");
-			//event.preventDefaul();//阻止事件默认动作
-			//$(this).validate();
-			 rules:{			  
-			   pwd:{required:true,minlength:6},	
-			   pwdOk:{required:true,minlength:6,equalTo:"#pwd"},			  
-		   }
-		}); */
-	  /* $("#form1").validate({
-		 
-		   rules:{			  
-			   pwd:{required:true,minlength:6},	
-			   pwdOk:{required:true,minlength:6,equalTo:"#pwd"},			  
-		   }
-		  
-	  }); */
-	/* });  */
+	  });	
+	}); 
+
+
 </script>
-<script type="text/javascript">
-function back(){
-	window.location.href="<%=basePath%>/myCompAction/backIndex.action";
-}
-</script>
+
+<style type="text/css">
+ .setb{
+    background:url(<%=basePath%>/images/6.jpg);
+    height:500px;
+    width:1500px;
+ }
+
+</style>
 </head>
 <body>
 
@@ -212,34 +210,50 @@ function back(){
         <p class="title">修改密码</p>
 
       </div>
-    <div align="center"> 
-<table width="417"  border="1" align="center" >
-  <tr>
-    <td width="148">请输入原密码：</td>
-    <td width="228"><input name="pwd" type="text" id="acc" onblur="checkDate()"/> <samp id="us"></samp></td>
-  </tr>
 
-  <tr>
-   <form id="form1" name="form1" method="post" action="<%=path%>myCompAction/updateUserPws.action"> 
-    <td>请输入新密码：</td>
-    <td>
-    <input type="password" name="pwd" id="pwd" /></td>
-  </tr>
-  <tr>
-    <td>请再次输入密码：</td>
-    <td><input type="password" name="pwdOk" id="pwdOk" /></td>
-  </tr>
-  <tr>
+ <div class="setb" >
+  <form  method="post" action="<%=path%>/myCompAction/updateUserPws.action" class="layui-form">
+   <div   >
+              <label for="L_pass" style="padding-top: 60px; padding-left: 500px ;">
+                  <span class="x-red">*</span>原密码
+              </label>
+              <div class="layui-input-inline">
+                  <input type="password" id="acc"  required="" lay-verify="pass"
+                  autocomplete="off" class="layui-input" onblur="checkDate()" /><samp id="us"></samp>
+              </div>
+   </div>
    
-    <td colspan="2">
-        <div align="center">
-      <input type="submit" name="button" id="button" value="提交" />
-        </div>    
-    </td>
-   
-  </tr>
-  </form>
-</table>
-</div> 
+   <div >
+              <label for="L_pass" style="padding-top: 30px;padding-left: 500px ; ">
+                  <span class="x-red">*</span>新密码
+              </label>
+              <div class="layui-input-inline">
+                  <input type="password" id="L_pass" name="pwd" required="" lay-verify="pass"
+                  autocomplete="off" class="layui-input">
+              </div>
+    </div>
+        <div >
+              <label for="L_repass" style="padding-top: 30px;padding-left: 500px ; ">
+                  <span class="x-red">*</span>确认密码
+              </label>
+              <div class="layui-input-inline">
+                  <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+          
+          
+        
+       <div >
+              <label for="L_repass" style="padding-top: 50px;padding-left: 550px ; ">
+              </label>
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                  保存
+              </button>
+          </div>
+    
+ </form>
+ </div>
 </body>
+
 </html>

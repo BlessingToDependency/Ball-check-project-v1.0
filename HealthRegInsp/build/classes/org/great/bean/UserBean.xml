@@ -20,7 +20,7 @@
 		
 		<!-- 注册 -->
 		<insert id="userRegister" parameterType="org.great.bean.UserBean">
-			insert into tblforeground values (TBL_FOREGROUND.Nextval,#{company},#{pwd},#{head},#{address},#{contacts},#{phone},0,#{busNum},3,6,8)
+			insert into tblforeground values (TBL_FOREGROUND.Nextval,#{company},#{pwd},#{head},#{address},#{contacts},#{phone},0,#{busNum},3,6,8,(select to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') from dual))
 		</insert>
 		
 		<!-- 注册名查重 -->
@@ -35,13 +35,20 @@
 		
 		<!-- 插入员工信息 -->
 		<insert id="addStaff" parameterType="org.great.bean.StaffBean">
-			insert into tblstaff values(tbl_staff.nextVal,#{staffName},#{age},#{sex},#{idNum},#{phone},#{companyId})
+			insert into tblstaff
+			(STAFFID,STAFFNAME,AGE,SEX,idnum,phone,COMPANYID,MEDICALID,PRINTGUCH,ORDERID)
+			 values(tbl_staff.nextVal,#{staffName},#{age},#{sex},#{idNum},#{phone},#{companyId},82,122,126)
 		</insert>
 		
 		<!-- 先插入员工导检单关系表 -->
 		<insert id="addPerguirela" parameterType="org.great.bean.PerguirelaBean">
-			insert into tblperguirela values(#{staffId},(Select Extract(year from sysdate) from dual),#{companyId},#{batchNum},tbl_perguirela.nextVal)
+			insert into tblperguirela values((select staffid from tblstaff where idnum=#{partYear}),(Select Extract(year from sysdate) from dual),#{companyId},#{batchNum},tbl_perguirela.nextVal)
 		</insert>
+		
+		<!-- 修改员工预约状态未 已预约 -->
+		<update id="updateState" parameterType="org.great.bean.PerguirelaBean">
+			update TBLSTAFF set ORDERID=125 where STAFFID=#{staffId}
+		</update>
 		
 		<!-- 为某一位员工选择套餐:人员套餐关系表(tblpeoplesetmal) -->
 		<insert id="bespeakMeal" parameterType="org.great.bean.StaffMealBean">

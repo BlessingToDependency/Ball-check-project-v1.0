@@ -75,8 +75,8 @@ public class MyCompAction {
 	public ModelAndView  selectCompInfo() {
 		
 		UserBean userBean=(UserBean) session.getAttribute("userBean");
-		//String componey=userBean.getCompany();
-		String componey="公司";
+		String componey=userBean.getCompany();
+		//String componey="公司";
 		List<UserBean> compList=userBizImp.selectCompInfo(componey);
 		session.setAttribute("compList", compList);
 		mav.setViewName("FrontEnd/company_Info");
@@ -100,19 +100,27 @@ public class MyCompAction {
 	 */
 	@RequestMapping(value="/validateCompPws.action")
 	public @ResponseBody void validateCompPws(UserBean uBean)throws Exception{
+		
+		
 		PrintWriter out = response.getWriter();
 		UserBean uBea=(UserBean) session.getAttribute("userBean");
-		//String company=uBea.getCompany();
-		String company="公司";
+		String company=uBea.getCompany();
+		String pw=request.getParameter("pwd");
+		//String company="公司";
+		
 		uBean.setCompany(company);
+		uBean.setPwd(pw);
 		userBean = userBizImp.userLogin(uBean);
 	String msg;
-	if(userBean!=null) {
+
+	
+	if(userBean!=null&pw!=null&!"".equals(pw)) {
 		msg="密码正确";
 		
-	}else {
+	} else {
 		msg="密码错误";
 	}
+	
 	session.setAttribute("msg", msg);
 	Gson gson1 = new Gson();
 	String str1 = gson1.toJson(msg);
@@ -128,10 +136,10 @@ public class MyCompAction {
 	public ModelAndView toEditCompInfo() {
 
 		UserBean userBean=(UserBean) session.getAttribute("userBean");
-		//String componey=userBean.getCompany();
-		String componey="公司";
+		String componey=userBean.getCompany();
 		List<UserBean> compList=userBizImp.selectCompInfo(componey);
 		session.setAttribute("compList", compList);
+		session.setAttribute("componeyE", componey);
 		mav.setViewName("FrontEnd/edit_ComInfo");
 		return mav;
 	}
@@ -152,7 +160,9 @@ public class MyCompAction {
 			e.printStackTrace();
 		}
 		
-		uBean.setCompany("公司");
+		String componey=(String) session.getAttribute("componeyE");
+		System.out.println("^^^^^^^^"+componey);
+		uBean.setCompany(componey);
 		uBean.setHead(file);
 		userBizImp.updateCompInfo(uBean);
 		mav.setViewName("FrontEnd/user_index");
