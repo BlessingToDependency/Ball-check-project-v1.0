@@ -169,7 +169,6 @@ $('#min').attr('disabled',true);
     		}
     	});
       });
-    });
 </script>
 </head>
 <body>
@@ -249,12 +248,12 @@ $('#min').attr('disabled',true);
 
   </div>
 
-<form id="formid"  method="post" action="<%=path %>userMainAction/bespokeNow.action">
+<form id="formid"  method="post" action="<%=path %>userMainAction/orderDetails.action">
 <div align="center">
   <table width="800" border="1">
   <c:forEach items="${setList }" var="setmealBean">
     <tr>
-	 <input type="hidden" id="setmealId" value="${setmealBean.setmealId}"/>
+	 <input type="hidden" id="setmealId" name="setmealId" value="${setmealBean.setmealId}"/>
       <td width="261" rowspan="4"><div align="center">图片</div></td>
       <td height="75" colspan="2"><div align="center" class="STYLE1">${setmealBean.setmeal }</div></td>
     </tr>
@@ -278,7 +277,9 @@ $('#min').attr('disabled',true);
 	  <input id="total" name="countAll" type="text" value="${setmealBean.discount*setmealBean.countAll }"style="width:30px;"/>  </span></td>
     </tr>
     <tr>
-      <td height="72" colspan="3"><div align="center"><a id="linkToCart">加入购物车</a> 
+      <td height="72" colspan="3"><div align="center">
+      <a id="linkToCart">加入购物车</a> 
+      <input type="Submit" value="立即购买">
 	  <input type="button" name="Submit" onclick="javascript:history.back(-1);" value="返回">
 	  </div></td>
     </tr>

@@ -190,7 +190,7 @@ function shoppingInfo(){
       
 	  
 	   <li class="navitem">
-      <a  href="<%=path %>FrontEnd/user_upload.jsp" >上传体检人员信息</a>
+      <a  href="<%=path %>fileAction/userUpload.action" >上传体检人员信息</a>
         <ul class="subnav">
         </ul>
       </li>
