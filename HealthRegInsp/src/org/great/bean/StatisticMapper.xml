@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ 
+ <mapper namespace="org.great.mapper.StatisticMapper">
+     <select id="getCount" parameterType="org.great.bean.TblStatistics" resultType="java.lang.Integer">
+     	select count(*) from tblforeground   
+     	where regTime &gt;= #{statTime} and regTime &lt;=#{stopTime}     
+     </select>
+   
+ 	 
+ 	 <select id="orderCount"  parameterType="org.great.bean.TblChannel" resultType="java.lang.Integer">
+ 	 	select count(*) from tblbill a , TBLSETMEAL b  
+ 	 	where a.SETMEALID = b.SETMEALID 
+ 	 	<if test=" null!= orderName and ''!=orderName">
+ 	 	   and	b.setmeal like concat(concat('%',#{orderName}),'%') 
+ 	 	</if>
+ 	 		
+ 	 	<if test="null!=before and ''!=before">
+ 	 		and  a.orderTime &gt;= #{before}	 	
+ 	 	</if>
+ 	 	<if test="null!=after and ''!=after">
+ 	 		 and a.orderTime &lt;= #{after} 
+ 	 	</if>
+ 	 
+ 	 
+ 	 </select>
+ 	 
+ 	  <!--预约套餐人数  -->
+ 	  <select id="queryOrder"  parameterType="org.great.bean.TblStatistics" resultType="org.great.bean.SetmealBean">
+ 	  	select * from  TBLSETMEAL  
+ 	  	<where>
+ 	  		<if test="null != orderName and ''!= orderName">
+ 	  			 setmeal like concat(concat('%',#{orderName}),'%') 
+ 	  		</if> 		 
+ 	  	</where>
+ 	  
+ 	  
+ 	  </select>
+ 	 
+ 	
+ 	 
+ 	 
+ </mapper>
+ 

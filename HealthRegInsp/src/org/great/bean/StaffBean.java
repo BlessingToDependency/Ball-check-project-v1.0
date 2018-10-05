@@ -21,7 +21,7 @@ public class StaffBean {
      private String myGuChId ;//最新导检单号
      private int printGuCh; //打印导检单状态
      private int orderId;//预约状态
-
+     private  Integer smallState;  //小结状态
 
 	private String statTime;//开始时间
      private String stopTime;//结束时间
@@ -61,7 +61,8 @@ public class StaffBean {
 
 	
 	
-	
+		
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -70,8 +71,8 @@ public class StaffBean {
 		return "StaffBean [staffId=" + staffId + ", staffName=" + staffName + ", age=" + age + ", sex=" + sex
 				+ ", idNum=" + idNum + ", phone=" + phone + ", companyId=" + companyId + ", napany=" + napany
 				+ ", medicalId=" + medicalId + ", myGuChId=" + myGuChId + ", printGuCh=" + printGuCh + ", orderId="
-				+ orderId + ", statTime=" + statTime + ", stopTime=" + stopTime + ", userBean=" + userBean
-				+ ", perguirelaBean=" + perguirelaBean + "]";
+				+ orderId + ", smallState=" + smallState + ", statTime=" + statTime + ", stopTime=" + stopTime
+				+ ", userBean=" + userBean + ", perguirelaBean=" + perguirelaBean + "]";
 	}
 
 
@@ -232,6 +233,22 @@ public class StaffBean {
 
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
+	}
+
+
+	/**
+	 * @return the smallState
+	 */
+	public Integer getSmallState() {
+		return smallState;
+	}
+
+
+	/**
+	 * @param smallState the smallState to set
+	 */
+	public void setSmallState(Integer smallState) {
+		this.smallState = smallState;
 	}
 
 

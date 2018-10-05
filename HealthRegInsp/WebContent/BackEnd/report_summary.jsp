@@ -65,7 +65,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 			</c:forEach>
 			<thead>
           <tr>
-            <th colspan="4">小结：   ${itemMap.key.sumCont}   ${itemMap.key.doctor}</th>  
+            <th colspan="4">小结：   ${map.key.sumCont}   </th>  
            </tr>     
         </thead>		
         </tbody>

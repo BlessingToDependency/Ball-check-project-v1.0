@@ -164,6 +164,39 @@ public class ReportBizImp implements ReportBiz {
 		
 		return reportMapper.collectItem(staffBean);
 	}
+	/* (non-Javadoc)
+	 * @see org.great.biz.ReportBiz#sumSmall(org.great.bean.StaffBean)
+	 */
+	@Override
+	public Integer sumSmall(String  myGuChId ) {
+		
+		
+		return reportMapper.sumSmall(myGuChId);
+	}
+	/* (non-Javadoc)
+	 * @see org.great.biz.ReportBiz#sumOrderItem(org.great.bean.StaffBean)
+	 */
+	@Override
+	public Integer sumOrderItem(String  myGuChId ) {
+		// TODO Auto-generated method stub
+		return reportMapper.sumOrderItem(myGuChId);
+	}
+	/* (non-Javadoc)
+	 * @see org.great.biz.ReportBiz#findGuChId(java.lang.Integer)
+	 */
+	@Override
+	public  List<StaffBean>  findGuChId(Integer companyId) {
+		
+		return reportMapper.findGuChId(companyId);
+	}
+	/* (non-Javadoc)
+	 * @see org.great.biz.ReportBiz#setSmall(java.lang.String)
+	 */
+	@Override
+	public void setSmall(String myGuChId) {
+	
+		reportMapper.setSmall(myGuChId);
+	}
 
 
 
