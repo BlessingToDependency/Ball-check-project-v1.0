@@ -82,7 +82,7 @@ String path = request.getScheme() +"://"+request.getServerName()
       </table>
       <div class="page">
         <div>
-                     总页数/当前页数 ${paNum}/${page}
+                     总页数 ${paNum}/当前页数 ${page} 
           <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=1">首页</a>
           <a class="prev" href="<%=path%>maDeparAction/selectDe.action?page=${page-1<1?1:page-1}">上一页</a>
           <a class="next" href="<%=path%>maDeparAction/selectDe.action?page=${(page+1)<=paNum?page+1:paNum}">下一页</a>

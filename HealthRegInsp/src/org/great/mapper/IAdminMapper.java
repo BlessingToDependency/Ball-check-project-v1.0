@@ -101,7 +101,7 @@ public interface IAdminMapper {
 	public List<AdminBean>  cheackDoctor(AdminBean adminBean);
 	
 	//医生更改角色
-	
+	public void updateRole(@Param("adminId") int adminId,@Param("roleId") int roleId);
 
 
 }

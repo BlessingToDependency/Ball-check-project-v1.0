@@ -51,6 +51,12 @@
  	                <if test="idNum!=null">and idNum =#{idNum}   </if>  
  	           </select>
  	   
+ 	    <!-- 更改医生角色 -->
+ 	             <update id="updateRole" parameterType="java.lang.Integer">
+ 	             
+ 	               update tblbackstage set roleId=#{roleId} where adminId=#{adminId}
+ 	             
+ 	             </update>
  	        
  	 <resultMap type="org.great.bean.AdminBean" id="adminIn">
 	    	<id property="adminId" column="adminId"/>

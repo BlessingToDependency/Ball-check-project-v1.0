@@ -230,5 +230,15 @@ public class AdminBizImp implements AdminBiz{
 			// TODO Auto-generated method stub
 			return iAdminMapper.exportExcel(staffName, phone, statTime, stopTime, partYear, companyId,myGuChId);
 		}
+
+
+		//更改角色
+		@Override
+		public void updateRole(int adminId, int roleId) {
+			// TODO Auto-generated method stub
+			iAdminMapper.updateRole(adminId, roleId);
+		}
+		
+		
 	
 }

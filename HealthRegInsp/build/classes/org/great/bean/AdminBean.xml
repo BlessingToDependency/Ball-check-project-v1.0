@@ -14,10 +14,25 @@
 			insert into tblbackstage values (TBL_BACKSTAGE.nextval,#{adminPwd},#{adminName},#{age},#{background},#{phone},#{graduated},#{sex},#{postId},#{head},#{depaId},#{roleId},#{stateId},#{logicId},#{idNum},#{email})
 		</insert>
 		
-		<!-- 根据导检单id找出套餐 -->
-		<select id="selectSetmeal" parameterType="java.lang.String" resultType="org.great.bean.SetmealBean">
-			select a.* from tblsetmeal a,tblguisetmeal b where a.setmealId = b.setmealId and b.guChId=#{guChId}
+		<!-- 根据导检单id找出细项 -->
+		<select id="selectSetmeal" resultType="org.great.bean.TermBean">
+			select a.* from tblterm a,tblitemcom b,tblitem c,tbldepprorela d,tbldepar e,tblsetcom f,tblsetmeal g,tblguisetmeal h where
+           h.setmealId=g.setmealId and f.setmealId=g.setmealId and f.itemId=c.itemId and c.itemId=b.itemId and
+           a.termId = b.termId and e.depaId=d.depaId and d.itemId=c.itemId and e.depaId=#{depaId} and h.guChId=#{guChId}
 		</select>
+		
+		<!-- 通过导检单id查询项目id -->
+		<select id="selectItem" resultType="java.lang.Integer">
+			select c.itemId from tblguisetmeal a,tblsetmeal b,tblsetcom c,tblitem d,tbldepprorela e
+where a.setmealId=b.setmealId and b.setmealId=c.setmealId and  c.itemId=d.itemId and d.itemId=e.itemId and 
+a.guChId=#{guChId} and e.depaId=#{depaId}
+		</select>
+		
+		<!-- 科室插入体检人员信息 -->
+		<insert id="addFinresult" parameterType="org.great.bean.FinresultBean">
+			insert into tblfinresult values(#{guChId},#{termId},#{termVal},#{itemId}) 
+		</insert>
+		
 		
 		<!-- 根据用户id查找对应信息 -->
 		<select id="userInfo" parameterType="java.lang.String" resultType="org.great.bean.StaffBean">
@@ -29,29 +44,77 @@
 		<select id="company" parameterType="org.great.bean.UserBean" resultType="org.great.bean.UserBean">
 			select * from(
 			select z.*,rownum rn from(
-			select * from TblForeground order by company
+			select * from TblForeground 
 			<where>
-				<if test="userBean.company != null"> company=#{company} </if>
-				<if test="userBean.address != null"> and address=#{address} </if>
-				<if test="userBean.contacts != null"> and contacts=#{contacts} </if>
-				<if test="userBean.busNum != null"> and busNum=#{busNum} </if>
+				<if test="userBean.company != null and userBean.company !=''">  company like concat(concat('%',#{userBean.company}),'%')</if>
+				<if test="userBean.address != null and userBean.address !=''"> and address like concat(concat('%',#{userBean.address}),'%')</if>
+				<if test="userBean.contacts != null and userBean.contacts !=''"> and contacts like concat(concat('%',#{userBean.contacts}),'%')</if>
+				<if test="userBean.busNum != null and userBean.busNum !=''"> and busNum=#{userBean.busNum} </if>
+				and logicId =6
 			</where>
-			)z where rownum &lt; =#{pages}*10 )r where r.rn &gt; =(#{pages}-1)*10+1
+			
+			order by company)z where rownum &lt; =#{pages}*10 )r where r.rn &gt; =(#{pages}-1)*10+1
 		</select>
 		
 		<!-- 公司总数 -->
 		<select id="companyCount" parameterType="org.great.bean.UserBean" resultType="java.lang.Integer">
 			select count(*) from TblForeground  
 			<where>
-				<if test="company != null"> company=#{company} </if>
-				<if test="address != null"> and address=#{address} </if>
-				<if test="contacts != null"> and contacts=#{contacts} </if>
-				<if test="busNum != null"> and busNum=#{busNum} </if>
+				<if test="company != null and company !=''"> company like concat(concat('%',#{company}),'%') </if>
+				<if test="address != null and address !=''"> and address=#{address} </if>
+				<if test="contacts != null and contacts !=''"> and contacts like concat(concat('%',#{contacts}),'%')</if>
+				<if test="busNum != null and busNum !=''"> and busNum=#{busNum} </if>
 			</where>
 		</select>
+		<!-- 启用/禁用 公司 -->
+		<update id="disableCompany">
+			update tblforeground set stateId=#{stateId} where companyId=#{companyId}
+		</update>
+		
+		<!-- 删除公司 -->
+		<update id="deleteCompany">
+			update tblforeground set logicId=7 where companyId=#{companyId}
+		</update>
+		
+		<!-- 通过公司id生成excel并导出exportExcel -->
+		<select id="exportExcel" parameterType="org.great.bean.StaffBean" resultMap="exportExcel">
+		select a.*,b.company,c.partYear,c.batchNum from tblstaff a,tblforeground b,tblperguirela c
+			where a.companyId = b.companyId and a.staffId = c.staffId and a.COMPANYID=#{companyId} 
+			<if test="staffName!=null and staffName!='' ">and a.staffName like concat(concat('%',#{staffName}),'%')</if> 
+			<if test="phone!=null and phone != ''">and a.phone = #{phone}</if>
+			<if test="statTime!=null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
+			<if test="stopTime!=null and stopTime != ''">and c.partYear &lt; = #{stopTime}</if>
+			<if test="myGuChId!=null and myGuChId != ''">and a.myGuChId = #{myGuChId}</if>
+		</select>
+		<!-- 员工表 -->
+		<resultMap type="org.great.bean.StaffBean" id="exportExcel">
+			<id property="staffId" column="STAFFID"/>
+			<result property="staffName" column="staffName"/>
+			<result property="age" column="age"/>
+			<result property="sex" column="sex"/>
+			<result property="idNum" column="idNum"/>
+			<result property="phone" column="phone"/>
+			<result property="companyId" column="companyId"/>
+			<result property="orderId" column="orderId"/>
+			<result property="medicalId" column="medicalId"/>
+			<result property="myGuChId" column="myGuChId"/>
+			
+		
+		<!-- 前台公司表 -->
+		<association property="userBean" javaType="org.great.bean.UserBean" column="companyId">
+			<result property="company" column="company"/>
+		</association>
+		
+		<!-- 员工导检单关系表 -->
+		<association property="perguirelaBean" javaType="org.great.bean.PerguirelaBean">
+			<result property="partYear" column="partYear"/>
+			<result property="batchNum" column="batchNum"/>
+		</association>
+		</resultMap>  
 		
 		
-		<!--  后台用户管理列表 -->
+		
+		<!--  后台用户体检人管理列表 -->
 		<select id="userAdmin" parameterType="org.great.bean.StaffBean" resultMap="userAdmin">
 			select * from(
 			select z.*,rownum rn from(
@@ -61,6 +124,7 @@
 			<if test="phone!=null and phone != ''">and a.phone = #{phone}</if>
 			<if test="statTime!=null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
 			<if test="stopTime!=null and stopTime != ''">and c.partYear &lt; = #{stopTime}</if>
+			<if test="myGuChId!=null and myGuChId != ''">and a.myGuChId = #{myGuChId}</if>
 			order by a.staffName)z where rownum &lt; =#{pages}*10 )r where r.rn &gt; =(#{pages}-1)*10+1
 		</select>
 		<!-- 员工表 -->
@@ -72,6 +136,9 @@
 			<result property="idNum" column="idNum"/>
 			<result property="phone" column="phone"/>
 			<result property="companyId" column="companyId"/>
+			<result property="orderId" column="orderId"/>
+			<result property="medicalId" column="medicalId"/>
+			
 		
 		<!-- 前台公司表 -->
 		<association property="userBean" javaType="org.great.bean.UserBean" column="companyId">
@@ -94,6 +161,7 @@
 			<if test="phone!=null and phone != ''">and a.phone = #{phone}</if>
 			<if test="statTime!=null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
 			<if test="stopTime!=null and stopTime != ''">and c.partYear &lt; = #{stopTime}</if>
+			<if test="myGuChId!=null and myGuChId != ''">and a.myGuChId = #{myGuChId}</if>
 		</select> 
 		
 		

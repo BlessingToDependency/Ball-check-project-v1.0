@@ -149,7 +149,7 @@ function changerole(v){
       </table>
       <div class="page">
         <div>
-                     总页数/当前页数 ${paNum}/${page}
+                     总页数  ${paNum}/当前页数${page}
          <a class="num" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=1">首页</a>
           <a class="prev" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=${page-1<1?1:page-1}&adminName=${adminName}&post=${post}&depa=${depa}">上一页</a>
           <a class="next" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=${(page+1)<=paNum?page+1:paNum}&adminName=${adminName}&post=${post}&depa=${depa}">下一页</a>
@@ -161,7 +161,7 @@ function changerole(v){
 
     </div>
 
- <form id="addfrom" method="post" action="<%=path%>maRoleAction/updateRoleNmae.action">
+ <form id="addfrom" method="post" action="<%=path%>maDoctorAction/updateRole.action">
 <button type="button" id="dada" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></button>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">

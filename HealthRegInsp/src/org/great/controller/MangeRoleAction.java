@@ -212,7 +212,8 @@ public class MangeRoleAction {
 	@RequestMapping(value="selectR.action")
 	public  @ResponseBody void selectR() throws Exception{
 		String adminId=request.getParameter("adminId");
-		System.out.println("adminId====="+adminId);
+		
+		session.setAttribute("uadminId", adminId);
 		List<RoleBean> roList=roleBizImp.selectR();
 		request.setAttribute("roList", roList);
 		PrintWriter out = response.getWriter();
