@@ -67,7 +67,7 @@ String path = request.getScheme() +"://"+request.getServerName()
           <button class="layui-btn" type="submit" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
       <xblock>
-        <button class="layui-btn layui-btn-normal" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <button class="layui-btn layui-btn-normal" onclick="delAll()"><i class="layui-icon"></i>批量开单</button>
         <span class="x-right" style="line-height:40px">共有数据:${allRecord}条</span>
       </xblock>
       <table class="layui-table">
@@ -82,6 +82,7 @@ String path = request.getScheme() +"://"+request.getServerName()
             <th>性别</th>
             <th>身份证号</th>
             <th>联系方式</th>
+            <th>是否开单</th>
             <th>操作</th>
         </thead>
         <tbody>
@@ -96,6 +97,12 @@ String path = request.getScheme() +"://"+request.getServerName()
 			   <td>${list.sex}</td>
 			   <td>${list.idNum}</td>
 			    <td>${list.phone}</td>
+			    <c:if test="${list.printGuCh==122}">
+			      <td><span style="color: orange;">未开单</span></td>
+			    </c:if>
+			     <c:if test="${list.printGuCh==123}">
+			      <td>已开单</td>
+			    </c:if>
 	       	   <td class="td-status">
                 <span class="layui-btn layui-btn-danger" style="width:80px;" onclick="openBill(${list.staffId});">开单</span>
 	           </td>
@@ -156,11 +163,19 @@ $(document).ready(function(){
         layer.confirm('确认要吗？'+data,function(index){
         	//年份
         	var partYear=document.getElementById("partYear").value;
-        	//批次号
-        	var batchNum=document.getElementById("batch").value;
-        	//公司ID
-        	var companyId=document.getElementById("companyId").value;
-            window.location.href="<%=path%>openBillAction/batchOpenBill.action?partYear="+partYear+"&companyId="+companyId+"&batchNum="+batchNum+"&data="+data;
+        	if(partYear==0){
+        		var r=confirm("请选择年份")
+        	}else{
+        		//批次号
+        		var batchNum=document.getElementById("batch").value;
+        			if(batchNum==0){
+        				var r=confirm("请选择批次号")
+        			}else{
+        		//公司ID
+        		var companyId=document.getElementById("companyId").value;
+        		 window.location.href="<%=path%>openBillAction/batchOpenBill.action?partYear="+partYear+"&companyId="+companyId+"&batchNum="+batchNum+"&data="+data;
+        			}
+        		}
         });
       }
 </script>

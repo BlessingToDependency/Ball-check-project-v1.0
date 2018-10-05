@@ -1,10 +1,14 @@
 package org.great.biz;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.great.bean.DeparBean;
+import org.great.bean.LitemBean;
 import org.great.bean.PerguirelaBean;
 import org.great.bean.StaffBean;
 import org.great.bean.UserBean;
@@ -12,6 +16,8 @@ import org.great.mapper.IGroupInspMapper;
 import org.great.mapper.IUserMapper;
 import org.great.search.BatchSheetCon;
 import org.great.search.CompanyCon;
+import org.great.search.MedicalCheckup;
+import org.great.tools.Printing;
 import org.springframework.stereotype.Service;
 
 /*
@@ -123,5 +129,78 @@ public class MissInspBizImp implements IMissInspBiz{
 	public int addImages(String guChId, String filename, int itemId) {
 		int res= iGroupInspMapper.addImages(guChId, filename, itemId);
 		return res;
+	}
+	//在本地硬盘上生成导检单
+	@Override
+	public int addConInspSheet(List<Integer> itemList,MedicalCheckup mck) {
+		//得到单位名称
+		UserBean company = iGroupInspMapper.getCompany(mck.getCompanyId());
+		//得到与人员信息
+		StaffBean staff = iGroupInspMapper.getStaffInfo(mck.getStaffId());
+		mck.setAge(staff.getAge());
+		mck.setCompany(company.getCompany());
+		mck.setSex(staff.getSex());
+		mck.setName(staff.getStaffName());
+		mck.setId(staff.getIdNum());
+		mck.setPhone(""+staff.getPhone());
+		 //得到当前系统时间
+	      SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+	      String time = df.format(new Date());
+		mck.setPrintTime(time);
+	
+		int itemId1 = itemList.get(0);
+		//得到项目情况
+		LitemBean item1 = iGroupInspMapper.getItemInfo(itemId1);
+		mck.setItem1(item1.getItem());
+		mck.setDescribe1(item1.getIntrod());
+		//得到科室信息
+		DeparBean depar1 = iGroupInspMapper.getDeparInfo(itemId1);
+		mck.setDept1(depar1.getDepa());
+		
+		int itemId2 = itemList.get(1);
+		//得到项目情况
+		LitemBean item2 = iGroupInspMapper.getItemInfo(itemId2);
+		mck.setItem2(item2.getItem());
+		mck.setDescribe2(item2.getIntrod());
+		//得到科室信息
+		DeparBean depar2 = iGroupInspMapper.getDeparInfo(itemId2);
+		mck.setDept2(depar2.getDepa());
+		
+		int itemId3 = itemList.get(2);
+		//得到项目情况
+		LitemBean item3 = iGroupInspMapper.getItemInfo(itemId3);
+		mck.setItem3(item3.getItem());
+		mck.setDescribe3(item3.getIntrod());
+		//得到科室信息
+		DeparBean depar3 = iGroupInspMapper.getDeparInfo(itemId3);
+		mck.setDept3(depar3.getDepa());
+		
+		int itemId4 = itemList.get(3);
+		//得到项目情况
+		LitemBean item4 = iGroupInspMapper.getItemInfo(itemId4);
+		mck.setItem4(item4.getItem());
+		mck.setDescribe4(item4.getIntrod());
+		//得到科室信息
+		DeparBean depar4 = iGroupInspMapper.getDeparInfo(itemId4);
+		mck.setDept4(depar4.getDepa());
+		
+		int itemId5 = itemList.get(4);
+		//得到项目情况
+		LitemBean item5 = iGroupInspMapper.getItemInfo(itemId5);
+		mck.setItem5(item5.getItem());
+		mck.setDescribe5(item5.getIntrod());
+		//得到科室信息
+		DeparBean depar5 = iGroupInspMapper.getDeparInfo(itemId5);
+		mck.setDept5(depar5.getDepa());
+		
+		//生成导检单到本地
+		Printing p = new Printing();
+		try {
+			p.exportSimpleWord(mck);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 1;
 	} 
 }

@@ -103,7 +103,6 @@ public class AdminManagerAction {
 		}
 		return null;
 	}
-	
 	//重置密码
 	@RequestMapping(value="/resetPwd.action")
 	public ModelAndView ResetPwd(HttpServletRequest request,int adid){

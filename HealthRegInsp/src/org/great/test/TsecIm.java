@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 
 import javax.imageio.ImageIO;
 
+import org.great.tools.CodeTest03;
 import org.jbarcode.JBarcode;
 import org.jbarcode.encode.EAN13Encoder;
 import org.jbarcode.encode.EAN8Encoder;
@@ -38,6 +39,8 @@ public class TsecIm {
 	 public static void main(String[] args) {
 		 String l =xians("1234567");
 		 System.out.println(l);
+	/*	 
+		 CodeTest03.createBarcode(message, os, text);*/
 	}
 
 }

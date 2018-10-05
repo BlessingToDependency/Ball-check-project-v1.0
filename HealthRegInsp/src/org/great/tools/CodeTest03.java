@@ -19,6 +19,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -26,12 +27,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+
 import org.jbarcode.JBarcode;
 import org.jbarcode.JBarcodeFactory;
 import org.jbarcode.encode.Code128Encoder;
 import org.jbarcode.encode.InvalidAtributeException;
 import org.jbarcode.paint.TextPainter;
 import org.jbarcode.util.ImageUtil;
+
+import sun.misc.BASE64Encoder;
       
     /** 
      *@class:JbarcodeUtil 
@@ -87,7 +93,7 @@ import org.jbarcode.util.ImageUtil;
          * @param message  条形码内容 
          * @param file   生成文件 
          */  
-        public static void createBarcode(String message, File file,String text) {  
+   /*     public static void createBarcode(String message, File file,String text) {  
             try {  
                 FileOutputStream fos = new FileOutputStream(file);  
                 createBarcode(message, fos,text);  
@@ -95,24 +101,33 @@ import org.jbarcode.util.ImageUtil;
             } catch (IOException e) {  
                 throw new RuntimeException(e);  
             }  
-        }  
+        }*/  
       
         /** 
          * @descript:生成条形码并写入指定输出流 
          * @param message   条形码内容 
          * @param os   输出流 
          */  
-        public static void createBarcode(String message, OutputStream os,String text) {  
+        public static String createBarcode(String message, String text) {  
+        	ByteArrayOutputStream ou =null;
             try {  
             	//设置条形码文本
             	TEXT=text;
                 //创建条形码的BufferedImage图像  
                 BufferedImage image = getJBarcode().createBarcode(message);  
-                ImageUtil.encodeAndWrite(image, ImageUtil.PNG, os, BARCODE_DPI, BARCODE_DPI);  
-                os.flush();  
+                
+           
+				ou = new ByteArrayOutputStream();
+				ImageIO.write(image, "png", ou);
+                
+             /*   ImageUtil.encodeAndWrite(image, ImageUtil.PNG, os, BARCODE_DPI, BARCODE_DPI);  
+                os.flush(); */
+                
             } catch (Exception e) {  
                 throw new RuntimeException(e);  
             }  
+            BASE64Encoder encoder = new BASE64Encoder();
+            return encoder.encode(ou.toByteArray());
         }  
       
         /** 
@@ -147,16 +162,16 @@ import org.jbarcode.util.ImageUtil;
       
         //测试  
         public static void main(String[] args) throws FileNotFoundException, IOException {  
-            List<String> list=new ArrayList<String>();  
+          /*  List<String> list=new ArrayList<String>();  
             list.add("KJ4.1-0127-0001-1231");  
-            /*list.add("KJ4.1-0128-0001");  
+            list.add("KJ4.1-0128-0001");  
             list.add("KJ4.1-0129-0001");  
-            list.add("KJ4.1-0130-0001"); */ 
+            list.add("KJ4.1-0130-0001");  
             if(list!=null && list.size()>0){  
                 for(String message:list){  
                     CodeTest03.createBarcode(message, new File("D:\\codeImg\\"+message+".png"),"苏adasd");  
                 }  
             }     
-            
+            */
         }  
 }

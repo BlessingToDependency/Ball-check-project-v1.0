@@ -83,6 +83,19 @@
 	    select * from TBLSTAFF where STAFFID=#{staffId}
 	    </select>
 	    
+	     <select id="getCompany" resultType="org.great.bean.UserBean">
+	    select * from TBLFOREGROUND where COMPANYID=#{companyId}
+	    </select>
+	    
+	    
+	     <select id="getItemInfo" resultType="org.great.bean.LitemBean">
+	    select * from TBLITEM where ITEMID=#{itemId}
+	    </select>
+	    
+	     <select id="getDeparInfo" resultType="org.great.bean.DeparBean">
+	    select * from TBLDEPAR where DEPAID=(select DEPAID from TBLDEPPRORELA where ITEMID=#{itemId})
+	    </select>
+	    
 	    <insert id="maintain">
 	    insert into TBLGUISETMEAL(GUCHID,SETMEALID) values(#{guChId},#{setmealId})
 	    </insert>

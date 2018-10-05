@@ -51,10 +51,10 @@ public class PhoneCode
 		}
 	}
 
-	public static void main(String[] args) throws ClientException
+/*	public static void main(String[] args) throws ClientException
 	{
-		/*PhoneCode c = new PhoneCode();
+		PhoneCode c = new PhoneCode();
 		String phone ="15888231687";
-		c.Code(phone,"小哥");*/
-	}
+		c.Code(phone,"小哥","2018-10-1");
+	}*/
 }
