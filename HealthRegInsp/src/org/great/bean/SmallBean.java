@@ -12,11 +12,14 @@ public class SmallBean {
    private  String guChId;//导检单ID
    private int itemId;//项目ID
    private  String doctor;//医生名
-   private  String sumCont;//小结内容
+   private  String sumCont;//小结内容SMALLSTATE
+
    
    private  FinresultBean finresultBean;  //细项结果表
    private  LitemBean litemBean;  //细项表  
    private  StaffBean staffBean;  //员工表
+   
+   
    
    public SmallBean() {
 	   
@@ -34,13 +37,17 @@ public SmallBean(int sumId, String guChId, int itemId, String doctor, String sum
 
 
 
+
+
+
 /* (non-Javadoc)
  * @see java.lang.Object#toString()
  */
 @Override
 public String toString() {
 	return "SmallBean [sumId=" + sumId + ", guChId=" + guChId + ", itemId=" + itemId + ", doctor=" + doctor
-			+ ", sumCont=" + sumCont + ", finresultBean=" + finresultBean + ", litemBean=" + litemBean + "]";
+			+ ", sumCont=" + sumCont + ", finresultBean=" + finresultBean + ", litemBean=" + litemBean + ", staffBean="
+			+ staffBean + "]";
 }
 
 
@@ -122,6 +129,8 @@ public StaffBean getStaffBean() {
 public void setStaffBean(StaffBean staffBean) {
 	this.staffBean = staffBean;
 }
+
+
    
    
    

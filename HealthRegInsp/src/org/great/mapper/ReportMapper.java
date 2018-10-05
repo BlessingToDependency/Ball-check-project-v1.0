@@ -41,6 +41,12 @@ public interface ReportMapper {
 	//点击公司展开用户
 	public List<StaffBean> findUserById (@Param("companyId")Integer companyId,@Param("pBean")PerguirelaBean pBean,@Param("staffName")String staffName,@Param("pagecount")Integer pagecount);
 	
+	//得到某个公司的所有员工	
+	public List<StaffBean>  findGuChId(@Param("companyId")Integer companyId);
+	
+	
+	//修改员工状态
+	public void setSmall(@Param("myGuChId")String  myGuChId);
 	
 	//用户计算分页
     public Integer countUser(@Param("companyId")Integer companyId,@Param("pBean")PerguirelaBean pBean,@Param("staffName")String staffName);
@@ -63,10 +69,17 @@ public interface ReportMapper {
     //得到小结项目中的科室
     public List<TermBean> querySection(SmallBean  staffBean);
     
-    
+   
     //判断小结
     public List<SmallBean> checkSmall(@Param("staffBean")StaffBean  staffBean ,@Param("itemId")Integer itemId);
     
+    //得到小结个数 替代上面
+    public Integer sumSmall(@Param("myGuChId")String  myGuChId );
+    
+    
+    //计算套餐中的项目
+    public Integer sumOrderItem (@Param("myGuChId")String  myGuChId  );
+     
     
     //获取套餐中的项目
     public List<Integer> collectItem(StaffBean staffBean);

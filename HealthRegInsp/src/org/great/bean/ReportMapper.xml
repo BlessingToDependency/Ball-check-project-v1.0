@@ -46,6 +46,19 @@
  	
  	</select>
    
+   
+   <!-- 获得某给公司的职员用于改变状态 -->
+   <select id="findGuChId"   parameterType="java.lang.Integer" resultType="org.great.bean.StaffBean" >
+      select * from tblstaff where  companyId = #{companyId}
+     
+   </select>
+   
+   <!-- 修改小结状态 -->
+     <update id="setSmall" parameterType="java.lang.String" >
+     	UPDATE TBLSTAFF SET SMALLSTATE = '15' WHERE  myGuChId =#{myGuChId}
+     
+     </update>
+   
   <!-- 展示公司的职员 --> 
     <select id="findUserById"  resultMap="queryUser" parameterType="org.great.bean.PerguirelaBean">
     
@@ -53,7 +66,7 @@
 			(select d.*,rownum rn from
 			(select  a.* from  TBLSTAFF a ,TBLPERGUIRELA b
     	<where>
-    			  a.staffId =b.staffId  and b.companyId = #{companyId,jdbcType=VARCHAR}
+    			  a.staffId =b.staffId and  a.smallstate =14   and b.companyId = #{companyId,jdbcType=VARCHAR}
     			
     			<if test="null != pBean.partYear and ''!= pBean.partYear">
     				and b.partyear =#{pBean.partYear}
@@ -88,13 +101,15 @@
 
    
    
+   
+   
  
    <!--计算展示的员工数量  -->
    	 <select id="countUser" resultType="java.lang.Integer" parameterType="org.great.bean.PerguirelaBean">
    			 select count(*) from
 			 (select  b.*,a.staffname from  TBLSTAFF a ,TBLPERGUIRELA b
    	 	<where>
-   	 		 a.staffId =b.staffId and b.companyId = #{companyId}
+   	 		 a.staffId =b.staffId and  a.smallstate =14    and b.companyId = #{companyId}
    	 		 <if test="null != pBean.partYear and ''!= pBean.partYear">
     				and b.partyear =#{pBean.partYear}
     			</if>
@@ -137,6 +152,8 @@
  	 <select id="queryItem" resultMap="showMySmall" parameterType="org.great.bean.StaffBean" >
  	 	select  e.item , f.*  from TBLSMALL f  ,TBLITEM e  ,  tblstaff g  where  g.myGuchId= f.guChId and f.itemId =e.itemId  and  g.staffId = #{staffId} and g.myGuChId = #{myGuChId} 
  	 	 
+ 	 	
+ 	 
  	 </select>
  	 	 
  	 <resultMap type="org.great.bean.SmallBean" id="showMySmall">
@@ -196,6 +213,22 @@
  	
  	</select>
  	
+ 	 <!--取代上面的 计算小结  -->
+ 	<select id="sumSmall"  resultType="java.lang.Integer" parameterType="java.lang.String">  
+ 	 
+ 		select count(*) from TBLSMALL where guChId = #{myGuChId} 	
+ 	
+ 	</select>
+ 	
+ 	<!-- 取代下面  计算套餐中的小结 -->
+ 		<select id="sumOrderItem"    resultType="java.lang.Integer" parameterType="java.lang.String">  
+ 		
+ 		 select  count(a.itemId) from     tblsetcom a , tblguisetmeal c ,  tblstaff d 
+ 		  where d.myGuchId= c.GUCHID and c.setmealId = a.setmealId and d.myGuchId = #{myGuChId}
+ 		</select>
+
+
+
 
  	  <!--判断该项目是否完成小结  -->
  	 

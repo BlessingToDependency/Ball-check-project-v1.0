@@ -83,7 +83,7 @@ public class ReportAction {
 		return "BackEnd/user_report_summary";
 	}
 
-	
+	//展示总结中的公司
 	@RequestMapping("/showCompany.action")
 	public String showCompany(Model model,Integer currentPage,String company) {
 		System.out.println("company:"+company);
@@ -104,10 +104,28 @@ public class ReportAction {
 		return "BackEnd/report_company";
 		
 	}
-	/*//展示总结单
+	//展示总结单
 	@RequestMapping("/showUser.action")
 	public  String  showUser(Model model, Integer companyId,PerguirelaBean pBean,String staffName) {
 	// System.out.println("pBean:"+pBean.toString());
+		List<StaffBean> guideList = reportBizImp.findGuChId(companyId);
+		System.out.println("guideList:"+guideList.toString());
+		for (Iterator<StaffBean> iterator = guideList.iterator(); iterator.hasNext();) {
+			StaffBean staffBean = (StaffBean) iterator.next();
+			System.out.println("staffBean.getMyGuChId():"+staffBean.getMyGuChId());
+			Integer sumSmall =reportBizImp.sumSmall(staffBean.getMyGuChId());
+			Integer  sumOrder = reportBizImp.sumOrderItem(staffBean.getMyGuChId());
+			System.out.println("sumSmall:"+sumSmall+"sumOrder:"+sumOrder);
+			if (staffBean.getSmallState()==14) {				
+				if (sumSmall == sumOrder) {				
+					reportBizImp.setSmall(staffBean.getMyGuChId());
+					
+				}
+			}
+			
+		}
+		
+		
 	 Integer count = reportBizImp.countUser(companyId,pBean, staffName);
 	 totalPage = count % 5 > 0 ? count / 5 + 1 : count / 5;
 		if (totalPage==0) {
@@ -133,7 +151,7 @@ public class ReportAction {
 		session.setAttribute("companyId", companyId);
 		
 		return "BackEnd/report_user";		
-	}*/
+	}
 	
 
 	//ajax动态获取批次号
@@ -157,31 +175,56 @@ public class ReportAction {
 	public ModelAndView showSmall(Model model,StaffBean staffBean,RedirectAttributes attr) {
 		ModelAndView mav  = new ModelAndView();
 		System.out.println("myGuChId:"+staffBean.getMyGuChId());
-		List<Integer> intList = reportBizImp.collectItem(staffBean);
+	//	Integer sumSmall =reportBizImp.sumSmall(staffBean);
+	//	Integer  sumOrder = reportBizImp.sumOrderItem(staffBean);
+	//	System.out.println("sumSmall:"+sumSmall+"sumOrder:"+sumOrder);
+	//	if (sumSmall == sumOrder) {
+			List<SmallBean> smList = reportBizImp.queryItem(staffBean);		
+			List<TermBean>   tList  = null;
+			System.out.println("smList:"+smList.toString());
+			Map<SmallBean, List<TermBean> > map = new HashMap<SmallBean, List<TermBean>>();
+			for (Iterator<SmallBean> iterator = smList.iterator(); iterator.hasNext();) {
+				SmallBean smallBean = (SmallBean) iterator.next();					
+				tList =reportBizImp.querySection(smallBean);
+				map.put(smallBean, tList);
+			}	
+			mav.addObject("itemMap", map);
+			mav.addObject("staffBean", staffBean);
+			
+			//model.addAttribute("itemMap", map);  
+			//model.addAttribute("staffBean", staffBean);  
+			System.out.println("itemMap:"+map.toString());
+	//	}		
+	
+		mav.setViewName("BackEnd/report_summary");
+		/*	List<Integer> intList = reportBizImp.collectItem(staffBean);
 		Integer  companyId =  (Integer) session.getAttribute("companyId");
 		attr.addAttribute("companyId", companyId);
 		for (Integer itemId : intList) {
 			if (null == reportBizImp.checkSmall(staffBean, itemId)) {
 				return new ModelAndView("redirect:/Report/showUser.action");
+				
+			}else {
+				List<SmallBean> smList = reportBizImp.queryItem(staffBean);		
+				List<TermBean>   tList  = null;
+				System.out.println("smList:"+smList.toString());
+				Map<SmallBean, List<TermBean> > map = new HashMap<SmallBean, List<TermBean>>();
+				for (Iterator<SmallBean> iterator = smList.iterator(); iterator.hasNext();) {
+					SmallBean smallBean = (SmallBean) iterator.next();					
+					tList =reportBizImp.querySection(smallBean);
+					map.put(smallBean, tList);
+				}	
+				mav.addObject("itemMap", map);
+				mav.addObject("staffBean", staffBean);
+				mav.setViewName("BackEnd/report_summary");
+				
+				//model.addAttribute("itemMap", map);  
+				//model.addAttribute("staffBean", staffBean);  
+				System.out.println("itemMap:"+map.toString());
 			}
 		}
-		  
-		List<SmallBean> smList = reportBizImp.queryItem(staffBean);		
-		List<TermBean>   tList  = null;
-		System.out.println("smList:"+smList.toString());
-		Map<SmallBean, List<TermBean> > map = new HashMap<SmallBean, List<TermBean>>();
-		for (Iterator<SmallBean> iterator = smList.iterator(); iterator.hasNext();) {
-			SmallBean smallBean = (SmallBean) iterator.next();					
-			tList =reportBizImp.querySection(smallBean);
-			map.put(smallBean, tList);
-		}	
-		mav.addObject("itemMap", map);
-		mav.addObject("staffBean", staffBean);
-		mav.setViewName("BackEnd/report_summary");
+		  */
 		
-		//model.addAttribute("itemMap", map);  
-		//model.addAttribute("staffBean", staffBean);  
-		System.out.println("itemMap:"+map.toString());	
 		return mav;		
 	}
 	

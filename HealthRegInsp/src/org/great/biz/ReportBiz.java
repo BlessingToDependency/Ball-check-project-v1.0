@@ -46,6 +46,10 @@ public interface ReportBiz {
     //得到月份
     public  List<String>  queryYear();
     
+    //修改员工状态
+  	public void setSmall(String  myGuChId);
+    
+    
     //得到批次号
     public List<Integer> queryBatch(PerguirelaBean pBean);
     
@@ -66,7 +70,18 @@ public interface ReportBiz {
      //判断小结是否都完成
      public List<SmallBean>   checkSmall(StaffBean  staffBean ,Integer itemId);
      
+     //替代上面的方法
+     public Integer sumSmall(String  myGuChId  );
+     
+     //计算套餐中的项目
+     public Integer sumOrderItem (String  myGuChId  );
+     
+     
      //获取套餐中的项目
      public List<Integer> collectItem(StaffBean staffBean);
+     
+     //得到某个公司的所有员工	
+ 	public  List<StaffBean>  findGuChId(Integer companyId);
+     
      
 }

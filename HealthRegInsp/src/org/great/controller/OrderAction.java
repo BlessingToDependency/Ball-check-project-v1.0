@@ -85,7 +85,7 @@ public class OrderAction {
 		model.addAttribute("orderList", orderList);	
 		model.addAttribute("count", count);
 		model.addAttribute("setmeal", setmeal);
-	
+		//<%=path%>Statistic/showWeek.action"
 		return "BackEnd/order_list";
 	}
 

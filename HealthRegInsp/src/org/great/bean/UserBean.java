@@ -19,6 +19,8 @@ public class UserBean {
 	private int stateId; //用户状态(启用/禁用)
 	private int logicId; //逻辑状态（删除/假删除）
 	private int phyExamId; //开单状态
+	private String regTime;  //账号注册时间
+	
 	
 	public UserBean() {
 		super();
@@ -94,6 +96,18 @@ public class UserBean {
 	}
 	public void setPhyExamId(int phyExamId) {
 		this.phyExamId = phyExamId;
+	}
+	/**
+	 * @return the regTime
+	 */
+	public String getRegTime() {
+		return regTime;
+	}
+	/**
+	 * @param regTime the regTime to set
+	 */
+	public void setRegTime(String regTime) {
+		this.regTime = regTime;
 	}
 	
 	
