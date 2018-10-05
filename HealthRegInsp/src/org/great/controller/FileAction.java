@@ -134,8 +134,8 @@ public class FileAction {
         book.write();
         book.close();
         System.out.println("创建文件成功!");
-        return new ModelAndView("redirect:/fileAction/downloadExcel.action?fileNick="+fileNick);
-        
+//        return new ModelAndView("redirect:/fileAction/downloadExcel.action?fileNick="+fileNick);
+        return mav;
 	}
 	
 	/*
@@ -164,6 +164,19 @@ public class FileAction {
 
 	}
 	
+	/*
+	 * 上传跳转页面
+	 */
+	@RequestMapping("/userUpload.action")
+	public ModelAndView userUpload() {
+		UserBean ub = (UserBean) request.getSession().getAttribute("userBean");
+		if(null != ub) {
+			mav.setViewName("FrontEnd/user_upload");
+		}else {
+			mav.setViewName("FrontEnd/user_login");
+		}
+		return mav;
+	}
 	
 	/*
 	 * 上传
@@ -276,7 +289,7 @@ public class FileAction {
 	public ResponseEntity<byte[]> fileDownLoad(HttpServletRequest request) throws Exception{
 
 		ServletContext servletContext = request.getServletContext();
-		String fileName="体检表.xls";
+		String fileName="体检人员信息表.xls";
 		String realPath = servletContext.getRealPath("/upload/"+fileName);//得到文件所在位置
 		InputStream in=new FileInputStream(new File(realPath));//将该文件加入到输入流之中
 		byte[] body=null;

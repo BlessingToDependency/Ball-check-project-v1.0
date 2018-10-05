@@ -49,7 +49,41 @@ public class UserMainAction {
 	
 	private List<ShoppingCartBean> shoppingList;//购物车list
 	
-//	Gson gson = new Gson();
+	//立即预约:数量+套餐id
+	@RequestMapping("/orderDetails.action")
+	public ModelAndView orderDetails(String cartNumber,String setmealId) {
+		System.out.println("cartNumber="+cartNumber+"setmealId="+setmealId);
+		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
+		List<SetmealBean> setList=userBizImp.showSetmeal(setmealId);
+		int count = 0;
+		//计算价格
+		for(int i=0;i<setList.size();i++) {
+			SetmealBean sb = setList.get(i);
+			int countAll = 0;
+			StringBuffer strItem = new StringBuffer();
+			for(int j =0;j<setList.get(i).getLitemBean().size();j++) {
+				count = setList.get(i).getLitemBean().get(j).getPrice();
+				strItem.append(setList.get(i).getLitemBean().get(j).getItem());//项目
+				strItem.append(";");
+				countAll = countAll+count;
+			}
+			sb.setItemNick(strItem.toString());
+			sb.setCountAll(countAll);
+			sb.setNumber(Integer.parseInt(cartNumber));
+		}  
+		if(null != setmealId) {
+			mav.setViewName("FrontEnd/user_purchase");
+		}else {
+//			mav.addObject("shoppingList", shoppingList);
+			mav.setViewName("FrontEnd/user_index");
+		}
+		
+		
+		mav.addObject("setList", setList);
+		mav.addObject("userBean", userBean);
+		mav.setViewName("FrontEnd/user_details");
+		return mav;
+	}
 	
 	//我的购物车
 	@RequestMapping("shoppingCart.action")
