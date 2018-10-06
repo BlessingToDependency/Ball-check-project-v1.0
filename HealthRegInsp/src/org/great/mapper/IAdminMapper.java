@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.AdminBean;
+import org.great.bean.DeparBean;
 import org.great.bean.FinresultBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
@@ -33,6 +34,9 @@ public interface IAdminMapper {
 	
 	//科室插入体检人员信息
 	public void addFinresult(FinresultBean finresultBean);
+	
+	//科室插入体检人员信息
+	public void addFinresult2(FinresultBean finresultBean);
 	
 	//后台用户公司展示
 	public List<UserBean> company(@Param(value="userBean")UserBean userBean,@Param(value="pages")Integer pages);
@@ -102,6 +106,9 @@ public interface IAdminMapper {
 	
 	//医生更改角色
 	public void updateRole(@Param("adminId") int adminId,@Param("roleId") int roleId);
+	
+	//得到科室对应需要调整的体检界面
+	public DeparBean getIntfaceId(@Param("depaId")int depaId);
 
 
 }

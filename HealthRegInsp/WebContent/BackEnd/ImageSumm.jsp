@@ -56,7 +56,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                        小结内容：
                     </label>
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>
+                        <textarea placeholder="请输入内容" id="sumCont" name="sumCont" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item" style="text-align:center;">

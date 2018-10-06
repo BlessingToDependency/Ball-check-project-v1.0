@@ -33,6 +33,11 @@ a.guChId=#{guChId} and e.depaId=#{depaId}
 			insert into tblfinresult values(#{guChId},#{termId},#{termVal},#{itemId}) 
 		</insert>
 		
+		<!-- 科室插入体检人员信息 -->
+		<insert id="addFinresult2" parameterType="org.great.bean.FinresultBean">
+			insert into TBLFINRESULT(GUCHID,TERMVAL,ITEMID) values(#{guChId},#{termVal},#{itemId}) 
+		</insert>
+		
 		
 		<!-- 根据用户id查找对应信息 -->
 		<select id="userInfo" parameterType="java.lang.String" resultType="org.great.bean.StaffBean">
@@ -216,6 +221,9 @@ a.guChId=#{guChId} and e.depaId=#{depaId}
 	
 	</resultMap>
 	
+	<select id="getIntfaceId" resultType="org.great.bean.DeparBean">
+		select * from TBLDEPAR where DEPAID=#{depaId}
+	</select>
 	
 
  </mapper>

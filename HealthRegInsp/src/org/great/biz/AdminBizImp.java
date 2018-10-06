@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import org.great.bean.AdminBean;
+import org.great.bean.DeparBean;
 import org.great.bean.FinresultBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
@@ -237,6 +238,20 @@ public class AdminBizImp implements AdminBiz{
 		public void updateRole(int adminId, int roleId) {
 			// TODO Auto-generated method stub
 			iAdminMapper.updateRole(adminId, roleId);
+		}
+
+		//得到科室对应需要调整的体检界面
+		@Override
+		public DeparBean getIntfaceId(int depaId) {
+			// TODO Auto-generated method stub
+			return iAdminMapper.getIntfaceId(depaId);
+		}
+
+
+		//科室插入体检人员信息
+		@Override
+		public void addFinresult2(FinresultBean finresultBean) {
+			iAdminMapper.addFinresult2(finresultBean);
 		}
 		
 		
