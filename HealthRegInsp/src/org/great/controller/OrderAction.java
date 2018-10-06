@@ -24,7 +24,7 @@ import org.great.bean.ItemConBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
 import org.great.biz.OderBiz;
-
+import org.great.core.SystemLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,6 +66,7 @@ public class OrderAction {
 	
 	//显示套餐
 	@RequestMapping("/showOrder.action")
+	@SystemLog(module="套餐管理",methods="日志管理，显示套餐")
 	public String showOrder(HttpServletRequest request,Model model,SetmealBean setmealBean,Integer currentPage) {
 		
 		if (null == currentPage) {
@@ -132,6 +133,7 @@ public class OrderAction {
 	
 	//删除套餐
 	@RequestMapping("/delteOrder.action")
+	@SystemLog(module="套餐管理",methods="日志管理，删除套餐")
 	public ModelAndView  delteOrder(Model model,Integer[] setmealId,RedirectAttributes attr) throws IOException {		
 		String setmeal = (String) session.getAttribute("setMeal");
 		
@@ -150,6 +152,7 @@ public class OrderAction {
 	
 	//删除套餐中的项目
 	@RequestMapping("/deleteItem.action")
+	@SystemLog(module="套餐管理",methods="日志管理，删除套餐中的项目")
 	public ModelAndView deleteItem(Integer[] itemId,RedirectAttributes attr,Integer setmealId) {
 		System.out.println("itemId函数:"+itemId);
 
@@ -163,6 +166,7 @@ public class OrderAction {
 	
 	//新增套餐
 	@RequestMapping(value="/addOrder.action",method=RequestMethod.POST)
+	@SystemLog(module="套餐管理",methods="日志管理，新增套餐")
 	public ModelAndView addOrder(@RequestParam MultipartFile myPic, SetmealBean setmealBean) throws IllegalStateException, IOException {
 		System.out.println("setmealBean:"+setmealBean.toString());
 		String filename = myPic.getOriginalFilename();
@@ -190,6 +194,7 @@ public class OrderAction {
 	
 	//增加套餐中的项目
 	@RequestMapping("/addItem.action")
+	@SystemLog(module="套餐管理",methods="日志管理，增加套餐中的项目")
 	public ModelAndView addItem(Integer[] itembox,Integer  setmealId ) {
 		
 		for (int i = 0; i < itembox.length; i++) {
@@ -206,6 +211,7 @@ public class OrderAction {
 	
 	//修改套餐名
 	@RequestMapping("/updateItem.action")
+	@SystemLog(module="套餐管理",methods="日志管理，修改套餐名")
 	public  ModelAndView updateItem(Integer setmealId,String setmeal,RedirectAttributes attr) {
 		System.out.println("setmealId"+setmealId+"setmeal:"+setmeal);
 		oderBizImp.updateOrder(setmealId, setmeal);
