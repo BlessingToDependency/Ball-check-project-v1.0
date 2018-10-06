@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.AdminBean;
+import org.great.bean.DeparBean;
 import org.great.bean.FinresultBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
@@ -95,7 +96,10 @@ public interface AdminBiz {
 	//医生更改角色
 	public void updateRole( int adminId,int roleId);
 	
+	//得到科室对应需要调整的体检界面
+	public DeparBean getIntfaceId(int depaId);
 	
-
+	//科室插入体检人员信息
+	public void addFinresult2(FinresultBean finresultBean);
 
 }
