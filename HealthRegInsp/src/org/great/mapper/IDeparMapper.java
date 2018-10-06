@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.DeparBean;
+import org.great.bean.ParamBean;
 import org.springframework.stereotype.Repository;
 
 /*
@@ -23,7 +24,7 @@ public interface IDeparMapper {
 	public List<DeparBean> selectDeN(DeparBean deparBean);
 	
 	//增加科室
-	public  void  innserDepar(@Param("depar")String depar);
+	public  void  innserDepar(@Param("depar")String depar,@Param("intfaceId")int intfaceId);
 	
 	//删除科室
 	public void  deleteDepar(@Param("depaId")int depaId);
@@ -33,4 +34,8 @@ public interface IDeparMapper {
 	
 	//去重
 	public List<DeparBean> selectDeChe(DeparBean deparBean);
+	
+	//查询配置的小结
+	public List<ParamBean>  selectX();
+	
 }
