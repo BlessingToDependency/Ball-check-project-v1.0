@@ -12,7 +12,7 @@ String path = request.getScheme() +"://"+request.getServerName()
    <link rel="stylesheet" href="<%=path%>css/bootstrap.min.css">
 	<script src="<%=path%>js/jquery.min.js"></script>
 	<script src="<%=path%>js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="<%=path%>js/jquery.min.js"></script>
+    <link rel="stylesheet" href="<%=path%>/lib/layui/css/layui.css">
 	
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -20,7 +20,7 @@ String path = request.getScheme() +"://"+request.getServerName()
     <link rel="shortcut icon" href="<%=path%>/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="<%=path%>/css/font.css">
     <link rel="stylesheet" href="<%=path%>/css/xadmin.css">
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<!--     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
     <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -30,7 +30,7 @@ String path = request.getScheme() +"://"+request.getServerName()
     <![endif]-->
          <style>
      .zt{color: #06F;font-size: 18px;font-weight: 10px;}
-         #div{width:100%; height:50px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
+         #div{width:100%; height:70px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
          #divleft{width:35%; height:48px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:right;}
          #divright{width:63%; height:48px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
 	</style>
@@ -56,7 +56,7 @@ String path = request.getScheme() +"://"+request.getServerName()
         </form>
       </div>
       <xblock>
-        <button class="layui-btn" data-toggle="modal" data-target="#myModal2"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn"  onclick="adddep();"><i class="layui-icon"></i>添加</button>
       </xblock>
       <table class="layui-table">
         <thead>
@@ -96,7 +96,7 @@ String path = request.getScheme() +"://"+request.getServerName()
     </div>
 
   <form id="addfrom" method="post" action="<%=path%>maDeparAction/innserDepar.action">
-
+<button type="button" id="dep" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2"></button>
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -108,9 +108,18 @@ String path = request.getScheme() +"://"+request.getServerName()
         <div id="div">
              <div id="divleft"><span class="zt">新的科室名:</span></div> 
              <div id="divright">
-             <input type="text" id="depa2" name="depa" style="width:200px;" class="form-control" placeholder="科室名" onblur="checkDate()"><samp id="us"></samp>
-             </div>          
+             <input type="text" id="depa2" name="depa" style="width:200px;" class="layui-input" placeholder="科室名" onblur="checkDate()" required="" lay-verify="required"><samp id="us"></samp>
+             </div> 
+                 
         </div>  
+             <div id="div">
+             <div id="divleft"><span class="zt">所属小结:</span></div> 
+             <div id="divright">
+             <select class="form-control" id="xId" name="intfaceId" style="width:200px;">
+                 <option value="0">--请选择--</option>
+                 </select>
+             </div>          
+          </div>   
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
         <button type="submit" class="btn btn-primary">提交</button>
@@ -133,7 +142,7 @@ String path = request.getScheme() +"://"+request.getServerName()
         <div id="div">
              <div id="divleft"><span class="zt">新的科室名:</span></div> 
              <div id="divright">
-             <input type="text" id="depa3" name="depa" style="width:200px;" class="form-control" placeholder="科室名" onblur="checkDate1()"><samp id="us1"></samp>
+             <input type="text" id="depa3" name="depa" style="width:200px;" class="layui-input" placeholder="科室名" onblur="checkDate1()" required="" lay-verify="required"><samp id="us1"></samp>
              </div>          
         </div>  
       <div class="modal-footer">
@@ -158,7 +167,7 @@ function delectDepa(depaId){
 </script>
 <script type="text/javascript">
 function checkDate(){
-    
+	
 	  $.ajax({
 		  type:"post",
  	   url:"<%=path%>maDeparAction/checkDepar.action",
@@ -176,7 +185,7 @@ function checkDate(){
 
 } 
 function checkDate1(){
-    
+	  
 	  $.ajax({
 		  type:"post",
 	   url:"<%=path%>maDeparAction/checkDepar.action",
@@ -203,6 +212,30 @@ function addHid(v){
 	    success:function(data){
 	    	//展开模态框
 	    	$("#dada").trigger("click");
+	    /*  	$("#xId").find("option").remove();
+	    	$.each(data, function(i, item) {
+		    	  $("#xId").append("<option value="+item.paramId+">"+ item.param+ "</option>");
+			}); */
+	    	
+	  }
+	});
+}
+
+function adddep(){
+	
+	$.ajax({
+		url:"<%=path%>maDeparAction/toAddDepar.action",//请求地址
+		data:"",//发送至服务器的键值数据
+		dataType:"json",//请求数据格式，如script,json,text等
+		type:"post",//发送方式，get/post
+	    success:function(data){
+	    	//展开模态框
+	    	$("#dep").trigger("click");
+	     	$("#xId").find("option").remove();
+	    	$.each(data, function(i, item) {
+		    	  $("#xId").append("<option value="+item.paramId+">"+ item.param+ "</option>");
+			});
+	    	
 	  }
 	});
 }

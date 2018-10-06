@@ -73,7 +73,9 @@
 						<th>日志ID</th>
 						<th>操作时间</th>
 						<th>操作人</th>
-						<th>操作事项</th>
+						<th>操作模块</th>
+						<th>执行描述</th>
+						<th>执行的方法</th>
 						<th>操作</th>
 				</thead>
 				<tbody>
@@ -86,7 +88,9 @@
 							<td>${list.logId}</td>
 							<td>${list.time }</td>
 							<td>${list.name }</td>
-							<td>${list.matter }</td>						
+							<td>${list.module }</td>
+							<td>${list.commite }</td>
+							<td>${list.method }</td>						
 							<td class="td-status" align="center">
 								<span
 								class="layui-btn layui-btn-warm  layui-btn-mini"><a onclick="return confirm('确认删除?')"

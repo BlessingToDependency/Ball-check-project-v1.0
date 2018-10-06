@@ -50,7 +50,8 @@ public class MangeRoleAction {
 	 * 查询角色
 	 */
 	@RequestMapping(value="selectAllRole.action")
-/*	@SystemLog(module="角色管理",methods="日志")*/
+	  @ResponseBody
+	@SystemLog(module="角色管理",methods="查询角色")
 	public ModelAndView selectAllRole() {
 		String page=request.getParameter("page");
 	
@@ -113,6 +114,8 @@ public class MangeRoleAction {
 	 * 修改角色名窗口
 	 */
 	@RequestMapping(value="updateRoleNmae.action")
+	  @ResponseBody
+	@SystemLog(module="角色管理",methods="修改角色名")
 	public  ModelAndView updateRoleNmae(RoleBean roleBean) {
 		
 		String rol=(String) session.getAttribute("roleI");
@@ -150,6 +153,8 @@ public class MangeRoleAction {
 	 * 新增角色
 	 */
 	@RequestMapping(value="innerRole.action")
+	 @ResponseBody
+	@SystemLog(module="角色管理",methods="新增角色")
 	 public ModelAndView  innerRole(RoleBean roleBean) {
 		
 		String mag=(String) session.getAttribute("msg");
@@ -169,6 +174,8 @@ public class MangeRoleAction {
 	 * 删除角色
 	 */
 	@RequestMapping(value="deleteRole.action")
+	@ResponseBody
+	@SystemLog(module="角色管理",methods="修改角色名")
 	 public ModelAndView  deleteRole() {
 		String rol=request.getParameter("roleId");
 		System.out.println("ih="+rol);
@@ -190,8 +197,8 @@ public class MangeRoleAction {
 		
 		PrintWriter out = response.getWriter();
 		String msg;
-		if(roleList.size()>0) {
-			msg="角色已存在";
+		if(roleList.size()>0||role==null||"".equals(role)) {
+			msg="不可用角色";
 			
 		}else {
 			msg="可用角色";
