@@ -45,4 +45,10 @@
 		
 		</bean> 
 
+	 <!--三、@Aspect注解形式 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+     <bean id="logAopAction"  class="org.great.controller.LogAopAction"></bean> 
+
+
+
 </beans>		

@@ -24,8 +24,7 @@
 		
 		<!-- 保存日志-->  
 		<insert id="saveLog"  parameterType="org.great.bean.LogBean">
-		    insert into tbllog(logId,time,name,module,commite,method) values(TBL_LOG.nextval,#{time},#{name},#{module},#{commite},#{method})
-		
+		    insert into tbllog(logId,time,name,module,commite,method,ip,responseTime) values(TBL_LOG.nextval,#{time},#{name},#{module},#{commite},#{method},#{ip},#{responseTime})		
 		</insert>
 	
 	 
