@@ -221,6 +221,7 @@ public class MangeDoctorAction {
 	 */
 	@RequestMapping(value="/toAddDoctor.action")
 	public  ModelAndView toAddDoctor() {
+		
 		 List<PostBean>   postList=postBizImp.selectAllPost();
 	        session.setAttribute("postList", postList);
 			

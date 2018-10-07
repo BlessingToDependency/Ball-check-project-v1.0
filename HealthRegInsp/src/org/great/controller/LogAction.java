@@ -40,7 +40,7 @@ public class LogAction {
 	//查询日志
 	@RequestMapping("/selectAllLog.action")
 	public ModelAndView selectAllLog(LogBean logBean) {
-		System.out.println("zzzzzzzzz"+logBean.getName());
+		
 		String page=request.getParameter("page");
 		String name=request.getParameter("name");
 	/*	String startD=request.getParameter("start");
@@ -75,7 +75,8 @@ public class LogAction {
 		session.setAttribute("logList", logList);
 		mav.setViewName("BackEnd/log");
 		mav.addObject("page", pageNo);
-		mav.addObject("paNum", paNum);	
+		mav.addObject("paNum", paNum);
+		mav.addObject("name", name);
 		return mav;
 		
 	}

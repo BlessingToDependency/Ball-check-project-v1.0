@@ -56,9 +56,12 @@
 		<xblock>
 		<button class="layui-btn layui-btn-danger" onclick="delAll()">
 			<i class="layui-icon"></i>批量删除
+		 
 		</button>
-	
-
+	    <button class="layui-btn layui-btn-danger" onclick="exportLog()">
+			<i ></i>导出日志
+		 
+		 </button>
 		
 		<span class="x-right" style="line-height: 40px">页数：${currentPage}/${totalPage }</span> </xblock>
 		<form id="fileForm" name="fileform" method="post" action="fileShow.action">
@@ -70,12 +73,14 @@
 								<i class="layui-icon">&#xe605;</i>
 							</div>
 						</th>
-						<th>日志ID</th>
+						
 						<th>操作时间</th>
 						<th>操作人</th>
 						<th>操作模块</th>
 						<th>执行描述</th>
 						<th>执行的方法</th>
+						<th>IP地址</th>
+						<th>响应时间</th>
 						<th>操作</th>
 				</thead>
 				<tbody>
@@ -85,12 +90,14 @@
 								<div class="layui-unselect layui-form-checkbox" name="ch" lay-skin="primary" data-id='${list.logId}'><i class="layui-icon">&#xe605;</i></div>
 							</td>
 
-							<td>${list.logId}</td>
+						
 							<td>${list.time }</td>
 							<td>${list.name }</td>
 							<td>${list.module }</td>
 							<td>${list.commite }</td>
-							<td>${list.method }</td>						
+							<td>${list.method }</td>	
+							<td>${list.ip }</td>
+							<td>${list.responseTime }</td>					
 							<td class="td-status" align="center">
 								<span
 								class="layui-btn layui-btn-warm  layui-btn-mini"><a onclick="return confirm('确认删除?')"
@@ -104,10 +111,10 @@
 		<div class="page">
 			<div>
 				当前：第${page} 页/ 共 ${paNum} 页
-				   <a class="num" href="<%=path%>logAction/selectAllLog.action?page=1">首页</a>
-                   <a class="prev" href="<%=path%>logAction/selectAllLog.action?page=${page-1<1?1:page-1}">上一页</a>
-                   <a class="next" href="<%=path%>logAction/selectAllLog.action?page=${(page+1)<=paNum?page+1:paNum}">下一页</a>
-                   <a class="num" href="<%=path%>logAction/selectAllLog.action?page=${paNum}">末页</a>
+				   <a class="num" href="<%=path%>logAction/selectAllLog.action?page=1&name=${name}">首页</a>
+                   <a class="prev" href="<%=path%>logAction/selectAllLog.action?page=${page-1<1?1:page-1}&name=${name}">上一页</a>
+                   <a class="next" href="<%=path%>logAction/selectAllLog.action?page=${(page+1)<=paNum?page+1:paNum}&name=${name}">下一页</a>
+                   <a class="num" href="<%=path%>logAction/selectAllLog.action?page=${paNum}&name=${name}">末页</a>
 				 <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" />
                 <a class="num" id="linkToCart" onclick="jump();">跳转</a>
 			</div>
@@ -146,5 +153,10 @@ layui.use('laydate', function(){
         window.location.href="<%=path%>logAction/batchDel.action?data="+data;
     });
   }
+  
+  function exportLog(){
+		
+		window.location.href="<%=path%>logfileAction/exportLogExcel.action";
+	} 
 </script>
 </html>

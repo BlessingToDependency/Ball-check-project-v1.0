@@ -85,7 +85,7 @@ String path = request.getScheme() +"://"+request.getServerName()
     </div>
 
 
-<form id="addfrom" method="post" action="<%=path%>adminParamAction/addParam.action">
+<form id="addfrom" method="post" action="<%=path%>adminParamAction/addParam.action"  class="layui-form">
 <button type="button" id="addParam" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2"></button>
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -98,7 +98,7 @@ String path = request.getScheme() +"://"+request.getServerName()
         <div id="div">
              <div id="divleft"><span class="zt">参数:</span></div> 
              <div id="divright">
-             <input type="text" id="pname" name="param" style="width:200px;" class="form-control" placeholder="参数名">
+             <input type="text" id="pname" name="param" style="width:200px;" class="form-control" placeholder="参数名"  lay-verify="required">
              </div>          
         </div>  
         
@@ -115,14 +115,14 @@ String path = request.getScheme() +"://"+request.getServerName()
  <!--      </div> -->
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="submit" class="btn btn-primary">提交</button>
+        <button type="submit"  class="layui-btn" lay-filter="*" lay-submit>提交</button>
       </div>
     </div>
   </div>
 </div>
 </form>	
 
-<form id="myform" method="post" action="<%=path%>adminParamAction/saveParam.action" >
+<form id="myform" method="post" action="<%=path%>adminParamAction/saveParam.action" class="layui-form" >
 <button type="button" id="dada" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></button>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -135,7 +135,7 @@ String path = request.getScheme() +"://"+request.getServerName()
          <div id="div">
              <div id="divleft"><span class="zt">参数:</span></div> 
              <div id="divright">
-             <input type="text" id="pn" name="pn" style="width:200px;" class="form-control" placeholder="参数名">
+             <input type="text" id="pn" name="pn" style="width:200px;" class="form-control" placeholder="参数名"   lay-verify="required">
              </div>          
         </div>  
         
@@ -149,7 +149,7 @@ String path = request.getScheme() +"://"+request.getServerName()
           </div>  
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="submit" class="btn btn-primary">保存</button>
+        <button type="submit" class="layui-btn" lay-filter="*" lay-submit>保存</button>
       </div>
     </div>
   </div>
