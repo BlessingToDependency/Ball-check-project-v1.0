@@ -240,5 +240,24 @@
  	 </select>
  	 
  	 
+ 	 
+ 	 <!--体检完改变体检状态  -->
+ 	 <update id="changeState" parameterType="org.great.bean.TotalBean" >
+ 	    
+ 			 UPDATE TBLSTAFF  SET MEDICALID = '83' , SMALLSTATE = '15' WHERE  myGuChId =#{guChId}
+ 	 </update>
+ 	 
+ 	 
+ 	 <!--增加实际体检人数  -->
+ 	 <update id="addUser" parameterType="java.lang.String">
+ 	 
+ 	 	UPDATE TBLBILL SET ACTNUM = (ACTNUM+1) WHERE orderTime =#{orderTime}
+ 	 
+ 	 </update>
+ 	 
+ 	 
+ 	 
+ 	 
+ 	 
  </mapper>
  

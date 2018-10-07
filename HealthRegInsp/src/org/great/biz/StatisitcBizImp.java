@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
  * @date: 2018年10月1日 上午11:53:37  
  */
 @Service
-public class StatisitcBizImp implements StatisticBiz
+public class StatisitcBizImp implements StatisitcBiz
 {
 
 	@Resource
