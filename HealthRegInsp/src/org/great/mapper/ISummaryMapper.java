@@ -37,4 +37,10 @@ public interface ISummaryMapper {
     
     //获得影视文件
     public List<String> imageFile(@Param("guChId")String guChId,@Param("itemId")int itemId);
+    
+    //根据导检单号和科室id查询该用户是否已经小结过了
+    public String xiaoJie(@Param("guChId")String guChId,@Param("depaid")int depaid);
+    
+    //维护小结人员表
+    public int addXiao(@Param("guChId")String guChId,@Param("depaid")int depaid);
 }

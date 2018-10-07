@@ -35,4 +35,7 @@ public interface ISummaryBiz {
     
     //获得影视文件
     public List<String> imageFile(String guChId,int itemId);
+    
+    //维护小结人员表
+    public int addXiao(String guChId,int depaid);
 }

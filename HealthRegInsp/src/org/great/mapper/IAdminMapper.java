@@ -109,6 +109,8 @@ public interface IAdminMapper {
 	
 	//得到科室对应需要调整的体检界面
 	public DeparBean getIntfaceId(@Param("depaId")int depaId);
-
+	
+	//更新人员来体检的时间
+	public int updateInspTime(@Param("staffId") int staffId,@Param("inspTime")String inspTime);
 
 }

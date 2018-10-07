@@ -44,7 +44,7 @@ public interface IGroupInspMapper {
 	public PerguirelaBean  getPerInspId(@Param("partYear")String partYear,@Param("companyId")int companyId,@Param("batchNum")int batchNum,@Param("staffId")int staffId);
 	
 	//更新 员工表中的  最新导检单号字段内容
-	public int updateNewGuChid(@Param("staffId")int staffId,@Param("myGuChId")String myGuChId);
+	public int updateNewGuChid(@Param("staffId")int staffId,@Param("myGuChId")String myGuChId,@Param("time")String time);
 	
 	//维护导检单ID 和 对应 套餐表
 	public int intoGucHSet(@Param("setmealId")int setmealId,@Param("perInspId")int perInspId,@Param("guChId")String guChId);
