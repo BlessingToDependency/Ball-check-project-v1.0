@@ -130,4 +130,11 @@ public class UserBizImp implements UserBiz {
 		return iUserMapper.shoppingCart(companyId);
 	}
 
+	//批量为员工选择套餐
+	@Override
+	public List<StaffBean> batchMeal(Integer companyId) {
+		// TODO Auto-generated method stub
+		return iUserMapper.batchMeal(companyId);
+	}
+
 }

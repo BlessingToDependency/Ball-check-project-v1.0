@@ -2,7 +2,6 @@ package org.great.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.great.bean.PerguirelaBean;
 import org.great.bean.StaffBean;
 import org.great.bean.UserBean;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -26,7 +24,6 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -202,7 +199,7 @@ public class FileAction {
 			
 			//定义标志位
 			hasSomeWrong:
-			for(int i=3;i<sheet.getRows();i++){ 
+			for(int i=2;i<sheet.getRows();i++){ 
 				
 				StringBuffer strAppend = new StringBuffer();
 				for(int j=1;j<sheet.getColumns();j++){ 

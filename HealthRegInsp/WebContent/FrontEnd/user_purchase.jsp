@@ -77,7 +77,6 @@ function shoppingInfo(){
 		dataType:"json",
 		type:"POST",
 		success : function(a){
-			alert(a);
 			if(null != a && "" != a){
 				 var strHtml="";
 				 var strBuy="";
@@ -94,19 +93,18 @@ function shoppingInfo(){
 						"<a href='javascript:void(0)' class='del_pro_btn' onClick=''>删除</a>"+
 						"</div>"+
 						"<div class='amount_btn clearfix'>"+
-						"<input type='text' value='"+item.acrtNumber+"'  onBlur='isDigit(this)' class='spinnerExample'>"+
+						"<input type='text' name='cartNumber' value='"+item.acrtNumber+"'  onBlur='isDigit(this)' class='spinnerExample'>"+
 						"</div>"+
 					"</li>";
 					
 					});
-					strBuy+="<a href='<%=path%>userLoginAction/jumpLogin.action' class='more redbtn-moddle1' id='btn_popup_login'>"+
+					strBuy+="<a href='<%=path%>userMainAction/orderDetails.action' class='more redbtn-moddle1' id='btn_popup_login'>"+
 						"<span id='login'>去购买</span>"+
 						"</a>";
 					$("#shoppingShow").html(strHtml);
 					$("#div_login").html(strBuy);
 			}else{
 				var strLogin="";
-				alert("为空")
 				strLogin+="<a href='<%=path%>userLoginAction/jumpLogin.action' class='more redbtn-moddle1' id='btn_popup_login'>"+
 				"<span id='login'>去登录</span>"+
 				"</a>";
