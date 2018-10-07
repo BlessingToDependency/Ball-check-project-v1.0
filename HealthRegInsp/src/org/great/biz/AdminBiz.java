@@ -101,5 +101,8 @@ public interface AdminBiz {
 	
 	//科室插入体检人员信息
 	public void addFinresult2(FinresultBean finresultBean);
+	
+	//更新人员来体检的时间
+	public int updateInspTime(int staffId,String inspTime);
 
 }

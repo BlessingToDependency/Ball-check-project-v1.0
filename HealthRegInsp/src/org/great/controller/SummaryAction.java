@@ -184,16 +184,19 @@ public class SummaryAction {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	
             return null;
 	}
-	
-	
 	//提交小结结果
 	@RequestMapping(value="/submitSummary.action")
 	public ModelAndView SubmitSummary(HttpServletRequest request,GuchIDdItemID giBean){
 		int res = SummaryBizImp.subSumm(giBean);
-		if(res>0) {
+		//得到登录对象信息
+		AdminBean adminBean = (AdminBean) request.getSession().getAttribute("adminBean");
+		//得到对应的科室ID
+		int depeId =adminBean.getDepaId();
+		//维护小结人员表
+		int x =SummaryBizImp.addXiao(giBean.getGuChId(), depeId);
+		if(x>0) {
 			return new ModelAndView("redirect:/doctorSummaryAction/getThisItemStaff.action");
 		}
 		return null;
