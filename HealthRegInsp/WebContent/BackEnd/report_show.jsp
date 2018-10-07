@@ -88,6 +88,14 @@ String path = request.getScheme() +"://"+request.getServerName()
 	           	<a href="<%=path%>Report/showSmall.action?staffId=${list.staffId}&myGuChId=${list.myGuChId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return dele();">总结</span></a>
 	          	<!-- ?guChId=${guChId} -->
 	           </td>
+	            <td class="td-status">                 
+	           	<a href="<%=path%>Report/showSmall.action?staffId=${list.staffId}&myGuChId=${list.myGuChId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return dele();">小结</span></a>
+	          	<!-- ?guChId=${guChId} -->
+	           </td>
+	            <td class="td-status">                 
+	           	<a href="<%=path%>Report/showSmall.action?staffId=${list.staffId}&myGuChId=${list.myGuChId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return dele();">报告预览</span></a>
+	          	<!-- ?guChId=${guChId} -->
+	           </td>
 			</tr>
 			</c:forEach>
         </tbody>
