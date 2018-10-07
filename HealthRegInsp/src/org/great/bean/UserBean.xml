@@ -62,6 +62,7 @@ where a.setmealId=b.setmealId and a.setmealId = f.setmealId and d.itemId = f.ite
 			insert into tblshoppingCart values(tbl_shoppingCart.nextVal,#{companyId},#{setmealId},#{acrtNumber})
 		</insert>
 		
+		
 		<!-- 插入员工信息 -->
 		<insert id="addStaff" parameterType="org.great.bean.StaffBean">
 			insert into tblstaff
@@ -74,6 +75,12 @@ where a.setmealId=b.setmealId and a.setmealId = f.setmealId and d.itemId = f.ite
 			insert into tblperguirela values((select staffid from tblstaff where idnum=#{partYear}),(Select Extract(year from sysdate) from dual),#{companyId},#{batchNum},tbl_perguirela.nextVal)
 		</insert>
 		
+		
+		<!-- 批量预约套餐 -->
+		<select id="batchMeal" parameterType="java.lang.Integer" resultType="org.great.bean.StaffBean">
+			select staffid from tblstaff where orderid != 125 and companyid = #{companyId}		
+		</select>
+		
 		<!-- 修改员工预约状态未 已预约 -->
 		<update id="updateState" parameterType="org.great.bean.PerguirelaBean">
 			update TBLSTAFF set ORDERID=125 where STAFFID=#{staffId}
@@ -81,7 +88,7 @@ where a.setmealId=b.setmealId and a.setmealId = f.setmealId and d.itemId = f.ite
 		
 		<!-- 为某一位员工选择套餐:人员套餐关系表(tblpeoplesetmal) -->
 		<insert id="bespeakMeal" parameterType="org.great.bean.StaffMealBean">
-			insert into tblpeoplesetmal values(#{setmealId},(select max(perInspId) from tblperguirela))
+			insert into tblpeoplesetmal values(#{setmealId},(select perInspId from TBLPERGUIRELA where staffId= #{staffId}))
 		</insert>
 		
 		<!-- 去重身份证 -->

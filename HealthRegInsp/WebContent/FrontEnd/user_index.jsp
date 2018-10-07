@@ -196,18 +196,8 @@ function shoppingInfo(){
       </li>
       
       
-      <li class="navitem"><a  href="news.html" >新闻动态</a>
-
+      <li class="navitem"><a  href="<%=path %>fileAction/companyStaffList.action" >配置套餐</a>
         <ul class="subnav">
-
-          
-
-          <li><a href="#">院内新闻</a></li>
-          
-
-          <li><a href="#">行业新闻</a></li>
-          
-          
         </ul>
 
       </li><li class="navitem"><a  href="<%=path%>userLoginAction/jumpLogin.action" >去登陆</a>
