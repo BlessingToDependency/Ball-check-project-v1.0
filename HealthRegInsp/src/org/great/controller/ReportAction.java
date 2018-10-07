@@ -33,6 +33,7 @@ import org.great.bean.TermBean;
 import org.great.bean.TotalBean;
 import org.great.biz.ReportBiz;
 import org.great.biz.ReportBizImp;
+import org.great.core.SystemLog;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -85,6 +86,7 @@ public class ReportAction {
 
 	//展示总结中的公司
 	@RequestMapping("/showCompany.action")
+	@SystemLog(module="总结",methods="日志管理，显示总结公司")
 	public String showCompany(Model model,Integer currentPage,String company) {
 		System.out.println("company:"+company);
 		Integer count = reportBizImp.countPage(company);
@@ -106,8 +108,9 @@ public class ReportAction {
 	}
 	//展示总结单
 	@RequestMapping("/showUser.action")
-	public  String  showUser(Model model, Integer companyId,PerguirelaBean pBean,String staffName) {
+	public  String  showUser(Model model, Integer companyId,PerguirelaBean pBean,String staffName,String  orderTime) {
 	// System.out.println("pBean:"+pBean.toString());
+		session.setAttribute("orderTime", orderTime);
 		List<StaffBean> guideList = reportBizImp.findGuChId(companyId);
 		System.out.println("guideList:"+guideList.toString());
 		for (Iterator<StaffBean> iterator = guideList.iterator(); iterator.hasNext();) {
@@ -230,6 +233,7 @@ public class ReportAction {
 	
 	//插入总结
 	@RequestMapping("insertTotall.action")
+	@SystemLog(module="总结",methods="日志管理，插入总结")
 	public ModelAndView insertTotall(TotalBean totalBean,RedirectAttributes attr) {
 		System.out.println("totalBean:"+totalBean.toString());
 		//session.setAttribute("adminBean", adminBean);
@@ -238,6 +242,13 @@ public class ReportAction {
 		totalBean.setDoctor(adminBean.getAdminName());  //登录得到
 	//	totalBean.setGuChId("6");   //得到小结表
 		totalBean.setDocSummary(15); //这个保留
+		
+		//改变用户人员的状态
+		reportBizImp.changeState(totalBean);
+		//实际体检人数
+		String  orderTime =  (String) session.getAttribute("orderTime");
+		reportBizImp.addUser(orderTime);
+		
 		System.out.println("totalBean:"+totalBean.toString());
 		reportBizImp.insertTotal(totalBean);
 		Integer  companyId =  (Integer) session.getAttribute("companyId");

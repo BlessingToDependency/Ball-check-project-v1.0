@@ -19,7 +19,7 @@ import org.great.bean.TblStatistics;
  * @author: wjx(wangj)  
  * @date: 2018年10月1日 上午11:50:30  
  */
-public interface StatisticBiz {
+public interface StatisitcBiz {
 
 	
 	//统计注册人数

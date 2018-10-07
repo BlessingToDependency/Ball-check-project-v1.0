@@ -84,4 +84,10 @@ public interface ReportMapper {
     //获取套餐中的项目
     public List<Integer> collectItem(StaffBean staffBean);
     
+    
+    //改变人员的体检状态
+    public  void  changeState(TotalBean totalBean);
+    
+    //实际体检人数
+    public void addUser(@Param("orderTime")String orderTime);
 }
