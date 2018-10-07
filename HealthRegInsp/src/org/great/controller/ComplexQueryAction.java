@@ -57,7 +57,7 @@ public class ComplexQueryAction {
 	 * @author: wjx(wangj)  
 	 * @date 2018年10月8日上午12:42:45
 	 */
-	@RequestMapping("/queryAll")
+	@RequestMapping("/queryAll.action")
 	public  String queryAll(Model model,StaffBean staffBean) {
 		if (null == staffBean.getCurrentpage()) {
 			staffBean.setCurrentpage(1);

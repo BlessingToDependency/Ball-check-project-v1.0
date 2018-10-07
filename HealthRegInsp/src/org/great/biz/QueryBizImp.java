@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 
 import org.great.bean.StaffBean;
 import org.great.mapper.ComplexQuery;
+import org.springframework.stereotype.Service;
 
 /** 
  * @ClassName: QueryBizImp 
@@ -20,6 +21,7 @@ import org.great.mapper.ComplexQuery;
  * @author: wjx(wangj)  
  * @date: 2018年10月7日 下午3:52:15  
  */
+@Service("queryBizImp")
 public class QueryBizImp implements QueryBiz{
 
 	@Resource

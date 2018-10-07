@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
  
- <mapper namespace="org.great.mapper.ReportMapper">
+ <mapper namespace="org.great.mapper.ComplexQuery">
      <!-- 综合查询人员 -->
      <select id="queryAll" parameterType="org.great.bean.StaffBean" resultMap="tblstaff">
      		select e.* ,rownum from
 			(select d.*,rownum rn from  
 			( select a.*,b.company ,c.DOCSUMMARY from tblstaff a ,TBLFOREGROUND b  , tbltotal  c  
 			<where>
-			   where  a.companyId = b.companyId and  a.myGuChId = c.guChId  
+			     a.companyId = b.companyId and  a.myGuChId = c.guChId  
 			   <if test="null != staffName and ''!= staffName ">		   		   
 			   	 	and a.staffName like concat(concat('%',#{staffName}),'%')			    
 			   </if>
@@ -26,8 +26,8 @@
 			   		 and a.myGuChId = #{myGuChId}  
 			   </if>			   
 			</where>
-			  order by a.companyId) d where rownum &lt;=(#{currentPage} * #{pagecount}))e			
-		      where rn &gt;=((#{currentPage}-1)*#{pagecount}+1)    
+			  order by a.companyId) d where rownum &lt;=(#{currentpage} * #{pagecount}))e			
+		      where rn &gt;=((#{currentpage}-1)*#{pagecount}+1)    
      </select>
      <resultMap type="org.great.bean.StaffBean" id="tblstaff">
         <!--主bean  -->
