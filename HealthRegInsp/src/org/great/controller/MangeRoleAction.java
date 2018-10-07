@@ -86,7 +86,8 @@ public class MangeRoleAction {
 		if(num%5!=0) {
 			paNum=num/5+1;
 	}
-		 mav.addObject("paNum", paNum);		
+		 mav.addObject("paNum", paNum);	
+		 mav.addObject("role",role);
 		session.setAttribute("roleList", roleList);
 		mav.setViewName("BackEnd/mange_role");
 		return mav;

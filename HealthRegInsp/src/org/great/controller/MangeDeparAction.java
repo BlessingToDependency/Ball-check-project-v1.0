@@ -85,7 +85,8 @@ public class MangeDeparAction {
 		List<DeparBean> deli=deparImp.selectDe(deparBean, rowBounds);
 		
 		mav.addObject("page", pageNo);
-		mav.addObject("paNum", paNum);		
+		mav.addObject("paNum", paNum);	
+		mav.addObject("depa", depa);
 		session.setAttribute("deli", deli);
 		mav.setViewName("BackEnd/mange_depar");
 		return mav;

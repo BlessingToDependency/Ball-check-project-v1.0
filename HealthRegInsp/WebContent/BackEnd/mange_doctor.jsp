@@ -150,10 +150,10 @@ function changerole(v){
       <div class="page">
         <div>
                      总页数  ${paNum}/当前页数${page}
-         <a class="num" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=1">首页</a>
+         <a class="num" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=1&adminName=${adminName}&post=${post}&depa=${depa}">首页</a>
           <a class="prev" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=${page-1<1?1:page-1}&adminName=${adminName}&post=${post}&depa=${depa}">上一页</a>
           <a class="next" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=${(page+1)<=paNum?page+1:paNum}&adminName=${adminName}&post=${post}&depa=${depa}">下一页</a>
-          <a class="num" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=${paNum}">末页</a>
+          <a class="num" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=${paNum}&adminName=${adminName}&post=${post}&depa=${depa}">末页</a>
            <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" />
            <a class="num" id="linkToCart" onclick="jump();">跳转</a>
         </div>

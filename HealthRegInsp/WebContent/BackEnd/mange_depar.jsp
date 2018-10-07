@@ -83,10 +83,10 @@ String path = request.getScheme() +"://"+request.getServerName()
       <div class="page">
         <div>
                      总页数 ${paNum}/当前页数 ${page} 
-          <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=1">首页</a>
-          <a class="prev" href="<%=path%>maDeparAction/selectDe.action?page=${page-1<1?1:page-1}">上一页</a>
-          <a class="next" href="<%=path%>maDeparAction/selectDe.action?page=${(page+1)<=paNum?page+1:paNum}">下一页</a>
-          <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=${paNum}">末页</a> 
+          <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=1&depa=${depa}">首页</a>
+          <a class="prev" href="<%=path%>maDeparAction/selectDe.action?page=${page-1<1?1:page-1}&depa=${depa}">上一页</a>
+          <a class="next" href="<%=path%>maDeparAction/selectDe.action?page=${(page+1)<=paNum?page+1:paNum}&depa=${depa}">下一页</a>
+          <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=${paNum}&depa=${depa}">末页</a> 
            <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" />
            <a class="num" id="linkToCart" onclick="jump();">跳转</a>
           
@@ -95,7 +95,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 
     </div>
 
-  <form id="addfrom" method="post" action="<%=path%>maDeparAction/innserDepar.action">
+  <form id="addfrom" method="post" action="<%=path%>maDeparAction/innserDepar.action" >
 <button type="button" id="dep" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2"></button>
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -122,14 +122,14 @@ String path = request.getScheme() +"://"+request.getServerName()
           </div>   
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="submit" class="btn btn-primary">提交</button>
+        <button type="submit" class="layui-btn" lay-filter="*" lay-submit>提交</button>
       </div>
     </div>
   </div>
 </div>
 </form>	
 
-  <form id="addfrom" method="post" action="<%=path%>maDeparAction/updateDepar.action">
+  <form id="addfrom" method="post" action="<%=path%>maDeparAction/updateDepar.action" class="layui-form">
 <button type="button" id="dada" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></button>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -147,7 +147,7 @@ String path = request.getScheme() +"://"+request.getServerName()
         </div>  
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="submit" class="btn btn-primary">保存</button>
+        <button type="submit"  class="layui-btn" lay-filter="*" lay-submit>保存</button>
       </div>
     </div>
   </div>
