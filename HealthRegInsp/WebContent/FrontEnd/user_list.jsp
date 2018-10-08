@@ -15,21 +15,13 @@ String path = request.getScheme() +"://"+request.getServerName()
     <link rel="shortcut icon" href="<%=path%>/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="<%=path%>/css/font.css">
     <link rel="stylesheet" href="<%=path%>/css/xadmin.css">
+      <link href="<%=path%>css/bootstrap.min.css" rel="stylesheet" />
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    
-     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
+    <script src="<%=path%>js/bootstrap.min.js"></script>
     <script type="text/javascript">
-	function info(id){
+function info(id){
 	$.ajax({
 		url:"<%=path %>userAdminAction/userInfo.action",
 		data:"staffId="+id,
@@ -49,10 +41,11 @@ String path = request.getScheme() +"://"+request.getServerName()
     $(document).ready(function(){
        //点击链接的时候调用
       $("#linkToCart").click(function(){
- 
           //得到input的值
-          var pages = $("#pages").val();
- 
+          var pages = $("#pages").val();	
+          if(pages>(${pageCountAll})){
+          	return; 
+          }
           //设置linkToCart的href的值
           $("#linkToCart").attr("href","<%=path %>fileAction/companyStaffList.action?pages="+pages+"");
       });
@@ -93,24 +86,20 @@ function checkUser(){
        <table class="layui-table">
         <thead>
           <tr>
-            <th>
-              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-            </th>
+           
             <th>ID</th>
             <th>姓名</th>
              <th>年龄</th>
               <th>性别</th>
               <th>身份证号</th>
             <th>手机号</th>
-            <th>已选择套餐</th>
+            <th>体检状态</th>
             <th>选择套餐</th>
         </thead>
         <tbody>
         <c:forEach items="${userList}" var="staffBean">
           <tr>
-            <td>
-              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
+           
           	<input type="hidden" id="hidden" name="staffId" value="${staffBean.staffId}"/>
             <td>${staffBean.staffId}</td>
             <td><a data-toggle="modal" data-target="#myModal" onclick="info(${staffBean.staffId})">${staffBean.staffName}</a></td>
@@ -118,18 +107,20 @@ function checkUser(){
             <td>${staffBean.sex}</td>
              <td>${staffBean.idNum}</td>
              <td>${staffBean.phone}</td>
+             
              <td>
-             <c:if test="${staffBean.orderId==126}">未预约</c:if>
-              <c:if test="${staffBean.orderId==125}">已预约</c:if>
+             <c:if test="${staffBean.medicalId==82}">未体检</c:if>
+              <c:if test="${staffBean.medicalId==83}">体检结束</c:if>
              </td>
+             
             <td class="td-status">
               <span class="layui-btn layui-btn-primary">
               <c:if test="${staffBean.orderId==126}">
               <a title="选择套餐" onclick="x_admin_show('选择套餐','<%=path %>userMainAction/chooseMeal.action?staffId=${staffBean.staffId}')" href="javascript:;">选择套餐</a>
-              </a></c:if>
+              </c:if>
                <c:if test="${staffBean.orderId==125}">
               <a title="已预约"  href="javascript:;">已预约</a>
-              </a></c:if>
+              </c:if>
               </span>
            
             </td>

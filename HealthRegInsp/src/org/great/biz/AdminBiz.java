@@ -48,9 +48,9 @@ public interface AdminBiz {
 	public Integer companyCount(@Param(value="userBean")UserBean userBean);
 
 	//后台用户管理列表展示
-	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages,String myGuChId);
+	public List<StaffBean> userAdmin(StaffBean staffBean,Integer pages);
 	//后台用户管理列表总数查询
-	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId1,String myGuChId);
+	public Integer userAdminCount(StaffBean staffBean);
 	
 	//根据用户id查找对应信息
 	public StaffBean userInfo(String staffId);

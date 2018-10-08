@@ -69,24 +69,13 @@
 
 
 <body class="nobanner">
-
 	<div id="header">
-
 		<div class="content">
-			<!-- <a href="/" id="logo"><img src="images/logo.png" height="40" /></a> -->
-
 			<ul id="nav">
-
 				<li class="navitem"><a class='active' href="<%=path%>myCompAction/backIndex.action">首页</a></li>
-
 				<li class="navitem"><a href="keshi.html">门诊科室</a>
-
 					<ul class="subnav">
-
-
-
 						<li><a href="keshi.html">非手术科</a></li>
-
 
 
 						<li><a href="keshi.html">手术科室</a></li>

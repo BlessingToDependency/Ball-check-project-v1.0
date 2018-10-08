@@ -77,7 +77,7 @@ function shoppingInfo(){
 		dataType:"json",
 		type:"POST",
 		success : function(a){
-			if(null != a && "" != a){
+			if(null != a || "" != a){
 				 var strHtml="";
 				 var strBuy="";
 				 
@@ -93,12 +93,15 @@ function shoppingInfo(){
 						"<a href='javascript:void(0)' class='del_pro_btn' onClick=''>删除</a>"+
 						"</div>"+
 						"<div class='amount_btn clearfix'>"+
-						"<input type='text' name='cartNumber' value='"+item.acrtNumber+"'  onBlur='isDigit(this)' class='spinnerExample'>"+
+						"<input type='text' id='acrtNumber' value='"+item.acrtNumber+"'  onBlur='isDigit(this)' class='spinnerExample'>"+
+						"<input type='hidden' id='setmealId' value='"+item.setmealId+"'>"+
 						"</div>"+
 					"</li>";
 					
 					});
-					strBuy+="<a href='<%=path%>userMainAction/orderDetails.action' class='more redbtn-moddle1' id='btn_popup_login'>"+
+					var acrtNumber = $("#acrtNumber").val();
+					var setmealId = $("#setmealId").val();
+					strBuy+="<a href='<%=path%>userMainAction/orderDetails.action?acrtNumber='acrtNumber'&setmealId='setmealId'' class='more redbtn-moddle1' id='btn_popup_login'>"+
 						"<span id='login'>去购买</span>"+
 						"</a>";
 					$("#shoppingShow").html(strHtml);
@@ -167,6 +170,7 @@ $('#min').attr('disabled',true);
     		}
     	});
       });
+    });
 </script>
 </head>
 <body>
@@ -276,7 +280,7 @@ $('#min').attr('disabled',true);
     </tr>
     <tr>
       <td height="72" colspan="3"><div align="center">
-      <a id="linkToCart">加入购物车</a> 
+      <a id="linkToCart" href="">加入购物车</a> 
       <input type="Submit" value="立即购买">
 	  <input type="button" name="Submit" onclick="javascript:history.back(-1);" value="返回">
 	  </div></td>
@@ -418,7 +422,7 @@ $('#min').attr('disabled',true);
 					</p> -->
 				</div>
 				<div class="more shop-more clearfix">
-					<a href="#" target="">购买更多产品</a>
+					
 				</div>
 				<div class="shop_function_btn clearfix" id="div_login">
 				

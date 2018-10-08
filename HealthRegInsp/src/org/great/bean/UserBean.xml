@@ -20,7 +20,7 @@
 		
 		<!-- 注册 -->
 		<insert id="userRegister" parameterType="org.great.bean.UserBean">
-			insert into tblforeground values (TBL_FOREGROUND.Nextval,#{company},#{pwd},#{head},#{address},#{contacts},#{phone},0,#{busNum},3,6,8,(select to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') from dual))
+			insert into tblforeground values (TBL_FOREGROUND.Nextval,#{company},#{pwd},#{address},#{contacts},#{phone},0,#{busNum},#{head},3,6,8,(select to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') from dual))
 		</insert>
 		
 		<!-- 注册名查重 -->
@@ -31,7 +31,7 @@
 		<!-- 查询购物车 -->
 		<select id="shoppingCart" parameterType="java.lang.Integer" resultMap="shoppingCart">
 			select a.*,b.cartid,b.acrtNumber,b.companyId,d.* from tblsetmeal a,TBLSHOPPINGCART b,tblitem d,tblsetcom f 
-where a.setmealId=b.setmealId and a.setmealId = f.setmealId and d.itemId = f.itemId and b.companyId=#{companyId}
+			where a.setmealId=b.setmealId and a.setmealId = f.setmealId and d.itemId = f.itemId and b.companyId=#{companyId}
 		</select>
 		
 		<!-- 套餐表 -->
@@ -62,17 +62,56 @@ where a.setmealId=b.setmealId and a.setmealId = f.setmealId and d.itemId = f.ite
 			insert into tblshoppingCart values(tbl_shoppingCart.nextVal,#{companyId},#{setmealId},#{acrtNumber})
 		</insert>
 		
+		 <!-- 立即购买：先插入公司账单表 id，公司id，预约人数0，实际收费，下单时间，支付状态143 -->
+		<!-- 再插入立即购买表tblBuyNow ：-->
+		<insert id="companyBuyNow" parameterType="org.great.bean.SetmealBean">
+			insert into tblBuyNow values(tbl_BuyNow.nextVal,#{companyId},#{setmealBean.setmealId},#{setmealBean.buyNumber},(select max(billId) from tblbill where companyId=#{companyId}))
+		</insert>
+		
+		<!-- 上传人员后 插入公司账单表 -->
+		<insert id="companyBill" parameterType="java.lang.Integer">
+			insert into tblbill(BILLID,companyId,ordNum,actCharge,orderTime,payState) 
+			values(tbl_bill.nextVal,#{companyId},0,#{actCharge},(select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') from dual),#{payState})
+		</insert>
+		
+		<!-- 插入个人账单表 -->
+		<insert id="personalBill" parameterType="org.great.bean.StaffMealBean">
+			insert into tblpersonal values(tbl_personal.nextVal,#{companyId},#{staffMealBean.staffId},#{staffMealBean.setmealId},#{staffMealBean.countDisAll},82,(select max(billId) from tblbill where companyId=#{companyId}))
+		</insert>
+		
+		<!-- 查询出公司账单表人数：及实际收费  -->
+		<select id="numberPeople" parameterType="java.lang.Integer"  resultType="org.great.bean.BillBean">
+			select ordNum,actCharge from tblbill where billId = (select max(billId) from tblbill where companyId=#{companyId})
+		</select>
+		
+		
+		<!-- 每插入一次个人账单，需要修改公司账单的人数，及实际金额 -->
+		<update id="updateCompanyBill" parameterType="org.great.bean.BillBean">
+			update tblbill set ordNum=#{ordNum},actCharge=#{actCharge} where billid=(select billId from tblpersonal where staffId = #{staffId} and medicalId = 82)
+		</update>
+		
 		
 		<!-- 插入员工信息 -->
 		<insert id="addStaff" parameterType="org.great.bean.StaffBean">
 			insert into tblstaff
-			(STAFFID,STAFFNAME,AGE,SEX,idnum,phone,COMPANYID,MEDICALID,PRINTGUCH,ORDERID)
-			 values(tbl_staff.nextVal,#{staffName},#{age},#{sex},#{idNum},#{phone},#{companyId},82,122,126)
+			(STAFFID,STAFFNAME,AGE,SEX,idnum,phone,COMPANYID,MEDICALID,PRINTGUCH,ORDERID,smallState)
+			 values(tbl_staff.nextVal,#{staffName},#{age},#{sex},#{idNum},#{phone},#{companyId},82,122,126,13)
 		</insert>
+		
+		<!-- 查询当前公司、当前年份下，是否有上传过人员 -->
+		<select id="selectBatchNum" parameterType="java.lang.Integer" resultType="org.great.bean.PerguirelaBean">
+			select * from TBLPERGUIRELA where companyid=#{companyid} and partyear=(Select Extract(year from sysdate) from dual)
+		</select>
+		
+		<!-- 如果有值，则取出最大批次号 -->
+		<select id="maxBatchNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+			select max(batchNum) from TBLPERGUIRELA where companyid=#{companyid} and partyear=(Select Extract(year from sysdate) from dual)
+		</select>
+		
 		
 		<!-- 先插入员工导检单关系表 -->
 		<insert id="addPerguirela" parameterType="org.great.bean.PerguirelaBean">
-			insert into tblperguirela values((select staffid from tblstaff where idnum=#{partYear}),(Select Extract(year from sysdate) from dual),#{companyId},#{batchNum},tbl_perguirela.nextVal)
+			insert into tblperguirela values((select staffid from tblstaff where idnum=#{partYear} and companyId=#{companyId}),(Select Extract(year from sysdate) from dual),#{companyId},#{batchNum},tbl_perguirela.nextVal)
 		</insert>
 		
 		
@@ -92,8 +131,8 @@ where a.setmealId=b.setmealId and a.setmealId = f.setmealId and d.itemId = f.ite
 		</insert>
 		
 		<!-- 去重身份证 -->
-		<select id="repeatNum" parameterType="java.lang.String" resultType="org.great.bean.StaffBean">
-			select * from tblstaff where idnum = #{idnum}
+		<select id="repeatNum" resultType="org.great.bean.StaffBean">
+			select * from tblstaff where idnum = #{idNum} and companyId = #{companyId}
 		</select>
 		
 		<!-- 前台主页展示套餐 -->
@@ -124,6 +163,8 @@ where a.setmealId=b.setmealId and a.setmealId = f.setmealId and d.itemId = f.ite
 		  <update id="updateUserPws" >
 		     update   tblforeground  set pwd=#{pwd} where company=#{company}
 		  </update>
+		  
+		
  	
  		<!-- 增加账单 -->
  		<insert id="userBill" parameterType="org.great.bean.BillBean" >

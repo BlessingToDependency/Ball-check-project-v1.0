@@ -12,10 +12,11 @@ public class BillBean {
    private int ordNum;//预约人数
    private int actNum;//实际人数
    private int setmealId;//套餐ID
-   private int actCharge;//实际收费
+   private double actCharge;//实际收费
    private String currentTime;//当前时间
    private String orderTime;  //下单时间
    private UserBean userBean;  //后台用户表
+   private int staffId;//人员ID
    
    
    public BillBean() {
@@ -23,6 +24,16 @@ public class BillBean {
    }
    
    
+public int getStaffId() {
+	return staffId;
+}
+
+
+public void setStaffId(int staffId) {
+	this.staffId = staffId;
+}
+
+
 public BillBean(int billId, int companyId, int ordNum, int actNum, int setmealId, int actCharge) {
 	super();
 	this.billId = billId;
@@ -63,10 +74,15 @@ public int getSetmealId() {
 public void setSetmealId(int setmealId) {
 	this.setmealId = setmealId;
 }
-public int getActCharge() {
+
+
+
+public double getActCharge() {
 	return actCharge;
 }
-public void setActCharge(int actCharge) {
+
+
+public void setActCharge(double actCharge) {
 	this.actCharge = actCharge;
 }
 
