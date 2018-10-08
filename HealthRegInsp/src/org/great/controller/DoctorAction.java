@@ -9,10 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.annotations.Param;
 import org.great.bean.AdminBean;
+import org.great.bean.DeparBean;
 import org.great.bean.FinresultBean;
+import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
 import org.great.bean.TermBean;
 import org.great.biz.AdminBiz;
+import org.great.biz.ISummaryBiz;
+import org.great.search.GuchIDdItemID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,10 +46,34 @@ public class DoctorAction {
 	@Autowired
 	private HttpServletResponse response;
 	
+	@Resource
+	private ISummaryBiz SummaryBizImp;
+	
 	//跳转科室医生查询界面
 	@RequestMapping("/doctorMain.action")
 	public ModelAndView doctorMain() {
-		mav.setViewName("BackEnd/doctormain");
+		//判断该登录的医生属于哪个科室
+		//得到登录对象信息
+		AdminBean adminBean = (AdminBean) request.getSession().getAttribute("adminBean");
+		//得到对应的科室Id
+		int depaId = adminBean.getDepaId();
+		//获取该科室体检的项目
+	    LitemBean item= SummaryBizImp.getItem(depaId);
+		//得到科室信息
+		DeparBean depar = adminBizImp.getIntfaceId(depaId);
+		//得到科室对应的体检界面
+		int intf = depar.getIntfaceId();
+		if(intf==102) {
+			//获取数据用户小结记录
+			GuchIDdItemID giBean=new  GuchIDdItemID();
+			giBean.setItemId(item.getItemId());
+			giBean.setDoctor(adminBean.getAdminName());
+			giBean.setItem(item.getItem());
+			request.setAttribute("giBean", giBean);
+			mav.setViewName("BackEnd/MedicalImage");
+		}else {
+			mav.setViewName("BackEnd/doctormain");
+		}
 		return mav;
 	}
 	
@@ -75,7 +103,6 @@ public class DoctorAction {
 		AdminBean ab = (AdminBean) request.getSession().getAttribute("adminBean");
 		System.out.println("导检单="+finresultBean.getGuChId());//导检单id
 		int itemId = adminBizImp.selectItem(finresultBean.getGuChId(),ab.getDepaId());//项目id
-		System.out.println(itemId);
 		finresultBean.setItemId(itemId);//项目id放进bean
 		
 		for(int j=0;j<termId.length;j++) {

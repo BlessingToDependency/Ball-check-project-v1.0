@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.AdminBean;
+import org.great.bean.DeparBean;
 import org.great.bean.FinresultBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
@@ -47,9 +48,9 @@ public interface AdminBiz {
 	public Integer companyCount(@Param(value="userBean")UserBean userBean);
 
 	//后台用户管理列表展示
-	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages,String myGuChId);
+	public List<StaffBean> userAdmin(StaffBean staffBean,Integer pages);
 	//后台用户管理列表总数查询
-	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId1,String myGuChId);
+	public Integer userAdminCount(StaffBean staffBean);
 	
 	//根据用户id查找对应信息
 	public StaffBean userInfo(String staffId);
@@ -95,7 +96,13 @@ public interface AdminBiz {
 	//医生更改角色
 	public void updateRole( int adminId,int roleId);
 	
+	//得到科室对应需要调整的体检界面
+	public DeparBean getIntfaceId(int depaId);
 	
-
+	//科室插入体检人员信息
+	public void addFinresult2(FinresultBean finresultBean);
+	
+	//更新人员来体检的时间
+	public int updateInspTime(int staffId,String inspTime);
 
 }

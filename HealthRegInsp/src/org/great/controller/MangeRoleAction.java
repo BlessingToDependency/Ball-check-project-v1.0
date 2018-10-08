@@ -11,11 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.RowBounds;
-import org.great.bean.AdminBean;
 import org.great.bean.RoleBean;
 import org.great.biz.IRoleBiz;
 import org.great.core.SystemLog;
-import org.great.mapper.IRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,7 +51,7 @@ public class MangeRoleAction {
 	 * 查询角色
 	 */
 	@RequestMapping(value="selectAllRole.action")
-/*	@SystemLog(module="角色管理",methods="日志")*/
+	
 	public ModelAndView selectAllRole() {
 		String page=request.getParameter("page");
 	
@@ -87,7 +85,8 @@ public class MangeRoleAction {
 		if(num%5!=0) {
 			paNum=num/5+1;
 	}
-		 mav.addObject("paNum", paNum);		
+		 mav.addObject("paNum", paNum);	
+		 mav.addObject("role",role);
 		session.setAttribute("roleList", roleList);
 		mav.setViewName("BackEnd/mange_role");
 		return mav;
@@ -100,12 +99,15 @@ public class MangeRoleAction {
 	@RequestMapping(value="tomaRole.action")
 	public  @ResponseBody void tomaRole() throws Exception{
 		String roleI=request.getParameter("roleId");
+		int ro=Integer.parseInt(roleI);
 		session.setAttribute("roleI", roleI);
 		
+		RoleBean rol=roleBizImp.seleRoleInfo(ro);
+		
 		PrintWriter out = response.getWriter();
-		String msg="OK";
+	
 		Gson gson1 = new Gson();
-		String str1 = gson1.toJson(msg);
+		String str1 = gson1.toJson(rol);
 		out.print(str1);
 		out.close();
 		
@@ -116,6 +118,8 @@ public class MangeRoleAction {
 	 * 修改角色名窗口
 	 */
 	@RequestMapping(value="updateRoleNmae.action")
+	  @ResponseBody
+	@SystemLog(module="角色管理",methods="修改角色名")
 	public  ModelAndView updateRoleNmae(RoleBean roleBean) {
 		
 		String rol=(String) session.getAttribute("roleI");
@@ -153,6 +157,8 @@ public class MangeRoleAction {
 	 * 新增角色
 	 */
 	@RequestMapping(value="innerRole.action")
+	 @ResponseBody
+	@SystemLog(module="角色管理",methods="新增角色")
 	 public ModelAndView  innerRole(RoleBean roleBean) {
 		
 		String mag=(String) session.getAttribute("msg");
@@ -172,6 +178,8 @@ public class MangeRoleAction {
 	 * 删除角色
 	 */
 	@RequestMapping(value="deleteRole.action")
+	@ResponseBody
+	@SystemLog(module="角色管理",methods="删除角色")
 	 public ModelAndView  deleteRole() {
 		String rol=request.getParameter("roleId");
 		System.out.println("ih="+rol);
@@ -193,8 +201,8 @@ public class MangeRoleAction {
 		
 		PrintWriter out = response.getWriter();
 		String msg;
-		if(roleList.size()>0) {
-			msg="角色已存在";
+		if(roleList.size()>0||role==null||"".equals(role)) {
+			msg="不可用角色";
 			
 		}else {
 			msg="可用角色";

@@ -91,9 +91,9 @@ public class UserBizImp implements UserBiz {
 	}
 	//身份证去重
 	@Override
-	public StaffBean repeatNum(String idNum) {
+	public StaffBean repeatNum(String idNum,Integer companyId) {
 		// TODO Auto-generated method stub
-		return iUserMapper.repeatNum(idNum);
+		return iUserMapper.repeatNum(idNum,companyId);
 	}
 
 	//为员工选择套餐插入数据库
@@ -128,6 +128,62 @@ public class UserBizImp implements UserBiz {
 	public List<ShoppingCartBean> shoppingCart(Integer companyId) {
 		// TODO Auto-generated method stub
 		return iUserMapper.shoppingCart(companyId);
+	}
+
+	//批量为员工选择套餐
+	@Override
+	public List<StaffBean> batchMeal(Integer companyId) {
+		// TODO Auto-generated method stub
+		return iUserMapper.batchMeal(companyId);
+	}
+
+	//插入个人账单表
+	@Override
+	public void personalBill(StaffMealBean staffMealBean, Integer companyId) {
+		// TODO Auto-generated method stub
+		iUserMapper.personalBill(staffMealBean,companyId);
+	}
+	
+	//插入关系表前，查询当前公司、当前年份下，是否有上传过人员
+	@Override
+	public PerguirelaBean selectBatchNum(Integer companyId) {
+		// TODO Auto-generated method stub
+		
+		return iUserMapper.selectBatchNum(companyId);
+	}
+	
+	//如果有值，则取出最大批次号
+	@Override
+	public Integer maxBatchNum(Integer companyId) {
+		// TODO Auto-generated method stub
+		return iUserMapper.maxBatchNum(companyId);
+	}
+
+	//插入公司账单表
+	@Override
+	public void companyBill(Integer companyId,double actCharge,Integer payState) {
+		// TODO Auto-generated method stub
+		iUserMapper.companyBill(companyId,actCharge,payState);
+	}
+
+	//查询出公司账单表；人数;实际收费
+	@Override
+	public BillBean numberPeople(Integer companyId) {
+		// TODO Auto-generated method stub
+		return iUserMapper.numberPeople(companyId);
+	}
+
+	//每插入一次个人账单表，需要修改公司账单表的数据：人数，实际金额；员工id
+	@Override
+	public void updateCompanyBill(BillBean billBean) {
+		// TODO Auto-generated method stub
+		iUserMapper.updateCompanyBill(billBean);
+	}
+	//再插入立即购买表tblBuyNow
+	@Override
+	public void companyBuyNow(SetmealBean setmealBean, Integer companyId) {
+		// TODO Auto-generated method stub
+		iUserMapper.companyBuyNow(setmealBean,companyId);
 	}
 
 }

@@ -29,12 +29,14 @@ String path = request.getScheme() +"://"+request.getServerName()
     <div class="x-body">
          <form action="<%=path%>imageAction/fileact.action" method="post" enctype="multipart/form-data">
      
-     <input type="hidden" id="guChId" name="guChId" value="${giBean.guChId}">
+    <%--  <input type="hidden" id="guChId" name="guChId" value="${giBean.guChId}"> --%>
      <input type="hidden" id="itemId" name="itemId" value="${giBean.itemId}">
      <input type="hidden" id="doctor" name="doctor" value="${giBean.doctor}">
       
-                <div class="layui-form-item layui-form-text">
-         <blockquote class="layui-elem-quote">${giBean.item} </blockquote>
+       <div class="layui-form-item layui-form-text">
+         <blockquote class="layui-elem-quote">
+          <input type="text" id="guChId" name="guChId"  placeholder="请输入导检单号" class="layui-input">
+         </blockquote>
       <pre class="layui-code" lay-title="JavaScript" lay-skin="notepad">
         <table  width="100%" border="0" cellspacing="0" cellpadding="0" class="main" class="layui-table layui-input-block">
                <tbody>
@@ -52,17 +54,17 @@ String path = request.getScheme() +"://"+request.getServerName()
                               <img src="<%=path%>images/bg.jpg" id="img3" style="width: 15rem; height: 8rem;">
                     </td>
                   </tr>
-                    <tr>
+                  <tr>
                   <td >
-                     <input type="file" name="fileact" id="fileact4" multiple="multiple"/>
+                              <input type="file" name="fileact" id="fileact4" multiple="multiple"/>
                               <img src="<%=path%>images/bg.jpg" id="img4" style="width: 15rem; height: 8rem;">
                     </td>
                     <td>
-                          <input type="file" name="fileact" id="fileact5" multiple="multiple"/>
+                              <input type="file" name="fileact" id="fileact5" multiple="multiple"/>
                               <img src="<%=path%>images/bg.jpg" id="img5" style="width: 15rem; height: 8rem;">
                     </td>
                     <td>
-                          <input type="file" name="fileact" id="fileact6" multiple="multiple"/>
+                              <input type="file" name="fileact" id="fileact6" multiple="multiple"/>
                               <img src="<%=path%>images/bg.jpg" id="img6" style="width: 15rem; height: 8rem;">
                     </td>
                   </tr>
@@ -77,7 +79,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                        检查结果：
                     </label>
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>
+                        <textarea placeholder="请输入内容" id="termVal" name="termVal" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item" style="text-align:center;">

@@ -80,7 +80,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 	            	//alert(reData)
 	            	$("#myModal0").empty();
 	                $("#myModal0").prepend("</div></div><div class='modal-footer'>"
-	                		+"<input  type='submit' value='添加' class='btn btn-default' style='margin-right:50px'>"
+	                		+"<input  type='submit' value='添加' class='layui-btn' style='margin-right:50px' lay-filter='*' lay-submi>"
 	                		+"<button type='button' class='btn btn-default'"
 	                		+"data-dismiss='modal'>关闭</button></div>"
 	                		
@@ -99,11 +99,11 @@ String path = request.getScheme() +"://"+request.getServerName()
 	                		+"<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>×</button>" 
 	   						+"<h4 class='modal-title' id='myModalLabel'>添加项目</h4></div>"
 	   						+"<div class='layui-form-item'><label class='layui-form-label'>项目名</label><div class='layui-input-block'>"
-	                		+"<input type='text' id='term' name='term' lay-verify='title' autocomplete='off' placeholder='请输入项目名称' onblur='repetition()' class='layui-input'><span id='t'></span></div></div>"
+	                		+"<input type='text' id='term' name='term' lay-verify='title' autocomplete='off' placeholder='请输入项目名称' onblur='repetition()' class='layui-input' lay-verify='required' required=''><span id='t'></span></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>价格</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='price' lay-verify='title' autocomplete='off' placeholder='请输入价格' class='layui-input'></div></div>"
+	                		+"<input type='text' name='price' lay-verify='title' autocomplete='off' placeholder='请输入价格' class='layui-input' lay-verify='required' required=''></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>简介</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='introd' lay-verify='title' autocomplete='off' placeholder='请输入简介' class='layui-input'></div></div>"
+	                		+"<input type='text' name='introd' lay-verify='title' autocomplete='off' placeholder='请输入简介' class='layui-input' lay-verify='required' required=''></div></div>"
 	                		+"<div class='layui-form-item' pane=''>" 
 	                		+"<label class='layui-form-label'>选择项目包含的细项</label>"
 	                		+"<div class='layui-input-block'>"
@@ -158,9 +158,9 @@ String path = request.getScheme() +"://"+request.getServerName()
 	                    		+"<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>×</button>" 
         						+"<h4 class='modal-title' id='myModalLabel'>修改项目</h4></div>"
         						+"<input name='id' type='hidden' value='"+item.itemId+"'>"
-        						+"<div class='modal-body'>项目名：<div class='layui-input-block'><input type='text' name='item' lay-verify='title' autocomplete='off' placeholder='"+item.item+"' class='layui-input' value='"+item.item+"'></div></div>"
-								+"<div class='modal-body'>单价：<div class='layui-input-block'><input type='text' name='price' lay-verify='title' autocomplete='off' placeholder='"+item.price+"' class='layui-input' value='"+item.price+"'></div></div>"
-								+"<div class='modal-body'>简介：<div class='layui-input-block'><textarea name='introd'  lay-verify='title' autocomplete='off' placeholder='"+item.introd+"' class='layui-textarea'>"+item.introd+"</textarea></div></div>"
+        						+"<div class='modal-body'>项目名：<div class='layui-input-block'><input type='text' name='item' lay-verify='title' autocomplete='off' placeholder='"+item.item+"' class='layui-input' value='"+item.item+"' required=''></div></div>"
+								+"<div class='modal-body'>单价：<div class='layui-input-block'><input type='text' name='price' lay-verify='title' autocomplete='off' placeholder='"+item.price+"' class='layui-input' value='"+item.price+"' required=''></div></div>"
+								+"<div class='modal-body'>简介：<div class='layui-input-block'><textarea name='introd'  lay-verify='title' autocomplete='off' placeholder='"+item.introd+"' class='layui-textarea' required=''>"+item.introd+"</textarea></div></div>"
 	                    	)
 	                    });
 	                    
@@ -280,7 +280,7 @@ String path = request.getScheme() +"://"+request.getServerName()
       </div>
     </div>
       <!-- 模态框（Modal） -->
-<form id="from"action="<%=path%>adminLitemAction/addItem.action" method="post" onSubmit="">
+<form id="from" action="<%=path%>adminLitemAction/addItem.action" method="post" onSubmit=""  > 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content" id="myModal0">
@@ -309,7 +309,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 </form>
 
   <!-- 修改模态框（Modal） -->
-<form id="from"action="<%=path%>adminLitemAction/upDateItem.action" method="post" onSubmit="">
+<form id="from"action="<%=path%>adminLitemAction/upDateItem.action" method="post" onSubmit="" class="layui-form">
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -328,7 +328,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 				</button>
-				<button type="button" class="btn btn-primary">
+				<button type="button"  class="layui-btn" lay-filter="*" lay-submit="">
 					提交更改
 				</button>
 			</div>

@@ -12,7 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.DeparBean;
+import org.great.bean.ParamBean;
 import org.great.biz.IdeparBiz;
+import org.great.core.SystemLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +52,7 @@ public class MangeDeparAction {
 	 * 查询科室
 	 */
 	@RequestMapping(value="selectDe.action")
+
 	public ModelAndView selectDe() {
 		String page=request.getParameter("page");
 		String depa=request.getParameter("depa");
@@ -81,7 +84,8 @@ public class MangeDeparAction {
 		List<DeparBean> deli=deparImp.selectDe(deparBean, rowBounds);
 		
 		mav.addObject("page", pageNo);
-		mav.addObject("paNum", paNum);		
+		mav.addObject("paNum", paNum);	
+		mav.addObject("depa", depa);
 		session.setAttribute("deli", deli);
 		mav.setViewName("BackEnd/mange_depar");
 		return mav;
@@ -92,10 +96,14 @@ public class MangeDeparAction {
 	 * 跳转到增加科室界面
 	 */
 	@RequestMapping(value="toAddDepar.action")
-	public ModelAndView toAddDepar() {
-		
-		mav.setViewName("BackEnd/add_depar");
-		return mav;
+	
+	public @ResponseBody void toAddDepar ()throws Exception {
+		List<ParamBean> parList=deparImp.selectX();
+		PrintWriter out = response.getWriter();
+		Gson gson1 = new Gson();
+		String str1 = gson1.toJson(parList);
+		out.print(str1);
+		out.close();
 		
 	}
 	
@@ -103,14 +111,19 @@ public class MangeDeparAction {
 	 * 增加科室
 	 */
 	@RequestMapping(value="innserDepar.action")
-	public ModelAndView innserDepar(String depa) {
+	@ResponseBody
+	@SystemLog(module="科室管理",methods="增加科室")
+	public ModelAndView innserDepar(String depa,int intfaceId) {
+		System.out.println("科室"+depa+"id=="+intfaceId);
 		String msg=(String) session.getAttribute("msg");
 		if(msg.equals("可用科室")) {
-			deparImp.innserDepar(depa);
+		
+			deparImp.innserDepar(depa,intfaceId);
 		mav.setViewName("redirect:/maDeparAction/selectDe.action");
 		}
 		else {
-			mav.setViewName("BackEnd/add_depar");
+		
+			mav.setViewName("");
 		}
 		return mav;
 		
@@ -120,6 +133,8 @@ public class MangeDeparAction {
 	 * 删除科室
 	 */
 	@RequestMapping(value="deleteDepar.action")
+	@ResponseBody
+	@SystemLog(module="科室管理",methods="删除科室")
 	public ModelAndView deleteDepar() {
 		String de=request.getParameter("depaId");
 	
@@ -136,11 +151,14 @@ public class MangeDeparAction {
 	public @ResponseBody void toUpdateDepar() throws Exception {
 		
 		String dei=request.getParameter("depId");
+		int depi=Integer.parseInt(dei);
 		session.setAttribute("dei", dei);
 		PrintWriter out = response.getWriter();
-		String msg="OK";
+		DeparBean dep=deparImp.selectnfo(depi);
+		
+		
 		Gson gson1 = new Gson();
-		String str1 = gson1.toJson(msg);
+		String str1 = gson1.toJson(dep);
 		out.print(str1);
 		out.close();	
 	}
@@ -149,6 +167,8 @@ public class MangeDeparAction {
 	 * 修改科室名
 	 */
 	@RequestMapping(value="updateDepar.action")
+	@ResponseBody
+	@SystemLog(module="科室管理",methods="修改科室")
 	public ModelAndView updateDepar(DeparBean  deparBea) {
 		String dep=(String) session.getAttribute("dei");
 		
@@ -156,9 +176,11 @@ public class MangeDeparAction {
 		deparBea.setDepaId(depaId);
 		String msg=(String) session.getAttribute("msg");
 		if(msg.equals("可用科室")) {
+			System.out.println("1");
 		deparImp.updateDepar(deparBea);
 		mav.setViewName("redirect:/maDeparAction/selectDe.action");
 		}else {
+			System.out.println("2");
 			mav.setViewName("");
 		}
 		
@@ -169,15 +191,17 @@ public class MangeDeparAction {
 	 * 新增查重
 	 */
 	@RequestMapping(value="checkDepar.action")
-	public @ResponseBody void checkDepar(DeparBean  deparBea) throws Exception {
+	public @ResponseBody void checkDepar() throws Exception {
+	
 		String depar=request.getParameter("depa");
-		System.out.println("depa="+depar);
-		deparBea.setDepa(depar);
-		List<DeparBean> deLi=deparImp.selectDeChe(deparBea);
+	      
+		deparBean.setDepa(depar);
+		List<DeparBean> deLi=deparImp.selectDeChe(deparBean);
+	
 		PrintWriter out = response.getWriter();
 		String msg;
-		if(deLi.size()>0) {
-			msg="科室已存在";
+		if(deLi.size()>0||depar==null||"".equals(depar)) {
+			msg="不可用科室";
 			
 		}else {
 			msg="可用科室";

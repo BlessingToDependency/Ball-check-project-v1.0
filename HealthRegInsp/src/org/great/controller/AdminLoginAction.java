@@ -17,6 +17,7 @@ import org.great.bean.AdminBean;
 import org.great.bean.JurdisBean;
 import org.great.biz.AdminBiz;
 import org.great.biz.JurisdictionBiz;
+import org.great.core.SystemLog;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,7 @@ public class AdminLoginAction {
 	 */
 
 	@RequestMapping(value="adminLogin.action",method=RequestMethod.POST)
+	@ResponseBody
 	public ModelAndView adminLogin(HttpServletRequest request,HttpServletResponse response,AdminBean aBean,Model model)throws UnsupportedEncodingException {
 
 		System.out.println("后台登陆"+aBean.getAdminId()+aBean.getAdminPwd());
@@ -73,11 +75,12 @@ public class AdminLoginAction {
 			model.addAttribute("allList", allList);
 			model.addAttribute("parentList", parentList);
 			model.addAttribute("sonList", sonList);
+			model.addAttribute("adminBean", adminBean);
 			
 			mav.setViewName("BackEnd/admin_Index");
 		}else {
 			System.out.println("登陆失败");
-			mav.setViewName("BackEnd/admin_Index");
+			mav.setViewName("BackEnd/admin_login");
 		}
 		return mav;
 	}

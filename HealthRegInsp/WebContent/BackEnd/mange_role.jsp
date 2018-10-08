@@ -10,9 +10,20 @@ String path = request.getScheme() +"://"+request.getServerName()
     <meta charset="UTF-8">
     <title>角色管理</title>
      <link rel="stylesheet" href="<%=path%>css/bootstrap.min.css">
+      <link rel="stylesheet" href="<%=path%>/lib/layui/css/layui.css">
 	<script src="<%=path%>js/jquery.min.js"></script>
 	<script src="<%=path%>js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<%=path%>js/jquery.min.js"></script>
+	  <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
+	 
+	  <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="<%=path%>/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="<%=path%>/css/font.css">
+    <link rel="stylesheet" href="<%=path%>/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
   <style>
      .zt{color: #06F;font-size: 18px;font-weight: 10px;}
          #div{width:100%; height:50px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
@@ -27,15 +38,9 @@ function delectRole(id){
 	 }
 }
 </script>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-    <link rel="shortcut icon" href="<%=path%>/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="<%=path%>/css/font.css">
-    <link rel="stylesheet" href="<%=path%>/css/xadmin.css">
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
+    
+   
+   
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -55,7 +60,7 @@ function delectRole(id){
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
     </div>
     <div class="x-body">
-      <div class="layui-row">
+         <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
 
           <input type="text" name="role"  placeholder="请输入角色名" autocomplete="off" class="layui-input" value="<%=request.getAttribute("role")==null?"":request.getAttribute("role")%>"/>
@@ -93,11 +98,11 @@ function delectRole(id){
       </table>
       <div class="page">
         <div>
-                     总页数 ${paNum}/当前页数 ${page}
-          <a class="num" href="<%=path%>maRoleAction/selectAllRole.action?page=1">首页</a>
-          <a class="prev" href="<%=path%>maRoleAction/selectAllRole.action?page=${page-1<1?1:page-1}">上一页</a>
-          <a class="next" href="<%=path%>maRoleAction/selectAllRole.action?page=${(page+1)<=paNum?page+1:paNum}">下一页</a>
-          <a class="num" href="<%=path%>maRoleAction/selectAllRole.action?page=${paNum}">末页</a>
+                     共 ${paNum}页/当前第 ${page}页
+          <a class="num" href="<%=path%>maRoleAction/selectAllRole.action?page=1&role=${role}">首页</a>
+          <a class="prev" href="<%=path%>maRoleAction/selectAllRole.action?page=${page-1<1?1:page-1}&role=${role}">上一页</a>
+          <a class="next" href="<%=path%>maRoleAction/selectAllRole.action?page=${(page+1)<=paNum?page+1:paNum}&role=${role}">下一页</a>
+          <a class="num" href="<%=path%>maRoleAction/selectAllRole.action?page=${paNum}&role=${role}">末页</a>
           <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" />
            <a class="num" id="linkToCart" onclick="jump();">跳转</a>
         </div>
@@ -105,7 +110,7 @@ function delectRole(id){
 
     </div>
 
-  <form id="addfrom" method="post" action="<%=path%>maRoleAction/innerRole.action">
+  <form id="addfrom" method="post" action="<%=path%>maRoleAction/innerRole.action" class="layui-form">
 
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -118,19 +123,20 @@ function delectRole(id){
         <div id="div">
              <div id="divleft"><span class="zt">新的角色:</span></div> 
              <div id="divright">
-             <input type="text" id="role2" name="role" style="width:200px;" class="form-control" placeholder="角色名" onblur="checkDate()"><samp id="us"></samp>
+             <input type="text" id="role2" name="role" style="width:200px;"  class="layui-input"  placeholder="角色名" onblur="checkDate()"  required="" lay-verify="required"
+                  autocomplete="off"><samp id="us"></samp>
              </div>          
         </div>  
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="submit" class="btn btn-primary">提交</button>
+        <button type="submit"  class="layui-btn" lay-filter="*" lay-submit>提交</button>
       </div>
     </div>
   </div>
 </div>
 </form>	
 
- <form id="addfrom" method="post" action="<%=path%>maRoleAction/updateRoleNmae.action">
+ <form id="addfrom" method="post" action="<%=path%>maRoleAction/updateRoleNmae.action"  class="layui-form">
 <button type="button" id="dada" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></button>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -143,12 +149,12 @@ function delectRole(id){
         <div id="div">
              <div id="divleft"><span class="zt">新的角色名:</span></div> 
              <div id="divright">
-             <input type="text" id="role3" name="role" style="width:200px;" class="form-control" placeholder="角色名" onblur="checkDate1()"><samp id="us1"></samp>
+             <input type="text" id="nero" name="role" style="width:200px;"  class="layui-input" placeholder="角色名" onblur="checkDate1()" required="" lay-verify="required" ><samp id="us1"></samp>
              </div>          
         </div>  
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="submit" class="btn btn-primary">保存</button>
+        <button type="submit" class="layui-btn" lay-filter="*" lay-submit>保存</button>
       </div>
     </div>
   </div>
@@ -157,7 +163,7 @@ function delectRole(id){
   </body>
 <script type="text/javascript">
 function checkDate(){
-
+ 
 	  $.ajax({
 		  type:"post",
  	   url:"<%=path%>maRoleAction/checkRole.action",
@@ -175,11 +181,11 @@ function checkDate(){
 } 
 
 function checkDate1(){
-    
+	
 	  $.ajax({
 		  type:"post",
 	   url:"<%=path%>maRoleAction/checkRole.action",
-	   data:{"role":$("#role3").val()},
+	   data:{"role":$("#nero").val()},
 	   dataType:"json",
 			success : function(redata) {//定义各事件发生时回调的函数
 			  console.log(redata);
@@ -202,6 +208,8 @@ function addHid(v){
 	    success:function(data){
 	    	//展开模态框
 	    	$("#dada").trigger("click");
+	    	$("#nero").val(data.role);
+	    	
 	  }
 	});
 } 
@@ -209,7 +217,8 @@ function addHid(v){
 //跳转页码
 function jump(){
 	var p=document.getElementById("pageNo").value;
-	window.location.href="<%=path%>maRoleAction/selectAllRole.action?page="+p;
+	if(p<=${paNum}){window.location.href="<%=path%>maRoleAction/selectAllRole.action?role=${role}&page="+p;}
+	else{alert("页数不存在");}
 }
 </script>
 </html>

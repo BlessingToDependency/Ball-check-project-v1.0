@@ -3,7 +3,7 @@ package org.great.search;
  *     小结模糊搜索条件实体
  */
 public class SumCon {
-	private int depaId;       //项目ID
+	private int depaId;        //科室ID
 	private String staffName;  //员工姓名
 	private int statrRn;          //起始
 	private int endRn;            //结束

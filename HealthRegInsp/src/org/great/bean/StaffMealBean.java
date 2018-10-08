@@ -5,8 +5,30 @@ package org.great.bean;
 public class StaffMealBean {
 	private int setmealId;//套餐ID
 	private int perInspId;//人员导检ID:主键
+	
+	  private double countDisAll;//套餐折算后价格
+	
+	 private int staffId;//人员ID
+	
 
 	
+
+	public double getCountDisAll() {
+		return countDisAll;
+	}
+
+	public void setCountDisAll(double countDisAll) {
+		this.countDisAll = countDisAll;
+	}
+
+	public int getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(int staffId) {
+		this.staffId = staffId;
+	}
+
 	public StaffMealBean() {
 		super();
 	}

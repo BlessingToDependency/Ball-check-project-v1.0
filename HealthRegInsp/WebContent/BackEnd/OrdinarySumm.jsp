@@ -21,9 +21,9 @@ String path = request.getScheme() +"://"+request.getServerName()
 <style type="text/css">
 
 .main td{ height:10px; border:#CCCCCC 1px solid;}
-#zsdiv1{width:30%; margin: 2px 2px 2px 2px; border:gray 3px solid; text-align:right; float:left;}
-#zsdiv2{width:18%; margin: 2px 2px 2px 2px; border:gray 3px solid; text-align:center; float:left;}
-#zsdiv3{width:30%; margin: 2px 2px 2px 2px; border:gray 3px solid; text-align:left; float:left;}
+#zsdiv1{width:30%; margin: 2px 2px 2px 2px; border:gray 0px solid; text-align:right; float:left;}
+#zsdiv2{width:18%; margin: 2px 2px 2px 2px; border:gray 0px solid; text-align:center; float:left;}
+#zsdiv3{width:30%; margin: 2px 2px 2px 2px; border:gray 0px solid; text-align:left; float:left;}
        
 </style>
   </head>

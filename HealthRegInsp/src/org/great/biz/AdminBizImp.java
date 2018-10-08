@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import org.great.bean.AdminBean;
+import org.great.bean.DeparBean;
 import org.great.bean.FinresultBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
@@ -61,17 +62,17 @@ public class AdminBizImp implements AdminBiz{
 
 	//后台用户管理列表展示
 	@Override
-	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages,String myGuChId) {
+	public List<StaffBean> userAdmin(StaffBean staffBean,Integer pages) {
 		// TODO Auto-generated method stub
-		userList = iAdminMapper.userAdmin( staffName, phone, statTime, stopTime, partYear,companyId,pages,myGuChId);
+		userList = iAdminMapper.userAdmin(staffBean,pages);
 		return userList;
 	}
 
 	//后台用户管理总数
 	@Override
-	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId1,String myGuChId) {
+	public Integer userAdminCount(StaffBean staffBean) {
 		// TODO Auto-generated method stub
-		return iAdminMapper.userAdminCount(staffName,phone, statTime, stopTime, partYear,companyId1,myGuChId);
+		return iAdminMapper.userAdminCount(staffBean);
 	}
 	
 	//根据用户id查找对应信息
@@ -237,6 +238,27 @@ public class AdminBizImp implements AdminBiz{
 		public void updateRole(int adminId, int roleId) {
 			// TODO Auto-generated method stub
 			iAdminMapper.updateRole(adminId, roleId);
+		}
+
+		//得到科室对应需要调整的体检界面
+		@Override
+		public DeparBean getIntfaceId(int depaId) {
+			// TODO Auto-generated method stub
+			return iAdminMapper.getIntfaceId(depaId);
+		}
+
+
+		//科室插入体检人员信息
+		@Override
+		public void addFinresult2(FinresultBean finresultBean) {
+			iAdminMapper.addFinresult2(finresultBean);
+		}
+
+		//更新人员来体检的时间
+		@Override
+		public int updateInspTime(int staffId, String inspTime) {
+			// TODO Auto-generated method stub
+			return iAdminMapper.updateInspTime(staffId, inspTime);
 		}
 		
 		

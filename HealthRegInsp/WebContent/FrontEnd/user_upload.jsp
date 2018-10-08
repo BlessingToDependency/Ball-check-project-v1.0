@@ -41,91 +41,44 @@
 <script type="text/javascript">if(window.location.toString().indexOf('pref=padindex') != -1){}else{if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){if(window.location.href.indexOf("?mobile")<0){try{if(/Android|Windows Phone|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){window.location.href="/m/list.php?tid=6";}else if(/iPad/i.test(navigator.userAgent)){}else{}}catch(e){}}}}</script>
 
 </head>
-<body class="nobanner">
+<body>
 
 <div id="header">
 
-  <div class="content"> <a href="/" id="logo"><img src="<%=path %>images/logo.png" height="40" /></a>
+   <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
 
     <ul id="nav">
 
-      <li class="navitem"><a  class='active' href="index.html">首页</a></li>
+      <li class="navitem"><a  class='active' href="<%=path %>userMainAction/showSetmeal.action">首页</a></li>
 
-      <li class="navitem"><a  href="keshi.html" >门诊科室</a>
-
-        <ul class="subnav">
-
-          
-
-          <li><a href="keshi.html">非手术科</a></li>
-
-          
-
-          <li><a href="keshi.html">手术科室</a></li>
-
-          
-
-          <li><a href="keshi.html">诊断科室</a></li>
-
-          
-
-          <li><a href="keshi.html">其他科室</a></li>
-
-          
-
-        </ul>
-
-      </li><li class="navitem"><a  href="tese.html" >医疗特色</a>
+      <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action" >我的账户</a>
 
         <ul class="subnav">
 
         </ul>
 
-      </li><li class="navitem"><a  href="about.html" >医院简介</a>
-
+      </li>
+      
+      <li class="navitem">
+      <a  href="<%=path %>fileAction/fileDownLoad.action" >下载体检信息模板</a>
         <ul class="subnav">
-
-          
-
-          <li><a href="#">企业文化</a></li>
-
-          
-
-          <li><a href="#">发展历程</a></li>
-
-          
-
+        </ul>
+      </li>
+      
+	  
+	   <li class="navitem">
+      <a  href="<%=path %>fileAction/userUpload.action" >上传体检人员信息</a>
+        <ul class="subnav">
+        </ul>
+      </li>
+      
+      <li class="navitem"><a  href="<%=path %>fileAction/companyStaffList.action" >配置套餐</a>
+        <ul class="subnav">
         </ul>
 
-      </li><li class="navitem"><a  href="team.html" >医师团队</a>
+      </li><li class="navitem"><a  href="<%=path%>userLoginAction/jumpLogin.action" >去登陆</a>
 
         <ul class="subnav">
-
-          
-
-        </ul>
-
-      </li><li class="navitem"><a  href="news.html" >新闻动态</a>
-
-        <ul class="subnav">
-
-          
-
-          <li><a href="#">院内新闻</a></li>
-
-          
-
-          <li><a href="#">行业新闻</a></li>
-
-          
-
-        </ul>
-
-      </li><li class="navitem"><a  href="contact.html" >联系我们</a>
-
-        <ul class="subnav">
-
-          
 
         </ul>
 
@@ -152,12 +105,13 @@
       </div>
       
       <form action="<%=path %>fileAction/fileUpload.action" enctype="multipart/form-data" method="post">
-	请选择文件：<input name="fileact" type="file">
-	 <input name="submit" type="submit" value="上传">
+	<h2>请选择文件：</h2>
+	</br>
+	<input name="fileact" type="file">
+	 <input name="submit" type="submit" value="上传" style="width:50px;height:40px">
  	</form>
-
+		<img src="<%=path %>/images/banner1.jpg"/>
       <div id="pages"></div>
-
     </div>
 
   </div>

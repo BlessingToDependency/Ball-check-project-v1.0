@@ -26,20 +26,9 @@
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-<!--[if lt IE 9]>
-      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body>
-	<div class="x-nav">
-		<span class="layui-breadcrumb"> <a href="">首页</a> <a href="">演示</a> <a> <cite>导航元素</cite></a>
-		</span> <a class="layui-btn layui-btn-small" style="line-height: 1.6em; margin-top: 3px; float: right"
-			href="javascript:location.replace(location.href);" title="刷新"> <i class="layui-icon"
-			style="line-height: 30px">ဂ</i></a>
-	</div>
 	<div class="x-body">
 		<div class="layui-row">
 			<form class="layui-form layui-col-md12 x-so" action="<%=path%>Order/showOrder.action">
@@ -127,22 +116,22 @@
 					套餐名字：<input name="orderName" type="text">
 				</h4> -->
 			</div>
-		<form method="post" action="<%=path %>Order/addOrder.action?" enctype="multipart/form-data">
+		<form method="post" action="<%=path %>Order/addOrder.action?" enctype="multipart/form-data" class="layui-form">
 			<div class="modal-body"> 
 		
-				套餐名字：<input name="setmeal" type="text" id="orderName"><span id="hiden"></span>			
+				套餐名字：<input name="setmeal" type="text" id="orderName" class="layui-input" lay-verify="required" ><span id="hiden"></span>			
 			</div>
 			<div class="modal-body">
-				套餐折扣：<input name="discount" type="text">
+				套餐折扣：<input name="discount" type="text" class="layui-input" lay-verify="required">
 			</div>
 			<div class="modal-body">
-				套餐图片：<input name=myPic type="file">
+				套餐图片：<input name=myPic type="file" class="layui-input" lay-verify="required">
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" 
 						data-dismiss="modal">关闭
 				</button>
-				<input type="submit" value="提交" class="btn btn-primary" id="checkName"> 
+				<input type="submit" value="提交" class="layui-btn" lay-filter="*" lay-submit id="checkName"> 
 				<!-- <button type="submit" class="btn btn-primary"> 
                    	 提交
                 </button>-->

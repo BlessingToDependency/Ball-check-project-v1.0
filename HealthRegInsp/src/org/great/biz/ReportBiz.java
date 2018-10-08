@@ -83,5 +83,12 @@ public interface ReportBiz {
      //得到某个公司的所有员工	
  	public  List<StaffBean>  findGuChId(Integer companyId);
      
+ 	
+ 	//改变人员的体检状态
+    public  void  changeState(TotalBean totalBean);
      
+    
+    //实际体检人数
+    public void addUser(String orderTime);
+    
 }

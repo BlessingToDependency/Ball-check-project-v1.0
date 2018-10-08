@@ -18,6 +18,7 @@ import org.great.bean.PostBean;
 import org.great.biz.AdminBiz;
 import org.great.biz.IdeparBiz;
 import org.great.biz.PostBiz;
+import org.great.core.SystemLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,6 +79,8 @@ public class MangeDoctorAction {
 	 * 修改后台医生状态（禁用启用）
 	 */
 	@RequestMapping(value="updateDoctorState.action")
+	@ResponseBody
+	@SystemLog(module="医生管理",methods="禁用启用医生")
 	public ModelAndView updateDoctorState(AdminBean aBean) {
 		int stateId=Integer.parseInt(request.getParameter("stateId"));
 		int adminId=Integer.parseInt(request.getParameter("adminId"));
@@ -94,6 +97,8 @@ public class MangeDoctorAction {
 	 * 逻辑删除医生
 	 */
 	@RequestMapping(value="/logicDeleteDoc.action")
+	@ResponseBody
+	@SystemLog(module="医生管理",methods="逻辑删除医生")
 	public ModelAndView logicDeleteDoc(AdminBean aBean) {
 		int logicId=Integer.parseInt(request.getParameter("logicId"));
 		int adminId=Integer.parseInt(request.getParameter("adminId"));
@@ -123,8 +128,9 @@ public class MangeDoctorAction {
         int adminId=Integer.parseInt(adm);
         List<AdminBean>  adList=adminBizImp.slectDoctorInfo(adminId);
         session.setAttribute("adList", adList);
-        
-		
+        for(int i=0;i<adList.size();i++) {
+        System.out.println("********************"+adList.get(i).getPostBean().getPost());
+        }
 		mav.setViewName("BackEnd/edit_docInfo");
 		return mav;		
 	}
@@ -132,6 +138,8 @@ public class MangeDoctorAction {
 	/*
 	 * 后台对医生信息进行修改
 	 */
+	@ResponseBody
+	@SystemLog(module="医生管理",methods="修改医生信息")
 	@RequestMapping(value="/updateDoctorInfo.action")
 	public  ModelAndView updateDoctorInfo(AdminBean aBean) {
 		String admin=(String) session.getAttribute("adminId");
@@ -149,6 +157,8 @@ public class MangeDoctorAction {
 	 * 管理所有医生信息
 	 */
 	@RequestMapping(value="/selectAllDoctor.action")
+	@ResponseBody
+	@SystemLog(module="医生管理",methods="查询医生")
 	public ModelAndView selectAllDoctor() {
 		
 		String page=request.getParameter("page");
@@ -212,6 +222,7 @@ public class MangeDoctorAction {
 	 */
 	@RequestMapping(value="/toAddDoctor.action")
 	public  ModelAndView toAddDoctor() {
+		
 		 List<PostBean>   postList=postBizImp.selectAllPost();
 	        session.setAttribute("postList", postList);
 			
@@ -226,6 +237,8 @@ public class MangeDoctorAction {
 	 * 新增医生
 	 */
     @RequestMapping(value="/AddDoctor.action",method=RequestMethod.POST)
+    @ResponseBody
+	@SystemLog(module="医生管理",methods="新增医生")
 	public  ModelAndView AddDoctor(MultipartFile fileact,HttpServletRequest request,AdminBean aBean) {
     
 		String file = fileact.getOriginalFilename();
@@ -315,12 +328,14 @@ public class MangeDoctorAction {
      * 更改角色
      */
     @RequestMapping(value="/updateRole.action")
+    @ResponseBody
+	@SystemLog(module="医生管理",methods="更改医生角色")
     public ModelAndView updateRole() {
     	String admin=(String) session.getAttribute("uadminId");
     	int adminId=Integer.parseInt(admin);
     	String ro=request.getParameter("roleId");
     	int roleId=Integer.parseInt(ro);
-    	System.out.println("-------------"+adminId+"-----------------"+roleId);
+    	
     	adminBizImp.updateRole(adminId, roleId);
     	
 		return mav;

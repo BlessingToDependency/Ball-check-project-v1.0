@@ -12,7 +12,7 @@ String path = request.getScheme() +"://"+request.getServerName()
    <link rel="stylesheet" href="<%=path%>css/bootstrap.min.css">
 	<script src="<%=path%>js/jquery.min.js"></script>
 	<script src="<%=path%>js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="<%=path%>js/jquery.min.js"></script>
+    <link rel="stylesheet" href="<%=path%>/lib/layui/css/layui.css">
 	
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -20,7 +20,7 @@ String path = request.getScheme() +"://"+request.getServerName()
     <link rel="shortcut icon" href="<%=path%>/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="<%=path%>/css/font.css">
     <link rel="stylesheet" href="<%=path%>/css/xadmin.css">
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<!--     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
     <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -30,7 +30,7 @@ String path = request.getScheme() +"://"+request.getServerName()
     <![endif]-->
          <style>
      .zt{color: #06F;font-size: 18px;font-weight: 10px;}
-         #div{width:100%; height:50px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
+         #div{width:100%; height:70px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
          #divleft{width:35%; height:48px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:right;}
          #divright{width:63%; height:48px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
 	</style>
@@ -56,7 +56,7 @@ String path = request.getScheme() +"://"+request.getServerName()
         </form>
       </div>
       <xblock>
-        <button class="layui-btn" data-toggle="modal" data-target="#myModal2"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn"  onclick="adddep();"><i class="layui-icon"></i>添加</button>
       </xblock>
       <table class="layui-table">
         <thead>
@@ -82,11 +82,11 @@ String path = request.getScheme() +"://"+request.getServerName()
       </table>
       <div class="page">
         <div>
-                     总页数 ${paNum}/当前页数 ${page} 
-          <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=1">首页</a>
-          <a class="prev" href="<%=path%>maDeparAction/selectDe.action?page=${page-1<1?1:page-1}">上一页</a>
-          <a class="next" href="<%=path%>maDeparAction/selectDe.action?page=${(page+1)<=paNum?page+1:paNum}">下一页</a>
-          <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=${paNum}">末页</a> 
+                     共 ${paNum}页/当前第 ${page}页
+          <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=1&depa=${depa}">首页</a>
+          <a class="prev" href="<%=path%>maDeparAction/selectDe.action?page=${page-1<1?1:page-1}&depa=${depa}">上一页</a>
+          <a class="next" href="<%=path%>maDeparAction/selectDe.action?page=${(page+1)<=paNum?page+1:paNum}&depa=${depa}">下一页</a>
+          <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=${paNum}&depa=${depa}">末页</a> 
            <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" />
            <a class="num" id="linkToCart" onclick="jump();">跳转</a>
           
@@ -95,8 +95,8 @@ String path = request.getScheme() +"://"+request.getServerName()
 
     </div>
 
-  <form id="addfrom" method="post" action="<%=path%>maDeparAction/innserDepar.action">
-
+  <form id="addfrom" method="post" action="<%=path%>maDeparAction/innserDepar.action" >
+<button type="button" id="dep" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2"></button>
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -108,19 +108,28 @@ String path = request.getScheme() +"://"+request.getServerName()
         <div id="div">
              <div id="divleft"><span class="zt">新的科室名:</span></div> 
              <div id="divright">
-             <input type="text" id="depa2" name="depa" style="width:200px;" class="form-control" placeholder="科室名" onblur="checkDate()"><samp id="us"></samp>
-             </div>          
+             <input type="text" id="depa2" name="depa" style="width:200px;" class="layui-input" placeholder="科室名" onblur="checkDate()" required="" lay-verify="required"><samp id="us"></samp>
+             </div> 
+                 
         </div>  
+             <div id="div">
+             <div id="divleft"><span class="zt">所属小结:</span></div> 
+             <div id="divright">
+             <select class="form-control" id="xId" name="intfaceId" style="width:200px;">
+                 <option value="0">--请选择--</option>
+                 </select>
+             </div>          
+          </div>   
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="submit" class="btn btn-primary">提交</button>
+        <button type="submit" class="layui-btn" lay-filter="*" lay-submit>提交</button>
       </div>
     </div>
   </div>
 </div>
 </form>	
 
-  <form id="addfrom" method="post" action="<%=path%>maDeparAction/updateDepar.action">
+  <form id="addfrom" method="post" action="<%=path%>maDeparAction/updateDepar.action" class="layui-form">
 <button type="button" id="dada" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></button>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -133,12 +142,12 @@ String path = request.getScheme() +"://"+request.getServerName()
         <div id="div">
              <div id="divleft"><span class="zt">新的科室名:</span></div> 
              <div id="divright">
-             <input type="text" id="depa3" name="depa" style="width:200px;" class="form-control" placeholder="科室名" onblur="checkDate1()"><samp id="us1"></samp>
+             <input type="text" id="nedepa" name="depa" style="width:200px;" class="layui-input" placeholder="科室名" onblur="checkDate1()" required="" lay-verify="required"><samp id="us1"></samp>
              </div>          
         </div>  
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="submit" class="btn btn-primary">保存</button>
+        <button type="submit"  class="layui-btn" lay-filter="*" lay-submit>保存</button>
       </div>
     </div>
   </div>
@@ -158,7 +167,7 @@ function delectDepa(depaId){
 </script>
 <script type="text/javascript">
 function checkDate(){
-    
+	
 	  $.ajax({
 		  type:"post",
  	   url:"<%=path%>maDeparAction/checkDepar.action",
@@ -176,11 +185,11 @@ function checkDate(){
 
 } 
 function checkDate1(){
-    
+	  
 	  $.ajax({
 		  type:"post",
 	   url:"<%=path%>maDeparAction/checkDepar.action",
-	   data:{"depa":$("#depa3").val()},
+	   data:{"depa":$("#nedepa").val()},
 	   dataType:"json",
 			success : function(redata) {//定义各事件发生时回调的函数
 			  console.log(redata);
@@ -192,7 +201,7 @@ function checkDate1(){
 	  });
 
 }
-
+<!--修改科室-->
 function addHid(v){
 	
 	$.ajax({
@@ -203,6 +212,32 @@ function addHid(v){
 	    success:function(data){
 	    	//展开模态框
 	    	$("#dada").trigger("click");
+	    	$("#nedepa").val(data.depa);
+	    	
+	    /*  	$("#xId").find("option").remove();
+	    	$.each(data, function(i, item) {
+		    	  $("#xId").append("<option value="+item.paramId+">"+ item.param+ "</option>");
+			}); */
+	    	
+	  }
+	});
+}
+
+function adddep(){
+	
+	$.ajax({
+		url:"<%=path%>maDeparAction/toAddDepar.action",//请求地址
+		data:"",//发送至服务器的键值数据
+		dataType:"json",//请求数据格式，如script,json,text等
+		type:"post",//发送方式，get/post
+	    success:function(data){
+	    	//展开模态框
+	    	$("#dep").trigger("click");
+	     	$("#xId").find("option").remove();
+	    	$.each(data, function(i, item) {
+		    	  $("#xId").append("<option value="+item.paramId+">"+ item.param+ "</option>");
+			});
+	    	
 	  }
 	});
 }
@@ -210,7 +245,8 @@ function addHid(v){
 //跳转页码
 function jump(){
 	var p=document.getElementById("pageNo").value;
-	window.location.href="<%=path%>maDeparAction/selectDe.action?page="+p;
+	if(p<=${paNum}){window.location.href="<%=path%>maDeparAction/selectDe.action?depa=${depa}&page="+p;}
+	else{alert("页数不存在");}
 }
 </script>
 </html>

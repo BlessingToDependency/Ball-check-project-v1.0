@@ -37,7 +37,29 @@
  </HEAD>  
 <BODY>  
     
-    <span id='div1'>把要打印的内容放这里</span></br> </br>   
+    <span id='div1'>把要打印的内容放这里
+    
+          <table class="layui-table">
+        <thead>
+          <tr style="background-color:orange;">
+            <th colspan="2">细项</th>
+            <th>结果</th>
+            <th>参考</th>
+            <th>单位</th>
+        </thead>
+        <tbody>
+          <c:forEach items="${finrList}" var="list" step="1" varStatus="vs">
+			<tr>
+			   <td colspan="2">${list.termBean.term}</td>
+			   <td>${list.termVal}</td>
+			   <td>${list.termBean.none}</td>
+			   <td>${list.termBean.measur}</td>
+			</tr>
+			</c:forEach>
+        </tbody>
+      </table>
+    
+    </span></br> </br>   
        
     <span class="noprint" >不打印的内容放这里</span>  </br>  </br>   
        

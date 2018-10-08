@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.AdminBean;
+import org.great.bean.DeparBean;
 import org.great.bean.FinresultBean;
 import org.great.bean.LitemBean;
 import org.great.bean.SetmealBean;
@@ -34,6 +35,9 @@ public interface IAdminMapper {
 	//科室插入体检人员信息
 	public void addFinresult(FinresultBean finresultBean);
 	
+	//科室插入体检人员信息
+	public void addFinresult2(FinresultBean finresultBean);
+	
 	//后台用户公司展示
 	public List<UserBean> company(@Param(value="userBean")UserBean userBean,@Param(value="pages")Integer pages);
 
@@ -47,10 +51,10 @@ public interface IAdminMapper {
 	public Integer companyCount(UserBean userBean);
 	
 	//后台用户管理列表展示
-	public List<StaffBean> userAdmin(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("companyId")Integer companyId,@Param("pages")Integer pages,@Param("myGuChId")String myGuChId);
+	public List<StaffBean> userAdmin(@Param("staffBean")StaffBean staffBean,@Param("pages")Integer pages);
 	
 	//后台用户管理列表总数查询
-	public Integer userAdminCount(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("companyId")Integer companyId,@Param("myGuChId")String myGuChId);
+	public Integer userAdminCount(StaffBean staffBean);
 	
 	//根据用户id查找对应信息
 	public StaffBean userInfo(@Param("staffId")String staffId);
@@ -102,6 +106,11 @@ public interface IAdminMapper {
 	
 	//医生更改角色
 	public void updateRole(@Param("adminId") int adminId,@Param("roleId") int roleId);
-
+	
+	//得到科室对应需要调整的体检界面
+	public DeparBean getIntfaceId(@Param("depaId")int depaId);
+	
+	//更新人员来体检的时间
+	public int updateInspTime(@Param("staffId") int staffId,@Param("inspTime")String inspTime);
 
 }

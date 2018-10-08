@@ -19,10 +19,13 @@ public class LogBean implements Serializable{
     private String module;//操做模块
     private String commite;//执行描述
     private String method;//执行的方法
-    
-    
+    private String  ip;   //IP地址
+    private String   responseTime;  //响应时间
+    private Short state;   //该操作状态， -1表示失败
+   
     private String start;
     private String end;
+    
     
     public LogBean() {
     	
@@ -42,6 +45,20 @@ public class LogBean implements Serializable{
 		this.method=method;
 	}
 	
+	
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "LogBean [logId=" + logId + ", time=" + time + ", name=" + name + ", matter=" + matter + ", module="
+				+ module + ", commite=" + commite + ", method=" + method + ", start=" + start + ", end=" + end + "]";
+	}
+
+
 	public int getLogId() {
 		return logId;
 	}
@@ -115,6 +132,54 @@ public class LogBean implements Serializable{
 
 	public void setMethod(String method) {
 		this.method = method;
+	}
+
+
+	/**
+	 * @return the ip
+	 */
+	public String getIp() {
+		return ip;
+	}
+
+
+	/**
+	 * @param ip the ip to set
+	 */
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+
+	/**
+	 * @return the responseTime
+	 */
+	public String getResponseTime() {
+		return responseTime;
+	}
+
+
+	/**
+	 * @param responseTime the responseTime to set
+	 */
+	public void setResponseTime(String responseTime) {
+		this.responseTime = responseTime;
+	}
+
+
+	/**
+	 * @return the state
+	 */
+	public Short getState() {
+		return state;
+	}
+
+
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(Short state) {
+		this.state = state;
 	}
     
     

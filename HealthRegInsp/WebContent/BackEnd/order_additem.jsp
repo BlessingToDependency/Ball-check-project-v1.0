@@ -214,7 +214,7 @@ String path = request.getScheme() +"://"+request.getServerName()
       </div>  
         
         	<!-- 更改名字模态框（Modal） -->
-	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 		<div class="modal-dialog" style="width:800px">
 			<div class="modal-content">
 		<%-- 		<div class="modal-header">
@@ -223,14 +223,14 @@ String path = request.getScheme() +"://"+request.getServerName()
 						套餐名字：${setmeal}
 					</h4>
 				</div> --%>
-			<form method="post" action="<%=path%>Order/updateItem.action?setmealId=${setmealId}" enctype="multipart/form-data">								
+			<form   method="post" action="<%=path%>Order/updateItem.action?setmealId=${setmealId}" enctype="multipart/form-data" >								
 			<div class="modal-body">
-               		 套餐名字：<input type="text" id="setmeal" name="setmeal" value="${setmeal}">     	 
+               		 套餐名字：<input type="text" id="setmeal" name="setmeal" value="${setmeal}" class="layui-input" lay-verify="required" required=""  autocomplete="off">     	 
 				
 	     	</div>	
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<input type="submit" value="提交" class="btn btn-primary">
+						<input type="submit" value="提交" class="layui-btn" lay-filter="*">
 						<!-- <button type="submit" class="btn btn-primary"> 提交 </button>-->
 					</div>
 				</form>	

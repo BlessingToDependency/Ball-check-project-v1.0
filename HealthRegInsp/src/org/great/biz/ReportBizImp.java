@@ -197,6 +197,22 @@ public class ReportBizImp implements ReportBiz {
 	
 		reportMapper.setSmall(myGuChId);
 	}
+	/* (non-Javadoc)
+	 * @see org.great.biz.ReportBiz#changeState(org.great.bean.TotalBean)
+	 */
+	@Override
+	public void changeState(TotalBean totalBean) {
+		
+		reportMapper.changeState(totalBean);
+	}
+	/* (non-Javadoc)
+	 * @see org.great.biz.ReportBiz#addUser(java.lang.String)
+	 */
+	@Override
+	public void addUser(String orderTime) {
+		
+		reportMapper.addUser(orderTime);
+	}
 
 
 

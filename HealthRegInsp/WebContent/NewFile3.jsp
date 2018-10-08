@@ -8,35 +8,57 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>局部打印案例</title>
-<OBJECT ID="DLPrinter" CLASSID="CLSID:5C230622-45E5-4e3c-893C-3BFDDC4DB5E4"  codebase="DLPrinter.cab" height="0" width="0" ></OBJECT>
-<script>
-  DLPrinter.MarginLeft=20;
-  DLPrinter.MarginRight=20;
-  DLPrinter.MarginTop=20;
-  DLPrinter.MarginBottom=20;
-  DLPrinter.CopyCount=2;
-  DLPrinter.PageHeader="这是测试的页眉";
-  DLPrinter.PageFooter="这是测试的页脚";
-  DLPrinter.IsLandScape=1;
-      //DLPrinter.ContentURL="www.baidu.com";
-    //DLPrinter.ContentURL="http://www.cnblogs.com/Yahong111/archive/2007/09/19/898326.html";
+<title>统计柱状图</title>
+ <style>      
+    @media print {    
+        .noprint {     
+            display: none     
+        }    
+    }    
+  </style>
+<script defer>
+function SetPrintSettings() {
+	// – advanced features
+	factory.printing.SetMarginMeasure(2) // measure margins in inches
+	factory.SetPageRange(false, 1, 3) // need pages from 1 to 3
+	factory.printing.printer = "HP DeskJet 870C"
+	factory.printing.copies = 2
+	factory.printing.collate = true
+	factory.printing.paperSize = "A4"
+	factory.printing.paperSource = "Manual feed"
+	// – basic features
+	factory.printing.header = "This is MeadCo"
+	factory.printing.footer = "Advanced Printing by ScriptX"
+	factory.printing.portrait = false
+	factory.printing.leftMargin = 1.0
+	factory.printing.topMargin = 1.0
+	factory.printing.rightMargin = 1.0
+	factory.printing.bottomMargin = 1.0
+}
 </script>
- <body>
-<input type="button" id="btnPrint" value="Print Preview" onclick="DLPrinter.PrintPreview()" />
-<input type="button" id="btnPrint" value="Print with prompt" onclick="DLPrinter.Print()" />
-<input type="button" id="btnPrint" value="Print without prompt" onclick="DLPrinter.PrintDirect()" />
+<script language="javascript">
+
+function printsetup(){
+	// 打印页面设置
+	wb.execwb(8,1);
+}
+
+function printpreview(){
+	// 打印页面预览
+	wb.execwb(7,1);
+}
+function printit(){
+	if (confirm('确定打印吗？')) {
+		wb.execwb(6,6)
+	}
+}
+</script>
+</head>
+<body style='background-color:#FFFFFF;'>
+<OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height=0 id=wb name=wb width=0></OBJECT>
+ 	<input type=button name=button_print value="打印" onclick="javascript:printit()">
+ 	<input type=button　name=button_setup value="打印页面设置" onclick="javascript:printsetup();">
+ 	<input type=button　name=button_show value="打印预览" onclick="javascript:printpreview();">
+ 	<input type=button name=button_fh value="关闭" onclick="javascript:window.close();">
 </body>
-<script>
-  DLPrinter.MarginLeft=20;
-  DLPrinter.MarginRight=20;
-  DLPrinter.MarginTop=20;
-  DLPrinter.MarginBottom=20;
-  DLPrinter.CopyCount=2;
-  DLPrinter.PageHeader="这是测试的页眉";
-  DLPrinter.PageFooter="这是测试的页脚";
-  DLPrinter.IsLandScape=1;
-      //DLPrinter.ContentURL="www.baidu.com";
-    //DLPrinter.ContentURL="http://www.cnblogs.com/Yahong111/archive/2007/09/19/898326.html";
-</script>
 </html>

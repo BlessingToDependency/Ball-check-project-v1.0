@@ -22,16 +22,21 @@ public class StaffBean {
      private int printGuCh; //打印导检单状态
      private int orderId;//预约状态
      private  Integer smallState;  //小结状态
-
-	private String statTime;//开始时间
+     private  String examTime;    //体检时间
+     
+	 private String statTime;//开始时间
      private String stopTime;//结束时间
+     private Integer  currentpage;  //当前页数
+     private Integer  totalPage;   //总页数
+     private  Integer pagecount = 5; //每页限制页数
      
      @Resource
      private UserBean userBean;//前台公司表
      @Resource
      private PerguirelaBean perguirelaBean;//员工导检单关系表
      
-	
+     private TotalBean totalBean;  //总结表
+	 
 	public StaffBean() {
 		super();
 	}
@@ -60,8 +65,7 @@ public class StaffBean {
 
 
 	
-	
-		
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -71,8 +75,10 @@ public class StaffBean {
 		return "StaffBean [staffId=" + staffId + ", staffName=" + staffName + ", age=" + age + ", sex=" + sex
 				+ ", idNum=" + idNum + ", phone=" + phone + ", companyId=" + companyId + ", napany=" + napany
 				+ ", medicalId=" + medicalId + ", myGuChId=" + myGuChId + ", printGuCh=" + printGuCh + ", orderId="
-				+ orderId + ", smallState=" + smallState + ", statTime=" + statTime + ", stopTime=" + stopTime
-				+ ", userBean=" + userBean + ", perguirelaBean=" + perguirelaBean + "]";
+				+ orderId + ", smallState=" + smallState + ", examTime=" + examTime + ", statTime=" + statTime
+				+ ", stopTime=" + stopTime + ", currentpage=" + currentpage + ", totalPage=" + totalPage
+				+ ", pagecount=" + pagecount + ", userBean=" + userBean + ", perguirelaBean=" + perguirelaBean
+				+ ", totalBean=" + totalBean + "]";
 	}
 
 
@@ -250,6 +256,87 @@ public class StaffBean {
 	public void setSmallState(Integer smallState) {
 		this.smallState = smallState;
 	}
+
+
+	/**
+	 * @return the examTime
+	 */
+	public String getExamTime() {
+		return examTime;
+	}
+
+
+	/**
+	 * @param examTime the examTime to set
+	 */
+	public void setExamTime(String examTime) {
+		this.examTime = examTime;
+	}
+
+
+	/**
+	 * @return the totalBean
+	 */
+	public TotalBean getTotalBean() {
+		return totalBean;
+	}
+
+
+	/**
+	 * @param totalBean the totalBean to set
+	 */
+	public void setTotalBean(TotalBean totalBean) {
+		this.totalBean = totalBean;
+	}
+
+
+	/**
+	 * @return the currentpage
+	 */
+	public Integer getCurrentpage() {
+		return currentpage;
+	}
+
+
+	/**
+	 * @param currentpage the currentpage to set
+	 */
+	public void setCurrentpage(Integer currentpage) {
+		this.currentpage = currentpage;
+	}
+
+
+	/**
+	 * @return the pagecount
+	 */
+	public Integer getPagecount() {
+		return pagecount;
+	}
+
+
+	/**
+	 * @param pagecount the pagecount to set
+	 */
+	public void setPagecount(Integer pagecount) {
+		this.pagecount = pagecount;
+	}
+
+
+	/**
+	 * @return the totalPage
+	 */
+	public Integer getTotalPage() {
+		return totalPage;
+	}
+
+
+	/**
+	 * @param totalPage the totalPage to set
+	 */
+	public void setTotalPage(Integer totalPage) {
+		this.totalPage = totalPage;
+	}
+
 
 
 	

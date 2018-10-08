@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.DeparBean;
+import org.great.bean.ParamBean;
 
 /*
  * 科室Biz接口
@@ -20,7 +21,7 @@ public interface IdeparBiz {
 		public List<DeparBean> selectDeN(DeparBean deparBean);
 		
 		//增加科室
-		public  void  innserDepar(String depar);
+		public  void  innserDepar(String depar,int intfaceId);
 		
 		//删除科室
 		public void  deleteDepar(int depaId);
@@ -30,4 +31,10 @@ public interface IdeparBiz {
 		
 		//去重
 		public List<DeparBean> selectDeChe(DeparBean deparBean);
+		
+		//查询配置的小结
+		public List<ParamBean>  selectX();
+		
+		//查询单个科室信息
+		public DeparBean  selectnfo(@Param("depaId")int depaId);
 }

@@ -15,15 +15,15 @@
 			  
 		</select>
 		
-		<!-- 查询个数，查重-->
+		<!-- 查询个数-->
 		<select id="selectDeN" resultType="org.great.bean.DeparBean">
 			select * from(select * from tbldepar) where 1=1
 			  <if test="depa!=null">and depa like '%${depa}%'</if>
 		</select>
 		
 		<!-- 增加科室-->
- 		 <insert id="innserDepar" parameterType="java.lang.String">
- 		        insert into tbldepar values(TBL_DEPAR.nextval,#{depar})
+ 		 <insert id="innserDepar" >
+ 		        insert into tbldepar values(TBL_DEPAR.nextval,#{depar},#{intfaceId})
  		 </insert>
  		 
  		 <!-- 删除科室-->
@@ -40,5 +40,16 @@
  		<select id="selectDeChe" resultType="org.great.bean.DeparBean">
 			select * from(select * from tbldepar) where 1=1
 			  <if test="depa!=null">and depa=#{depa}</if>
+		</select>
+		
+		 <!-- 查询配置的小结-->
+		 <select id="selectX" resultType="org.great.bean.ParamBean">
+		     select * from TBLPARAM where PARID=500
+		 </select>
+		 
+		 <!-- 查询单个科室信息 -->
+		<select id="selectnfo" resultType="org.great.bean.DeparBean" parameterType="java.lang.Integer">
+		      
+		select * from tbldepar where depaId=#{depaId}
 		</select>
  </mapper>

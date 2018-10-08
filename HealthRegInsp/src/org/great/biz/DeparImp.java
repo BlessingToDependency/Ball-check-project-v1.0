@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.DeparBean;
+import org.great.bean.ParamBean;
 import org.great.mapper.IDeparMapper;
 import org.springframework.stereotype.Service;
 @Service
@@ -39,10 +40,10 @@ public class DeparImp implements IdeparBiz {
 
 	//增加科室
 	@Override
-	public void innserDepar(String depar) {
+	public void innserDepar(String depar,int intfaceId) {
 		// TODO Auto-generated method stub
 		
-		iDeparMapper.innserDepar(depar);
+		iDeparMapper.innserDepar(depar,intfaceId);
 	}
 
 	//删除科室
@@ -64,7 +65,23 @@ public class DeparImp implements IdeparBiz {
 	public List<DeparBean> selectDeChe(DeparBean deparBean) {
 		// TODO Auto-generated method stub
 		List<DeparBean> deList=iDeparMapper.selectDeChe(deparBean);
-		return null;
+		return deList;
+	}
+
+	//查询配置的小结
+	@Override
+	public List<ParamBean> selectX() {
+		// TODO Auto-generated method stub
+		List<ParamBean> paramList=iDeparMapper.selectX();
+		return paramList;
+	}
+
+	//查询单个科室信息
+	@Override
+	public DeparBean selectnfo(int depaId) {
+		// TODO Auto-generated method stub
+		DeparBean dep=iDeparMapper.selectnfo(depaId);
+		return dep;
 	}
 
 }
