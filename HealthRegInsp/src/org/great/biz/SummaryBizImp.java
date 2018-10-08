@@ -116,6 +116,4 @@ public class SummaryBizImp implements ISummaryBiz {
 		return iSummaryMapper.getItemIds(guChId);
 	}
 
-	
-
 }

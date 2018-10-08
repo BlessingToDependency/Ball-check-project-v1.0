@@ -75,6 +75,7 @@ public class AdminLoginAction {
 			model.addAttribute("allList", allList);
 			model.addAttribute("parentList", parentList);
 			model.addAttribute("sonList", sonList);
+			model.addAttribute("adminBean", adminBean);
 			
 			mav.setViewName("BackEnd/admin_Index");
 		}else {

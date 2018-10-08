@@ -13,7 +13,6 @@ public class SmallBean {
    private int itemId;//项目ID
    private  String doctor;//医生名
    private  String sumCont;//小结内容SMALLSTATE
-
    
    private  FinresultBean finresultBean;  //细项结果表
    private  LitemBean litemBean;  //细项表  
