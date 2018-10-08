@@ -22,7 +22,7 @@ String path = request.getScheme() +"://"+request.getServerName()
     <%-- <script src="<%=path%>js/bootstrap.min.js"></script> --%>
      <style>
      .zt{color: #06F;font-size: 18px;font-weight: 10px;}
-         #div{width:20%; height:40px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
+     #div{width:20%; height:40px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
 	</style>
   </head>
   <body>
@@ -34,17 +34,46 @@ String path = request.getScheme() +"://"+request.getServerName()
         <a>
           <cite>导航元素</cite></a>
       </span>
+      <span id="dd" onclick="daying();">打印</span>
       <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
     </div>
-    <div class="x-body">       
+    
+    <div class="x-body" id="dadad">       
       <xblock>
-
         <span class="x-right" style="line-height:40px"></span>
       </xblock>
-      <table class="layui-table">
       <c:forEach items="${itemMap}"  var="map" step="1">
       <blockquote class="layui-elem-quote">${map.key.litemBean.item} </blockquote>
+       <c:if test="${map.key.litemBean.itemId==itemID}">
+         <table class="layui-table">
+        <thead>
+          <tr>
+            <th>影像文件</th>
+          </tr>
+        </thead>
+        <tbody>
+            <table  width="100%" border="0" cellspacing="0" cellpadding="0" class="main" class="layui-table layui-input-block">
+               <tbody>
+                 <tr>
+                   <c:forEach items="${fileNameList}"  var="fileName" step="1" varStatus="vs">
+                    <td>
+                       <img src="<%=path%>doctorSummaryAction/getImage.action?fileName=${fileName}&guChId=${staffBean.myGuChId}" id="img2" style="width: 15rem; height: 10rem;">
+                    </td>
+                    </c:forEach>
+                  </tr>
+               </tbody>
+            </table>
+		<thead>
+          <tr>
+            <th colspan="4">小结：   ${map.key.sumCont}   </th>  
+           </tr>     
+        </thead>		
+        </tbody>
+      </table>
+       </c:if>
+        <c:if test="${map.key.litemBean.itemId!=itemID}">
+         <table class="layui-table">
         <thead>
           <tr>
             <th>细项</th>
@@ -69,8 +98,11 @@ String path = request.getScheme() +"://"+request.getServerName()
            </tr>     
         </thead>		
         </tbody>
-    </c:forEach>   
       </table>
+      </c:if>
+      
+     
+    </c:forEach>   
         <form action="<%=path%>Report/insertTotall.action?guChId=${staffBean.myGuChId}" method="post">
      		 <table class="layui-table">
 				<thead>
@@ -101,16 +133,16 @@ String path = request.getScheme() +"://"+request.getServerName()
 							<td><textarea name="lifeGuid" cols="180"></textarea></td>
 						</tr>	
 						<tr>   <td align="center">
-						  <button class="layui-btn" type="submit" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>提交</button>
-						   <button class="layui-btn layui-btn-normal" onclick="delAll()"><i class="layui-icon"></i>返回</button>
+						 
 							<input type="hidden" name="companyId" id="companyId" value="${companyId}"/>
 						</td></tr>								
 					</table>     			
 			</form>
-
-
     </div>
+     <button class="layui-btn" type="submit" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>提交</button>
+						   <button class="layui-btn layui-btn-normal" onclick="delAll()"><i class="layui-icon"></i>返回</button>
 </body>
+ <span id="dd" onclick="daying();">打印</span>
  <script type="text/javascript" src="<%=path%>js/jquery.min.js"></script>
  <script>
 $(document).ready(function(){
@@ -172,7 +204,27 @@ function jump(){
 	var p=document.getElementById("pageNo").value;
 	window.location.href="<%=path%>openBillAction/staff.action?pageNo="+p+"&companyId=${batchSheetCon.companyId}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}";
 }
+//启用弹窗确认
+function daying(){
+	 var sText = document.getSelection().toString();
+	/*  var obj = document.execCommand("insertHTML",false, "<div class='x-body' id='dadad'>" + sText + "</div>"); */
+	var obj = document.getElementById("dadad");
+	var newStr = obj.outerHTML;  
+	 var oldStr = document.body.innerHTML;  
+	 document.body.innerHTML = newStr;  
+	 document.execCommand("print");
+	 document.body.innerHTML = oldStr; 
+}
 
+function printObj(obj) { 
+    var newStr = obj.outerHTML;  
+    var oldStr = document.body.innerHTML;  
+    
+    document.body.innerHTML = newStr;  
+    document.execCommand("print"); 
+    document.body.innerHTML = oldStr;  
+    return false;  
+  }  
 //启用弹窗确认
 function disable(){
 	 var r=confirm("确定启用该用户吗？")
@@ -181,7 +233,5 @@ function disable(){
 	 }
 	 return false;
 }
-
-
 </script> 
 </html>

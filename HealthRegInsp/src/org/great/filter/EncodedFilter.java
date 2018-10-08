@@ -8,7 +8,9 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-
+/*
+ * 编码过滤层
+ */
 public class EncodedFilter implements Filter{
 
 	@Override

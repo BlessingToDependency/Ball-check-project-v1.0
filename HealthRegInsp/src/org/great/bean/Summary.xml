@@ -52,7 +52,12 @@
    <select id="getFinresultList"  resultMap="usMap">
    select * from TBLFINRESULT where GUCHID=#{guChId} and ITEMID=#{itemId}
    </select>
-
+   
+   
+   <select id="getItemIds" resultType="java.lang.Integer">
+   select distinct ITEMID from TBLGUCHIMAGERELA where GUCHID=#{guChId}
+   </select>
+ 
     <select id="term" parameterType="java.lang.Integer"
 		resultType="org.great.bean.TermBean">
 		select * from TBLTERM where TERMID =#{id}

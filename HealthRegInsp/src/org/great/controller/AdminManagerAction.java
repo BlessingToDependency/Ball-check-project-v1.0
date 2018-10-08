@@ -160,4 +160,13 @@ public class AdminManagerAction {
 		return new ModelAndView("BackEnd/AddAdmins");
 	}
 	
+	//管理员退出
+	@RequestMapping(value="/exitAdmin.action")
+	public ModelAndView exitAdmin(HttpServletRequest request){
+		//清空登录的Session
+		request.getSession().removeAttribute("adminBean");
+		return new ModelAndView("BackEnd/admin_login");
+		//request.getRequestDispatcher("/BackEnd/admin_login.jsp").forward(request, response);
+	}
+	
 }
