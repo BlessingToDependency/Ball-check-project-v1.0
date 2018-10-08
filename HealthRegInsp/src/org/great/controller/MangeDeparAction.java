@@ -52,8 +52,7 @@ public class MangeDeparAction {
 	 * 查询科室
 	 */
 	@RequestMapping(value="selectDe.action")
-	@ResponseBody
-	@SystemLog(module="科室管理",methods="查看科室")
+
 	public ModelAndView selectDe() {
 		String page=request.getParameter("page");
 		String depa=request.getParameter("depa");
@@ -118,11 +117,13 @@ public class MangeDeparAction {
 		System.out.println("科室"+depa+"id=="+intfaceId);
 		String msg=(String) session.getAttribute("msg");
 		if(msg.equals("可用科室")) {
+		
 			deparImp.innserDepar(depa,intfaceId);
 		mav.setViewName("redirect:/maDeparAction/selectDe.action");
 		}
 		else {
-			mav.setViewName("BackEnd/add_depar");
+		
+			mav.setViewName("");
 		}
 		return mav;
 		
@@ -150,11 +151,14 @@ public class MangeDeparAction {
 	public @ResponseBody void toUpdateDepar() throws Exception {
 		
 		String dei=request.getParameter("depId");
+		int depi=Integer.parseInt(dei);
 		session.setAttribute("dei", dei);
 		PrintWriter out = response.getWriter();
-		String msg="OK";
+		DeparBean dep=deparImp.selectnfo(depi);
+		
+		
 		Gson gson1 = new Gson();
-		String str1 = gson1.toJson(msg);
+		String str1 = gson1.toJson(dep);
 		out.print(str1);
 		out.close();	
 	}
@@ -172,9 +176,11 @@ public class MangeDeparAction {
 		deparBea.setDepaId(depaId);
 		String msg=(String) session.getAttribute("msg");
 		if(msg.equals("可用科室")) {
+			System.out.println("1");
 		deparImp.updateDepar(deparBea);
 		mav.setViewName("redirect:/maDeparAction/selectDe.action");
 		}else {
+			System.out.println("2");
 			mav.setViewName("");
 		}
 		
@@ -188,7 +194,7 @@ public class MangeDeparAction {
 	public @ResponseBody void checkDepar() throws Exception {
 	
 		String depar=request.getParameter("depa");
-	
+	      
 		deparBean.setDepa(depar);
 		List<DeparBean> deLi=deparImp.selectDeChe(deparBean);
 	

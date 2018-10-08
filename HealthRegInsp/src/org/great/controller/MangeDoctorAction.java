@@ -128,8 +128,9 @@ public class MangeDoctorAction {
         int adminId=Integer.parseInt(adm);
         List<AdminBean>  adList=adminBizImp.slectDoctorInfo(adminId);
         session.setAttribute("adList", adList);
-        
-		
+        for(int i=0;i<adList.size();i++) {
+        System.out.println("********************"+adList.get(i).getPostBean().getPost());
+        }
 		mav.setViewName("BackEnd/edit_docInfo");
 		return mav;		
 	}

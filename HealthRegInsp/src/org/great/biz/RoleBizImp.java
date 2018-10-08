@@ -67,5 +67,13 @@ public class RoleBizImp implements IRoleBiz {
 		List<RoleBean> roleList=iroleMapper.selectR();
 		return roleList;
 	}
+
+	//查询单个角色
+	@Override
+	public RoleBean seleRoleInfo(int roleId) {
+		// TODO Auto-generated method stub
+		RoleBean rol=iroleMapper.seleRoleInfo(roleId);
+		return rol;
+	}
 	
 }

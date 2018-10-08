@@ -82,7 +82,7 @@ String path = request.getScheme() +"://"+request.getServerName()
       </table>
       <div class="page">
         <div>
-                     总页数 ${paNum}/当前页数 ${page} 
+                     共 ${paNum}页/当前第 ${page}页
           <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=1&depa=${depa}">首页</a>
           <a class="prev" href="<%=path%>maDeparAction/selectDe.action?page=${page-1<1?1:page-1}&depa=${depa}">上一页</a>
           <a class="next" href="<%=path%>maDeparAction/selectDe.action?page=${(page+1)<=paNum?page+1:paNum}&depa=${depa}">下一页</a>
@@ -142,7 +142,7 @@ String path = request.getScheme() +"://"+request.getServerName()
         <div id="div">
              <div id="divleft"><span class="zt">新的科室名:</span></div> 
              <div id="divright">
-             <input type="text" id="depa3" name="depa" style="width:200px;" class="layui-input" placeholder="科室名" onblur="checkDate1()" required="" lay-verify="required"><samp id="us1"></samp>
+             <input type="text" id="nedepa" name="depa" style="width:200px;" class="layui-input" placeholder="科室名" onblur="checkDate1()" required="" lay-verify="required"><samp id="us1"></samp>
              </div>          
         </div>  
       <div class="modal-footer">
@@ -189,7 +189,7 @@ function checkDate1(){
 	  $.ajax({
 		  type:"post",
 	   url:"<%=path%>maDeparAction/checkDepar.action",
-	   data:{"depa":$("#depa3").val()},
+	   data:{"depa":$("#nedepa").val()},
 	   dataType:"json",
 			success : function(redata) {//定义各事件发生时回调的函数
 			  console.log(redata);
@@ -201,7 +201,7 @@ function checkDate1(){
 	  });
 
 }
-
+<!--修改科室-->
 function addHid(v){
 	
 	$.ajax({
@@ -212,6 +212,8 @@ function addHid(v){
 	    success:function(data){
 	    	//展开模态框
 	    	$("#dada").trigger("click");
+	    	$("#nedepa").val(data.depa);
+	    	
 	    /*  	$("#xId").find("option").remove();
 	    	$.each(data, function(i, item) {
 		    	  $("#xId").append("<option value="+item.paramId+">"+ item.param+ "</option>");
@@ -243,7 +245,8 @@ function adddep(){
 //跳转页码
 function jump(){
 	var p=document.getElementById("pageNo").value;
-	window.location.href="<%=path%>maDeparAction/selectDe.action?page="+p;
+	if(p<=${paNum}){window.location.href="<%=path%>maDeparAction/selectDe.action?depa=${depa}&page="+p;}
+	else{alert("页数不存在");}
 }
 </script>
 </html>
