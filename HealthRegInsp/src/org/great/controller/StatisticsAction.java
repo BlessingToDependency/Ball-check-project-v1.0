@@ -24,7 +24,7 @@ import org.great.bean.SetmealBean;
 import org.great.bean.TblChannel;
 import org.great.bean.TblStatistics;
 import org.great.bean.TotalBean;
-import org.great.biz.StatisticBiz;
+import org.great.biz.StatisitcBiz;
 import org.great.tools.DateSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,7 +61,7 @@ public class StatisticsAction {
 	private ServletContext servletContext;
 	private TblStatistics sta;
 	@Resource
-	private StatisticBiz  statisitcBizImp;
+	private StatisitcBiz  statisitcBizImp;
 	
 	//计算一周的注册人数
 	@RequestMapping("/showWeek.action")

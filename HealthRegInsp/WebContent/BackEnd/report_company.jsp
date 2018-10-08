@@ -66,7 +66,7 @@ String path = request.getScheme() +"://"+request.getServerName()
       		<td>${item.orderTime }</td>
             <td class="td-status">
                  <%-- <span class="layui-btn layui-btn-normal layui-btn-mini" id="myModal" onClick="myModal(${item.itemId})">查看详情</span> --%>
-                  <span class="layui-btn layui-btn-normal layui-btn-mini"><a    href="<%=path %>Report/showUser.action?&companyId=${item.companyId  }">查看详情 </a></span>
+                  <span class="layui-btn layui-btn-normal layui-btn-mini"><a    href="<%=path %>Report/showUser.action?&companyId=${item.companyId}&orderTime=${item.orderTime }">查看详情 </a></span>
 	        </td>
           </tr> 
       </c:forEach>  

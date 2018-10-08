@@ -166,8 +166,10 @@ public class MissInspAction {
 		int cid=(int) request.getSession().getAttribute("cId");
 		//得到用户的导检单号
 		String guChId = "CY-jx1803-"+partYear+"-"+companyId+"-"+batchNum+"-"+staffId;
-		//更新 员工表中的  最新导检单号字段内容
-		int re = MissInspBizImp.updateNewGuChid(staffId, guChId);
+		//更新 员工表中的  最新导检单号字段内容以及体检的时间
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		String times = df.format(new Date());
+		int re = MissInspBizImp.updateNewGuChid(staffId, guChId,times);
 		//得到  员工导检单关系表  中的 人员导检对象
 		PerguirelaBean pgb = MissInspBizImp.getPerInspId(partYear, companyId, batchNum, staffId);
 		//获取套餐ID
@@ -205,8 +207,8 @@ public class MissInspAction {
 			StaffBean staff = MissInspBizImp.getStaffInfo(staffId);
 			//得到用户的手机号进行短信提醒用户已经预约了时间
 			String phone = staff.getPhone()+"";
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
-			String time = df.format(new Date());
+			SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+			String time = dff.format(new Date());
 			String tis =time+"号起的5个工作日内的公司体检";
 			try {
 				PhoneCode.Code(phone, staff.getStaffName(),tis);
@@ -227,7 +229,9 @@ public class MissInspAction {
 			//得到用户的导检单号
 			String guChId = "CY-jx1803-"+partYear+"-"+companyId+"-"+batchNum+"-"+staffId;
 			//更新 员工表中的  最新导检单号字段内容
-			int re = MissInspBizImp.updateNewGuChid(staffId, guChId);
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+			String times = df.format(new Date());
+			int re = MissInspBizImp.updateNewGuChid(staffId, guChId,times);
 			//得到  员工导检单关系表  中的 人员导检对象
 			PerguirelaBean pgb = MissInspBizImp.getPerInspId(partYear, companyId, batchNum, staffId);
 			//获取套餐ID
@@ -264,8 +268,8 @@ public class MissInspAction {
 				StaffBean staff = MissInspBizImp.getStaffInfo(staffId);
 				//得到用户的手机号进行短信提醒用户已经预约了时间
 				String phone = staff.getPhone()+"";
-				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
-				String time = df.format(new Date());
+				SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+				String time = dff.format(new Date());
 				String tis =time+"号起的5个工作日内的公司体检";
 				try {
 					PhoneCode.Code(phone, staff.getStaffName(),tis);

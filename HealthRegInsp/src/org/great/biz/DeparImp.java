@@ -76,4 +76,12 @@ public class DeparImp implements IdeparBiz {
 		return paramList;
 	}
 
+	//查询单个科室信息
+	@Override
+	public DeparBean selectnfo(int depaId) {
+		// TODO Auto-generated method stub
+		DeparBean dep=iDeparMapper.selectnfo(depaId);
+		return dep;
+	}
+
 }

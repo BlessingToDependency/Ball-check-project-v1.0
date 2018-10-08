@@ -85,8 +85,8 @@ public class MissInspBizImp implements IMissInspBiz{
 	}
 	//更新 员工表中的  最新导检单号字段内容
 	@Override
-	public int updateNewGuChid(int staffId, String myGuChId) {
-		int res = iGroupInspMapper.updateNewGuChid(staffId, myGuChId);
+	public int updateNewGuChid(int staffId, String myGuChId,String time) {
+		int res = iGroupInspMapper.updateNewGuChid(staffId, myGuChId,time);
 		return res;
 	}
 	//维护导检单ID 和 对应 套餐表

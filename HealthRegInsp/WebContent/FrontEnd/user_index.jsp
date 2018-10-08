@@ -128,9 +128,13 @@ function shoppingInfo(){
       <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action" >我的账户</a>
         <ul class="subnav">
         </ul>
+
       </li>
       
        <li class="navitem"><a  href="about.html" >公司简介</a>
+
+
+
         <ul class="subnav">
           <li>
           <a href="<%=path%>myCompAction/selectCompInfo.action"  >公司信息</a>                  
