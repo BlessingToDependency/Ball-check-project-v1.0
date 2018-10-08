@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="org.great.mapper.PersonalService">
+ 	<!-- 查询指定公司的某个账单下的所有个人账单 -->
+ 	<select id="selectPersonal" resultType="org.great.bean.PersonalBean" parameterType="org.great.bean.BillBean">
+ 		select * from TBLPERSONAL a,TBLSTAFF b where a.COMPANYID = #{companyId} and a.BILLID = #{billId} 
+ 		and a.STAFFID = b.STAFFID and b.SMALLSTATE = 15
+ 	</select>
+ </mapper>

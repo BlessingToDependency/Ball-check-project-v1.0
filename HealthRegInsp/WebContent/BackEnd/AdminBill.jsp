@@ -39,47 +39,18 @@ String path = request.getScheme() +"://"+request.getServerName()
                     alert(jsonObj); */
                      var html = '' ;
                     html+="<div class='layui-form-item'><label class='layui-form-label'>账单ID:</label><div class='layui-input-block'>"
-                    html+="<input type='text' id='billId' name='billId' lay-verify='title' autocomplete='off' value='"+reData.bill.billId+"' class='layui-input' readonly></div></div>"
+                    html+="<input type='text' name='billId' lay-verify='title' autocomplete='off' value='"+reData.bill.billId+"' class='layui-input' readonly></div></div>"
                     html+="<div class='layui-form-item'><label class='layui-form-label'>退款金额:</label><div class='layui-input-block'>"
-                    html+="<input type='text' id='actCharge'name='actCharge' lay-verify='title' autocomplete='off' value='"+reData.money+"' class='layui-input' readonly></div></div>"
+                    html+="<input type='text' name='actCharge' lay-verify='title' autocomplete='off' value='"+reData.money+"' class='layui-input' readonly></div></div>"
                     html+="<div class='layui-form-item'><label class='layui-form-label'>退款理由:</label> <div class='form-group'>"
-                    html+="<textarea class='form-control' rows='3' id='causeInfo'name='causeInfo'placeholder='请输入退款理由！'></textarea></div></div>"
-                    html+="<input type='hidden' id='companyId' value='"+reData.bill.companyId+"'>"
-
+                    html+="<textarea class='form-control' rows='3' name='causeInfo'placeholder='请输入退款理由！'></textarea></div></div>"
                     var html2="";
-                    html2+=" <button type='button' class='btn btn-primary' id='authoritysubmit' onClick='myModal1()'>提交申请</button>";
+                    html2+=" <button type='button' class='btn btn-primary' id='authoritysubmit'>提交申请</button>";
                     html2+=" <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>";
                     
                     $("#authorityBody").empty().append(html); 
                     $("#perbutton").empty().append(html2);
                     $("#AuthorityTitle").text("申请退款原因");
-                    $("#myModal").modal('show');	            
-            }	   
-    });
-		}
-	function myModal1(){
-		//alert(itemId);	
-		$.ajax({
-			type: "post",
-            url: "<%=path%>userBillAction/addRefundCause.action",
-            dataType: "json",
-            data: {billId: $('#billId').val(), 
-            	companyId:$('#companyId').val(),//发送的数据部分                       
-            	reAmount:$('#actCharge').val(),
-            	reInfo:$('#causeInfo').val(),
-            },
-            success: function(reData){//接受后台发送的数据
-                    //alert(reData.money);
-                     var html = '' ;
-                  
-                    html+="<div class='layui-form-item'><label class='layui-form-label'>"+reData.money+"</label><div class='layui-input-block'></div>"
-                  
-                    var html2="";              
-                    html2+=" <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>";
-                    
-                    $("#authorityBody").empty().append(html); 
-                    $("#perbutton").empty().append(html2);
-                    $("#AuthorityTitle").text("申请退款");
                     $("#myModal").modal('show');	            
             }	   
     });
@@ -114,35 +85,29 @@ String path = request.getScheme() +"://"+request.getServerName()
       <table class="layui-table" width="100%" style="table-layout:fixed;">
         <thead>
           <tr>
-            <th width="10%">账单ID</th>
-            <th width="5%">预约人数</th>
-            <th width="5%">实际人数</th>
-            <th width="10%">套餐</th>
-            <th width="10%">实际收费</th>
-            <th width="20%">下单时间</th>
-            <th width="10%">支付状态</th>
+            <th width="5%">退款序列</th>
+            <th width="10%">退款金额</th>
+            <th width="40%">退款理由</th>
+            <th width="15%">退款状态</th>
             <th width="30%">操作</th>
         </thead>
         <tbody>
-        <c:forEach items="${list}" var="li">
+        <c:forEach items="${list}" var="li" varStatus="i">
           <tr>
-            <td>${li.billId }</td>
-            <td>${li.ordNum }</td>
-            <td>${li.actNum }</td>  
-            <td>${li.setmealId }</td>
-            <td>${li.actCharge }</td>
-            <td>${li.orderTime }</td>
-            <td>${li.paramBean.param }</td>
+            <td>${i.index+1 }</td>
+            <td>${li.reAmount }</td>
+            <td>${li.reInfo }</td>
+            <td>${li.paramBean.param }</td>    
             <td class="td-status">
-            <c:if test="${li.paramBean.param eq '未支付'}">
-            <a href="<%=path%>userCheckOut/payment.action?billId=${li.billId }&actCharge=${li.actCharge }&WIDsubject=套餐A&WIDbody=">
-               <span class="layui-btn layui-btn-normal layui-btn-mini" >支付</span>
+            <c:if test="${li.paramBean.param eq '尚未退款'}">
+           <a href="<%=path%>userCheckOut/refund.action?refundId=${li.refundId }&billId=${li.billId }&actCharge=${li.reAmount }&causeInfo=无&soleId=1">
+               <span class="layui-btn layui-btn-normal layui-btn-mini" >确认退款</span>
 	       	</a>
 	       	</c:if>
-	       	<c:if test="${li.paramBean.param eq '已支付'}">
+	       	<c:if test="${li.paramBean.param eq '退款完毕'}">
 	       	<%-- <a href="<%=path%>userCheckOut/refund.action?billId=${li.billId }&actCharge=${li.actCharge }&causeInfo=无&soleId=1">
                <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="myModal(${li.billId },${li.companyId })">申请退款</span>  --%>
-	       	<span class="layui-btn layui-btn-normal layui-btn-mini" onClick="myModal(${li.billId },${li.companyId })">申请退款</span>
+	       <%-- 	<span class="layui-btn layui-btn-normal layui-btn-mini" onClick="myModal(${li.billId },${li.companyId })">申请退款</span> --%>
 	       	<!-- </a> -->
 	       	</c:if> 
 	        </td>

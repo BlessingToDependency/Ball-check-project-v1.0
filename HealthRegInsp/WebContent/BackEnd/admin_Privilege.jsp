@@ -165,17 +165,17 @@ layui.use('form', function(){
         </form>
       </div>
       <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="addItem()"><i class="layui-icon"></i>添加</button>
+        <!-- <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <button class="layui-btn" onclick="addItem()"><i class="layui-icon"></i>添加</button> -->
         <span class="x-right" style="line-height:40px">共有数据：${sum } 条</span>
       </xblock>
       <table class="layui-table" width="100%" style="table-layout:fixed;">
         <thead>
           <tr>
-            <th width="5%">
+           <!--  <th width="5%">
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-            </th>
-            <th width="5%">序列</th>
+            </th> -->
+            <th width="10%">序列</th>
             <th width="10%">权限ID</th>
             <th width="10%">菜单名称</th>
             <th width="5%">父ID</th>
@@ -185,9 +185,9 @@ layui.use('form', function(){
         <tbody>
         <c:forEach items="${list }" var="item" varStatus="i">
           <tr>
-            <td>
+           <!--  <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
+            </td> -->
             <td>${i.index+1 }</td>
             <td>${item.jurisId }</td>
             <td>${item.menu }</td>
@@ -199,8 +199,8 @@ layui.use('form', function(){
             <td>————————————————</td>
             </c:if>
             <td class="td-status">
-                 <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="amendItem(${item.jurisId})">修改</span>
-                 <span class="layui-btn layui-btn-danger"><a href="<%=path%>adminDetailAction/deleteDetail.action?id=${item.jurisId}">删除</a></span>
+                <%--  <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="amendItem(${item.jurisId})">修改</span>
+                 <span class="layui-btn layui-btn-danger"><a href="<%=path%>adminDetailAction/deleteDetail.action?id=${item.jurisId}">删除</a></span> --%>
                 <%--  <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="myModal(${item.itemId})">查看详情</span> --%>
                  <%-- <span class="layui-btn layui-btn-danger" data-toggle="modal" data-target="#myModal${i.index+1 }">查看详情</span> --%>
 	        </td>
@@ -216,8 +216,8 @@ layui.use('form', function(){
           <a class="num" href="<%=path%>adminPrivilegeAction/selectPrivilege.action?page=${page - 1}&menu=${menu}">上一页</a>
           <a class="num" href="<%=path%>adminPrivilegeAction/selectPrivilege.action?page=${page + 1}&menu=${menu}">下一页</a>
           <a class="num" href="<%=path%>adminPrivilegeAction/selectPrivilege.action?page=${p}&menu=${menu}">末页</a>
-          <input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> <a
-					class="num" id="linkToCart" href="">跳转</a>	
+         <!--  <input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> <a
+					class="num" id="linkToCart" href="">跳转</a>	 -->
         </div>
       </div>
     </div>
