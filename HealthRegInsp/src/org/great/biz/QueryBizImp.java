@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.great.bean.StaffBean;
+import org.great.bean.TotalBean;
 import org.great.mapper.ComplexQuery;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,15 @@ public class QueryBizImp implements QueryBiz{
 	public Integer addCount(StaffBean staffBean) {
 		Integer count = complexQuery.addCount(staffBean);
 		return count;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.great.biz.QueryBiz#showSummary(java.lang.String)
+	 */
+	@Override
+	public TotalBean showSummary(String guChId) {
+	    TotalBean totalBean  =complexQuery.showSummary(guChId);
+		return totalBean;
 	}
 
 }

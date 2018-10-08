@@ -24,9 +24,11 @@ String path = request.getScheme() +"://"+request.getServerName()
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+     <script src="<%=path%>js/bootstrap.min.js"></script>
+    <link href="<%=path%>css/bootstrap.min.css" rel="stylesheet" />
+     <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
     
     <script type="text/javascript">
 	function info(id){
@@ -39,7 +41,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 			$("#name").val(str.staffName);
 			$("#age").val(str.age);
 			$("#sex").val(str.sex);
-			$("#phone").val(str.phone);
+			$("#numphone").val(str.phone);
 			$("#idNum").val(str.idNum);
 		}
 	});
@@ -60,7 +62,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 		dataType:"json",
 		type:"POST",
 		success : function(str){
-			alert(11)
+			alert("已导出")
 		}
 	});
 };
@@ -76,13 +78,23 @@ String path = request.getScheme() +"://"+request.getServerName()
             	return; 
             }
           //设置linkToCart的href的值
-          $("#linkToCart").attr("href","<%=path %>userAdminAction/userAdmin.action?pages="+pages+"");
+          $("#linkToCart").attr("href","<%=path %>userAdminAction/userAdmin.action?pages="+pages+"&statTime=${staffBean.statTime}&stopTime=${staffBean.stopTime }&staffName=${staffBean.staffName }&phone=${staffBean.phone }&myGuChId=${staffBean.myGuChId}");
       });
     });
 </script>
 <script type="text/javascript">
 function checkUser(){
-	document.getElementById("formid").submit();
+	
+	var start = $("#start").val();
+	var end = $("#end").val();
+	var staffName = $("#staffName").val();
+	var myGuChId = $("#myGuChId").val();
+	if(start== "" && end== "" && staffName== "" && myGuChId == ""){
+		alert("至少选择一项搜索条件！")
+		return ;
+	}else{
+		document.getElementById("formid").submit();
+	}
 }
 	</script>
   </head>
@@ -100,18 +112,20 @@ function checkUser(){
     </div>
     <div class="x-body">
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so" id="formid" action="<%=path %>userAdminAction/userAdmin.action">
-          <input class="layui-input" placeholder="开始日" name="statTime" id="start">
-          <input class="layui-input" placeholder="截止日" name="stopTime" id="end">
-          <input type="text" id="staffName" name="staffName"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-          <input type="text" id="phone" name="phone"  placeholder="请输入手机号" autocomplete="off" class="layui-input">
-          <input type="text" id="myGuChId" name="myGuChId"  placeholder="请输入条码号" autocomplete="off" class="layui-input">
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach" onclick = "checkUser();"><i class="layui-icon">&#xe615;</i></button>
+        <form class="layui-form layui-col-md12 x-so" id="formid" action="<%=path %>userAdminAction/userAdmin.action?pages= ${pages}	">
+          <input class="layui-input" value="${staffBean.statTime==null?"":staffBean.statTime}" placeholder="开始日" name="statTime" id="start" autocomplete="off">
+          <input class="layui-input" value="${staffBean.stopTime==null?"":staffBean.stopTime}" placeholder="截止日" name="stopTime" id="end" autocomplete="off">
+          <input type="text" id="staffName" name="staffName" value="${staffBean.staffName==null?"":staffBean.staffName}"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+          <%-- <input type="text" id="phone" name="phone" value="${staffBean.phone==null||staffBean.phone==0?"":staffBean.phone}"  placeholder="请输入手机号" autocomplete="off" class="layui-input"> --%>
+          <input type="text" id="myGuChId" name="myGuChId" value="${staffBean.myGuChId==null?"":staffBean.myGuChId}"  placeholder="请输入条码号" autocomplete="off" class="layui-input">
+         <input type="hidden" name="companyId" value="${staffBean.companyId}"/>
+          <button class="layui-btn" lay-filter="sreach" onclick ="checkUser();"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
       <xblock>
         <button class="layui-btn" onclick="exportExcel()"><i class="layui-icon"></i>导出excel</button>
    <!--  <input type="button" onclick="exportExcel()" value="导出" /> -->
+   <a onclick="exportExcel()" href="">导出excel</a>
       </xblock>
       <form id="exportForm" action="">
        <table class="layui-table">
@@ -139,7 +153,7 @@ function checkUser(){
             <td><a data-toggle="modal" data-target="#myModal" onclick="info(${staffBean.staffId})">${staffBean.staffName}</a></td>
             <td>${staffBean.phone}</td>
             <td>${staffBean.perguirelaBean.partYear}</td>
-             <td>${staffBean.staffId}${staffBean.perguirelaBean.partYear}${staffBean.companyId}${staffBean.perguirelaBean.batchNum}</td>
+             <td>${staffBean.myGuChId}</td>
        	  <td>
        	  <c:if test="${staffBean.medicalId==83}">体检结束</c:if>
        	  <c:if test="${staffBean.medicalId==82}">未体检</c:if>
@@ -152,10 +166,10 @@ function checkUser(){
       <div class="page">
         <div>
       当前：第  ${pages} 页/ 共 ${pageCountAll} 页
-          <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=1">首页</a>
-          <a class="prev" href="<%=path %>${(pages-1)>0?pages-1:1}">上一页</a>
-          <a class="next" href="<%=path %>userAdminAction/userAdmin.action?pages=${(pages+1)<=pageCountAll?pages+1:pageCountAll}">下一页</a>
-          <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=${pageCountAll}">末页</a>
+          <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=1&statTime=${staffBean.statTime}&stopTime=${staffBean.stopTime }&staffName=${staffBean.staffName }&phone=${staffBean.phone }&myGuChId=${staffBean.myGuChId}">首页</a>
+          <a class="prev" href="<%=path %>${(pages-1)>0?pages-1:1}&statTime=${staffBean.statTime}&stopTime=${staffBean.stopTime }&staffName=${staffBean.staffName }&phone=${staffBean.phone }&myGuChId=${staffBean.myGuChId}">上一页</a>
+          <a class="next" href="<%=path %>userAdminAction/userAdmin.action?pages=${(pages+1)<=pageCountAll?pages+1:pageCountAll}&statTime=${staffBean.statTime}&stopTime=${staffBean.stopTime }&staffName=${staffBean.staffName }&phone=${staffBean.phone }&myGuChId=${staffBean.myGuChId}">下一页</a>
+          <a class="num" href="<%=path %>userAdminAction/userAdmin.action?pages=${pageCountAll}&statTime=${staffBean.statTime}&stopTime=${staffBean.stopTime }&staffName=${staffBean.staffName }&phone=${staffBean.phone }&myGuChId=${staffBean.myGuChId}">末页</a>
           <input type="text" id="pages" name="code" style="width:50px;height:40px;" autocomplete="off"/>
            <a class="num" id="linkToCart" href="">跳转</a>
         </div>
@@ -186,7 +200,7 @@ function checkUser(){
                 年龄：<input type="text" id="age">
             </div>
             <div class="modal-body">
-                电话：<input type="text" id="phone">
+                电话：<input type="text" id="numphone">
             </div>
             <div class="modal-body">
                 身份证号：<input type="text" id="idNum">
@@ -209,11 +223,15 @@ function checkUser(){
         //执行一个laydate实例
         laydate.render({
           elem: '#start' //指定元素
+        	  ,type: 'datetime'
+
         });
 
         //执行一个laydate实例
         laydate.render({
           elem: '#end' //指定元素
+        	  ,type: 'datetime'
+
         });
       });
  </script>

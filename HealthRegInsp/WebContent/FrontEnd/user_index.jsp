@@ -77,8 +77,7 @@ function shoppingInfo(){
 		dataType:"json",
 		type:"POST",
 		success : function(a){
-			alert(a);
-			if(null != a && "" != a){
+			if(null != a || "" != a){
 				 var strHtml="";
 				 var strBuy="";
 				 
@@ -94,19 +93,22 @@ function shoppingInfo(){
 						"<a href='javascript:void(0)' class='del_pro_btn' onClick=''>删除</a>"+
 						"</div>"+
 						"<div class='amount_btn clearfix'>"+
-						"<input type='text' value='"+item.acrtNumber+"'  onBlur='isDigit(this)' class='spinnerExample'>"+
+						"<input type='text' id='acrtNumber' oninput='value=value.replace(/[^\d]/g,'')' value='"+item.acrtNumber+"'  onBlur='isDigit(this)' class='spinnerExample'>"+
+						"<input type='hidden' id='setmealId' value='"+item.setmealId+"'>"+
 						"</div>"+
 					"</li>";
 					
 					});
-					strBuy+="<a href='<%=path%>userLoginAction/jumpLogin.action' class='more redbtn-moddle1' id='btn_popup_login'>"+
+					var acrtNumber = $("[id='acrtNumber']").val();
+					var setmealId = $("[id='setmealId']").val();
+					
+					strBuy+="<a href='<%=path%>userMainAction/orderDetails.action?acrtNumber='acrtNumber'&setmealId='setmealId'' class='more redbtn-moddle1' id='btn_popup_login'>"+
 						"<span id='login'>去购买</span>"+
 						"</a>";
 					$("#shoppingShow").html(strHtml);
 					$("#div_login").html(strBuy);
 			}else{
 				var strLogin="";
-				alert("为空")
 				strLogin+="<a href='<%=path%>userLoginAction/jumpLogin.action' class='more redbtn-moddle1' id='btn_popup_login'>"+
 				"<span id='login'>去登录</span>"+
 				"</a>";
@@ -118,110 +120,54 @@ function shoppingInfo(){
 </script>
 </head>
 <body>
-
 <div id="header">
 
   <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
-
     <ul id="nav">
-
-      <li class="navitem"><a  class='active' href="index.html">首页</a></li>
-
-      <li class="navitem"><a  href="keshi.html" >门诊科室</a>
-
+      <li class="navitem"><a  class='active' href="<%=path %>userMainAction/showSetmeal.action">首页</a></li>
+      <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action" >我的账户</a>
         <ul class="subnav">
-
-          
-
-          <li><a href="keshi.html">非手术科</a></li>
-
-          
-
-          <li><a href="keshi.html">手术科室</a></li>
-
-          
-
-          <li><a href="keshi.html">诊断科室</a></li>
-
-          
-
-          <li><a href="keshi.html">其他科室</a></li>
-
-          
-
         </ul>
 
-      </li><li class="navitem"><a  href="<%=path %>userMainAction/shoppingCart.action" >我的购物车</a>
+      </li>
+      
+       <li class="navitem"><a  href="about.html" >公司简介</a>
+
+
 
         <ul class="subnav">
-
-		
-		</ul>
-
-      </li><li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action" >账户</a>
-
-        <ul class="subnav">
-          
-
-        </ul>
-
-      </li><li class="navitem"><a  href="about.html" >公司简介</a>
-
-        <ul class="subnav">
-
-          
-
           <li>
           <a href="<%=path%>myCompAction/selectCompInfo.action"  >公司信息</a>                  
          </li>
-
-          
           <li><a href="<%=path%>myCompAction/toEditCompInfo.action" >编辑公司信息</a></li>
           <li><a  href="<%=path%>myCompAction/toUpPws.action"">修改密码</a></li>
-
         </ul>
       </li>
       
       <li class="navitem">
-      <a  href="<%=path %>fileAction/fileDownLoad.action" >下载模板</a>
+      <a  href="<%=path %>fileAction/fileDownLoad.action" >下载体检信息模板</a>
         <ul class="subnav">
         </ul>
       </li>
-      
-	  
 	   <li class="navitem">
       <a  href="<%=path %>fileAction/userUpload.action" >上传体检人员信息</a>
         <ul class="subnav">
         </ul>
       </li>
-      
-      
       <li class="navitem"><a  href="<%=path %>fileAction/companyStaffList.action" >配置套餐</a>
         <ul class="subnav">
         </ul>
-
       </li><li class="navitem"><a  href="<%=path%>userLoginAction/jumpLogin.action" >去登陆</a>
-
         <ul class="subnav">
-
         </ul>
-
       </li>
-
     </ul>
-
     <div class="clear"></div>
-
   </div>
-
   <a id="headSHBtn" href="javascript:;"><i class="fa fa-bars"></i></a> </div>
-
 <div id="sitecontent">
-
   <div id="indexPage">
-
     <div id="mslider" class="module"> 
-
       <script type="text/javascript">$(function(){$("#mslider li video").each(function(index, element) {element.play();});})</script>
 
       <ul class="slider" data-options-height="660" data-options-auto="1" data-options-mode="0" data-options-pause="6" data-options-ease="ease-out">
@@ -365,7 +311,7 @@ function shoppingInfo(){
              <c:forEach items="${setList }" var="setmealBean">
                 <li id="projectitem_0" class="projectitem wow"> 
                 <a href="<%=path %>userMainAction/showSetmeal.action?setmealId=${setmealBean.setmealId}" class="projectitem_content" target="_self">
-                  <div class="projectitem_wrapper">
+                  <div class="projectitem_wrapper"> 
                     <div class="project_img"> <img src="<%=path%>images/1-1F5041UT40-L.jpg" width="650" height="385" /> </div>
                     <div class="project_info">
                       <div>
@@ -374,15 +320,13 @@ function shoppingInfo(){
                        	 销量：${setmealBean.salsvolume} </p>
                         <p class="title" align="right">
                         <span style="text-decoration:line-through;">
-                        	原价：
-                        	${setmealBean.countAll}
-                        	</span>
+                        	原价：${setmealBean.countAll}</span>
                         	&emsp;
                         	优惠价格：${setmealBean.discount*setmealBean.countAll}
               	 		 </p>
                       </div>
                     </div>
-                  </div>
+                 </div> 
                 </a> 
               </li>
            </c:forEach>

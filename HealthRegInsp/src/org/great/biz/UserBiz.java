@@ -27,6 +27,27 @@ public interface UserBiz {
 	//批量预约
 	public List<StaffBean> batchMeal(Integer companyId);
 	
+	//插入公司账单表
+	public void companyBill(Integer companyId,double actCharge,Integer payState);
+	
+	//插入立即购买表tblBuyNow
+	public void companyBuyNow(SetmealBean setmealBean,Integer companyId);
+	
+	//查询出公司账单表；人数;实际收费
+	public BillBean numberPeople(Integer CompanyId);
+	
+	//每插入一次个人账单表，需要修改公司账单表的数据：人数，实际金额；员工id
+	public void updateCompanyBill(BillBean billBean);
+	
+	//插入个人账单表
+	public void personalBill(StaffMealBean staffMealBean,Integer companyId);
+	
+	//插入关系表前，查询当前公司、当前年份下，是否有上传过人员
+	public PerguirelaBean selectBatchNum(Integer companyId);
+	
+	//如果有值，则取出最大批次号
+	public Integer maxBatchNum(Integer companyId);
+	
 	//插入员工导检单关系表
 	public void addPerguirela(PerguirelaBean perguirelaBean);
 	
@@ -43,7 +64,7 @@ public interface UserBiz {
 	public List<ShoppingCartBean> shoppingCart(Integer companyId);
 	
 	//身份证去重
-	public StaffBean repeatNum(String idNum);
+	public StaffBean repeatNum(String idNum,Integer companyId);
 	
 	//ajax判断注册名是否重复
 	public UserBean userRepeat(String company);

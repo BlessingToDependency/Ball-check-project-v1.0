@@ -27,6 +27,7 @@ public class StaffBean {
 	 private String statTime;//开始时间
      private String stopTime;//结束时间
      private Integer  currentpage;  //当前页数
+     private Integer  totalPage;   //总页数
      private  Integer pagecount = 5; //每页限制页数
      
      @Resource
@@ -64,8 +65,7 @@ public class StaffBean {
 
 
 	
-	
-		
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -75,8 +75,10 @@ public class StaffBean {
 		return "StaffBean [staffId=" + staffId + ", staffName=" + staffName + ", age=" + age + ", sex=" + sex
 				+ ", idNum=" + idNum + ", phone=" + phone + ", companyId=" + companyId + ", napany=" + napany
 				+ ", medicalId=" + medicalId + ", myGuChId=" + myGuChId + ", printGuCh=" + printGuCh + ", orderId="
-				+ orderId + ", smallState=" + smallState + ", statTime=" + statTime + ", stopTime=" + stopTime
-				+ ", userBean=" + userBean + ", perguirelaBean=" + perguirelaBean + "]";
+				+ orderId + ", smallState=" + smallState + ", examTime=" + examTime + ", statTime=" + statTime
+				+ ", stopTime=" + stopTime + ", currentpage=" + currentpage + ", totalPage=" + totalPage
+				+ ", pagecount=" + pagecount + ", userBean=" + userBean + ", perguirelaBean=" + perguirelaBean
+				+ ", totalBean=" + totalBean + "]";
 	}
 
 
@@ -318,6 +320,23 @@ public class StaffBean {
 	public void setPagecount(Integer pagecount) {
 		this.pagecount = pagecount;
 	}
+
+
+	/**
+	 * @return the totalPage
+	 */
+	public Integer getTotalPage() {
+		return totalPage;
+	}
+
+
+	/**
+	 * @param totalPage the totalPage to set
+	 */
+	public void setTotalPage(Integer totalPage) {
+		this.totalPage = totalPage;
+	}
+
 
 
 	

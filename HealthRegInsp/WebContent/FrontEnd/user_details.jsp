@@ -18,6 +18,12 @@
 		<link rel="stylesheet" href="<%=path %>plugins/eleme-ui/index.css" />
 		<link rel="stylesheet" href="<%=path %>css/CivilMilitaryIntegration/public.css" />
 		<link rel="stylesheet" href="<%=path %>css/CivilMilitaryIntegration/ShoppingCartAdress.css" />
+	
+	<script type="text/javascript">
+function checkSub(){
+		document.getElementById("formid").submit();
+}
+	</script>
 	</head>
 <body>
 <!--主要内容-->
@@ -91,6 +97,7 @@
 					</ul>
 					<div class="row totalRow">金额抵用：{{couponPrice | moneyFiler}}</div>
 				</div>
+				<form id="formid" action="<%=path %>userMainAction/companyBuyNow.action" method="post">
 				<c:forEach items="${setList}" var="setmealBean">
 				<div class="contenterFooter">
 				<font size="4">
@@ -104,8 +111,12 @@
 				<div class="row footerRow">
 						<span class="footerRowprice">应付金额：<span>￥${setmealBean.countAll*setmealBean.discount*setmealBean.number }</span></span>  
 				</div>
+				<input type="hidden" name="setmealId" value="${setmealBean.setmealId }"/>
+				<input type="hidden" name="number" value="${setmealBean.number }"/>
+				<input type="hidden" name="countDisAll" value="${setmealBean.countAll*setmealBean.number }"/>
 				</c:forEach>
-				<button class="btn submitForm">提交订单</button>
+				<button onclick ="checkSub();"  class="btn submitForm">提交订单</button>
+				</form>
 			</div>
 		</div>
 

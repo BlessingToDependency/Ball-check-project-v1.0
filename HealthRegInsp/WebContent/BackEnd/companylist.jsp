@@ -47,18 +47,25 @@ String path = request.getScheme() +"://"+request.getServerName()
  
           //得到input的值
           var pages = $("#pages").val();
-          if(pages>${pageCountAll}){
+          if(pages>(${pageCountAll})){
           	return; 
           }
  
           //设置linkToCart的href的值
-          $("#linkToCart").attr("href","<%=path %>userAdminAction/company.action?pages="+pages+"");
+          $("#linkToCart").attr("href","<%=path %>userAdminAction/company.action?pages="+pages+"&company=${userBean.company}&contacts=${userBean.contacts}");
       });
     });
 </script>
 <script type="text/javascript">
 function checkUser(){
-	document.getElementById("formid").submit();
+	
+	var company = $("#company").val();
+	var contacts = $("#contacts").val();
+	if(company== "" && contacts== ""){
+		alert("至少选择一项搜索条件！")
+	}else{
+		document.getElementById("formid").submit();
+	}
 }
 	</script>
   </head>
@@ -77,9 +84,9 @@ function checkUser(){
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" id="formid" action="<%=path %>userAdminAction/company.action">
-          <input type="text" name="company"  placeholder="请输入公司名" autocomplete="off" class="layui-input">
-          <input type="text" name="contacts"  placeholder="请输入联系人" autocomplete="off" class="layui-input">
-          <input type="text" name="busNum"  placeholder="请输入工商号" autocomplete="off" class="layui-input">
+          <input type="text" name="company" id="company" value="${userBean.company==null?"":userBean.company}"  placeholder="请输入公司名" autocomplete="off" class="layui-input">
+          <input type="text" name="contacts" id="contacts" value="${userBean.contacts==null?"":userBean.contacts}"  placeholder="请输入联系人" autocomplete="off" class="layui-input">
+         <!--  <input type="text" name="busNum"  placeholder="请输入工商号" autocomplete="off" class="layui-input"> -->
           <button class="layui-btn"  lay-submit="" lay-filter="sreach" onclick = "checkUser();"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
@@ -138,10 +145,10 @@ function checkUser(){
       <div class="page">
         <div>
       当前：第  ${pages } 页/ 共 ${pageCountAll} 页
-          <a class="num" href="<%=path %>userAdminAction/company.action?pages=1">首页</a>
-          <a class="prev" href="<%=path %>userAdminAction/company.action?pages=${(pages-1)>0?pages-1:1}">上一页</a>
-          <a class="next" href="<%=path %>userAdminAction/company.action?pages=${(pages+1)<=pageCountAll?pages+1:pageCountAll}">下一页</a>
-          <a class="num" href="<%=path %>userAdminAction/company.action?pages=${pageCountAll}">末页</a>
+          <a class="num" href="<%=path %>userAdminAction/company.action?pages=1&company=${userBean.company}&contacts=${userBean.contacts}">首页</a>
+          <a class="prev" href="<%=path %>userAdminAction/company.action?pages=${(pages-1)>0?pages-1:1}&company=${userBean.company}&contacts=${userBean.contacts}">上一页</a>
+          <a class="next" href="<%=path %>userAdminAction/company.action?pages=${(pages+1)<=pageCountAll?pages+1:pageCountAll}&company=${userBean.company}&contacts=${userBean.contacts}">下一页</a>
+          <a class="num" href="<%=path %>userAdminAction/company.action?pages=${pageCountAll}&company=${userBean.company}&contacts=${userBean.contacts}">末页</a>
           <input type="text" id="pages" name="code" style="width:50px;height:40px;" autocomplete="off"/>
            <a class="num" id="linkToCart" href="">跳转</a>
         </div>

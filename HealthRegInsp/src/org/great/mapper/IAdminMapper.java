@@ -51,10 +51,10 @@ public interface IAdminMapper {
 	public Integer companyCount(UserBean userBean);
 	
 	//后台用户管理列表展示
-	public List<StaffBean> userAdmin(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("companyId")Integer companyId,@Param("pages")Integer pages,@Param("myGuChId")String myGuChId);
+	public List<StaffBean> userAdmin(@Param("staffBean")StaffBean staffBean,@Param("pages")Integer pages);
 	
 	//后台用户管理列表总数查询
-	public Integer userAdminCount(@Param("staffName")String staffName,@Param("phone")Long phone,@Param("statTime")String statTime,@Param("stopTime")String stopTime,@Param("partYear")String partYear,@Param("companyId")Integer companyId,@Param("myGuChId")String myGuChId);
+	public Integer userAdminCount(StaffBean staffBean);
 	
 	//根据用户id查找对应信息
 	public StaffBean userInfo(@Param("staffId")String staffId);

@@ -120,16 +120,16 @@ a.guChId=#{guChId} and e.depaId=#{depaId}
 		
 		
 		<!--  后台用户体检人管理列表 -->
-		<select id="userAdmin" parameterType="org.great.bean.StaffBean" resultMap="userAdmin">
+		<select id="userAdmin"  resultMap="userAdmin">
 			select * from(
 			select z.*,rownum rn from(
 			select a.*,b.company,c.partYear,c.batchNum from tblstaff a,tblforeground b,tblperguirela c
-			where a.companyId = b.companyId and a.staffId = c.staffId and a.COMPANYID=#{companyId} 
-			<if test="staffName!=null and staffName!='' ">and a.staffName like concat(concat('%',#{staffName}),'%')</if> 
-			<if test="phone!=null and phone != ''">and a.phone = #{phone}</if>
-			<if test="statTime!=null and statTime != ''">and c.partYear &gt; = #{statTime}</if>
-			<if test="stopTime!=null and stopTime != ''">and c.partYear &lt; = #{stopTime}</if>
-			<if test="myGuChId!=null and myGuChId != ''">and a.myGuChId = #{myGuChId}</if>
+			where a.companyId = b.companyId and a.staffId = c.staffId and a.COMPANYID=#{staffBean.companyId} 
+			<if test="staffBean.staffName!=null and staffBean.staffName!='' ">and a.staffName like concat(concat('%',#{staffBean.staffName}),'%')</if> 
+			<if test="staffBean.phone!=null and staffBean.phone != ''">and a.phone = #{staffBean.phone}</if>
+			<if test="staffBean.statTime!=null and staffBean.statTime != ''">and c.partYear &gt; = #{staffBean.statTime}</if>
+			<if test="staffBean.stopTime!=null and staffBean.stopTime != ''">and c.partYear &lt; = #{staffBean.stopTime}</if>
+			<if test="staffBean.myGuChId!=null and staffBean.myGuChId != ''">and a.myGuChId = #{staffBean.myGuChId}</if>
 			order by a.staffName)z where rownum &lt; =#{pages}*10 )r where r.rn &gt; =(#{pages}-1)*10+1
 		</select>
 		<!-- 员工表 -->
@@ -143,13 +143,11 @@ a.guChId=#{guChId} and e.depaId=#{depaId}
 			<result property="companyId" column="companyId"/>
 			<result property="orderId" column="orderId"/>
 			<result property="medicalId" column="medicalId"/>
-			
-		
+			<result property="myGuChId" column="myGuChId"/>
 		<!-- 前台公司表 -->
 		<association property="userBean" javaType="org.great.bean.UserBean" column="companyId">
 			<result property="company" column="company"/>
 		</association>
-		
 		<!-- 员工导检单关系表 -->
 		<association property="perguirelaBean" javaType="org.great.bean.PerguirelaBean">
 			<result property="partYear" column="partYear"/>
@@ -159,7 +157,7 @@ a.guChId=#{guChId} and e.depaId=#{depaId}
 		
 		
 		<!-- 查询后台用户管理列表总数 -->
-		 <select id="userAdminCount" parameterType="org.great.bean.StaffBean" resultType="java.lang.Integer">
+		 <select id="userAdminCount"  resultType="java.lang.Integer">
 			select count(*) from tblstaff a,tblforeground b,tblperguirela c
 			where a.companyId = b.companyId and a.staffId = c.staffId and a.COMPANYID=#{companyId}
 			<if test="staffName!=null and staffName!='' ">and a.staffName like concat(concat('%',#{staffName}),'%')</if> 

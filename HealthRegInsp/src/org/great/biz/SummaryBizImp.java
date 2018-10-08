@@ -108,12 +108,12 @@ public class SummaryBizImp implements ISummaryBiz {
 		// TODO Auto-generated method stub
 		return iSummaryMapper.addXiao(guChId, depaid);
 	}
+
 	 //根据导检单得到影像文件对应的项目id
 	@Override
 	public int getItemIds(String guChId) {
 		// TODO Auto-generated method stub
 		return iSummaryMapper.getItemIds(guChId);
 	}
-	
 
 }

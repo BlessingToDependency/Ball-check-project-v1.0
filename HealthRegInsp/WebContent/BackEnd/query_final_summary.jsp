@@ -22,28 +22,43 @@ String path = request.getScheme() +"://"+request.getServerName()
     <%-- <script src="<%=path%>js/bootstrap.min.js"></script> --%>
      <style>
      .zt{color: #06F;font-size: 18px;font-weight: 10px;}
-     #div{width:20%; height:40px;margin: 0px 0px 0px 0px;border:blue 0px solid; float:left;text-align:center;}
+         #div{width:580px; height:300px;margin: 0px 0px 100px 250px;line-height:40px; float:left;text-align:left;}
 	</style>
   </head>
   <body>
     <div class="x-nav">
       <span class="layui-breadcrumb">
-      <a href="<%=path%>openBillAction/massInspList.action"><button class="layui-btn layui-btn-warm">返回</button></a>
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>导航元素</cite></a>
+     <button class="layui-btn layui-btn-warm" onclick="javascript:history.back(-1)">返回</button>
       </span>
-      <span id="dd" onclick="daying();">打印</span>
-
-      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+      <button id="dy" name="name" onclick="daying();">打印</button>
     </div>
-    
-    <div class="x-body" id="dadad">       
+    <div class="x-body">       
       <xblock>
         <span class="x-right" style="line-height:40px"></span>
       </xblock>
+      
+       <table class="layui-table">
+				<thead>
+     			   <tr>
+                   <th>健康体检中心</th>     
+                   </tr>   
+        		</thead>
+        				<tr>
+								<td >
+								<div id="div">
+									<div>尊敬的:${staffBean.staffName}先生/女士</div>
+								    <div>    感谢您来到厦门协和医院进行健康体检 </div>
+    								<div>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了增加您对健康体检的认识，我们再次特别向您说明，健康体检的目的在于及时了解自身的健康状况，
+    								提高健康保健意识，如果此次检查在正常范围内，值表示您选择的体检项目所反映的身体健康状态，由于体
+    								检手段及项目所限，并不能完全排除身体潜在疾病，若有疾病症状出现，请您及时到医院就医。</div>
+   									<div>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“健康是人生最高贵的”。不良的生活习惯和行为会损坏您的健康，我们真诚希望您保持科学健康的生活
+   									方式，定期接受健康检查，在您最需要的时候随时与我们联系，欢迎您再次光临传一医院。</div>
+    							        <div>祝您，健康快乐！		</div>															
+								</div>
+							  </td>													
+						</tr>													
+			</table>     
+      
       <c:forEach items="${itemMap}"  var="map" step="1">
       <blockquote class="layui-elem-quote">${map.key.litemBean.item} </blockquote>
        <c:if test="${map.key.litemBean.itemId==itemID}">
@@ -63,9 +78,10 @@ String path = request.getScheme() +"://"+request.getServerName()
                     </td>
                     </c:forEach>
                   </tr>
+               
                </tbody>
             </table>
-
+         
 		<thead>
           <tr>
             <th colspan="4">小结：   ${map.key.sumCont}   </th>  
@@ -105,8 +121,7 @@ String path = request.getScheme() +"://"+request.getServerName()
       
      
     </c:forEach>   
-        <form action="<%=path%>Report/insertTotall.action?guChId=${staffBean.myGuChId}" method="post">
-     		 <table class="layui-table">
+         <table class="layui-table">
 				<thead>
      			   <tr>
                    <th>体检总结及建议</th>     
@@ -116,7 +131,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 							<td>[综述:]</td>
 						</tr>									
 						<tr>
-							<td height="33"><textarea name="proposal" cols="180"></textarea>								
+							<td height="33"><textarea name="proposal" cols="150" readonly="readonly"> ${totalBean.proposal}</textarea>								
 							</td>
 							
 						</tr>
@@ -124,7 +139,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 							<td>[建议:]</td>
 						</tr>
 						<tr>
-							<td ><textarea name="suggest" cols="180"></textarea></td>
+							<td ><textarea name="suggest" cols="150" readonly="readonly">${totalBean.suggest}</textarea></td>
 						</tr>
 					<thead>
      			  		<tr>
@@ -132,19 +147,13 @@ String path = request.getScheme() +"://"+request.getServerName()
                   		</tr>    
         			</thead>							
 						<tr>
-							<td><textarea name="lifeGuid" cols="180"></textarea></td>
-						</tr>	
-						<tr>   <td align="center">
-						 
-							<input type="hidden" name="companyId" id="companyId" value="${companyId}"/>
-						</td></tr>								
-					</table>     			
-			</form>
+							<td><textarea name="lifeGuid" cols="150">${totalBean.lifeGuid}</textarea></td>
+						</tr>					
+					</table>  
+
+
     </div>
-     <button class="layui-btn" type="submit" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>提交</button>
-						   <button class="layui-btn layui-btn-normal" onclick="delAll()"><i class="layui-icon"></i>返回</button>
 </body>
- <span id="dd" onclick="daying();">打印</span>
  <script type="text/javascript" src="<%=path%>js/jquery.min.js"></script>
  <script>
 $(document).ready(function(){
@@ -206,27 +215,13 @@ function jump(){
 	var p=document.getElementById("pageNo").value;
 	window.location.href="<%=path%>openBillAction/staff.action?pageNo="+p+"&companyId=${batchSheetCon.companyId}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}";
 }
+
+
 //启用弹窗确认
 function daying(){
-	 var sText = document.getSelection().toString();
-	/*  var obj = document.execCommand("insertHTML",false, "<div class='x-body' id='dadad'>" + sText + "</div>"); */
-	var obj = document.getElementById("dadad");
-	var newStr = obj.outerHTML;  
-	 var oldStr = document.body.innerHTML;  
-	 document.body.innerHTML = newStr;  
-	 document.execCommand("print");
-	 document.body.innerHTML = oldStr; 
+	document.execCommand("print");
 }
 
-function printObj(obj) { 
-    var newStr = obj.outerHTML;  
-    var oldStr = document.body.innerHTML;  
-    
-    document.body.innerHTML = newStr;  
-    document.execCommand("print"); 
-    document.body.innerHTML = oldStr;  
-    return false;  
-  }  
 
 //启用弹窗确认
 function disable(){
@@ -236,5 +231,7 @@ function disable(){
 	 }
 	 return false;
 }
+
+
 </script> 
 </html>

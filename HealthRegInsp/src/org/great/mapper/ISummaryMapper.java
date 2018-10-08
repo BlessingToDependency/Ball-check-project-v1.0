@@ -46,4 +46,5 @@ public interface ISummaryMapper {
     
     //根据导检单得到影像文件对应的项目id
     public int getItemIds(@Param("guChId")String guChId);
+
 }
