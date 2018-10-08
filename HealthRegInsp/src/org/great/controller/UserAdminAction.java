@@ -79,6 +79,7 @@ public class UserAdminAction {
 		System.out.println("list="+uList.size());
 		mav.setViewName("BackEnd/companylist");
 		request.setAttribute("uList", uList);
+		mav.addObject("userBean", userBean);//当前页
 		mav.addObject("pageCountAll", pageCountAll);//总页
 		mav.addObject("pages", pages);//当前页
 		return mav;
@@ -98,23 +99,25 @@ public class UserAdminAction {
 	
 	//用户管理列表展示
 	@RequestMapping("userAdmin.action")
-	public ModelAndView userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,String myGuChId,Integer pages) {
-//		String count = request.getParameter("pages");
+	public ModelAndView userAdmin(StaffBean staffBean,Integer pages) {
 		String page = String.valueOf(pages);
 		if(page==null ||"null".equals(page)|| "".equals(page)||"0".equals(page)) {
 			pages=1;
 		}
 		//分页
-		int countAll=adminBizImp.userAdminCount( staffName, phone, statTime, stopTime, partYear,companyId,myGuChId);//当前用户总个数
+		int countAll=adminBizImp.userAdminCount(staffBean);//当前用户总个数
 		if(countAll%10>0||countAll==0) {
 			pageCountAll=countAll/10+1;
 		}else {
 			pageCountAll=countAll/10;
 		}
-		userList = adminBizImp.userAdmin( staffName, phone, statTime, stopTime, partYear,companyId,pages,myGuChId);
+		userList = adminBizImp.userAdmin(staffBean,pages);
+		
+		System.out.println(staffBean.toString());
 		
 		mav.setViewName("BackEnd/userlist");
 		request.setAttribute("userList", userList);
+		mav.addObject("staffBean", staffBean);
 		mav.addObject("pageCountAll", pageCountAll);//总页
 		mav.addObject("pages", pages);//当前页
 		return mav;

@@ -19,6 +19,8 @@ public class SetmealBean {
     private  int salsvolume;//销量
     private String picture;//图片
     private  int countAll;//套餐价格
+    
+    private double countDisAll;//套餐折算后价格
     private  int number;//购买数量
     private String itemNick;//项目名称
     
@@ -31,6 +33,14 @@ public class SetmealBean {
     	super();
     }
     
+	public double getCountDisAll() {
+		return countDisAll;
+	}
+
+	public void setCountDisAll(double countDisAll) {
+		this.countDisAll = countDisAll;
+	}
+
 	public SetmealBean(int setmealId, String setmeal, int discount, int salsvolume) {
 		super();
 		this.setmealId = setmealId;

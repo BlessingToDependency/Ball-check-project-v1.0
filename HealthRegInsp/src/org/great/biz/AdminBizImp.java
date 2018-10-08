@@ -62,17 +62,17 @@ public class AdminBizImp implements AdminBiz{
 
 	//后台用户管理列表展示
 	@Override
-	public List<StaffBean> userAdmin(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages,String myGuChId) {
+	public List<StaffBean> userAdmin(StaffBean staffBean,Integer pages) {
 		// TODO Auto-generated method stub
-		userList = iAdminMapper.userAdmin( staffName, phone, statTime, stopTime, partYear,companyId,pages,myGuChId);
+		userList = iAdminMapper.userAdmin(staffBean,pages);
 		return userList;
 	}
 
 	//后台用户管理总数
 	@Override
-	public Integer userAdminCount(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId1,String myGuChId) {
+	public Integer userAdminCount(StaffBean staffBean) {
 		// TODO Auto-generated method stub
-		return iAdminMapper.userAdminCount(staffName,phone, statTime, stopTime, partYear,companyId1,myGuChId);
+		return iAdminMapper.userAdminCount(staffBean);
 	}
 	
 	//根据用户id查找对应信息

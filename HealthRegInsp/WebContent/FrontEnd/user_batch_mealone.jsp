@@ -120,30 +120,29 @@ function checkUser(){
   <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
 
 
-	<form id="form1" name="form1" method="post" target="_blank" action="<%=path %>userMainAction/bespeakMeal.action?staffId=${staffId}">
-  <table width="800" border="1" align="center">
-   
-      <c:if test="null !=${staffId }">
-       <input type="hidden" id="staffId" name="staffId" value="${staffId }"/>
-       </c:if>
-<c:forEach items="${setList }" var="setmealBean">
- 		<tr>
-      <td><span class="STYLE2">
+	<form id="form1" name="form1" method="post" target="_blank" action="<%=path %>userMainAction/bespeakMeal.action">
+  		<table width="800" border="1" align="center">
+ 		  <c:forEach items="${staffList }" var="staffBean">
+   				<input type="hidden" name="staffId" value="${staffBean.staffId }" />
+   			</c:forEach>
+			<c:forEach items="${setList }" var="setmealBean">
+ 			<tr>
+     		 <td><span class="STYLE2">
       
-      <input type="hidden" id="" name="setmealId" value="${setmealBean.setmealId }"/>
-      <input type="text" value="${setmealBean.setmeal }" name="setmeal" disabled="disabled" style="border:none;"/></span></td>
-    </tr>
-    <tr>
-      <td><span class="STYLE4">主要项目：${setmealBean.itemNick }</span></td>
-    </tr>
-    <tr>
-      <td><span class="STYLE3">优惠价：
-       <input type="text" value="${setmealBean.discount*setmealBean.countAll }" name="discount" disabled="disabled" style="border:none;"/>
-    <!-- 合计 -->
-    <input type="hidden" id="hidden" name="" value="${setmealBean.discount*setmealBean.countAll }"/>
-      </span></td>
-    </tr>
-    <tr>
+      			<input type="hidden" id="" name="setmealId" value="${setmealBean.setmealId }"/>
+     			 <input type="text" value="${setmealBean.setmeal }" name="setmeal" disabled="disabled" style="border:none;"/></span></td>
+   		    </tr>
+  		  <tr>
+    		  <td><span class="STYLE4">主要项目：${setmealBean.itemNick }</span></td>
+   		 </tr>
+    	<tr>
+      		<td><span class="STYLE3">优惠价：
+     		  <input type="text" value="${setmealBean.discount*setmealBean.countAll }" name="discount" disabled="disabled" style="border:none;"/>
+   				 <!-- 合计 -->
+  			  <input type="hidden" id="hidden" name="" value="${setmealBean.discount*setmealBean.countAll }"/>
+    	  </span></td>
+   		 </tr>
+  		  <tr>
       <td>原价：${setmealBean.countAll }</td>
     </tr>
     <tr>

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,6 +38,8 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,16 +70,29 @@ public class FileAction {
 	 * 生成excel并导出
 	 */
 	@RequestMapping("/exportExcel.action")
-	public ModelAndView exportExcel(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,String myGuChId) throws Exception{
+	@ResponseBody
+	public String exportExcel(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,String myGuChId) throws Exception{
 		Date now = new Date();
+		InputStream fin = null;
+		ServletOutputStream out = null;
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         String nowdate = df.format(now);
+        String root = request.getRealPath("/upload");// 设置文件上传路径
+        System.out.println("路径：" + root);
+        System.out.println("时间：" + nowdate);
+        String fileName = "人员体检名单" + nowdate + ".xls";
+        fileName = new String(fileName.getBytes(), "ISO8859-1");
+		File file = new File(root + fileName);
+        
+		
         // 打开文件
-        WritableWorkbook book = Workbook.createWorkbook(new File("人员体检名单"+nowdate + ".xls"));
+//        File file = new File("D:\\"+"人员体检名单"+nowdate + ".xls");
+        WritableWorkbook book = Workbook.createWorkbook(file);
         
         String fileNick = "人员体检名单"+nowdate + ".xls";
         System.out.println("book="+book);
         System.out.println(fileNick);
+        
         
         // 生成名为"第一页"的工作表，参数0表示这是第一
         WritableSheet sheet = book.createSheet("第一页", 0);
@@ -131,9 +147,39 @@ public class FileAction {
         book.write();
         book.close();
         System.out.println("创建文件成功!");
-//        return new ModelAndView("redirect:/fileAction/downloadExcel.action?fileNick="+fileNick);
-        return mav;
+        
+        fin = new FileInputStream(file);
+
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/excel");
+		response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
+
+		out = response.getOutputStream();
+		byte[] buffer = new byte[1024];// 缓冲区
+		int bytesToRead = -1;
+		// 通过循环将读入的Word文件的内容输出到浏览器中
+		while ((bytesToRead = fin.read(buffer)) != -1) {
+			out.write(buffer, 0, bytesToRead);
+			out.flush();
+		}
+
+		try {
+			if (fin != null) {
+				fin.close();
+			}
+			if (out != null) {
+				out.close();
+			}
+//			if (file != null) {
+//				file.delete(); // 删除临时文件
+//			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String msg = "1";
+		return msg; 
 	}
+	
 	
 	/*
 	 * 生成excel后下载
@@ -196,7 +242,19 @@ public class FileAction {
 			System.out.println(f);
 			Workbook book=Workbook.getWorkbook(f);// 
 			Sheet sheet=book.getSheet(0); //获得第一个工作表对象 
+			int count = 0;//当前总上传的人数
 			
+			
+			
+			perguirelaBean.setBatchNum(1);//批次默认1
+			UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
+			//4插入关系表前，查询当前公司、当前年份下，是否有上传过人员
+			PerguirelaBean pb = userBizImp.selectBatchNum(userBean.getCompanyId());
+			if(null != pb) {
+				//如果有值，则取出最大批次号，加1
+				int maxCount = userBizImp.maxBatchNum(userBean.getCompanyId());
+				perguirelaBean.setBatchNum(maxCount+1);//批次默认1
+			}
 			//定义标志位
 			hasSomeWrong:
 			for(int i=2;i<sheet.getRows();i++){ 
@@ -218,27 +276,38 @@ public class FileAction {
 				staffBean.setCompanyId(id);
 				System.out.println(staffBean.toString());
 				
-				//1先查询身份证号是否存在
-				StaffBean sn = userBizImp.repeatNum(staffBean.getIdNum());
+				
+				
+				//查询身份证号是否存在
+				StaffBean sn = userBizImp.repeatNum(staffBean.getIdNum(),ub.getCompanyId());
 				if(null != sn) {
 					System.out.println("重复了"+staffBean.getIdNum());
-					continue;
+					perguirelaBean.setBatchNum(1);//批次+1
+					//插入员工导检单关系表；先查当前公司是否有插入过信息
+				}else {
+					//2再插入员工表
+					userBizImp.addStaff(staffBean);
+					
 				}
-				//2再插入员工表
-				userBizImp.addStaff(staffBean);
 				//3再改公司表开单状态
 				
 				
-				UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
-				
 				perguirelaBean.setPartYear(staffBean.getIdNum());
-				
 				perguirelaBean.setCompanyId(userBean.getCompanyId());//公司id
-				perguirelaBean.setBatchNum(1);//批次
-				//先插入员工导检单关系表
-				userBizImp.addPerguirela(perguirelaBean);
 				
+				//插入员工导检单关系表
+				userBizImp.addPerguirela(perguirelaBean);
+				count=i;
 			}
+			System.out.println("count="+count);//上传人数
+			//id;//当前公司id
+			// 0; //预约收费
+			 
+			 //插入公司账单表；目前只插入公司id，人数为0，实际收费为0
+			double actCharge = 0;
+			Integer payState = 143;//支付状态:失败
+			userBizImp.companyBill(id,actCharge,payState);
+			
 			return new ModelAndView("redirect:/fileAction/companyStaffList.action");
 		}else {
 			System.out.println("登陆去");
@@ -251,23 +320,24 @@ public class FileAction {
 	 * 查询当前公司下的员工
 	 */
 	@RequestMapping("/companyStaffList.action")
-	public ModelAndView companyStaffList(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,Integer pages,String myGuChId) {
+	public ModelAndView companyStaffList(StaffBean staffBean,Integer pages) {
 		UserBean ub = (UserBean) request.getSession().getAttribute("userBean");
 //		ub.getCompanyId();//当前公司id
-		companyId = ub.getCompanyId();//先写死
+//		companyId = ub.getCompanyId();
 		//查询出当前公司的员工
+		staffBean.setCompanyId(ub.getCompanyId());
 		String page = String.valueOf(pages);
 		if(page==null ||"null".equals(page)|| "".equals(page)||"0".equals(page)) {
 			pages=1;
 		}
 		//分页
-		int countAll=adminBizImp.userAdminCount( staffName, phone, statTime, stopTime, partYear,companyId,myGuChId);//当前用户总个数
+		int countAll=adminBizImp.userAdminCount(staffBean);//当前用户总个数
 		if(countAll%10>0||countAll==0) {
 			pageCountAll=countAll/10+1;
 		}else {
 			pageCountAll=countAll/10;
 		}
-		userList = adminBizImp.userAdmin( staffName, phone, statTime, stopTime, partYear,companyId,pages,myGuChId);
+		userList = adminBizImp.userAdmin(staffBean,pages);
 		
 		request.setAttribute("userList", userList);
 		mav.addObject("pageCountAll", pageCountAll);//总页
