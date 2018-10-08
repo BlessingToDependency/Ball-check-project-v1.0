@@ -116,15 +116,16 @@ public class LogFileAction {
             sheet.addCell(labelHi);
         }  
      // 写入数据并关闭文件
-        book.write();
+    /*    book.write();
         book.close();
         System.out.println("创建文件成功!");
         ServletContext servletContext = request.getServletContext();
 		String fileName=fileNick;
 		String realPath = servletContext.getRealPath(fileName);//得到文件所在位置
-		System.out.println("===================="+realPath);
-     // return new ModelAndView("redirect:/logfileAction/downloadExcel.action?fileNick="+fileNick);
-        return mav;
+		System.out.println("===================="+realPath);*/
+    // return new ModelAndView("redirect:/logfileAction/downloadExcel.action?fileNick="+fileNick);
+        return new ModelAndView("redirect:/logAction/selectAllLog.action");
+       
 	}
 	
 	/*

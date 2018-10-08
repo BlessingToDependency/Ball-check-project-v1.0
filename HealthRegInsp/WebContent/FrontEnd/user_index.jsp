@@ -165,7 +165,8 @@ function shoppingInfo(){
 
         </ul>
 
-      </li><li class="navitem"><a  href="about.html" >公司简介</a>
+      </li>
+      <li class="navitem"><a  href="about.html" >公司简介</a>
 
         <ul class="subnav">
 

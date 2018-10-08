@@ -90,8 +90,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <style type="text/css">
  .setb{
-    background:url(<%=basePath%>/images/6.jpg);
-    height:500px;
+    background:url(<%=basePath%>/images/b.jpg);
+    height:1000px;
     width:1500px;
  }
 
@@ -215,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <form  method="post" action="<%=path%>/myCompAction/updateUserPws.action" class="layui-form">
    <div   >
               <label for="L_pass" style="padding-top: 60px; padding-left: 500px ;">
-                  <span class="x-red">*</span>原密码
+                  <span class="x-red">*</span> 原      &nbsp;     密          码
               </label>
               <div class="layui-input-inline">
                   <input type="password" id="acc"  required="" lay-verify="pass"
@@ -225,7 +225,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    
    <div >
               <label for="L_pass" style="padding-top: 30px;padding-left: 500px ; ">
-                  <span class="x-red">*</span>新密码
+                  <span class="x-red">*</span>新       &nbsp;     密          码
               </label>
               <div class="layui-input-inline">
                   <input type="password" id="L_pass" name="pwd" required="" lay-verify="pass"
