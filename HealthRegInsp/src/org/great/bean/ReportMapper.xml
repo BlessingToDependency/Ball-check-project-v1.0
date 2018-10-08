@@ -55,7 +55,7 @@
    
    <!-- 修改小结状态 -->
      <update id="setSmall" parameterType="java.lang.String" >
-     	UPDATE TBLSTAFF SET SMALLSTATE = '15' WHERE  myGuChId =#{myGuChId}
+     	UPDATE TBLSTAFF SET SMALLSTATE = '14' WHERE  myGuChId =#{myGuChId}
      
      </update>
    

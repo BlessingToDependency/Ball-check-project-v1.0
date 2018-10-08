@@ -7,9 +7,9 @@
      <select id="queryAll" parameterType="org.great.bean.StaffBean" resultMap="tblstaff">
      		select e.* ,rownum from
 			(select d.*,rownum rn from  
-			( select a.*,b.company ,c.DOCSUMMARY from tblstaff a ,TBLFOREGROUND b  , tbltotal  c  
+			( select a.*,b.company from tblstaff a ,TBLFOREGROUND b 
 			<where>
-			     a.companyId = b.companyId and  a.myGuChId = c.guChId  
+			     a.companyId = b.companyId 
 			   <if test="null != staffName and ''!= staffName ">		   		   
 			   	 	and a.staffName like concat(concat('%',#{staffName}),'%')			    
 			   </if>
@@ -41,6 +41,7 @@
    		<result column="idNum"  property="idNum"/> 
    		<result column="myGuChId"  property="myGuChId"/> 
         <result column="examTime"  property="examTime"/> 
+         <result column="smallState"  property="smallState"/> 
      	<association property="userBean" javaType="org.great.bean.UserBean">
      	   <id column="companyId" property="companyId"/>
      	   <result column="company" property="company"/>    		
@@ -53,9 +54,9 @@
      
      <select id="addCount" parameterType="org.great.bean.StaffBean" resultType="java.lang.Integer">
      	select count(*) from
-        (select a.*,b.company ,c.DOCSUMMARY from tblstaff a ,TBLFOREGROUND b  , tbltotal  c 
+        (select a.*,b.company  from tblstaff a ,TBLFOREGROUND b 
         <where >
-        		 a.companyId = b.companyId and  a.myGuChId = c.guChId
+        		 a.companyId = b.companyId 
         		  <if test="null != staffName and ''!= staffName ">		   		   
 			   	 	and a.staffName like concat(concat('%',#{staffName}),'%')			    
 			     </if>
@@ -74,4 +75,12 @@
         </where>
          )       
      </select> 
+     
+     <select id="showSummary"  resultType="org.great.bean.TotalBean">
+     
+       select * from tbltotal where guChId =#{guChId} 
+        
+     </select>
+     
+     
  </mapper>

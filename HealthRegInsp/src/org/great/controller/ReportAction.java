@@ -31,6 +31,7 @@ import org.great.bean.SmallBean;
 import org.great.bean.StaffBean;
 import org.great.bean.TermBean;
 import org.great.bean.TotalBean;
+import org.great.biz.ISummaryBiz;
 import org.great.biz.ReportBiz;
 import org.great.biz.ReportBizImp;
 import org.great.core.SystemLog;
@@ -58,6 +59,10 @@ public class ReportAction {
 
 	@Resource
 	private TotalBean totalBean;  //总结类实体
+	
+	
+	@Resource
+	private ISummaryBiz SummaryBizImp;
 	
 	@Autowired
 	private HttpServletRequest request;
@@ -178,10 +183,6 @@ public class ReportAction {
 	public ModelAndView showSmall(Model model,StaffBean staffBean,RedirectAttributes attr) {
 		ModelAndView mav  = new ModelAndView();
 		System.out.println("myGuChId:"+staffBean.getMyGuChId());
-	//	Integer sumSmall =reportBizImp.sumSmall(staffBean);
-	//	Integer  sumOrder = reportBizImp.sumOrderItem(staffBean);
-	//	System.out.println("sumSmall:"+sumSmall+"sumOrder:"+sumOrder);
-	//	if (sumSmall == sumOrder) {
 			List<SmallBean> smList = reportBizImp.queryItem(staffBean);		
 			List<TermBean>   tList  = null;
 			System.out.println("smList:"+smList.toString());
@@ -191,43 +192,19 @@ public class ReportAction {
 				tList =reportBizImp.querySection(smallBean);
 				map.put(smallBean, tList);
 			}	
+			//根据导检单号以及项目ID找到对应图片
+			int itemID = SummaryBizImp.getItemIds(staffBean.getMyGuChId());
+			List<String> fileNameList= SummaryBizImp.imageFile(staffBean.getMyGuChId(), itemID);
+			request.setAttribute("fileNameList", fileNameList);
+			request.setAttribute("itemID", itemID);
+
 			mav.addObject("itemMap", map);
 			mav.addObject("staffBean", staffBean);
 			
-			//model.addAttribute("itemMap", map);  
-			//model.addAttribute("staffBean", staffBean);  
 			System.out.println("itemMap:"+map.toString());
-	//	}		
+	
 	
 		mav.setViewName("BackEnd/report_summary");
-		/*	List<Integer> intList = reportBizImp.collectItem(staffBean);
-		Integer  companyId =  (Integer) session.getAttribute("companyId");
-		attr.addAttribute("companyId", companyId);
-		for (Integer itemId : intList) {
-			if (null == reportBizImp.checkSmall(staffBean, itemId)) {
-				return new ModelAndView("redirect:/Report/showUser.action");
-				
-			}else {
-				List<SmallBean> smList = reportBizImp.queryItem(staffBean);		
-				List<TermBean>   tList  = null;
-				System.out.println("smList:"+smList.toString());
-				Map<SmallBean, List<TermBean> > map = new HashMap<SmallBean, List<TermBean>>();
-				for (Iterator<SmallBean> iterator = smList.iterator(); iterator.hasNext();) {
-					SmallBean smallBean = (SmallBean) iterator.next();					
-					tList =reportBizImp.querySection(smallBean);
-					map.put(smallBean, tList);
-				}	
-				mav.addObject("itemMap", map);
-				mav.addObject("staffBean", staffBean);
-				mav.setViewName("BackEnd/report_summary");
-				
-				//model.addAttribute("itemMap", map);  
-				//model.addAttribute("staffBean", staffBean);  
-				System.out.println("itemMap:"+map.toString());
-			}
-		}
-		  */
-		
 		return mav;		
 	}
 	
@@ -245,6 +222,7 @@ public class ReportAction {
 		
 		//改变用户人员的状态
 		reportBizImp.changeState(totalBean);
+		
 		//实际体检人数
 		String  orderTime =  (String) session.getAttribute("orderTime");
 		reportBizImp.addUser(orderTime);

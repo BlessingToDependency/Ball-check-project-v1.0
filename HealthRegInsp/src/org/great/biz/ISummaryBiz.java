@@ -38,4 +38,9 @@ public interface ISummaryBiz {
     
     //维护小结人员表
     public int addXiao(String guChId,int depaid);
+
+    
+  //根据导检单得到影像文件对应的项目id
+  public int getItemIds(String guChId);
+
 }

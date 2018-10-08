@@ -9,8 +9,12 @@ package org.great.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.great.bean.StaffBean;
+import org.great.bean.TotalBean;
 import org.springframework.stereotype.Repository;
+
+import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 
 /** 
  * @ClassName: ComplexQuery 
@@ -26,4 +30,9 @@ public interface ComplexQuery {
 	
 	//体检综合查询计算条目数
 	public  Integer  addCount(StaffBean staffBean);
+	
+	
+	//得到总结信息
+	public TotalBean   showSummary(@Param("guChId")String guChId);
+	
 }
