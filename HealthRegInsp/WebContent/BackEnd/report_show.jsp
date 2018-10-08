@@ -26,34 +26,26 @@ String path = request.getScheme() +"://"+request.getServerName()
 	</style>
   </head>
   <body>
-    <div class="x-nav">
-      <span class="layui-breadcrumb">
-      <a href="<%=path%>openBillAction/massInspList.action"><button class="layui-btn layui-btn-warm">返回</button></a>
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>导航元素</cite></a>
-      </span>
-      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
-    </div>
+  
     <div class="x-body">
       
-        <form   method="post" action="<%=path %>Report/showUser.action">
-        <input type="hidden" name="companyId" id="companyId" value="${companyId}"/>
+        <form   method="post" action="<%=path%>ComQuery/queryAll.action">
         <div id="div">
-          <input type="text" id="staffName" name="staffName"  placeholder="姓名" autocomplete="off" class="layui-input" value="${staffName==null?"":staffName}">
+          <input type="text" id="staffName" name="staffName"  placeholder="姓名" autocomplete="off" class="layui-input" value="${staffBean.staffName}">
         </div>
-         <div id="div">
-         <input type="text" id="phone" name="phone"  placeholder="电话" autocomplete="off" class="layui-input" value="${phone==null?"":phone}">
-          </div>        
-          <div id="div">
-             <input type="text" id="examTime" name="examTime"  placeholder="体检时间" autocomplete="off" class="layui-input" value="${examTime==null?"":examTime}">
+          <div id="div"> 
+             <input class="layui-input" placeholder="开始日" name="statTime" id="start" placeholder="起始时间" autocomplete="off" value="${staffBean.statTime}">
           </div>
+           <div id="div">        
+             <input class="layui-input" placeholder="截止日" name="stopTime" id="end" placeholder="结束时间" autocomplete="off" value="${staffBean.stopTime}">
+          </div>
+          
            <div id="div">
-             <input type="text" id="myGuChId" name="myGuChId"  placeholder="条形号" autocomplete="off" class="layui-input" value="${myGuChId==null?"":myGuChId}">
-          </div>
-          <button class="layui-btn" type="submit" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+             <input type="text" id="myGuChId" name="myGuChId"  placeholder="条形号" autocomplete="off" class="layui-input" value="${staffBean.myGuChId}">
+          </div>   
+             <button class="layui-btn" type="submit" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+
+        
         </form>
     
       <xblock>
@@ -83,31 +75,52 @@ String path = request.getScheme() +"://"+request.getServerName()
 			   <td>${list.sex}</td>
 			   <td>${list.idNum}</td>
 			   <td>${list.phone}</td>
-			   <td>${list.myGuChId}</td>
-	       	   <td class="td-status">                 
-	           	<a href="<%=path%>Report/showSmall.action?staffId=${list.staffId}&myGuChId=${list.myGuChId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return dele();">总结</span></a>
-	          	<!-- ?guChId=${guChId} -->
-	           </td>
-	            <td class="td-status">                 
-	           	<a href="<%=path%>Report/showSmall.action?staffId=${list.staffId}&myGuChId=${list.myGuChId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return dele();">小结</span></a>
-	          	<!-- ?guChId=${guChId} -->
-	           </td>
-	            <td class="td-status">                 
-	           	<a href="<%=path%>Report/showSmall.action?staffId=${list.staffId}&myGuChId=${list.myGuChId}" ><span class="layui-btn layui-btn-danger" style="width:80px;" onclick="return dele();">报告预览</span></a>
-	          	<!-- ?guChId=${guChId} -->
-	           </td>
+			   <td>${list.myGuChId} ${list.smallState}</td>
+	       	     <c:if test="${list.smallState==13}">
+	       	      <td class="td-status">	             
+				   未完成	
+				</td>        
+				</c:if>
+				 <c:if test="${list.smallState==14 || list.smallState==15}">  
+				 <td class="td-status">
+	           	<a href="<%=path%>ComQuery/showLittle.action?staffId=${list.staffId}&myGuChId=${list.myGuChId}" ><span class="layui-btn layui-btn-primary" style="width:80px;" onclick="return dele();">小结</span></a>	                 			
+				</td>	        
+				</c:if>
+	           
+	            <c:if test="${list.smallState==15}">  
+	            <td class="td-status">   
+	           	<a href="<%=path%>ComQuery/showSummary.action?guChId=${list.myGuChId}" ><span class="layui-btn" style="width:80px;" onclick="return dele();">总结</span></a>
+	        	 </td>
+	        	</c:if>
+	        	<c:if test="${list.smallState!=15}">         
+	            <td class="td-status">  
+	        	未完成
+	        	</td>
+	        	</c:if>
+	          
+	            <c:if test="${list.smallState==15}">                      
+	            <td class="td-status">     
+	           	<a href="<%=path%>ComQuery/showFinalSummary.action?staffId=${list.staffId}&myGuChId=${list.myGuChId}&staffName=${list.staffName}" ><span class="layui-btn layui-btn-warm" style="width:80px;" onclick="return dele();">报告预览</span></a>
+	             </td>
+	            </c:if>
+	            <c:if test="${list.smallState!=15}">           
+	             <td class="td-status">           
+	         	  未完成
+	         	 </td>
+	           </c:if>
+	         
 			</tr>
 			</c:forEach>
         </tbody>
       </table>     
         <div class="page">
         <div>
-      		当前：第  ${currentPage} 页/ 共 ${totalPage} 页
-           <a class="num" href="<%=path %>Report/showUser.action?currentPage=1&companyId=${companyId }&staffName=${staffName }&partYear=${pBean.partYear }&batchNum=${pBean.batchNum }">首页</a> 
-           <a class="prev" href="<%=path %>Report/showUser.action?currentPage=${(currentPage-1)>0?currentPage-1:1}&companyId=${companyId }&staffName=${staffName }&partYear=${pBean.partYear }&batchNum=${pBean.batchNum }">上一页</a>
-		   <a class="next" 	href="<%=path%>Report/showUser.action?currentPage=${(currentPage+1)<=totalPage?currentPage+1:totalPage}&companyId=${companyId }&staffName=${staffName }&partYear=${pBean.partYear }&batchNum=${pBean.batchNum }">下一页</a>
-		   <a class="num" href="<%=path %>Report/showUser.action?currentPage=${totalPage}&companyId=${companyId}&staffName=${staffName }&partYear=${pBean.partYear }&batchNum=${pBean.batchNum }">末页</a>
-		   <input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> <a
+      		当前：第  ${staffBean.currentpage} 页/ 共 ${staffBean.totalPage} 页
+           <a class="num" href="<%=path%>ComQuery/queryAll.action?currentpage=1&staffName=${staffBean.staffName }&statTime=${staffBean.statTime}&stopTime=${staffBean.stopTime}&myGuChId=${staffBean.myGuChId}">首页</a>
+           <a class="prev" href="<%=path%>ComQuery/queryAll.action?currentpage=${(staffBean.currentpage-1)>0?(staffBean.currentpage-1):1}&staffName=${staffBean.staffName }&statTime=${staffBean.statTime}&stopTime=${staffBean.stopTime}&myGuChId=${staffBean.myGuChId}">上一页</a>
+		   <a class="next" href="<%=path%>ComQuery/queryAll.action?currentpage=${(staffBean.currentpage+1)<=staffBean.totalPage?(staffBean.currentpage+1):staffBean.totalPage}&staffName=${staffBean.staffName }&statTime=${staffBean.statTime}&stopTime=${staffBean.stopTime}&myGuChId=${staffBean.myGuChId}">下一页</a>
+		   <a class="num" href="<%=path%>ComQuery/queryAll.action?currentpage=${staffBean.totalPage}&staffName=${staffBean.staffName }&statTime=${staffBean.statTime }&stopTime=${staffBean.stopTime}&myGuChId=${staffBean.myGuChId}">末页</a> 
+		   <input type="text" id="currentPage" name="currentPage" style="width: 50px; height: 40px;" autocomplete="off" /> <a
 					class="num" id="linkToCart" href="">跳转</a>
         </div>
       </div>
@@ -150,11 +163,13 @@ $(document).ready(function(){
         //执行一个laydate实例
         laydate.render({
           elem: '#start' //指定元素
+          ,type: 'datetime'
         });
 
         //执行一个laydate实例
         laydate.render({
           elem: '#end' //指定元素
+          ,type: 'datetime'
         });
       });
 
@@ -171,11 +186,17 @@ $(document).ready(function(){
       }
 </script>
 <script type="text/javascript">
-//跳转页码
-function jump(){
-	var p=document.getElementById("pageNo").value;
-	window.location.href="<%=path%>openBillAction/staff.action?pageNo="+p+"&companyId=${batchSheetCon.companyId}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}";
-}
+
+$(document).ready(function(){
+    //点击链接的时候调用
+   $("#linkToCart").click(function(){
+       //得到input的值
+       var currentPage = $("#currentPage").val();
+       //设置linkToCart的href的值
+       $("#linkToCart").attr("href","<%=path%>ComQuery/queryAll.action?currentpage="+currentPage);
+   });
+ });
+
 
 //启用弹窗确认
 function disable(){

@@ -26,17 +26,12 @@ String path = request.getScheme() +"://"+request.getServerName()
 	</style>
   </head>
   <body>
-    <div class="x-nav">
+     <div class="x-nav">
       <span class="layui-breadcrumb">
-      <a href="<%=path%>openBillAction/massInspList.action"><button class="layui-btn layui-btn-warm">返回</button></a>
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>导航元素</cite></a>
+      <button class="layui-btn layui-btn-warm"  onclick="javascript:history.back(-1)">返回</button>  
       </span>
-      <button id="dy" name="name" onclick="daying();">打印</button>
-      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+      
+    </div>
     </div>
     <div class="x-body">       
       <xblock>
@@ -104,44 +99,7 @@ String path = request.getScheme() +"://"+request.getServerName()
       
      
     </c:forEach>   
-        <form action="<%=path%>Report/insertTotall.action?guChId=${staffBean.myGuChId}" method="post">
-     		 <table class="layui-table">
-				<thead>
-     			   <tr>
-                   <th>体检总结及建议</th>     
-                   </tr>    
-        		</thead>
-        				<tr>
-							<td>[综述:]</td>
-						</tr>									
-						<tr>
-							<td height="33"><textarea name="proposal" cols="180"></textarea>								
-							</td>
-							
-						</tr>
-						<tr>
-							<td>[建议:]</td>
-						</tr>
-						<tr>
-							<td ><textarea name="suggest" cols="180"></textarea></td>
-						</tr>
-					<thead>
-     			  		<tr>
-                   		<th>生活保健指导</th>     
-                  		</tr>    
-        			</thead>							
-						<tr>
-							<td><textarea name="lifeGuid" cols="180"></textarea></td>
-						</tr>	
-						<tr>   <td align="center">
-						  <button class="layui-btn" type="submit" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>提交</button>
-						   <button class="layui-btn layui-btn-normal" onclick="delAll()"><i class="layui-icon"></i>返回</button>
-							<input type="hidden" name="companyId" id="companyId" value="${companyId}"/>
-						</td></tr>								
-					</table>     			
-			</form>
-
-
+    
     </div>
 </body>
  <script type="text/javascript" src="<%=path%>js/jquery.min.js"></script>

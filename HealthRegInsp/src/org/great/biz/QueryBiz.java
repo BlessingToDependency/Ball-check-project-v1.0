@@ -9,7 +9,9 @@ package org.great.biz;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.great.bean.StaffBean;
+import org.great.bean.TotalBean;
 
 /** 
  * @ClassName: QueryBiz 
@@ -25,4 +27,8 @@ public interface QueryBiz  {
 	
 	//体检综合查询计算条目数
     public  Integer  addCount(StaffBean staffBean);
+    
+    
+    //得到总结信息
+  	public TotalBean   showSummary(String guChId);
 }
