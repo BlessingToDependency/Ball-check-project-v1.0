@@ -253,6 +253,13 @@ public class AdminBizImp implements AdminBiz{
 		public void addFinresult2(FinresultBean finresultBean) {
 			iAdminMapper.addFinresult2(finresultBean);
 		}
+
+		//更新人员来体检的时间
+		@Override
+		public int updateInspTime(int staffId, String inspTime) {
+			// TODO Auto-generated method stub
+			return iAdminMapper.updateInspTime(staffId, inspTime);
+		}
 		
 		
 	

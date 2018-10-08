@@ -5,8 +5,19 @@ package org.great.bean;
 public class StaffMealBean {
 	private int setmealId;//套餐ID
 	private int perInspId;//人员导检ID:主键
+	
+	 private int staffId;//人员ID
+	
 
 	
+	public int getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(int staffId) {
+		this.staffId = staffId;
+	}
+
 	public StaffMealBean() {
 		super();
 	}

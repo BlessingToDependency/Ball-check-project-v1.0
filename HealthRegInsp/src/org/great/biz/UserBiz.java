@@ -24,6 +24,9 @@ public interface UserBiz {
 	//上传文档插入数据库
 	public void addStaff(StaffBean staffBean);
 	
+	//批量预约
+	public List<StaffBean> batchMeal(Integer companyId);
+	
 	//插入员工导检单关系表
 	public void addPerguirela(PerguirelaBean perguirelaBean);
 	

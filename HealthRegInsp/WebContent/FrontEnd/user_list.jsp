@@ -88,7 +88,7 @@ function checkUser(){
         </form>
       </div> --%>
       <xblock>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','<%=path %>userMainAction/chooseMeal.action')"><i class="layui-icon"></i>批量预约套餐</button>
+        <button class="layui-btn" onclick="x_admin_show('','<%=path %>userMainAction/batchMeal.action')"><i class="layui-icon"></i>批量预约套餐</button>
       </xblock>
        <table class="layui-table">
         <thead>
@@ -124,8 +124,13 @@ function checkUser(){
              </td>
             <td class="td-status">
               <span class="layui-btn layui-btn-primary">
+              <c:if test="${staffBean.orderId==126}">
               <a title="选择套餐" onclick="x_admin_show('选择套餐','<%=path %>userMainAction/chooseMeal.action?staffId=${staffBean.staffId}')" href="javascript:;">选择套餐</a>
-              </a></span>
+              </a></c:if>
+               <c:if test="${staffBean.orderId==125}">
+              <a title="已预约"  href="javascript:;">已预约</a>
+              </a></c:if>
+              </span>
            
             </td>
           </tr>

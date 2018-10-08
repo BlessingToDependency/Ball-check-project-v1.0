@@ -71,7 +71,8 @@ String path = request.getScheme() +"://"+request.getServerName()
       $("#linkToCart").click(function(){
           //得到input的值
           var pages = $("#pages").val();
-          if(pages>${pageCountAll}){
+          
+          if(pages>(${pageCountAll})){
             	return; 
             }
           //设置linkToCart的href的值

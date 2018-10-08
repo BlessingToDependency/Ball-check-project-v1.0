@@ -23,6 +23,9 @@ public interface IUserMapper {
 	//前台用户注册
 	public void userRegister(UserBean userBean);
 	
+	//批量预约
+	public List<StaffBean> batchMeal(@Param("companyId")Integer companyId);
+	
 	//加入购物车
 	public void addShoppingCart(ShoppingCartBean shoppingCartBean);
 	

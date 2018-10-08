@@ -19,14 +19,14 @@
  	      
  	      <!-- 查询医生信息 -->
  	        <select id="slectDoctorInfo" parameterType="java.lang.Integer" resultMap="adminIn">
- 	                select t.*,p.post from tblbackstage  t,TBLPOST p
- 	                  where adminId=#{adminId}
+ 	                select t.*,p.post,r.depa from tblbackstage  t,TBLPOST p,tbldepar r   where t.postId=p.postId and t.depaId=r.depaId
+ 	                  and  adminId=#{adminId}
  	        </select>
  	        
  	         <!-- 管理全体医生信息 -->
  	        <select id="selectAllDoctor" parameterType="org.great.bean.AdminBean" resultMap="adminIn">
  	           select t.*,p.post,m.param,r.depa,l.role from tblbackstage  t,TBLPOST p,tblparam m,tbldepar r,tblrole l  where t.postId=p.postId and t.stateId=m.paramId and t.depaId=r.depaId 
- 	           and t.ROLEID=3  and l.roleId=t.roleId
+ 	           and t.ROLEID=3  and l.roleId=t.roleId  and logicId=6
  	               <if test="adminBean.adminName!=null">and adminName like '%${adminBean.adminName}%'   </if>
  	               <if test="adminBean.postBean.post!=null">and post like '%${adminBean.postBean.post}%'   </if>
  	                <if test="adminBean.deparBean.depa!=null">and depa like '%${adminBean.deparBean.depa}%'   </if>
@@ -37,7 +37,8 @@
  	        
  	        <!-- 管理医生(数量) -->
  	        <select id="selectAllDoctorN" parameterType="org.great.bean.AdminBean" resultMap="adminIn">
- 	              select t.*,p.post,m.param,r.depa from tblbackstage  t,TBLPOST p,tblparam m,tbldepar r  where t.postId=p.postId and t.stateId=m.paramId and t.depaId=r.depaId and t.ROLEID=3
+ 	             select t.*,p.post,m.param,r.depa,l.role from tblbackstage  t,TBLPOST p,tblparam m,tbldepar r,tblrole l  where t.postId=p.postId and t.stateId=m.paramId and t.depaId=r.depaId 
+ 	           and t.ROLEID=3  and l.roleId=t.roleId  and logicId=6
  	              <if test="adminBean.adminName!=null">and adminName like '%${adminBean.adminName}%'   </if> 	            
  	                 <if test="adminBean.postBean.post!=null">and post like '%${adminBean.postBean.post}%' </if> 
  	                 <if test="adminBean.deparBean.depa!=null">and depa like '%${adminBean.deparBean.depa}%' </if>
