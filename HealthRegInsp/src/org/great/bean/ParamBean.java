@@ -40,6 +40,11 @@ public class ParamBean {
 	public void setParId(int parId) {
 		this.parId = parId;
 	}
+
+	@Override
+	public String toString() {
+		return "ParamBean [paramId=" + paramId + ", param=" + param + ", parId=" + parId + "]";
+	}
       
       
 }

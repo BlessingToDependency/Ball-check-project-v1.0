@@ -173,8 +173,6 @@ String path = request.getScheme() +"://"+request.getServerName()
 		
 	</script>
 	<script>
-/* 	$(document).ready(function() { */
-/* 		$("#term").blur(function(){ */
 	function repetition(){
 			$.ajax({
 				url:"<%=path%>adminLitemAction/repetition.action",
@@ -193,8 +191,17 @@ String path = request.getScheme() +"://"+request.getServerName()
 				}
 				})	
 				}
-/* 			})  */
-/*     }); */
+	</script>
+	<script type="text/javascript">
+		/* 提示是否删除 */
+		function del(){
+			var r=confirm("是否确定删除!");
+			if (r==true){
+			 return true;
+			  }else{
+			 return false;
+			  }
+		}
 	</script>
 </head>
 <body>
@@ -225,35 +232,35 @@ String path = request.getScheme() +"://"+request.getServerName()
         </form>
       </div>
       <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+      <!--   <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button> -->
         <button class="layui-btn" onclick="addItem()"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：${sum } 条</span>
       </xblock>
       <table class="layui-table" width="100%" style="table-layout:fixed;">
         <thead>
           <tr>
-            <th width="5%">
+            <!-- <th width="5%">
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-            </th>
+            </th> -->
             <th width="5%">序列</th>
             <th width="10%">项目</th>
-            <th width="5%">单价</th>
+            <th width="10%">单价</th>
             <th>简介</th>
             <th width="30%">操作</th>
         </thead>
         <tbody>
         <c:forEach items="${list }" var="item" varStatus="i">
           <tr>
-            <td>
+            <!-- <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
+            </td> -->
             <td>${i.index+1 }</td>
             <td>${item.item }</td>
             <td>${item.price }</td>
             <td style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden">${item.introd }</td>
             <td class="td-status">
                  <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="amendItem(${item.itemId})">修改</span>
-                 <span class="layui-btn layui-btn-danger"><a href="<%=path%>adminLitemAction/delItem.action?id=${item.itemId}">删除</a></span>
+                 <span class="layui-btn layui-btn-danger"><a href="<%=path%>adminLitemAction/delItem.action?id=${item.itemId}" onClick="return del()">删除</a></span>
                  <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="myModal(${item.itemId})">查看详情</span>
                  <%-- <span class="layui-btn layui-btn-danger" data-toggle="modal" data-target="#myModal${i.index+1 }">查看详情</span> --%>
 	        </td>

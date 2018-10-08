@@ -157,6 +157,17 @@ String path = request.getScheme() +"://"+request.getServerName()
 			})	
 			}
 </script>
+<script type="text/javascript">
+		/* 提示是否删除 */
+		function dele(){
+			var r=confirm("是否确定删除!");
+			if (r==true){
+			 return true;
+			  }else{
+			 return false;
+			  }
+		}
+	</script>
 </head>
 <body>
  <div class="x-nav">
@@ -219,7 +230,7 @@ String path = request.getScheme() +"://"+request.getServerName()
             </c:if>
             <td class="td-status">
                  <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="amendItem(${item.termId})">修改</span>
-                 <span class="layui-btn layui-btn-danger"><a href="<%=path%>adminDetailAction/deleteDetail.action?id=${item.termId}">删除</a></span>
+                 <span class="layui-btn layui-btn-danger"><a href="<%=path%>adminDetailAction/deleteDetail.action?id=${item.termId}" onClick="return del()">删除</a></span>
                 <%--  <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="myModal(${item.itemId})">查看详情</span> --%>
                  <%-- <span class="layui-btn layui-btn-danger" data-toggle="modal" data-target="#myModal${i.index+1 }">查看详情</span> --%>
 	        </td>

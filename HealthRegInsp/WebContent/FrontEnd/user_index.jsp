@@ -158,7 +158,7 @@ function shoppingInfo(){
 		
 		</ul>
 
-      </li><li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action" >账户</a>
+      </li><li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action?page=1&startTime=&endTime=&paramId=" >账户</a>
 
         <ul class="subnav">
           
@@ -168,8 +168,6 @@ function shoppingInfo(){
       </li><li class="navitem"><a  href="about.html" >公司简介</a>
 
         <ul class="subnav">
-
-          
 
           <li>
           <a href="<%=path%>myCompAction/selectCompInfo.action"  >公司信息</a>                  
