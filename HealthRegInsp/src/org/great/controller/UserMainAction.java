@@ -263,12 +263,18 @@ public class UserMainAction {
 	
 	//展示已订购套餐
 	@RequestMapping("chooseAlreadyMeal.action")
-	public ModelAndView chooseAlreadyMeal(Integer setmealId,Integer staffId) {
+	public ModelAndView chooseAlreadyMeal(String setmealId,String staffId) {
+		System.out.println(setmealId+"--"+staffId);
 		//1展示已订购的套餐；数量;list接收
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
 		buyNowBean.setCompanyId(userBean.getCompanyId());//公司id
-		buyNowBean.setSetmealId(setmealId);//套餐id
-		buyNowBean.setStaffId(staffId);//人员id
+		if(null != setmealId) {
+			buyNowBean.setSetmealId(Integer.parseInt(setmealId));//套餐id
+		}
+		
+		buyNowBean.setStaffId(Integer.parseInt(staffId));//人员id
+		
+		
 		List<BuyNowBean> buyList = userBizImp.chooseAlreadyMeal(buyNowBean);
 		int ordNumAll = 0;//总预约人数
 		int buyNumberAll = 0;//总套餐数量
@@ -287,8 +293,8 @@ public class UserMainAction {
 		//如果预约人数之和=套餐数量之和，则套餐已用完
 		if(ordNumAll == buyNumberAll) {
 			//发送弹窗，套餐已经使用完了，跳出，不往下执行
-			
-			
+			request.setAttribute("msg", "暂无订购的套餐，去购买！");
+			return new ModelAndView("redirect:/fileAction/companyStaffList.action");
 		}else {
 			//否则查询套餐id对应的套餐
 			for(int z=0;z<buyList.size();z++) {
@@ -321,12 +327,8 @@ public class UserMainAction {
 				mav.addObject("staffId",staffId);//体检员工id
 				mav.addObject("setList", setList);
 				
-				
 			}
 		}
-		
-		
-		
 		return mav;
 	}
 

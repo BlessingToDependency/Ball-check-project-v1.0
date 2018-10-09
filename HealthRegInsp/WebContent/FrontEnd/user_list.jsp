@@ -55,16 +55,22 @@ function info(id){
 function checkUser(){
 	document.getElementById("formid").submit();
 }
+
+$(function(){
+	var msg = "${requestScope.get('msg')}";
+	if(msg.length > 0){
+		console.log(msg);
+		alert(msg);
+	}
+	
+})
 	</script>
   </head>
   
   <body>
     <div class="x-nav">
       <span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>导航元素</cite></a>
+        <a href="showSetmeal.action">首页</a>
       </span>
       <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
@@ -114,16 +120,19 @@ function checkUser(){
              </td>
              
             <td class="td-status">
-              <span class="layui-btn layui-btn-primary">
               <c:if test="${staffBean.orderId==126}">
-              <a title="选择套餐" onclick="x_admin_show('选择套餐','<%=path %>userMainAction/chooseMeal.action?staffId=${staffBean.staffId}')" href="javascript:;">选择套餐</a>
-              <a title="选择已购买套餐" onclick="x_admin_show('选择套餐','<%=path %>userMainAction/chooseAlreadyMeal.action?staffId=${staffBean.staffId}')" href="javascript:;">选择已购买套餐</a> 
-              
+              <span class="layui-btn layui-btn-primary">
+               <a href="<%=path %>userMainAction/chooseMeal.action?staffId=${staffBean.staffId}">选择套餐</a>
+               </span>
+               <span class="layui-btn layui-btn-primary">
+               <a href="<%=path %>userMainAction/chooseAlreadyMeal.action?staffId=${staffBean.staffId}">选择已购买套餐</a> 
+               </span>
               </c:if>
                <c:if test="${staffBean.orderId==125}">
+ 				<span class="layui-btn layui-btn-primary">
               <a title="已预约"  href="javascript:;">已预约</a>
-              </c:if>
               </span>
+              </c:if>
            
             </td>
           </tr>
