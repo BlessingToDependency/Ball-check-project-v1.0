@@ -71,29 +71,16 @@ public class FileAction {
 	 * 生成excel并导出
 	 */
 	@RequestMapping("/exportExcel.action")
-	@ResponseBody
 	public void exportExcel(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,String myGuChId) throws Exception{
 		Date now = new Date();
-		InputStream fin = null;
-		ServletOutputStream out = null;
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         String nowdate = df.format(now);
-        String root = request.getRealPath("/upload");// 设置文件上传路径
-        System.out.println("路径：" + root);
-        System.out.println("时间：" + nowdate);
-        String fileName = "人员体检名单" + nowdate + ".xls";
-        fileName = new String(fileName.getBytes(), "ISO8859-1");
-		File file = new File(root + fileName);
-        
-		
         // 打开文件
-//        File file = new File("D:\\"+"人员体检名单"+nowdate + ".xls");
-        WritableWorkbook book = Workbook.createWorkbook(file);
+        WritableWorkbook book = Workbook.createWorkbook(new File("人员体检名单"+nowdate + ".xls"));
         
         String fileNick = "人员体检名单"+nowdate + ".xls";
         System.out.println("book="+book);
         System.out.println(fileNick);
-        
         
         // 生成名为"第一页"的工作表，参数0表示这是第一
         WritableSheet sheet = book.createSheet("第一页", 0);
@@ -148,42 +135,7 @@ public class FileAction {
         book.write();
         book.close();
         System.out.println("创建文件成功!");
-        
-        String str = "1";
-        PrintWriter outt = response.getWriter();
-        outt.print(str);
-        
-        fin = new FileInputStream(file);
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("application/excel");
-		response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
-
-		
-		out = response.getOutputStream();
-		byte[] buffer = new byte[1024];// 缓冲区
-		int bytesToRead = -1;
-		// 通过循环将读入的Word文件的内容输出到浏览器中
-		while ((bytesToRead = fin.read(buffer)) != -1) {
-			out.write(buffer, 0, bytesToRead);
-			out.flush();
-		}
-		
-		System.out.println("写入完成");
-		
-		try {
-			if (fin != null) {
-				fin.close();
-			}
-			if (out != null) {
-				out.close();
-			}
-//			if (file != null) {
-//				file.delete(); // 删除临时文件
-//			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+//        return new ModelAndView("redirect:/fileAction/downloadExcel.action?fileNick="+fileNick);
 	}
 	
 	

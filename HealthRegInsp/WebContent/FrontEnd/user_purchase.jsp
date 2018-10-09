@@ -256,7 +256,7 @@ $('#min').attr('disabled',true);
   <c:forEach items="${setList }" var="setmealBean">
     <tr>
 	 <input type="hidden" id="setmealId" name="setmealId" value="${setmealBean.setmealId}"/>
-      <td width="261" rowspan="4"><div align="center">图片</div></td>
+      <td width="261" rowspan="4"><div align="center"><img  src="<%=path %>images/1-1F5041U4070-L.jpg"></div></td>
       <td height="75" colspan="2"><div align="center" class="STYLE1">${setmealBean.setmeal }</div></td>
     </tr>
     <tr>

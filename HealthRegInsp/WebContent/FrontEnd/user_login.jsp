@@ -198,7 +198,7 @@
 		}
 		if(pwd2 == ""){
 			$.pt({
-        		target: $("#pwd"),
+        		target: $("#pwd2"),
         		position: 'r',
         		align: 't',
         		width: 'auto',
@@ -291,7 +291,7 @@
 					goto_login();
 				}
 			});
-			return false;
+			return true;
 		}
 	}
 	
