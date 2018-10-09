@@ -49,8 +49,7 @@ public class UserLoginAction {
 	 */
 	@RequestMapping("/jumpLogin.action")
 	public ModelAndView jumpLogin() {
-		mav.setViewName("FrontEnd/user_login");
-		return mav;
+		return new ModelAndView("redirect:/user_login.jsp");
 	}
 	
 	/*
@@ -68,7 +67,7 @@ public class UserLoginAction {
 			return new ModelAndView("redirect:/userMainAction/showSetmeal.action");
 		}else {
 			request.setAttribute("login", "登陆失败，账号密码不匹配！");
-			mav.setViewName("FrontEnd/user_login");//登陆失败
+			mav.setViewName("user_login.jsp");//登陆失败
 		}
 		return mav;
 	}
@@ -83,8 +82,10 @@ public class UserLoginAction {
 		int i = userBizImp.resetPwd(companyNick,industryNum,passWord);
 		if(i>0) {
 			request.setAttribute("msg", "重置成功，请登录！");
+			mav.setViewName("user_login.jsp");//登陆失败
 		}else {
 			request.setAttribute("msg", "重置失败，输入有误！");
+			mav.setViewName("user_login.jsp");//登陆失败
 		}
 		
 		return mav;
@@ -98,7 +99,7 @@ public class UserLoginAction {
 	
 		uBean.setHead("images/user.png");//设置默认头像
 		userBizImp.userRegister(uBean);
-//		mav.setViewName("login");
+		mav.setViewName("user_login");
 		return mav;
 	}
 	
