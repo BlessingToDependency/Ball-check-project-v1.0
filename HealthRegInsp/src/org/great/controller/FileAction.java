@@ -202,13 +202,12 @@ public class FileAction {
 			Sheet sheet=book.getSheet(0); //获得第一个工作表对象 
 			int count = 0;//当前总上传的人数
 			
-			
-			
 			perguirelaBean.setBatchNum(1);//批次默认1
 			UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
 			//4插入关系表前，查询当前公司、当前年份下，是否有上传过人员
-			PerguirelaBean pb = userBizImp.selectBatchNum(userBean.getCompanyId());
-			if(null != pb) {
+			
+			List<PerguirelaBean> perguirelaList = userBizImp.selectBatchNum(userBean.getCompanyId());
+			if(perguirelaList.size()>0) {
 				//如果有值，则取出最大批次号，加1
 				int maxCount = userBizImp.maxBatchNum(userBean.getCompanyId());
 				perguirelaBean.setBatchNum(maxCount+1);//批次默认1

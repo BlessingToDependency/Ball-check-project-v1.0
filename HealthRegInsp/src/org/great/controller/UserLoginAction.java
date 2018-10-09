@@ -98,7 +98,7 @@ public class UserLoginAction {
 	
 		uBean.setHead("images/user.png");//设置默认头像
 		userBizImp.userRegister(uBean);
-//		mav.setViewName("login");
+		mav.setViewName("user_login");
 		return mav;
 	}
 	

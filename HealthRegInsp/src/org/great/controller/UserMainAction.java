@@ -218,10 +218,10 @@ public class UserMainAction {
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
 
 		List<StaffBean> staffList = userBizImp.batchMeal(userBean.getCompanyId());
+		System.out.println("staffList="+staffList);
 		if(staffList.size()<1) {
 			request.setAttribute("msg", "人员已全部配置！");
-			
-			
+			return new ModelAndView("redirect:/fileAction/companyStaffList.action");
 		}else {
 		
 		System.out.println("staffList="+staffList.size());
@@ -274,7 +274,6 @@ public class UserMainAction {
 		
 		buyNowBean.setStaffId(Integer.parseInt(staffId));//人员id
 		
-		
 		List<BuyNowBean> buyList = userBizImp.chooseAlreadyMeal(buyNowBean);
 		int ordNumAll = 0;//总预约人数
 		int buyNumberAll = 0;//总套餐数量
@@ -317,16 +316,17 @@ public class UserMainAction {
 				}  
 				//是否有套餐id
 				if(null != setmealId) {
-					mav.setViewName("FrontEnd/user_mealone");
+					mav.setViewName("FrontEnd/user_existingmealone");
+					System.out.println("进入这里");
 				}else {
-					mav.setViewName("FrontEnd/user_meallist");
+					mav.setViewName("FrontEnd/user_existingmeal");
+					mav.addObject("buyNumberAll",buyNumberAll);
+					System.out.println("buyNumberAll="+buyNumberAll);
 				}
 				System.out.println("员工id="+staffId);
 				System.out.println("套餐id="+setmealId);
-				
 				mav.addObject("staffId",staffId);//体检员工id
 				mav.addObject("setList", setList);
-				
 			}
 		}
 		return mav;
