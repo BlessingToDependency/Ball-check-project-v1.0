@@ -29,7 +29,7 @@ public class Printing {
 	      Configuration configuration = new Configuration();  
 	      configuration.setDefaultEncoding("utf-8");  
 	      
-	      configuration.setDirectoryForTemplateLoading(new File("f:/")); 
+	      configuration.setDirectoryForTemplateLoading(new File("d:/")); 
 	      
 	      // 输出文档路径及名称 
 	      //得到当前系统时间
