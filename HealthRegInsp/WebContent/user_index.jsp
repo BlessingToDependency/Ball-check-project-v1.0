@@ -133,7 +133,7 @@ function shoppingInfo(){
   <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
     <ul id="nav">
       <li class="navitem"><a  class='active' href="<%=path %>userMainAction/showSetmeal.action">首页</a></li>
-      <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action?startTime=&endTime=&paramId=&page=1" >我的账户</a>
+      <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action?page=1&startTime=&endTime=&paramId=" >账户</a>
         <ul class="subnav">
         </ul>
       </li>

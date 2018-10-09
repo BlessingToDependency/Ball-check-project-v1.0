@@ -170,11 +170,8 @@
 			contacts = $("#contacts").val(),
 			phone = $("#phone").val(),
 			busNum = $("#busNum").val(),
-			
-			
 			validatecode = null;
-		
-		
+
 		upperCaseReg()
 		//判断用户名密码是否为空
 		if(company == ""){
@@ -296,15 +293,14 @@
 			});
 			return true;
 		}
-	}
-	
+	}	
 	var flag = false;
+
 	//重置密码
 	function forget(){
 		var username = $("#forget-username").val(),
 			password = $("#forget-password").val(),
 			code = $("#forget-code").val(),
-			
 			validatecode = null;
 		//判断用户名密码是否为空
 		if(username == ""){
@@ -329,6 +325,7 @@
         	});
 			flag = true;
 		}
+
 		if(code == ""){
 			$.pt({
         		target: $("#forget-code"),
@@ -343,7 +340,6 @@
 	
 		//检查用户名是否存在
 		//调后台方法
-		
 		
 	 if(flag){
 			return false;
@@ -368,9 +364,9 @@
 				}
 			});
 			return false;
+
 		} 
 	}
-	
 	
 	/* 重置密码查重 */
 	function upperCase(){
@@ -389,6 +385,7 @@
 	});
 	
 	}
+
 	/* 注册查重 */
 	function upperCaseReg(){
 		$.ajax({
@@ -499,6 +496,7 @@ body{
 			<!-- 忘记密码页面 -->
 			<div class="login sign-out-htm">
 				<form onSubmit="return upperCase()" action="<%=path %>userLoginAction/resetPwd.action" onsubmit="return forget()" method="post" class="container offset1 loginform">
+
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="forget-owl">
 						<div class="hand"></div>
@@ -542,6 +540,7 @@ body{
 			</div>
 			<!-- 注册页面 -->
 			<div class="login sign-up-htm">
+
 				<form onSubmit="return upperCaseReg()" action="<%=path %>userLoginAction/userRegister.action" method="post" class="container offset1 loginform" id="regP">
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="register-owl">
