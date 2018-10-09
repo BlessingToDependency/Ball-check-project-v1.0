@@ -174,7 +174,8 @@ public class FileAction {
 		if(null != ub) {
 			mav.setViewName("FrontEnd/user_upload");
 		}else {
-			mav.setViewName("FrontEnd/user_login");
+			return new ModelAndView("redirect:/user_login.jsp");
+
 		}
 		return mav;
 	}
@@ -268,9 +269,8 @@ public class FileAction {
 			return new ModelAndView("redirect:/fileAction/companyStaffList.action");
 		}else {
 			System.out.println("登陆去");
-			mav.setViewName("FrontEnd/user_login");
+			return new ModelAndView("redirect:/user_login.jsp");
 		}
-		return mav;
 	}
 	
 	/*
@@ -281,6 +281,7 @@ public class FileAction {
 		UserBean ub = (UserBean) request.getSession().getAttribute("userBean");
 //		ub.getCompanyId();//当前公司id
 //		companyId = ub.getCompanyId();
+		if(null != ub) {
 		//查询出当前公司的员工
 		staffBean.setCompanyId(ub.getCompanyId());
 		String page = String.valueOf(pages);
@@ -303,6 +304,9 @@ public class FileAction {
 		mav.setViewName("FrontEnd/user_list");
 		
 		return mav;
+	}else {
+		return new ModelAndView("redirect:/user_login.jsp");
+	}
 	}
 	
 	

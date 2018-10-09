@@ -28,19 +28,32 @@ public class FrontEndFilter implements Filter{
 		HttpServletRequest hsr= (HttpServletRequest) request;
 		HttpServletResponse hr=(HttpServletResponse) response;
 		//创建一个session对象
-		HttpSession session= hsr.getSession();
-		//获得请求进来的url地址
-		String url=hsr.getRequestURI();
-		//进行判断是否为css、js样式请求
-		if(url.indexOf(".css")>0 && url.indexOf(".js")>0) {
-			//进行放行
-			chain.doFilter(request, response);
-		}else {
-			if(session.getAttribute("userBean")==null) {
-				//页面转发
-				hsr.getRequestDispatcher("/FrontEnd/user_login.jsp").forward(request, response);
-			}
-		}
+				HttpSession session= hsr.getSession();
+				int t = 0;
+				//获得请求进来的url地址
+				String url=hsr.getRequestURI();
+				int b =url.indexOf(".js");
+				if(b>0) {
+					String str=url.substring(b);
+					if(str.equals(".jsp")) {
+						t=1;
+					}
+				}
+				if(url.equals("/HealthRegInsp/user_login.jsp")) {
+					//进行放行
+					chain.doFilter(request, response);
+				}else {
+					//进行判断是否为css、js样式请求
+					if(url.indexOf(".css")>0 || url.indexOf(".png")>0 || url.indexOf(".jpg")>0 || (url.indexOf(".js")>0 && t==0)) {
+						//进行放行
+						chain.doFilter(request, response);
+					}else {
+						if(session.getAttribute("userBean")==null) {
+							//页面转发
+							hr.sendRedirect("/HealthRegInsp/user_login.jsp");
+						}
+					}
+				}
 	}
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {

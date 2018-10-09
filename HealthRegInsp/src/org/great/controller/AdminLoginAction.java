@@ -80,8 +80,8 @@ public class AdminLoginAction {
 			mav.setViewName("BackEnd/admin_Index");
 		}else {
 			System.out.println("登陆失败");
-			mav.setViewName("BackEnd/admin_login");
 			request.setAttribute("login", "登陆失败，账号密码不匹配！");
+			return new ModelAndView("redirect:/admin_login.jsp");
 		}
 		return mav;
 	}

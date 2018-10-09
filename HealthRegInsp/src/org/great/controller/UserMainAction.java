@@ -173,7 +173,7 @@ public class UserMainAction {
 			String strCon = gson.toJson(2);
 			out.print(strCon);
 			System.out.println("加入购物车登陆去");
-			mav.setViewName("FrontEnd/user_login");
+			mav.setViewName("user_login");
 		}
 		out.close();
 	}
@@ -216,7 +216,8 @@ public class UserMainAction {
 	public ModelAndView batchMeal(String setmealId,String[] staffId) throws Exception{
 		//查询当前公司下所有未预约套餐得人员
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
-
+if(null != userBean ) {
+	
 		List<StaffBean> staffList = userBizImp.batchMeal(userBean.getCompanyId());
 		System.out.println("staffList="+staffList);
 		if(staffList.size()<1) {
@@ -257,6 +258,9 @@ public class UserMainAction {
 		mav.addObject("staffId",staffId);//未预约的员工id
 		mav.addObject("setList",setList);//套餐
 		}
+}else {
+	return new ModelAndView("redirect:/user_login.jsp");
+}
 		return mav;
 	}
 	
@@ -496,7 +500,7 @@ public class UserMainAction {
 			mav.setViewName("FrontEnd/user_buynow");
 		}else {
 			System.out.println("登陆去");
-			mav.setViewName("FrontEnd/user_login");
+			return new ModelAndView("redirect:/user_login.jsp");
 		}
 		return mav;
 	}
