@@ -174,7 +174,8 @@ public class FileAction {
 		if(null != ub) {
 			mav.setViewName("FrontEnd/user_upload");
 		}else {
-			mav.setViewName("FrontEnd/user_login");
+			return new ModelAndView("redirect:/user_login.jsp");
+
 		}
 		return mav;
 	}
@@ -202,13 +203,12 @@ public class FileAction {
 			Sheet sheet=book.getSheet(0); //获得第一个工作表对象 
 			int count = 0;//当前总上传的人数
 			
-			
-			
 			perguirelaBean.setBatchNum(1);//批次默认1
 			UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
 			//4插入关系表前，查询当前公司、当前年份下，是否有上传过人员
-			PerguirelaBean pb = userBizImp.selectBatchNum(userBean.getCompanyId());
-			if(null != pb) {
+			
+			List<PerguirelaBean> perguirelaList = userBizImp.selectBatchNum(userBean.getCompanyId());
+			if(perguirelaList.size()>0) {
 				//如果有值，则取出最大批次号，加1
 				int maxCount = userBizImp.maxBatchNum(userBean.getCompanyId());
 				perguirelaBean.setBatchNum(maxCount+1);//批次默认1
@@ -269,9 +269,8 @@ public class FileAction {
 			return new ModelAndView("redirect:/fileAction/companyStaffList.action");
 		}else {
 			System.out.println("登陆去");
-			mav.setViewName("FrontEnd/user_login");
+			return new ModelAndView("redirect:/user_login.jsp");
 		}
-		return mav;
 	}
 	
 	/*
@@ -282,6 +281,7 @@ public class FileAction {
 		UserBean ub = (UserBean) request.getSession().getAttribute("userBean");
 //		ub.getCompanyId();//当前公司id
 //		companyId = ub.getCompanyId();
+		if(null != ub) {
 		//查询出当前公司的员工
 		staffBean.setCompanyId(ub.getCompanyId());
 		String page = String.valueOf(pages);
@@ -304,6 +304,9 @@ public class FileAction {
 		mav.setViewName("FrontEnd/user_list");
 		
 		return mav;
+	}else {
+		return new ModelAndView("redirect:/user_login.jsp");
+	}
 	}
 	
 	

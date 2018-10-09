@@ -29,7 +29,6 @@ public class ImageExaminAction {
 
 	@RequestMapping(value="/fileact.action", method=RequestMethod.POST)
 	public ModelAndView fileact(HttpServletRequest request,FinresultBean finresultBean,@RequestParam("fileact") MultipartFile[] fileact){
-		System.out.println("***88888***");
 		String guChId=finresultBean.getGuChId();
 		//判断file数组不能为空并且长度大于0
         if (fileact != null && fileact.length > 0) {
@@ -56,9 +55,7 @@ public class ImageExaminAction {
         		}
         	}
         }
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("userinfo");
-		return mav;
+		return new ModelAndView("redirect:/doctorSummaryAction/getThisItemStaff.action");
 	}
 	
 }

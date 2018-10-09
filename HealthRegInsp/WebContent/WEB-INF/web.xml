@@ -47,7 +47,7 @@
   </filter-mapping> 
   
   <!-- 前端安全过滤 -->
-<!--   <filter>
+<filter>
      <filter-name>frontfilter</filter-name>
      <filter-class>org.great.filter.FrontEndFilter</filter-class>
   </filter>
@@ -55,9 +55,9 @@
   <filter-mapping>
   	<filter-name>frontfilter</filter-name>
   	<url-pattern>/FrontEnd/*</url-pattern>
-  </filter-mapping> -->
+  </filter-mapping>
   
-<!--  后端安全过滤器 -->
+ <!--  后端安全过滤器 -->
   <filter>
     <filter-name>backfilter</filter-name>
     <filter-class>org.great.filter.BackEndFilter</filter-class>
