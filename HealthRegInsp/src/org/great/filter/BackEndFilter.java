@@ -29,17 +29,29 @@ public class BackEndFilter implements Filter{
 		HttpServletResponse hr=(HttpServletResponse) response;
 		//创建一个session对象
 		HttpSession session= hsr.getSession();
+		int t = 0;
 		//获得请求进来的url地址
 		String url=hsr.getRequestURI();
-		//进行判断是否为css、js样式请求
-		if(url.indexOf(".css")>0 && url.indexOf(".js")>0) {
+		int b =url.indexOf(".js");
+		if(b>0) {
+			String str=url.substring(b);
+			if(str.equals(".jsp")) {
+				t=1;
+			}
+		}
+		if(url.equals("/HealthRegInsp/BackEnd/admin_login.jsp")) {
 			//进行放行
 			chain.doFilter(request, response);
 		}else {
-			if(session.getAttribute("adminBean")==null) {
-				//页面转发
-				hsr.getRequestDispatcher("/BackEnd/admin_login.jsp").forward(request, response);
-				//hr.sendRedirect("/HealthRegInsp/BackEnd/admin_login.jsp");
+			//进行判断是否为css、js样式请求
+			if(url.indexOf(".css")>0 || url.indexOf(".png")>0 || url.indexOf(".jpg")>0 || (url.indexOf(".js")>0 && t==0)) {
+				//进行放行
+				chain.doFilter(request, response);
+			}else {
+				if(session.getAttribute("adminBean")==null) {
+					//页面转发
+					hr.sendRedirect("/HealthRegInsp/BackEnd/admin_login.jsp");
+				}
 			}
 		}
 	}
