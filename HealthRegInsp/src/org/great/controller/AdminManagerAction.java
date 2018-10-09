@@ -165,7 +165,7 @@ public class AdminManagerAction {
 	public ModelAndView exitAdmin(HttpServletRequest request){
 		//清空登录的Session
 		request.getSession().removeAttribute("adminBean");
-		return new ModelAndView("redirect:/admin_login.jsp");
+		return new ModelAndView("redirect:/BackEnd/admin_login.jsp");
 	}
 	
 }
