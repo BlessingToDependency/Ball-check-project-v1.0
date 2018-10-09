@@ -101,8 +101,9 @@ String path = request.getScheme() +"://"+request.getServerName()
            <a class="prev" href="<%=path %>Report/showUser.action?currentPage=${(currentPage-1)>0?currentPage-1:1}&companyId=${companyId }&staffName=${staffName }&partYear=${pBean.partYear }&batchNum=${pBean.batchNum }">上一页</a>
 		   <a class="next" 	href="<%=path%>Report/showUser.action?currentPage=${(currentPage+1)<=totalPage?currentPage+1:totalPage}&companyId=${companyId }&staffName=${staffName }&partYear=${pBean.partYear }&batchNum=${pBean.batchNum }">下一页</a>
 		   <a class="num" href="<%=path %>Report/showUser.action?currentPage=${totalPage}&companyId=${companyId}&staffName=${staffName }&partYear=${pBean.partYear }&batchNum=${pBean.batchNum }">末页</a>
-		   <input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> <a
-					class="num" id="linkToCart" href="">跳转</a>
+		   <input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> 
+					<a class="num" id="linkToCart" href="">跳转</a>
+		   <input type="hidden" id="totalPage" value="${totalPage}" >
         </div>
       </div>
 
@@ -152,17 +153,22 @@ $(document).ready(function(){
         });
       });
 
-      function delAll (argument) {
-
-        var data = tableCheck.getData();
-  
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-            window.location.href="<%=path%>adminManagerAction/batchDel.action?data="+data;
-        });
-      }
+    //点击链接的时候调用
+    $("#linkToCart").click(function(){
+        //得到input的值
+        alert("进入函数");
+        var currentPage = $("#currentPage").val();
+        var  totalPage  = $("#totalPage").val();
+        if(currentPage>totalPage){
+      	alert(111111111);
+      	  return;
+        }else{
+      	//设置linkToCart的href的值
+            $("#linkToCart").attr("href","<%=path%>Report/showCompany.action?currentPage="+currentPage);
+        }
+        
+    });
+  });
 </script>
 <script type="text/javascript">
 //跳转页码

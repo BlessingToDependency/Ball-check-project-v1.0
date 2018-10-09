@@ -387,7 +387,7 @@ String path = request.getScheme() +"://"+request.getServerName()
     <!-- 中部结束 -->
     <!-- 底部开始 -->
     <div class="footer">
-        <div class="copyright">Copyright ©2017 x-admin 2.3 All Rights Reserved  更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a></div>  
+        <div class="copyright"></div>  
     </div>
     <!-- 底部结束 -->
 
