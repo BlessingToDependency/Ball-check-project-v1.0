@@ -120,14 +120,18 @@ public class ReportAction {
 		System.out.println("guideList:"+guideList.toString());
 		for (Iterator<StaffBean> iterator = guideList.iterator(); iterator.hasNext();) {
 			StaffBean staffBean = (StaffBean) iterator.next();
-			System.out.println("staffBean.getMyGuChId():"+staffBean.getMyGuChId());
-			Integer sumSmall =reportBizImp.sumSmall(staffBean.getMyGuChId());
-			Integer  sumOrder = reportBizImp.sumOrderItem(staffBean.getMyGuChId());
-			System.out.println("sumSmall:"+sumSmall+"sumOrder:"+sumOrder);
-			if (staffBean.getSmallState()==14) {				
-				if (sumSmall == sumOrder) {				
-					reportBizImp.setSmall(staffBean.getMyGuChId());
-					
+			System.out.println("staffBean.getMyGuChId():"+staffBean.getMyGuChId());		
+			if (null == staffBean.getMyGuChId()) {
+				
+			}else {				
+				Integer sumSmall =reportBizImp.sumSmall(staffBean.getMyGuChId());
+				Integer  sumOrder = reportBizImp.sumOrderItem(staffBean.getMyGuChId());
+				System.out.println("sumSmall:"+sumSmall+"sumOrder:"+sumOrder);
+				if (staffBean.getSmallState()==14) {				
+					if (sumSmall == sumOrder) {				
+						reportBizImp.setSmall(staffBean.getMyGuChId());
+						
+					}
 				}
 			}
 			

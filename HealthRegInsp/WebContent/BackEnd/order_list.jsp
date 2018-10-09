@@ -100,6 +100,7 @@
 				<a class="num" href="<%=path %>Order/showOrder.action?currentPage=${totalPage}&setmeal=${setmeal}">末页</a>
 				<input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> <a
 					class="num" id="linkToCart" href="">跳转</a>
+					<input type="hidden" id="totalPage" value="${totalPage}" >
 			</div>
 		</div>
 
@@ -174,8 +175,15 @@
       $("#linkToCart").click(function(){
           //得到input的值
           var currentPage = $("#currentPage").val();
-          //设置linkToCart的href的值
-          $("#linkToCart").attr("href","<%=path%>Order/showOrder.action?currentPage="+currentPage);
+          var  totalPage  = $("#totalPage").val();
+          if(currentPage>totalPage){
+        	
+        	  return;
+          }else{
+        	//设置linkToCart的href的值
+              $("#linkToCart").attr("href","<%=path%>Order/showOrder.action?currentPage="+currentPage);
+          }
+          
       });
     });
     

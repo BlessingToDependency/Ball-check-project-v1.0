@@ -117,6 +117,8 @@ function checkUser(){
               <span class="layui-btn layui-btn-primary">
               <c:if test="${staffBean.orderId==126}">
               <a title="选择套餐" onclick="x_admin_show('选择套餐','<%=path %>userMainAction/chooseMeal.action?staffId=${staffBean.staffId}')" href="javascript:;">选择套餐</a>
+              <a title="选择已购买套餐" onclick="x_admin_show('选择套餐','<%=path %>userMainAction/chooseAlreadyMeal.action?staffId=${staffBean.staffId}')" href="javascript:;">选择已购买套餐</a> 
+              
               </c:if>
                <c:if test="${staffBean.orderId==125}">
               <a title="已预约"  href="javascript:;">已预约</a>
