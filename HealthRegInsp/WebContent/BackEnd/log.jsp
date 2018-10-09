@@ -126,7 +126,9 @@
 //跳转页码
 function jump(){
 	var p=document.getElementById("pageNo").value;
-	window.location.href="<%=path%>logAction/selectAllLog.action?page="+p;
+	if(p<=${paNum}){window.location.href="<%=path%>logAction/selectAllLog.action?name=${name}&page="+p;}
+	else{alert("页数不存在");}
+	
 }
 layui.use('laydate', function(){
     var laydate = layui.laydate;

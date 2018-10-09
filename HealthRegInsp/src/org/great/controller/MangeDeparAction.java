@@ -86,7 +86,8 @@ public class MangeDeparAction {
 		mav.addObject("page", pageNo);
 		mav.addObject("paNum", paNum);	
 		mav.addObject("depa", depa);
-		session.setAttribute("deli", deli);
+		//session.setAttribute("deli", deli);
+		mav.addObject("deli", deli);
 		mav.setViewName("BackEnd/mange_depar");
 		return mav;
 		
@@ -123,7 +124,7 @@ public class MangeDeparAction {
 		}
 		else {
 		
-			mav.setViewName("");
+			mav.setViewName("redirect:/maDeparAction/selectDe.action");
 		}
 		return mav;
 		
@@ -181,7 +182,7 @@ public class MangeDeparAction {
 		mav.setViewName("redirect:/maDeparAction/selectDe.action");
 		}else {
 			System.out.println("2");
-			mav.setViewName("");
+			mav.setViewName("redirect:/maDeparAction/selectDe.action");
 		}
 		
 		return mav;		

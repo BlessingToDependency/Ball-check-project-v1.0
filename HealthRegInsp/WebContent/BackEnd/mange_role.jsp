@@ -103,7 +103,7 @@ function delectRole(id){
           <a class="prev" href="<%=path%>maRoleAction/selectAllRole.action?page=${page-1<1?1:page-1}&role=${role}">上一页</a>
           <a class="next" href="<%=path%>maRoleAction/selectAllRole.action?page=${(page+1)<=paNum?page+1:paNum}&role=${role}">下一页</a>
           <a class="num" href="<%=path%>maRoleAction/selectAllRole.action?page=${paNum}&role=${role}">末页</a>
-          <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" />
+          <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off"  onkeyup="this.value=this.value.replace(/\D/gi,'')"/>
            <a class="num" id="linkToCart" onclick="jump();">跳转</a>
         </div>
       </div>

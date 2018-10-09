@@ -43,11 +43,6 @@ public class LogAction {
 		
 		String page=request.getParameter("page");
 		String name=request.getParameter("name");
-	/*	String startD=request.getParameter("start");
-		String endD=request.getParameter("end");*/
-	/*	logBean.setStart(startD);
-		logBean.setEnd(endD);
-		System.out.println(startD+"--"+endD);*/
 		logBean.setName(name);
 		 int pageNo=-1;
 			if(null==page||"".equals(page)) {
@@ -72,11 +67,13 @@ public class LogAction {
 			paNum=num/10+1;
 	   }
 
-		session.setAttribute("logList", logList);
+		
+		
 		mav.setViewName("BackEnd/log");
 		mav.addObject("page", pageNo);
 		mav.addObject("paNum", paNum);
 		mav.addObject("name", name);
+		mav.addObject("logList", logList);
 		return mav;
 		
 	}

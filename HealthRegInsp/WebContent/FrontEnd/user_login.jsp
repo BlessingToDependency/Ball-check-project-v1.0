@@ -502,7 +502,7 @@ body{
 			</div>
 			<!-- 注册页面 -->
 			<div class="login sign-up-htm">
-				<form action="<%=path %>userLoginAction/userRegister.action" method="post" class="container offset1 loginform">
+				<form action="<%=path %>userLoginAction/userRegister.action" method="post" class="container offset1 loginform" id="regP">
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="register-owl">
 						<div class="hand"></div>
@@ -571,7 +571,7 @@ body{
 					</div>
 					<div class="form-actions">
 						<a class="btn pull-left btn-link text-muted" onClick="goto_login()">返回登录</a>
-						<input class="btn btn-primary" type="submit" onClick="register()" value="注册" 
+						<input class="btn btn-primary" type="submit" onClick="return register()" value="注册" 
 							style="color:white;"/>
 					</div>
 				</form>
