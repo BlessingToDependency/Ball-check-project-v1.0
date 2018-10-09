@@ -48,6 +48,15 @@ function rememberCheck(string){
         }
     });
 };	
+
+$(function(){
+	var msg = "${requestScope.get('login')}";
+	if(msg.length > 0){
+		console.log(msg);
+		alert(msg);
+	}
+	
+})
 </script>
 <script type="text/javascript" src="jss/jigsaw.js"></script>
 
