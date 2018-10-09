@@ -114,10 +114,10 @@ String path = request.getScheme() +"://"+request.getServerName()
         <div class="page">
         <div>
       当前：第  ${pageNo} 页/ 共 ${AllPage} 页
-          <a class="num" href="<%=path %>openBillAction/staff.action?pageNo=1&companyId=${batchSheetCon.companyId}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}">首页</a>
-          <a class="prev" href="<%=path %>openBillAction/staff.action?pageNo=${pageNo-1}&companyId=${batchSheetCon.companyId}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}" onclick="return chageNO(this)">上一页</a>
-          <a class="next" href="<%=path %>openBillAction/staff.action?pageNo=${pageNo+1}&companyId=${batchSheetCon.companyId}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}" onclick="return chageNE(this)">下一页</a>
-          <a class="num" href="<%=path %>openBillAction/staff.action?pageNo=${AllPage}&companyId=${batchSheetCon.companyId}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}">末页</a>
+          <a class="num" href="<%=path %>openBillAction/staff.action?pageNo=1&companyId=${batchSheetCon.companyId}&partYear=${batchSheetCon.partYear}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}">首页</a>
+          <a class="prev" href="<%=path %>openBillAction/staff.action?pageNo=${pageNo-1}&companyId=${batchSheetCon.companyId}&partYear=${batchSheetCon.partYear}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}" onclick="return chageNO(this)">上一页</a>
+          <a class="next" href="<%=path %>openBillAction/staff.action?pageNo=${pageNo+1}&companyId=${batchSheetCon.companyId}&partYear=${batchSheetCon.partYear}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}" onclick="return chageNE(this)">下一页</a>
+          <a class="num" href="<%=path %>openBillAction/staff.action?pageNo=${AllPage}&companyId=${batchSheetCon.companyId}&partYear=${batchSheetCon.partYear}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}">末页</a>
           <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off"/>
            <a class="num" id="linkToCart" onclick="jump();">跳转</a>
         </div>
@@ -183,7 +183,7 @@ $(document).ready(function(){
 //跳转页码
 function jump(){
 	var p=document.getElementById("pageNo").value;
-	window.location.href="<%=path%>openBillAction/staff.action?pageNo="+p+"&companyId=${batchSheetCon.companyId}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}";
+	window.location.href="<%=path%>openBillAction/staff.action?pageNo="+p+"&companyId=${batchSheetCon.companyId}&partYear=${batchSheetCon.partYear}&batch=${batchSheetCon.batch}&staffName=${batchSheetCon.staffName}";
 }
 //开单
 function openBill(v){

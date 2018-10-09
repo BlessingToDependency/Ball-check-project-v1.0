@@ -69,6 +69,7 @@ public class UserMainAction {
 		//2再插入立即购买表tblBuyNow 
 		 userBizImp.companyBuyNow(setmealBean,userBean.getCompanyId());
 		 
+		 request.setAttribute("shopping", "已订购成功，快去配置套餐吧！");
 		 return new ModelAndView("redirect:/fileAction/companyStaffList.action");
 	}
 
@@ -202,7 +203,7 @@ public class UserMainAction {
 			mav.setViewName("FrontEnd/user_purchase");
 		}else {
 			//			mav.addObject("shoppingList", shoppingList);
-			mav.setViewName("FrontEnd/user_index");
+			mav.setViewName("user_index");
 		}
 		System.out.println(setList.size());
 		mav.addObject("setList", setList);
@@ -484,6 +485,17 @@ if(null != userBean ) {
 		
 		}
 		return new ModelAndView("redirect:/fileAction/companyStaffList.action");
+	}
+	
+	/*
+	 * 配置完订购的套餐后，修改公司预约人数
+	 */
+	public ModelAndView addOrdNum() {
+		//公司id
+		//查出公司id对应的账单id
+		//根据账单id修改人数
+		
+		return mav;
 	}
 
 	/*
