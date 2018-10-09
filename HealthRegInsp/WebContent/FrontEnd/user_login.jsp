@@ -185,6 +185,18 @@
         	});
 			flag = true;
 		}
+		
+		if(pwd.length<6){
+			$.pt({
+        		target: $("#pwd"),
+        		position: 'r',
+        		align: 't',
+        		width: 'auto',
+        		height: 'auto',
+        		content:"密码长度不能小于6位"
+        	});
+			flag = true;
+		}
 		if(pwd == ""){
 			$.pt({
         		target: $("#pwd"),
@@ -249,6 +261,17 @@
         		width: 'auto',
         		height: 'auto',
         		content:"手机号不能为空"
+        	});
+			flag = true;
+		}
+		if(!(/^1[34578]\d{9}$/.test(phone))){
+			$.pt({
+        		target: $("#phone"),
+        		position: 'r',
+        		align: 't',
+        		width: 'auto',
+        		height: 'auto',
+        		content:"请输入正确手机号"
         	});
 			flag = true;
 		}

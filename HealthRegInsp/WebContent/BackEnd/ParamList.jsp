@@ -162,7 +162,6 @@ String path = request.getScheme() +"://"+request.getServerName()
 <script type="text/javascript">
 //跳转页码
 function jump(){
-	var p=document.getElementById("pageNo").value;
 	window.location.href="<%=path%>adminParamAction/systemParam.action?pageNo="+p;
 }
 

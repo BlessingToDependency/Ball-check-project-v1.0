@@ -52,124 +52,52 @@
 <body >
 <div id="header">
 
-  <div class="content"> <a href="/" id="logo"><img src="images/logo.png" height="40" /></a>
-
+  <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
     <ul id="nav">
-
-      <li class="navitem"><a  class='active' href="<%=path%>/myCompAction/backIndex.action">首页</a></li>
-
-      <li class="navitem"><a  href="keshi.html" >门诊科室</a>
-
+      <li class="navitem"><a  class='active' href="<%=path %>userMainAction/showSetmeal.action">首页</a></li>
+      <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action" >我的账户</a>
         <ul class="subnav">
-
-          
-
-          <li><a href="keshi.html">非手术科</a></li>
-
-          
-
-          <li><a href="keshi.html">手术科室</a></li>
-
-          
-
-          <li><a href="keshi.html">诊断科室</a></li>
-
-          
-
-          <li><a href="keshi.html">其他科室</a></li>
-
-          
-
         </ul>
-
-      </li><li class="navitem"><a  href="tese.html" >医疗特色</a>
-
-        <ul class="subnav">
-
-          
-
-        </ul>
-
-      </li><li class="navitem"><a  href="about.html" >医院简介</a>
-
-        <ul class="subnav">
-
-          
-
-              <li>
-          <a href="<%=path%>/myCompAction/selectCompInfo.action"  >公司信息</a>                  
-         </li>
-
-          
-          <li><a href="<%=path%>/myCompAction/toEditCompInfo.action" >编辑公司信息</a></li>
-          <li><a  href="<%=path%>/myCompAction/toUpPws.action"">修改密码</a></li>
-
-          
-
-        </ul>
-
-      </li><li class="navitem"><a  href="team.html" >医师团队</a>
-
-        <ul class="subnav">
-
-          
-
-        </ul>
-
-      </li><li class="navitem"><a  href="news.html" >新闻动态</a>
-
-        <ul class="subnav">
-
-          
-
-          <li><a href="#">院内新闻</a></li>
-
-          
-
-          <li><a href="#">行业新闻</a></li>
-
-          
-
-        </ul>
-
-      </li><li class="navitem"><a  href="contact.html" >联系我们</a>
-
-        <ul class="subnav">
-
-          
-
-        </ul>
-
       </li>
-
+      
+       <li class="navitem"><a  href="<%=path%>myCompAction/selectCompInfo.action" >公司简介</a>
+      
+      </li>
+      
+      <li class="navitem">
+      <a  href="<%=path %>fileAction/fileDownLoad.action" >下载体检信息模板</a>
+        <ul class="subnav">
+        </ul>
+      </li>
+	   <li class="navitem">
+      <a  href="<%=path %>fileAction/userUpload.action" >上传体检人员信息</a>
+        <ul class="subnav">
+        </ul>
+      </li>
+      <li class="navitem"><a  href="<%=path %>fileAction/companyStaffList.action" >配置套餐</a>
+        <ul class="subnav">
+        </ul>
+      </li><li class="navitem"><a  href="<%=path%>userLoginAction/jumpLogin.action" >去登陆</a>
+        <ul class="subnav">
+        </ul>
+      </li>
     </ul>
-
     <div class="clear"></div>
-
   </div>
-
   <a id="headSHBtn" href="javascript:;"><i class="fa fa-bars"></i></a> </div>
 
-<div id="sitecontent">
 
-  <div class="npagePage Pageyemian" id="page_none">
 
-    <div class="content">
-
- <div class="header">
-
-        <p class="title">编辑公司信息</p>
-
-      </div>
-
- <div class="setb" >
+ 
+  <div id="a" style="background-color: #9FF; width: 100%; height: 720px; margin-top: 50px">
+ 
   <form  method="post" action="<%=path%>myCompAction/EditCompInfo.action" class="layui-form" enctype="multipart/form-data">
          
           
           <c:forEach items="${compList}" var="comp">
                <div >
-              <label for="username"  style="padding-top: 40px; padding-left: 450px ;">
-                  <span class="x-red">*</span>企业地址
+              <label for="username"  style="padding-top: 100px; padding-left: 700px ;">
+                                         企业地址
               </label>
               <div class="layui-input-inline">
                   <input type="text" id="address" name="address"  required="" lay-verify="required"
@@ -179,8 +107,8 @@
           </div>
           
                 <div>
-              <label for="contacts" style="padding-top: 40px; padding-left: 460px ;">
-                  <span class="x-red">*</span>联系人
+              <label for="contacts" style="padding-top: 40px; padding-left: 700px ;">
+                                                   联&nbsp;&nbsp;系&nbsp;&nbsp;人
               </label>
               <div class="layui-input-inline">
                   <input type="text" id="contacts" name="contacts"  required="" lay-verify="required"
@@ -191,8 +119,8 @@
           
           
            <div>
-          <label for="phone" style="padding-top: 40px; padding-left: 470px ;">
-                  <span class="x-red">*</span>手机
+          <label for="phone" style="padding-top: 40px; padding-left: 700px ;">
+                                                            手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机
               </label>
               <div class="layui-input-inline">
                   <input type="text" id="phone" name="phone"   lay-verify="phone"
@@ -200,26 +128,28 @@
                   
               </div>
           </div>
-                  <div >
-              <label for="username" style="padding-top: 40px; padding-left: 470px ;">
-                  <span class="x-red">*</span>头像
+          
+          
+              <div >
+              <label for="username" style="padding-top: 40px; padding-left: 700px ;">
+                                                  头&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;像
               </label>
-              <div class="layui-input-inline">
-                  <input type="file" id="fileact" name="fileact" required="" lay-verify="required"
-                  autocomplete="off" class="layui-input" >
-                 <!--  <img src="" id="img0" style="width: 15rem; height: 10rem;"> -->
+              <div style=" padding-left: 755px ;">
+                  <input type="file" id="fileact" name="fileact" style="width: 170px;" lay-verify="required"
+                  autocomplete="off"  >
+               
                   
               </div >
                 
-               <div style="padding-top:20px; padding-left:500px ;">
-                 <img src="" id="img0" style="width: 15rem; height: 10rem;">
+               <div style="padding-top:20px; padding-left:710px ;">
+                 <img src="" id="img0" style="width: 20rem; height: 10rem;">
                </div>
                
           </div>   
               
             </c:forEach> 
        <div >
-              <label for="L_repass" style="padding-top: 50px;padding-left: 550px ; ">
+              <label for="L_repass" style="padding-top: 50px;padding-left: 800px ; ">
               </label>
               <button  class="layui-btn" lay-filter="add" lay-submit="">
                                 保存
@@ -228,6 +158,8 @@
     
  </form>
  </div>
+ 
+
 </body>
 <script>
 	$("#fileact").change(function() {

@@ -154,7 +154,7 @@ function changerole(v){
           <a class="prev" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=${page-1<1?1:page-1}&adminName=${adminName}&post=${post}&depa=${depa}">上一页</a>
           <a class="next" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=${(page+1)<=paNum?page+1:paNum}&adminName=${adminName}&post=${post}&depa=${depa}">下一页</a>
           <a class="num" href="<%=path%>maDoctorAction/selectAllDoctor.action?page=${paNum}&adminName=${adminName}&post=${post}&depa=${depa}">末页</a>
-           <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" />
+           <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off"  onkeyup="this.value=this.value.replace(/\D/gi,'')"/>
            <a class="num" id="linkToCart" onclick="jump();">跳转</a>
         </div>
       </div>
