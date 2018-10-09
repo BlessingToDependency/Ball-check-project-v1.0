@@ -327,16 +327,7 @@ $('#min').attr('disabled',true);
 <!-- ----------------------------购物车------------------------------ -->
 <div class="global_toolbar">
 		<div class="toolbar_btn center" style="top: 50%; margin-top: -150px;">
-			<a href="#" id="needtohelp_0_GetPricing" class="bar_forum bar_project_consulting">
-				<samp>
-					<i class="iconi icon-LiveChat1">
-						<img src="../images/icon/car-0.png" alt="">
-					</i>
-				</samp>
-				<em>
-					<i>项目咨询</i>
-				</em>
-			</a>
+		
 			
 			<!-- ----------------购物车图-------------- -->
 			<a id="needtohelp_0_shoppingCart" class="bar_cart " data-id="global_toolbar" onclick="shoppingInfo()">
@@ -352,36 +343,7 @@ $('#min').attr('disabled',true);
 			</a>
 			<!-- ---------------------------------------------------- -->
 			
-			<a href="#" id="needtohelp_0_forum" class="bar_forum">
-				<samp>
-					<i class="iconi icon-LiveChat1">
-						<img src="../images/icon/car-2.png" alt="">
-					</i>
-				</samp>
-				<em>
-					<i>查找经销商</i>
-				</em>
-			</a>
-			<a href="#" id="needtohelp_0_GetQuote" class="bar_forum bar_inquire">
-				<samp>
-					<i class="iconi icon-LiveChat1">
-						<img src="../images/icon/car-3.png" alt="">
-					</i>
-				</samp>
-				<em>
-					<i>售前咨询</i>
-				</em>
-			</a>
-			<a href="#" id="needtohelp_0_contactus" class="bar_contact bar_forum" data-id="contact_column">
-				<samp>
-					<i class="iconi icon-LiveChat1">
-						<img src="../images/icon/car-4.png" alt="">
-					</i>
-				</samp>
-				<em>
-					<i>更多联系方式</i>
-				</em>
-			</a>
+			
 		</div>
 		<div class="toolbar_content">
 			<div class="css_column cart_column js_column" id="shop_cart">

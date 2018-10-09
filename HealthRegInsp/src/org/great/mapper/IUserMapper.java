@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.great.bean.BillBean;
+import org.great.bean.BuyNowBean;
 import org.great.bean.PerguirelaBean;
 import org.great.bean.SetmealBean;
 import org.great.bean.ShoppingCartBean;
@@ -19,6 +20,9 @@ import org.springframework.stereotype.Repository;
 public interface IUserMapper {
 	//前台用户登陆
 	public UserBean userLogin(UserBean userBean);
+	
+	//重置密码
+	public int resetPwd(@Param("companyNick")String companyNick,@Param("industryNum")String industryNum,@Param("passWord")String passWord);
 
 	//前台用户注册
 	public void userRegister(UserBean userBean);
@@ -31,6 +35,9 @@ public interface IUserMapper {
 
 	//批量预约
 	public List<StaffBean> batchMeal(@Param("companyId")Integer companyId);
+	
+	//展示已订购套餐
+	public List<BuyNowBean> chooseAlreadyMeal(BuyNowBean buyNowBean);
 
 	//加入购物车
 	public void addShoppingCart(ShoppingCartBean shoppingCartBean);

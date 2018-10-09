@@ -18,12 +18,17 @@
 			and stateId=3 and logicId=6
 		</select>
 		
+		<!-- 重置密码 -->
+		<update id="resetPwd">
+			update tblforeground set pwd=#{passWord} where company=#{companyNick} and busNum=#{industryNum}
+ 		</update>
+		
 		<!-- 注册 -->
 		<insert id="userRegister" parameterType="org.great.bean.UserBean">
 			insert into tblforeground values (TBL_FOREGROUND.Nextval,#{company},#{pwd},#{address},#{contacts},#{phone},0,#{busNum},#{head},3,6,8,(select to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') from dual))
 		</insert>
 		
-		<!-- 注册名查重 -->
+		<!-- 注册名查重 重置密码查重-->
  		<select id="userRepeat" resultType="org.great.bean.UserBean">
 			select company from tblforeground where company=#{company}
 		</select>
@@ -55,6 +60,13 @@
 			</collection>
 		</collection>
 		</resultMap> 
+		
+		<!-- 1展示已订购的套餐；数量 -->
+		<select id="chooseAlreadyMeal" parameterType="org.great.bean.BuyNowBean" resultType="org.great.bean.BuyNowBean">
+			select a.*,b.ordNum from tblBuyNow a,tblbill b where a.companyId = #{companyId} and a.companyId = b.companyId and a.billId = b.billId
+		</select>
+		
+		
 
 		
 		<!-- 加入购物车 -->
@@ -65,11 +77,11 @@
 		 <!-- 立即购买：先插入公司账单表 id，公司id，预约人数0，实际收费，下单时间，支付状态143 -->
 		<!-- 再插入立即购买表tblBuyNow ：-->
 		<insert id="companyBuyNow" parameterType="org.great.bean.SetmealBean">
-			insert into tblBuyNow values(tbl_BuyNow.nextVal,#{companyId},#{setmealBean.setmealId},#{setmealBean.buyNumber},(select max(billId) from tblbill where companyId=#{companyId}))
+			insert into tblBuyNow values(tbl_BuyNow.nextVal,#{companyId},#{setmealBean.setmealId},#{setmealBean.number},(select max(billId) from tblbill where companyId=#{companyId}))
 		</insert>
 		
 		<!-- 上传人员后 插入公司账单表 -->
-		<insert id="companyBill" parameterType="java.lang.Integer">
+		<insert id="companyBill">
 			insert into tblbill(BILLID,companyId,ordNum,actCharge,orderTime,payState) 
 			values(tbl_bill.nextVal,#{companyId},0,#{actCharge},(select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') from dual),#{payState})
 		</insert>

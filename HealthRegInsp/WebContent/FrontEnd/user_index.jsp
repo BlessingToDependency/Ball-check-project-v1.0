@@ -93,16 +93,13 @@ function shoppingInfo(){
 						"<a href='javascript:void(0)' class='del_pro_btn' onClick=''>删除</a>"+
 						"</div>"+
 						"<div class='amount_btn clearfix'>"+
-						"<input type='text' id='acrtNumber' oninput='value=value.replace(/[^\d]/g,'')' value='"+item.acrtNumber+"'  onBlur='isDigit(this)' class='spinnerExample'>"+
+						"<input type='text' oninput = 'value=value.replace(/[^\d]/g,'')' id='acrtNumber'  value='"+item.acrtNumber+"'  onBlur='isDigit(this)' class='spinnerExample'>"+
 						"<input type='hidden' id='setmealId' value='"+item.setmealId+"'>"+
 						"</div>"+
 					"</li>";
-					
 					});
-					var acrtNumber = $("[id='acrtNumber']").val();
-					var setmealId = $("[id='setmealId']").val();
 					
-					strBuy+="<a href='<%=path%>userMainAction/orderDetails.action?acrtNumber='acrtNumber'&setmealId='setmealId'' class='more redbtn-moddle1' id='btn_popup_login'>"+
+					strBuy+="<a href='' id='checkShopp' onClick='checkShopp()' class='more redbtn-moddle1' id='btn_popup_login'>"+
 						"<span id='login'>去购买</span>"+
 						"</a>";
 					$("#shoppingShow").html(strHtml);
@@ -116,7 +113,18 @@ function shoppingInfo(){
 			}
 		}
 	});
-}
+};
+
+    //点击链接的时候调用
+   function checkShopp(){
+	  
+	   var acrtNumber = $("#acrtNumber").val();
+		var setmealId = $("#setmealId").val();
+		
+       //设置linkToCart的href的值
+       $("#checkShopp").attr("href","<%=path%>userMainAction/orderDetails.action?cartNumber="+acrtNumber+"&setmealId="+setmealId+"");
+   };
+
 </script>
 </head>
 <body>
@@ -125,16 +133,12 @@ function shoppingInfo(){
   <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
     <ul id="nav">
       <li class="navitem"><a  class='active' href="<%=path %>userMainAction/showSetmeal.action">首页</a></li>
-     </li><li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action?page=1&startTime=&endTime=&paramId=" >账户</a>
+      <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action" >我的账户</a>
         <ul class="subnav">
         </ul>
-
       </li>
       
        <li class="navitem"><a  href="about.html" >公司简介</a>
-
-
-
         <ul class="subnav">
           <li>
           <a href="<%=path%>myCompAction/selectCompInfo.action"  >公司信息</a>                  
@@ -658,16 +662,7 @@ function shoppingInfo(){
 <!-- ----------------------------购物车------------------------------ -->
 <div class="global_toolbar">
 		<div class="toolbar_btn center" style="top: 50%; margin-top: -150px;">
-			<a href="#" id="needtohelp_0_GetPricing" class="bar_forum bar_project_consulting">
-				<samp>
-					<i class="iconi icon-LiveChat1">
-						<img src="../images/icon/car-0.png" alt="">
-					</i>
-				</samp>
-				<em>
-					<i>项目咨询</i>
-				</em>
-			</a>
+		
 			
 			<!-- ----------------购物车图-------------- -->
 			<a id="needtohelp_0_shoppingCart" class="bar_cart " data-id="global_toolbar" onclick="shoppingInfo()">
@@ -683,36 +678,7 @@ function shoppingInfo(){
 			</a>
 			<!-- ---------------------------------------------------- -->
 			
-			<a href="#" id="needtohelp_0_forum" class="bar_forum">
-				<samp>
-					<i class="iconi icon-LiveChat1">
-						<img src="../images/icon/car-2.png" alt="">
-					</i>
-				</samp>
-				<em>
-					<i>查找经销商</i>
-				</em>
-			</a>
-			<a href="#" id="needtohelp_0_GetQuote" class="bar_forum bar_inquire">
-				<samp>
-					<i class="iconi icon-LiveChat1">
-						<img src="../images/icon/car-3.png" alt="">
-					</i>
-				</samp>
-				<em>
-					<i>售前咨询</i>
-				</em>
-			</a>
-			<a href="#" id="needtohelp_0_contactus" class="bar_contact bar_forum" data-id="contact_column">
-				<samp>
-					<i class="iconi icon-LiveChat1">
-						<img src="../images/icon/car-4.png" alt="">
-					</i>
-				</samp>
-				<em>
-					<i>更多联系方式</i>
-				</em>
-			</a>
+	
 		</div>
 		<div class="toolbar_content">
 			<div class="css_column cart_column js_column" id="shop_cart">
@@ -800,3 +766,4 @@ function shoppingInfo(){
 
 </body>
 </html>
+

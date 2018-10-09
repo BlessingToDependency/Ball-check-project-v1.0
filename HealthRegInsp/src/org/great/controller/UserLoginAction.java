@@ -73,6 +73,23 @@ public class UserLoginAction {
 	}
 	
 	/*
+	 * 重置密码
+	 * 
+	 */
+	@RequestMapping("resetPwd.action")
+	public ModelAndView resetPwd(String companyNick,String industryNum,String passWord) {
+		System.out.println(companyNick+industryNum+passWord);
+		int i = userBizImp.resetPwd(companyNick,industryNum,passWord);
+		if(i>0) {
+			request.setAttribute("msg", "重置成功，请登录！");
+		}else {
+			request.setAttribute("msg", "重置失败，输入有误！");
+		}
+		
+		return mav;
+	}
+	
+	/*
 	 * 用户注册
 	 */
 	@RequestMapping("userRegister.action")
@@ -90,11 +107,12 @@ public class UserLoginAction {
 	@RequestMapping("userRepeat.action")
 	@ResponseBody
 	public void userRepeat(String company)throws Exception{
+		System.out.println(company);
 		String str;
 		UserBean ub = userBizImp.userRepeat(company);
 		PrintWriter out = response.getWriter();
 		
-		//1=重复；2=不重复
+		//1=存在；2=不存在
 		if(null != ub) {
 			str ="1";
 		}else {

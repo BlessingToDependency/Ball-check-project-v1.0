@@ -142,14 +142,14 @@ function checkUser(){
              <th>体检状态</th>
         </thead>
         <tbody>
-        <c:forEach items="${userList}" var="staffBean">
+        <c:forEach items="${userList}" var="staffBean" varStatus="vs">
           <tr>
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
             <input type="hidden" id="companyId" name="companyId" value="${staffBean.companyId}"/>
           	<input type="hidden" id="hidden" name="hidden" value="${staffBean.staffId}"/>
-            <td>${staffBean.staffId}</td>
+            <td>${(pages-1) *5+(vs.index+1)}</td>
             <td><a data-toggle="modal" data-target="#myModal" onclick="info(${staffBean.staffId})">${staffBean.staffName}</a></td>
             <td>${staffBean.phone}</td>
             <td>${staffBean.perguirelaBean.partYear}</td>
@@ -190,28 +190,26 @@ function checkUser(){
             </div>
             
             <div class="modal-body">
-                 姓名：<input type="text" id="name">
+                 姓名：<input type="text" id="name" readonly="readonly" >
             </div>
             <div class="modal-body">
-                性别：<input type="text" id="sex">
+                性别：<input type="text" id="sex" readonly="readonly" >
             </div>
             
             <div class="modal-body">
-                年龄：<input type="text" id="age">
+                年龄：<input type="text" id="age" readonly="readonly" >
             </div>
             <div class="modal-body">
-                电话：<input type="text" id="numphone">
+                电话：<input type="text" id="numphone" readonly="readonly" >
             </div>
             <div class="modal-body">
-                身份证号：<input type="text" id="idNum">
+                身份证号：<input type="text" id="idNum" readonly="readonly" >
             </div>
            
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                 </button>
-                <button type="button" class="btn btn-primary">
-                    提交更改
-                </button>
+                
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
