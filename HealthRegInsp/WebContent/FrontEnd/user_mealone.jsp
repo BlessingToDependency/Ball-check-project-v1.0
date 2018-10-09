@@ -121,7 +121,7 @@ function checkUser(){
 
 
 	<form id="form1" name="form1" method="post" target="_blank" action="<%=path %>userMainAction/bespeakMeal.action?staffId=${staffId}">
-  <table width="800" border="1" align="center">
+  		<table width="800" border="1" align="center">
    
       <c:if test="null !=${staffId }">
        <input type="hidden" id="staffId" name="staffId" value="${staffId }"/>

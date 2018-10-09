@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.great.bean.BillBean;
+import org.great.bean.BuyNowBean;
 import org.great.bean.PerguirelaBean;
 import org.great.bean.SetmealBean;
 import org.great.bean.ShoppingCartBean;
@@ -184,6 +185,19 @@ public class UserBizImp implements UserBiz {
 	public void companyBuyNow(SetmealBean setmealBean, Integer companyId) {
 		// TODO Auto-generated method stub
 		iUserMapper.companyBuyNow(setmealBean,companyId);
+	}
+
+	//展示已订购套餐
+	@Override
+	public List<BuyNowBean> chooseAlreadyMeal(BuyNowBean buyNowBean) {
+		// TODO Auto-generated method stub
+		return iUserMapper.chooseAlreadyMeal(buyNowBean);
+	}
+
+	@Override
+	public int resetPwd(String companyNick, String industryNum, String passWord) {
+		// TODO Auto-generated method stub
+		return iUserMapper.resetPwd(companyNick, industryNum, passWord);
 	}
 
 }

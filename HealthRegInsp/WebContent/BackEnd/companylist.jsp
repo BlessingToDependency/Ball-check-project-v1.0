@@ -105,13 +105,13 @@ function checkUser(){
             <th>操作</th>
         </thead>
         <tbody>
-        <c:forEach items="${uList}" var="userBean">
+        <c:forEach items="${uList}" var="userBean" varStatus="vs">
           <tr>
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
           	<input type="hidden" id="hidden" name="hidden" value="${userBean.companyId}"/>
-            <td>${userBean.companyId}</td>
+            <td>${(pages-1) *5+(vs.index+1)}</td>
             <td><a onclick="location.href='<%=path %>userAdminAction/userAdmin.action?companyId=${userBean.companyId}'">${userBean.company}</a></td>
            
             

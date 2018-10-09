@@ -28,6 +28,9 @@
 <link rel="stylesheet" href="<%=path%>css/spop.min.css" />
 
 
+
+
+
 <script>	
 	(function() {
 		// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
@@ -322,38 +325,12 @@
         	});
 			flag = true;
 		}
-		//用户名只能是15位以下的字母或数字
-		var regExp = new RegExp("^[a-zA-Z0-9_]{1,15}$");
-		if(!regExp.test(username)){
-			$.pt({
-        		target: $("#forget-username"),
-        		position: 'r',
-        		align: 't',
-        		width: 'auto',
-        		height: 'auto',
-        		content:"用户名必须为15位以下的字母或数字"
-        	});
-			flag = true;
-		}
+	
 		//检查用户名是否存在
 		//调后台方法
 		
-		//检查注册码是否正确
-		if(code != '11111111'){
-			$.pt({
-		        target: $("#forget-code"),
-		        position: 'r',
-		        align: 't',
-		        width: 'auto',
-		        height: 'auto',
-		        content:"注册码不正确"
-		       });
-			flag = true;
-		}
 		
-		
-		
-		if(flag){
+		/* if(flag){
 			return false;
 		}else{//重置密码
 			spop({			
@@ -376,13 +353,48 @@
 				}
 			});
 			return false;
-		}
+		} */
 	}
 	
 	
 	
+	function upperCase(){
+	$.ajax({
+		url:"<%=path %>userLoginAction/userRepeat.action",
+		data:"company="+$("#forget-username").val(),
+		dataType:"text",
+		type:"POST",
+		success : function(str){
+			if(str==2){
+				alert("该账号不存在,请重新输入");
+			}
+		}
+	});
 	
+	}
 	
+	function upperCaseReg(){
+		$.ajax({
+			url:"<%=path %>userLoginAction/userRepeat.action",
+			data:"company="+$("#company").val(),
+			dataType:"text",
+			type:"POST",
+			success : function(str){
+				if(str==1){
+					alert("该账号已存在,请重新输入");
+				}
+			}
+		});
+		}
+	
+	$(function(){
+		var msg = "${requestScope.get('msg')}";
+		if(msg.length > 0){
+			console.log(msg);
+			alert(msg);
+		}
+		
+	}) 
 	
 	
 </script>
@@ -458,7 +470,7 @@ body{
 			</div>
 			<!-- 忘记密码页面 -->
 			<div class="login sign-out-htm">
-				<form action="#" method="post" class="container offset1 loginform">
+				<form action="<%=path %>userLoginAction/resetPwd.action" onsubmit="return forget()" method="post" class="container offset1 loginform">
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="forget-owl">
 						<div class="hand"></div>
@@ -471,21 +483,21 @@ body{
 					<div class="pad input-container">
 						<section class="content">
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="text" id="forget-username" autocomplete="off" placeholder="请输入用户名"/>
+								<input class="input__field input__field--hideo" type="text" id="forget-username" name="companyNick" autocomplete="off" onblur="upperCase()" placeholder="请输入公司名"/>
 								<label class="input__label input__label--hideo" for="forget-username">
 									<i class="fa fa-fw fa-user icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
 							</span>
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="text" id="forget-code" autocomplete="off" placeholder="请输入注册码"/>
+								<input class="input__field input__field--hideo" type="text" id="forget-code" name="industryNum" autocomplete="off" placeholder="请输入工商号"/>
 								<label class="input__label input__label--hideo" for="forget-code">
 									<i class="fa fa-fw fa-wifi icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
 							</span>
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="password" id="forget-password" placeholder="请重置密码" />
+								<input class="input__field input__field--hideo" type="password" id="forget-password" name="passWord" placeholder="请重新输入密码" />
 								<label class="input__label input__label--hideo" for="forget-password">
 									<i class="fa fa-fw fa-lock icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
@@ -495,7 +507,7 @@ body{
 					</div>
 					<div class="form-actions">
 						<a class="btn pull-left btn-link text-muted" onClick="goto_login()">返回登录</a>
-						<input class="btn btn-primary" type="button" onClick="forget()" value="重置密码" 
+						<input class="btn btn-primary" type="submit" onClick="forget()" value="重置密码" 
 							style="color:white;"/>
 					</div>
 				</form>
@@ -516,7 +528,7 @@ body{
 						<section class="content">
 							<span class="input input--hideo">
 								<input class="input__field input__field--hideo" type="text" id="company" name="company"
-									autocomplete="off" placeholder="请输入公司名" maxlength="50"/>
+								onblur ="upperCaseReg()"	autocomplete="off" placeholder="请输入公司名" maxlength="50"/>
 								<label class="input__label input__label--hideo" for="register-username">
 									<i class="fa fa-fw fa-user icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>

@@ -31,6 +31,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -71,7 +72,7 @@ public class FileAction {
 	 */
 	@RequestMapping("/exportExcel.action")
 	@ResponseBody
-	public String exportExcel(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,String myGuChId) throws Exception{
+	public void exportExcel(String staffName,Long phone,String statTime,String stopTime,String partYear,Integer companyId,String myGuChId) throws Exception{
 		Date now = new Date();
 		InputStream fin = null;
 		ServletOutputStream out = null;
@@ -148,12 +149,16 @@ public class FileAction {
         book.close();
         System.out.println("创建文件成功!");
         
+        String str = "1";
+        PrintWriter outt = response.getWriter();
+        outt.print(str);
+        
         fin = new FileInputStream(file);
-
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/excel");
 		response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
 
+		
 		out = response.getOutputStream();
 		byte[] buffer = new byte[1024];// 缓冲区
 		int bytesToRead = -1;
@@ -162,7 +167,9 @@ public class FileAction {
 			out.write(buffer, 0, bytesToRead);
 			out.flush();
 		}
-
+		
+		System.out.println("写入完成");
+		
 		try {
 			if (fin != null) {
 				fin.close();
@@ -176,8 +183,7 @@ public class FileAction {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		String msg = "1";
-		return msg; 
+		
 	}
 	
 	

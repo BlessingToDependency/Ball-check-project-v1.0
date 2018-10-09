@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.great.bean.BillBean;
+import org.great.bean.BuyNowBean;
 import org.great.bean.PerguirelaBean;
 import org.great.bean.SetmealBean;
 import org.great.bean.ShoppingCartBean;
@@ -18,6 +19,9 @@ public interface UserBiz {
 	//前台用户登陆
 	public UserBean userLogin(UserBean userBean);
 	
+	//重置密码
+	public int resetPwd(String companyNick,String industryNum,String passWord);
+	
 	//前台用户注册
 	public void userRegister(UserBean userBean);
 	
@@ -26,6 +30,9 @@ public interface UserBiz {
 	
 	//批量预约
 	public List<StaffBean> batchMeal(Integer companyId);
+	
+	//展示已订购套餐
+	public List<BuyNowBean> chooseAlreadyMeal(BuyNowBean buyNowBean);
 	
 	//插入公司账单表
 	public void companyBill(Integer companyId,double actCharge,Integer payState);

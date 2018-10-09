@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.great.bean.BillBean;
+import org.great.bean.BuyNowBean;
 import org.great.bean.PerguirelaBean;
 import org.great.bean.SetmealBean;
 import org.great.bean.ShoppingCartBean;
@@ -42,6 +43,8 @@ public class UserMainAction {
 
 	@Resource
 	private SetmealBean setmealBean;
+	@Resource
+	private BuyNowBean buyNowBean;//立即购买表
 	ModelAndView mav = new ModelAndView();
 	@Resource
 	private UserBiz userBizImp;//前台用户接口
@@ -65,8 +68,10 @@ public class UserMainAction {
 		 userBizImp.companyBill(userBean.getCompanyId(),setmealBean.getCountDisAll(),payState);
 		//2再插入立即购买表tblBuyNow 
 		 userBizImp.companyBuyNow(setmealBean,userBean.getCompanyId());
-		return mav;
+		 
+		 return new ModelAndView("redirect:/fileAction/companyStaffList.action");
 	}
+
 
 	//立即购买:数量+套餐id
 	@RequestMapping("orderDetails.action")
@@ -121,10 +126,12 @@ public class UserMainAction {
 				double discount = 0;
 				String setmeal = null;
 				String picture = null;
+				int setmealId = 0;
 				for(int j=0;j<shoppingList.get(i).getSetmealBean().size();j++) {
 					discount = shoppingList.get(i).getSetmealBean().get(j).getDiscount();
 					setmeal = shoppingList.get(i).getSetmealBean().get(j).getSetmeal();
 					picture = shoppingList.get(i).getSetmealBean().get(j).getPicture();
+					setmealId = shoppingList.get(i).getSetmealBean().get(j).getSetmealId();
 					for(int z=0;z<shoppingList.get(i).getSetmealBean().get(j).getLitemBean().size();z++) {
 						count = shoppingList.get(i).getSetmealBean().get(j).getLitemBean().get(z).getPrice();
 						countAll = countAll+count;
@@ -137,6 +144,8 @@ public class UserMainAction {
 				scb.setCountAll(countAll);
 				scb.setSetmeal(setmeal);
 				scb.setPicture(picture);
+				scb.setSetmealId(setmealId);
+				
 			}
 
 		}else {
@@ -209,11 +218,12 @@ public class UserMainAction {
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
 
 		List<StaffBean> staffList = userBizImp.batchMeal(userBean.getCompanyId());
-		/*if(staffList.size()<1) {
-			PrintWriter out = response.getWriter();
-			out.print("<script language=\"javascript\">alert('当前体检人员已全部预约完成！');window.location.href='/userMainAction/batchMeal.action'</script>");
-			out.close();
-		}*/
+		if(staffList.size()<1) {
+			request.setAttribute("msg", "人员已全部配置！");
+			
+			
+		}else {
+		
 		System.out.println("staffList="+staffList.size());
 		System.out.println("setmealId是=="+setmealId);
 		System.out.println("staffId是=="+staffId);
@@ -235,6 +245,7 @@ public class UserMainAction {
 			sb.setItemNick(strItem.toString());
 			sb.setCountAll(countAll);
 		}
+		
 		//是否有套餐id
 		if(null != setmealId) {
 			mav.setViewName("FrontEnd/user_batch_mealone");
@@ -245,11 +256,79 @@ public class UserMainAction {
 		mav.addObject("staffList",staffList);//未预约的员工list
 		mav.addObject("staffId",staffId);//未预约的员工id
 		mav.addObject("setList",setList);//套餐
-
+		}
 		return mav;
 	}
 	
 	
+	//展示已订购套餐
+	@RequestMapping("chooseAlreadyMeal.action")
+	public ModelAndView chooseAlreadyMeal(Integer setmealId,Integer staffId) {
+		//1展示已订购的套餐；数量;list接收
+		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
+		buyNowBean.setCompanyId(userBean.getCompanyId());//公司id
+		buyNowBean.setSetmealId(setmealId);//套餐id
+		buyNowBean.setStaffId(staffId);//人员id
+		List<BuyNowBean> buyList = userBizImp.chooseAlreadyMeal(buyNowBean);
+		int ordNumAll = 0;//总预约人数
+		int buyNumberAll = 0;//总套餐数量
+		for(int i=0;i<buyList.size();i++) {
+			System.out.println("预约人数="+buyList.get(i).getOrdNum());
+			System.out.println("套餐数量="+buyList.get(i).getBuyNumber());
+			int ordNum = 0;
+			int buyNumber = 0;
+			ordNum = buyList.get(i).getOrdNum();
+			buyNumber = buyList.get(i).getBuyNumber();
+			ordNumAll = ordNum+ordNumAll;
+			buyNumberAll = buyNumber + buyNumberAll;
+		}
+		
+		
+		//如果预约人数之和=套餐数量之和，则套餐已用完
+		if(ordNumAll == buyNumberAll) {
+			//发送弹窗，套餐已经使用完了，跳出，不往下执行
+			
+			
+		}else {
+			//否则查询套餐id对应的套餐
+			for(int z=0;z<buyList.size();z++) {
+				System.out.println("套餐id="+buyList.get(z).getSetmealId());
+				List<SetmealBean> setList=userBizImp.showSetmeal(String.valueOf(buyList.get(z).getSetmealId()));//当前公司下的套餐
+				int count = 0;
+				//计算价格
+				for(int i=0;i<setList.size();i++) {
+					SetmealBean sb = setList.get(i);
+					int countAll = 0;
+					StringBuffer strItem = new StringBuffer();
+					for(int j =0;j<setList.get(i).getLitemBean().size();j++) {
+						count = setList.get(i).getLitemBean().get(j).getPrice();//价格
+						strItem.append(setList.get(i).getLitemBean().get(j).getItem());//项目
+						strItem.append(";");
+						countAll = countAll+count;
+					}
+					sb.setItemNick(strItem.toString());
+					sb.setCountAll(countAll);
+				}  
+				//是否有套餐id
+				if(null != setmealId) {
+					mav.setViewName("FrontEnd/user_mealone");
+				}else {
+					mav.setViewName("FrontEnd/user_meallist");
+				}
+				System.out.println("员工id="+staffId);
+				System.out.println("套餐id="+setmealId);
+				
+				mav.addObject("staffId",staffId);//体检员工id
+				mav.addObject("setList", setList);
+				
+				
+			}
+		}
+		
+		
+		
+		return mav;
+	}
 
 	/*
 	 * 单独为员工选择套餐
