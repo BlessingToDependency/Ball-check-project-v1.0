@@ -97,11 +97,11 @@ function checkUser(){
             <th>选择套餐</th>
         </thead>
         <tbody>
-        <c:forEach items="${userList}" var="staffBean">
+        <c:forEach items="${userList}" var="staffBean" varStatus="vs">
           <tr>
            
           	<input type="hidden" id="hidden" name="staffId" value="${staffBean.staffId}"/>
-            <td>${staffBean.staffId}</td>
+            <td>${(pages-1) *5+(vs.index+1)}</td>
             <td><a data-toggle="modal" data-target="#myModal" onclick="info(${staffBean.staffId})">${staffBean.staffName}</a></td>
             <td>${staffBean.age}</td>
             <td>${staffBean.sex}</td>

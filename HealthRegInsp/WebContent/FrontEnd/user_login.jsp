@@ -396,6 +396,15 @@
 		
 	}) 
 	
+	$(function(){
+		var msg = "${requestScope.get('login')}";
+		if(msg.length > 0){
+			console.log(msg);
+			alert(msg);
+		}
+		
+	}) 
+	
 	
 </script>
 <style type="text/css">
