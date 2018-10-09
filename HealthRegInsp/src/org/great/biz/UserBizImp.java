@@ -147,7 +147,7 @@ public class UserBizImp implements UserBiz {
 	
 	//插入关系表前，查询当前公司、当前年份下，是否有上传过人员
 	@Override
-	public PerguirelaBean selectBatchNum(Integer companyId) {
+	public List<PerguirelaBean> selectBatchNum(Integer companyId) {
 		// TODO Auto-generated method stub
 		
 		return iUserMapper.selectBatchNum(companyId);

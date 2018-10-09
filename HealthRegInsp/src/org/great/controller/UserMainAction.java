@@ -173,7 +173,7 @@ public class UserMainAction {
 			String strCon = gson.toJson(2);
 			out.print(strCon);
 			System.out.println("加入购物车登陆去");
-			mav.setViewName("FrontEnd/user_login");
+			mav.setViewName("user_login");
 		}
 		out.close();
 	}
@@ -216,12 +216,13 @@ public class UserMainAction {
 	public ModelAndView batchMeal(String setmealId,String[] staffId) throws Exception{
 		//查询当前公司下所有未预约套餐得人员
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
-
+if(null != userBean ) {
+	
 		List<StaffBean> staffList = userBizImp.batchMeal(userBean.getCompanyId());
+		System.out.println("staffList="+staffList);
 		if(staffList.size()<1) {
 			request.setAttribute("msg", "人员已全部配置！");
-			
-			
+			return new ModelAndView("redirect:/fileAction/companyStaffList.action");
 		}else {
 		
 		System.out.println("staffList="+staffList.size());
@@ -257,6 +258,9 @@ public class UserMainAction {
 		mav.addObject("staffId",staffId);//未预约的员工id
 		mav.addObject("setList",setList);//套餐
 		}
+}else {
+	return new ModelAndView("redirect:/user_login.jsp");
+}
 		return mav;
 	}
 	
@@ -273,7 +277,6 @@ public class UserMainAction {
 		}
 		
 		buyNowBean.setStaffId(Integer.parseInt(staffId));//人员id
-		
 		
 		List<BuyNowBean> buyList = userBizImp.chooseAlreadyMeal(buyNowBean);
 		int ordNumAll = 0;//总预约人数
@@ -317,16 +320,17 @@ public class UserMainAction {
 				}  
 				//是否有套餐id
 				if(null != setmealId) {
-					mav.setViewName("FrontEnd/user_mealone");
+					mav.setViewName("FrontEnd/user_existingmealone");
+					System.out.println("进入这里");
 				}else {
-					mav.setViewName("FrontEnd/user_meallist");
+					mav.setViewName("FrontEnd/user_existingmeal");
+					mav.addObject("buyNumberAll",buyNumberAll);
+					System.out.println("buyNumberAll="+buyNumberAll);
 				}
 				System.out.println("员工id="+staffId);
 				System.out.println("套餐id="+setmealId);
-				
 				mav.addObject("staffId",staffId);//体检员工id
 				mav.addObject("setList", setList);
-				
 			}
 		}
 		return mav;
@@ -496,7 +500,7 @@ public class UserMainAction {
 			mav.setViewName("FrontEnd/user_buynow");
 		}else {
 			System.out.println("登陆去");
-			mav.setViewName("FrontEnd/user_login");
+			return new ModelAndView("redirect:/user_login.jsp");
 		}
 		return mav;
 	}

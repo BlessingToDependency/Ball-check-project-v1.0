@@ -39,7 +39,7 @@ public class BackEndFilter implements Filter{
 				t=1;
 			}
 		}
-		if(url.equals("/HealthRegInsp/BackEnd/admin_login.jsp")) {
+		if(url.equals("/HealthRegInsp/admin_login.jsp")) {
 			//进行放行
 			chain.doFilter(request, response);
 		}else {
@@ -50,7 +50,7 @@ public class BackEndFilter implements Filter{
 			}else {
 				if(session.getAttribute("adminBean")==null) {
 					//页面转发
-					hr.sendRedirect("/HealthRegInsp/BackEnd/admin_login.jsp");
+					hr.sendRedirect("/HealthRegInsp/admin_login.jsp");
 				}
 			}
 		}

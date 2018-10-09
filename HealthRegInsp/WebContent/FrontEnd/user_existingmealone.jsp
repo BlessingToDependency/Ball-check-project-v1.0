@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="../csss/style.css"/>
 <meta http-equiv="mobile-agent" content="format=xhtml;url=/m/index.php">
 <script type="text/javascript">if(window.location.toString().indexOf('pref=padindex') != -1){}else{if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){if(window.location.href.indexOf("?mobile")<0){try{if(/Android|Windows Phone|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){window.location.href="/m/index.php";}else if(/iPad/i.test(navigator.userAgent)){}else{}}catch(e){}}}}</script>
-
+	
 <script>
 
        window.onload=function (){
@@ -106,39 +106,99 @@ function checkUser(){
 </head>
 
 <body>
-<form id="form1"   method="post" target="_blank"  action="<%=path %>userMainAction/bespeakMeal.action">
+<div id="header">
+
+  <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
+
+    <ul id="nav">
+
+      <li class="navitem"><a  class='active' href="index.html">首页</a></li>
+
+
+      <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action" >账户</a>
+
+        <ul class="subnav">
+          
+
+        </ul>
+
+      </li><li class="navitem"><a  href="about.html" >公司简介</a>
+
+        <ul class="subnav">
+
+          
+
+          <li>
+          <a href="<%=path%>myCompAction/selectCompInfo.action"  >公司信息</a>                  
+         </li>
+
+          
+          <li><a href="<%=path%>myCompAction/toEditCompInfo.action" >编辑公司信息</a></li>
+          <li><a  href="<%=path%>myCompAction/toUpPws.action"">修改密码</a></li>
+
+        </ul>
+      </li>
+      
+      <li class="navitem">
+      <a  href="<%=path %>fileAction/fileDownLoad.action" >下载模板</a>
+        <ul class="subnav">
+        </ul>
+      </li>
+      
+	  
+	   <li class="navitem">
+      <a  href="<%=path %>FrontEnd/user_upload.jsp" >上传体检人员信息</a>
+        <ul class="subnav">
+        </ul>
+      </li>
+      
+      
+      <li class="navitem"><a  href="news.html" >新闻动态</a>
+
+        <ul class="subnav">
+
+          
+
+          <li><a href="#">院内新闻</a></li>
+          
+
+          <li><a href="#">行业新闻</a></li>
+          
+          
+        </ul>
+
+      </li><li class="navitem"><a  href="<%=path%>userLoginAction/jumpLogin.action" >去登陆</a>
+
+        <ul class="subnav">
+
+        </ul>
+
+      </li>
+
+    </ul>
+
+    <div class="clear"></div>
+
+  </div>
+<form id="form1"   method="post" action="<%=path %>userMainAction/bespeakMeal.action?staffId=${staffId}">
 <div align="center">
   <table width="800" border="1">
- <c:forEach items="${staffList }" var="staffBean">
-   				<input type="hidden" name="staffId" value="${staffBean.staffId }" />
-   			</c:forEach>
+  <c:if test="null !=${staffId }">
+       <input type="hidden" id="staffId" name="staffId" value="${staffId }"/>
+       </c:if>
   <c:forEach items="${setList }" var="setmealBean">
     <tr>
-      <td width="261" rowspan="4"><div align="center"><img  src="<%=path %>images/1-1F5041U4070-L.jpg"></div>
+      <td width="261" rowspan="2"><div align="center"><img  src="<%=path %>images/1-1F5041U4070-L.jpg"></div>
 	 <input type="hidden" id="setmealId" name="setmealId" value="${setmealBean.setmealId}"/>
 	  <input type="hidden" value="${setmealBean.setmeal }" name="setmeal" disabled="disabled" style="border:none;"/>
 	  </td>
-      <td height="75" colspan="2"><div align="center" class="STYLE1"><h1>${setmealBean.setmeal }</h1></div></td>
+      <td height="75" colspan="2"><div align="center" class="STYLE1">${setmealBean.setmeal }</div></td>
     </tr>
     <tr>
-      <td height="55" colspan="2"><div align="left" class="STYLE2"><h3>主要项目：${setmealBean.itemNick }</h3></div></td>
+      <td height="55" colspan="2"><div align="left" class="STYLE2">主要项目：${setmealBean.itemNick }</div></td>
     </tr>
-    <tr>
-      <td width="193" height="49"><div align="left" class="STYLE2">优惠价：${setmealBean.discount*setmealBean.countAll }</div>
-	   <!-- 合计 -->
-    <input type="hidden" id="hidden" name="" value="${setmealBean.discount*setmealBean.countAll }"/>
-	  </td>
-      <td width="324"><span class="STYLE2">原价：${setmealBean.countAll }</span></td>
-    </tr>
-    <tr>
-      <td height="49"><div align="left" class="STYLE2">购买数量：配置全部人员套餐
-	 <!--  <input id="min" name="" type="button" value="-" />   -->
-		<!-- <input id="text_box" name="number" type="text" disabled="disabled" value="1"style="width:30px;"/>   -->
-		<!-- <input id="add" name="" type="button" value="+" />  -->
-	  </div></td>
-      <td><span class="STYLE2">价格：
-	  <input id="total" name="countAll" disabled="disabled" type="text" value="${setmealBean.discount*setmealBean.countAll }"style="width:30px;"/> /份 </span></td>
-    </tr>
+   
+   
     <tr>
       <td height="72" colspan="3"><div align="center">
       <input type="Submit" value="立即预约">
@@ -149,5 +209,12 @@ function checkUser(){
   </table>
   </div>
 </form>
+</div>
+<div id="footer">
+
+  <p>Copyright &copy; 2002-2011 <a href="http://www.adminbuy.cn" target="_blank">团检系统</a> 版权所有　<a class="beian" href="http://www.miitbeian.gov.cn/" style="display:inline; width:auto; color:#8e8e8e" target="_blank">苏ICP12345678</a></p>
+
+</div>
+
 </body>
 </html>

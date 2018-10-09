@@ -28,7 +28,7 @@ public interface IUserMapper {
 	public void userRegister(UserBean userBean);
 
 	//插入关系表前，查询当前公司、当前年份下，是否有上传过人员
-	public PerguirelaBean selectBatchNum(Integer companyId);
+	public List<PerguirelaBean> selectBatchNum(Integer companyId);
 
 	//如果有值，则取出最大批次号
 	public Integer maxBatchNum(Integer companyId);

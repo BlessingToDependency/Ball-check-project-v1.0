@@ -49,21 +49,18 @@ function info(id){
           //设置linkToCart的href的值
           $("#linkToCart").attr("href","<%=path %>fileAction/companyStaffList.action?pages="+pages+"");
       });
+     var msg = "${requestScope.get('msg')}";
+  	if(msg.length > 0){
+  		console.log(msg);
+  		alert(msg);
+  	};
     });
 </script>
 <script type="text/javascript">
 function checkUser(){
 	document.getElementById("formid").submit();
-}
+};
 
-$(function(){
-	var msg = "${requestScope.get('msg')}";
-	if(msg.length > 0){
-		console.log(msg);
-		alert(msg);
-	}
-	
-})
 	</script>
   </head>
   
@@ -166,28 +163,26 @@ $(function(){
             </div>
             
             <div class="modal-body">
-                 姓名：<input type="text" id="name">
+                 姓名：<input type="text" id="name" disabled="disabled">
             </div>
             <div class="modal-body">
                 性别：<input type="text" id="sex">
             </div>
             
             <div class="modal-body">
-                年龄：<input type="text" id="age">
+                年龄：<input type="text" id="age" disabled="disabled">
             </div>
             <div class="modal-body">
-                电话：<input type="text" id="phone">
+                电话：<input type="text" id="phone" disabled="disabled">
             </div>
             <div class="modal-body">
-                身份证号：<input type="text" id="idNum">
+                身份证号：<input type="text" id="idNum" disabled="disabled">
             </div>
            
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                 </button>
-                <button type="button" class="btn btn-primary">
-                    提交更改
-                </button>
+               
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
