@@ -24,7 +24,7 @@
    select * from TBLSTAFF where STAFFID in(
    select distinct STAFFID from TBLPERGUIRELA where PERINSPID in(
    select PERINSPID from TBLGUISETMEAL where GUCHID in(
-    select distinct GUCHID from TBLFINRESULT where ITEMID=(select itemId from TBLDEPPRORELA where depaId=#{depaId}) and GUCHID in(
+   select distinct GUCHID from TBLFINRESULT where ITEMID=(select itemId from TBLDEPPRORELA where depaId=#{depaId}) and GUCHID in(
    select GUCHID from TBLCHITEM where SUMMSTATEID=12 and itemId= (
    select itemId from TBLDEPPRORELA where depaId=#{depaId}
    )))))
@@ -43,11 +43,21 @@
    select ITEMID from TBLDEPPRORELA where DEPAID=#{depeId})
    </select>
    
+   <select id="xiaoJie" resultType="java.lang.String">
+   select GUCHID from TBLXIAOJIE where DEPAID=#{depaid} and GUCHID=#{guChId}
+   </select>
+   
+   
    <!-- 获取体检用户在该科室中体检的项目中的细项结果集 -->
    <select id="getFinresultList"  resultMap="usMap">
    select * from TBLFINRESULT where GUCHID=#{guChId} and ITEMID=#{itemId}
    </select>
-
+   
+   
+   <select id="getItemIds" resultType="java.lang.Integer">
+   select distinct ITEMID from TBLGUCHIMAGERELA where GUCHID=#{guChId}
+   </select>
+ 
     <select id="term" parameterType="java.lang.Integer"
 		resultType="org.great.bean.TermBean">
 		select * from TBLTERM where TERMID =#{id}
@@ -72,6 +82,8 @@
    </insert>
    
    
-   
+   <insert id="addXiao">
+   insert into TBLXIAOJIE values(#{guChId},#{depaid})
+   </insert>
  		
  </mapper>

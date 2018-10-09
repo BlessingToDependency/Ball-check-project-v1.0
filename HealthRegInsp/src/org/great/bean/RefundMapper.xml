@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="org.great.mapper.Refundservice">
+ 		
+ 		<!-- 插入退款记录 -->
+ 		<insert id="insertRefund" parameterType="org.great.bean.RefundBean">
+ 			insert into TBLREFUND VALUES(TB_REFUND.nextval,#{billId},#{companyId},#{reAmount},#{reInfo},146)
+ 		</insert>
+ 		
+ 		<!-- 分页查询所有的账单 -->
+ 		<select id="selectRefund" resultMap="myselectRefund" parameterType="java.lang.Integer">
+ 			select * from ( select  t.*, rownum RN from 
+				(select a.*,b.PARAM from TBLREFUND a,TBLPARAM b where a.PARAMID = b.PARAMID )
+				t )where RN &gt;= #{page}*10-10 and RN &lt;= #{page}*10
+ 		</select>
+ 		<resultMap type="org.great.bean.RefundBean" id="myselectRefund">
+		<id property="refundId" column="refundId"/>
+		<result property="billId" column="billId"/>
+		<result property="companyId" column="companyId"/>
+		<result property="reAmount" column="reAmount"/>
+		<result property="reInfo" column="reInfo"/>
+		<association property="paramBean" javaType="org.great.bean.ParamBean">
+		<id property="paramId" column="paramId"/>
+		<result property="param" column="param"/>
+		<result property="parId" column="parId"/>
+		</association>
+	</resultMap>
+ 		
+ 		
+ 		<!-- 查询账单总条数 -->
+ 		<select id="selectRefundSum" resultType="java.lang.Integer">
+ 			select count(*) from TBLREFUND
+ 		</select>
+ 		
+ 		<!-- 更改状态 -->
+ 		<update id="updateRefund" parameterType="java.lang.Integer">
+ 			update TBLREFUND set paramId = #{id} where refundId = #{refundId}	
+ 		</update>
+ </mapper>

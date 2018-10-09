@@ -18,10 +18,9 @@ String path = request.getScheme() +"://"+request.getServerName()
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="<%=path%>css/bootstrap.min.css" rel="stylesheet" />
 	 <link href="<%=path%>/css/jquery.tree-multiselect.min.css" rel="stylesheet" />
 	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="<%=path%>/js/jquery-ui.min.js"></script>
     <script src="<%=path%>/js/bootstrap.min.js"></script>
     <script src="<%=path%>/js/jquery.tree-multiselect.min.js"></script>
@@ -226,31 +225,31 @@ String path = request.getScheme() +"://"+request.getServerName()
         </form>
       </div>
       <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="addItem()"><i class="layui-icon"></i>添加</button>
+      <!--  <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <button class="layui-btn" onclick="addItem()"><i class="layui-icon"></i>添加</button>  -->
         <span class="x-right" style="line-height:40px">共有数据：${sum } 条</span>
       </xblock>
       <table class="layui-table" width="100%" style="table-layout:fixed;">
         <thead>
           <tr>
-            <th width="10%">
+            <!--  <th width="10%">
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-            </th>
-            <th width="25%">序列</th>
-            <th width="25%">角色名</th>
+            </th>  -->
+            <th width="30%">序列</th>
+            <th width="30%">角色名</th>
             <th width="40%">操作</th>
         </thead>
         <tbody>
         <c:forEach items="${list }" var="item" varStatus="i">
           <tr>
-            <td>
+            <!--  <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
+            </td>  -->
             <td>${i.index+1 }</td>
             <td>${item.role }</td>
             <td class="td-status">
-                 <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="amendItem(${item.roleId})">修改</span>
-                 <span class="layui-btn layui-btn-danger"><a href="<%=path%>adminDetailAction/deleteDetail.action?id=${item.roleId}">删除</a></span>
+              <%--  <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="amendItem(${item.roleId})">修改</span>
+                 <span class="layui-btn layui-btn-danger"><a href="<%=path%>adminDetailAction/deleteDetail.action?id=${item.roleId}">删除</a></span>  --%>
                   <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="myModal(${item.roleId})">授权</span>
 <!--                 <span class="layui-btn layui-btn-normal layui-btn-mini grantAuthorityBtn" data-id=${item.roleId}>授权</span>	 -->
                <%--  <button class="btn btn-primary btn-sm grantAuthorityBtn rightSize" type="button" data-id='${item.roleId}'><i class="fa fa-external-link"></i> 授权</button> --%>
@@ -268,8 +267,8 @@ String path = request.getScheme() +"://"+request.getServerName()
           <a class="num" href="<%=path %>adminJurisAction/showRole.action?page=${page - 1}&role=${role }">上一页</a>
           <a class="num" href="<%=path %>adminJurisAction/showRole.action?page=${page + 1}&role=${role }">下一页</a>
           <a class="num" href="<%=path %>adminJurisAction/showRole.action?page=${p}&role=${role }">末页</a>
-          <input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> <a
-					class="num" id="linkToCart" href="">跳转</a>	
+        	<!-- <input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> <a
+					class="num" id="linkToCart" href="">跳转</a>	 -->
         </div>
       </div>
     </div>

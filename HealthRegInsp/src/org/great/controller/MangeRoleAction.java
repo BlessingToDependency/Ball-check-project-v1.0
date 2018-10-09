@@ -51,8 +51,7 @@ public class MangeRoleAction {
 	 * 查询角色
 	 */
 	@RequestMapping(value="selectAllRole.action")
-	  @ResponseBody
-	@SystemLog(module="角色管理",methods="查询角色")
+	
 	public ModelAndView selectAllRole() {
 		String page=request.getParameter("page");
 	
@@ -86,7 +85,8 @@ public class MangeRoleAction {
 		if(num%5!=0) {
 			paNum=num/5+1;
 	}
-		 mav.addObject("paNum", paNum);		
+		 mav.addObject("paNum", paNum);	
+		 mav.addObject("role",role);
 		session.setAttribute("roleList", roleList);
 		mav.setViewName("BackEnd/mange_role");
 		return mav;
@@ -99,12 +99,15 @@ public class MangeRoleAction {
 	@RequestMapping(value="tomaRole.action")
 	public  @ResponseBody void tomaRole() throws Exception{
 		String roleI=request.getParameter("roleId");
+		int ro=Integer.parseInt(roleI);
 		session.setAttribute("roleI", roleI);
 		
+		RoleBean rol=roleBizImp.seleRoleInfo(ro);
+		
 		PrintWriter out = response.getWriter();
-		String msg="OK";
+	
 		Gson gson1 = new Gson();
-		String str1 = gson1.toJson(msg);
+		String str1 = gson1.toJson(rol);
 		out.print(str1);
 		out.close();
 		
@@ -176,7 +179,7 @@ public class MangeRoleAction {
 	 */
 	@RequestMapping(value="deleteRole.action")
 	@ResponseBody
-	@SystemLog(module="角色管理",methods="修改角色名")
+	@SystemLog(module="角色管理",methods="删除角色")
 	 public ModelAndView  deleteRole() {
 		String rol=request.getParameter("roleId");
 		System.out.println("ih="+rol);

@@ -34,4 +34,7 @@ public interface IdeparBiz {
 		
 		//查询配置的小结
 		public List<ParamBean>  selectX();
+		
+		//查询单个科室信息
+		public DeparBean  selectnfo(@Param("depaId")int depaId);
 }

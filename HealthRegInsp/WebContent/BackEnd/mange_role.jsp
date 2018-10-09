@@ -98,11 +98,11 @@ function delectRole(id){
       </table>
       <div class="page">
         <div>
-                     总页数 ${paNum}/当前页数 ${page}
-          <a class="num" href="<%=path%>maRoleAction/selectAllRole.action?page=1">首页</a>
-          <a class="prev" href="<%=path%>maRoleAction/selectAllRole.action?page=${page-1<1?1:page-1}">上一页</a>
-          <a class="next" href="<%=path%>maRoleAction/selectAllRole.action?page=${(page+1)<=paNum?page+1:paNum}">下一页</a>
-          <a class="num" href="<%=path%>maRoleAction/selectAllRole.action?page=${paNum}">末页</a>
+                     共 ${paNum}页/当前第 ${page}页
+          <a class="num" href="<%=path%>maRoleAction/selectAllRole.action?page=1&role=${role}">首页</a>
+          <a class="prev" href="<%=path%>maRoleAction/selectAllRole.action?page=${page-1<1?1:page-1}&role=${role}">上一页</a>
+          <a class="next" href="<%=path%>maRoleAction/selectAllRole.action?page=${(page+1)<=paNum?page+1:paNum}&role=${role}">下一页</a>
+          <a class="num" href="<%=path%>maRoleAction/selectAllRole.action?page=${paNum}&role=${role}">末页</a>
           <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" />
            <a class="num" id="linkToCart" onclick="jump();">跳转</a>
         </div>
@@ -110,7 +110,7 @@ function delectRole(id){
 
     </div>
 
-  <form id="addfrom" method="post" action="<%=path%>maRoleAction/innerRole.action">
+  <form id="addfrom" method="post" action="<%=path%>maRoleAction/innerRole.action" class="layui-form">
 
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -129,14 +129,14 @@ function delectRole(id){
         </div>  
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="submit" class="btn btn-primary">提交</button>
+        <button type="submit"  class="layui-btn" lay-filter="*" lay-submit>提交</button>
       </div>
     </div>
   </div>
 </div>
 </form>	
 
- <form id="addfrom" method="post" action="<%=path%>maRoleAction/updateRoleNmae.action">
+ <form id="addfrom" method="post" action="<%=path%>maRoleAction/updateRoleNmae.action"  class="layui-form">
 <button type="button" id="dada" style="display:none" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></button>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -149,12 +149,12 @@ function delectRole(id){
         <div id="div">
              <div id="divleft"><span class="zt">新的角色名:</span></div> 
              <div id="divright">
-             <input type="text" id="role3" name="role" style="width:200px;"  class="layui-input" placeholder="角色名" onblur="checkDate1()" required="" lay-verify="required" ><samp id="us1"></samp>
+             <input type="text" id="nero" name="role" style="width:200px;"  class="layui-input" placeholder="角色名" onblur="checkDate1()" required="" lay-verify="required" ><samp id="us1"></samp>
              </div>          
         </div>  
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="submit" class="btn btn-primary">保存</button>
+        <button type="submit" class="layui-btn" lay-filter="*" lay-submit>保存</button>
       </div>
     </div>
   </div>
@@ -185,7 +185,7 @@ function checkDate1(){
 	  $.ajax({
 		  type:"post",
 	   url:"<%=path%>maRoleAction/checkRole.action",
-	   data:{"role":$("#role3").val()},
+	   data:{"role":$("#nero").val()},
 	   dataType:"json",
 			success : function(redata) {//定义各事件发生时回调的函数
 			  console.log(redata);
@@ -208,6 +208,8 @@ function addHid(v){
 	    success:function(data){
 	    	//展开模态框
 	    	$("#dada").trigger("click");
+	    	$("#nero").val(data.role);
+	    	
 	  }
 	});
 } 
@@ -215,7 +217,8 @@ function addHid(v){
 //跳转页码
 function jump(){
 	var p=document.getElementById("pageNo").value;
-	window.location.href="<%=path%>maRoleAction/selectAllRole.action?page="+p;
+	if(p<=${paNum}){window.location.href="<%=path%>maRoleAction/selectAllRole.action?role=${role}&page="+p;}
+	else{alert("页数不存在");}
 }
 </script>
 </html>

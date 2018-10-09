@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ 
+ <mapper namespace="org.great.mapper.ComplexQuery">
+     <!-- 综合查询人员 -->
+     <select id="queryAll" parameterType="org.great.bean.StaffBean" resultMap="tblstaff">
+     		select e.* ,rownum from
+			(select d.*,rownum rn from  
+			( select a.*,b.company from tblstaff a ,TBLFOREGROUND b 
+			<where>
+			     a.companyId = b.companyId 
+			   <if test="null != staffName and ''!= staffName ">		   		   
+			   	 	and a.staffName like concat(concat('%',#{staffName}),'%')			    
+			   </if>
+			   <if test="null != phone and ''!= phone">
+			      	 and a.phone = #{phone}
+			   </if>
+			   <if test="null != statTime and ''!= statTime" >
+			   	     and a.examTime &gt;= #{statTime}
+			   </if>
+			   <if test="null != stopTime and ''!= stopTime">
+			         and a.examTime &lt;=#{stopTime}
+			   </if>
+			   <if test="null != myGuChId and ''!= myGuChId">
+			   		 and a.myGuChId = #{myGuChId}  
+			   </if>			   
+			</where>
+			  order by a.companyId) d where rownum &lt;=(#{currentpage} * #{pagecount}))e			
+		      where rn &gt;=((#{currentpage}-1)*#{pagecount}+1)    
+     </select>
+     <resultMap type="org.great.bean.StaffBean" id="tblstaff">
+        <!--主bean  -->
+        <result column="staffId"  property="staffId"/>
+    	<result column="staffName"  property="staffName"/>
+   		<result column="age"  property="age"/>
+   		<result column="sex"  property="sex"/>
+   		<result column="idNum"  property="idNum"/>
+   		<result column="phone"  property="phone"/>
+   		<result column="companyId"  property="companyId" />
+   		<result column="idNum"  property="idNum"/> 
+   		<result column="myGuChId"  property="myGuChId"/> 
+        <result column="examTime"  property="examTime"/> 
+         <result column="smallState"  property="smallState"/> 
+     	<association property="userBean" javaType="org.great.bean.UserBean">
+     	   <id column="companyId" property="companyId"/>
+     	   <result column="company" property="company"/>    		
+     	</association>
+       <association property="totalBean"  javaType="org.great.bean.TotalBean">
+            <id column="totalId" property="totalId"/>
+            <result column="docSummary" property="docSummary"/>
+       </association>
+     </resultMap>	
+     
+     <select id="addCount" parameterType="org.great.bean.StaffBean" resultType="java.lang.Integer">
+     	select count(*) from
+        (select a.*,b.company  from tblstaff a ,TBLFOREGROUND b 
+        <where >
+        		 a.companyId = b.companyId 
+        		  <if test="null != staffName and ''!= staffName ">		   		   
+			   	 	and a.staffName like concat(concat('%',#{staffName}),'%')			    
+			     </if>
+			      <if test="null != phone and ''!= phone">
+			      	 and a.phone = #{phone}
+			     </if>
+			     <if test="null != statTime and ''!= statTime" >
+			   	     and a.examTime &gt;= #{statTime}
+			     </if>
+			     <if test="null != stopTime and ''!= stopTime">
+			         and a.examTime &lt;=#{stopTime}
+			     </if>
+			     <if test="null != myGuChId and ''!= myGuChId">
+			   		 and a.myGuChId = #{myGuChId}  
+			     </if>	
+        </where>
+         )       
+     </select> 
+     
+     <select id="showSummary"  resultType="org.great.bean.TotalBean">
+     
+       select * from tbltotal where guChId =#{guChId} 
+        
+     </select>
+     
+     
+ </mapper>

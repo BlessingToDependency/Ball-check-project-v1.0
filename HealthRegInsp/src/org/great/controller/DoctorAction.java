@@ -103,7 +103,6 @@ public class DoctorAction {
 		AdminBean ab = (AdminBean) request.getSession().getAttribute("adminBean");
 		System.out.println("导检单="+finresultBean.getGuChId());//导检单id
 		int itemId = adminBizImp.selectItem(finresultBean.getGuChId(),ab.getDepaId());//项目id
-		System.out.println(itemId);
 		finresultBean.setItemId(itemId);//项目id放进bean
 		
 		for(int j=0;j<termId.length;j++) {

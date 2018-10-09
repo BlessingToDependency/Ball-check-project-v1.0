@@ -46,5 +46,10 @@
 		 <select id="selectX" resultType="org.great.bean.ParamBean">
 		     select * from TBLPARAM where PARID=500
 		 </select>
-		
+		 
+		 <!-- 查询单个科室信息 -->
+		<select id="selectnfo" resultType="org.great.bean.DeparBean" parameterType="java.lang.Integer">
+		      
+		select * from tbldepar where depaId=#{depaId}
+		</select>
  </mapper>

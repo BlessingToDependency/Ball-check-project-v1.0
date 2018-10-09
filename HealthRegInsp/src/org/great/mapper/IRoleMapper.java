@@ -33,6 +33,9 @@ public interface IRoleMapper {
      //查询所有角色
      public List<RoleBean>  selectR();
      
+     //查询单个角色
+     public RoleBean seleRoleInfo(@Param("roleId")int roleId);
+     
     
 }
 

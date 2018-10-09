@@ -1,5 +1,7 @@
 package org.great.bean;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 
 /*
@@ -17,6 +19,9 @@ public class BillBean {
    private String orderTime;  //下单时间
    private UserBean userBean;  //后台用户表
    private int staffId;//人员ID
+   
+   @Resource
+   private ParamBean paramBean;//参数bean
    
    
    public BillBean() {
@@ -126,6 +131,24 @@ public UserBean getUserBean() {
  */
 public void setUserBean(UserBean userBean) {
 	this.userBean = userBean;
+}
+
+
+@Override
+public String toString() {
+	return "BillBean [billId=" + billId + ", companyId=" + companyId + ", ordNum=" + ordNum + ", actNum=" + actNum
+			+ ", setmealId=" + setmealId + ", actCharge=" + actCharge + ", currentTime=" + currentTime + ", orderTime="
+			+ orderTime + ", userBean=" + userBean + ", paramBean=" + paramBean + "]";
+}
+
+
+public ParamBean getParamBean() {
+	return paramBean;
+}
+
+
+public void setParamBean(ParamBean paramBean) {
+	this.paramBean = paramBean;
 }
 
 

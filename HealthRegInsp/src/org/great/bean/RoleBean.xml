@@ -42,5 +42,11 @@
 			 select * from tblrole
 			
 		</select>
+		
+		 <!-- 查询单个角色 -->
+		      <select id="seleRoleInfo" parameterType="java.lang.Integer"  resultType="org.great.bean.RoleBean">
+		        select * from tblrole  where roleId=#{roleId}
+		      
+		      </select>
 
  </mapper>

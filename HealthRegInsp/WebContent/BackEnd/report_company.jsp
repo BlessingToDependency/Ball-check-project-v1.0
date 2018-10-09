@@ -66,7 +66,7 @@ String path = request.getScheme() +"://"+request.getServerName()
       		<td>${item.orderTime }</td>
             <td class="td-status">
                  <%-- <span class="layui-btn layui-btn-normal layui-btn-mini" id="myModal" onClick="myModal(${item.itemId})">查看详情</span> --%>
-                  <span class="layui-btn layui-btn-normal layui-btn-mini"><a    href="<%=path %>Report/showUser.action?&companyId=${item.companyId  }">查看详情 </a></span>
+                  <span class="layui-btn layui-btn-normal layui-btn-mini"><a    href="<%=path %>Report/showUser.action?&companyId=${item.companyId}&orderTime=${item.orderTime }">查看详情 </a></span>
 	        </td>
           </tr> 
       </c:forEach>  
@@ -83,6 +83,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 				<a class="num" href="<%=path %>Report/showCompany.action?currentPage=${totalPage}&company=${company }">末页</a>
 				<input type="text" id="currentPage" name="code" style="width: 50px; height: 40px;" autocomplete="off" /> <a
 					class="num" id="linkToCart" href="">跳转</a>
+					<input type="hidden" id="totalPage" value="${totalPage}" >
 			</div>
 		</div>
 
@@ -102,52 +103,25 @@ String path = request.getScheme() +"://"+request.getServerName()
         });
       });
 
-       /*用户-停用*/
-      function member_stop(obj,id){
-          layer.confirm('确认要停用吗？',function(index){
-
-              if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-              }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
-              
-          });
-      }
-
-      /*用户-删除*/
-      function member_del(obj,id){
-          layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
-          });
-      }
-
-
-
-      function delAll (argument) {
-
-        var data = tableCheck.getData();
-  
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-            window.location.href="<%=path %>Order/deleteItem.action?setmealId=${setmealId }&data="+data;
-        });
-      }
+     
+      $(document).ready(function(){
+          //点击链接的时候调用
+         $("#linkToCart").click(function(){
+        	 alert("进入函数");
+             //得到input的值
+             var currentPage = $("#currentPage").val();
+             var  totalPage  = $("#totalPage").val();
+             if(currentPage>totalPage){
+           	
+           	  return;
+             }else{
+           	//设置linkToCart的href的值
+                 $("#linkToCart").attr("href","<%=path%>Report/showCompany.action?currentPage="+currentPage);
+             }
+             
+         });
+       });
+       
     </script>
 </body>
 </html>

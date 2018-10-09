@@ -78,13 +78,13 @@ String path = request.getScheme() +"://"+request.getServerName()
                   <span class="x-red">*</span>
               </div>
               </div>
-              </c:forEach>
+            
           <div class="layui-form-item">
               <label class="layui-form-label"><span class="x-red">*</span>职务</label>
               <div class="layui-input-block">
-                <select name="postId" id="postId" style="width: 150px;">
+                <select name="postId" id="postId" style="width: 150px;"  value="${adList.postBean.post}">
                     <c:forEach items="${postList}"  var="post" >
-                     <option value="${post.postId}">${post.post}</option>
+                     <option value="${post.postId}" ${adList.postBean.postId==post.postId ? 'selected = "selected"':''} >${post.post}</option>
                     </c:forEach>
               </select>
               </div>
@@ -92,14 +92,14 @@ String path = request.getScheme() +"://"+request.getServerName()
                  <div class="layui-form-item">
               <label class="layui-form-label"><span class="x-red">*</span>科室</label>
               <div class="layui-input-block">
-               <select name="depaId" id="depaId">
+               <select name="depaId" id="depaId" value="${adList.deparBean.depa}">
                <c:forEach items="${deparList}"  var="depar" >
-                 <option value="${depar.depaId}">${depar.depa}</option>
+                 <option value="${depar.depaId}" ${adList.deparBean.depaId==depar.depaId ? 'selected = "selected"':''} >${depar.depa}</option>
                    </c:forEach>
                   </select>
               </div>
           </div>
-          
+            </c:forEach>
          
           
           <div class="layui-form-item">

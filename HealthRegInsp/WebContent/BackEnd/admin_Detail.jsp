@@ -76,15 +76,15 @@ String path = request.getScheme() +"://"+request.getServerName()
 	                		+"<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>×</button>" 
 	   						+"<h4 class='modal-title' id='myModalLabel'>添加细项</h4></div>"
 	   						+"<div class='layui-form-item'><label class='layui-form-label'>细项名</label><div class='layui-input-block'>"
-	                		+"<input type='text'id='term' name='term' lay-verify='title' autocomplete='off' placeholder='请输入细项名称' class='layui-input' onblur='repetition()'><span id='t'></span></div></div>"
+	                		+"<input type='text'id='term' name='term' lay-verify='title' autocomplete='off' placeholder='请输入细项名称' class='layui-input' onblur='repetition()' required=''><span id='t'></span></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>下限值</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='downLimit' lay-verify='title' autocomplete='off' placeholder='请输入下限值，例如4.0~' class='layui-input'></div></div>"
+	                		+"<input type='text' name='downLimit' lay-verify='title' autocomplete='off' placeholder='请输入下限值，例如4.0~' class='layui-input' required=''></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>上限值</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='upLimit' lay-verify='title' autocomplete='off' placeholder='请输入上限值，例如10.0*10~9' class='layui-input'></div></div>"
+	                		+"<input type='text' name='upLimit' lay-verify='title' autocomplete='off' placeholder='请输入上限值，例如10.0*10~9' class='layui-input' required=''></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>计量单位</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='measur' lay-verify='title' autocomplete='off' placeholder='请输入计量单位，例如/L' class='layui-input'></div></div>"
+	                		+"<input type='text' name='measur' lay-verify='title' autocomplete='off' placeholder='请输入计量单位，例如/L' class='layui-input' required=''></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>默认值</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='none' lay-verify='title' autocomplete='off' placeholder='请输入默认值，例如7.0*10~9/L' class='layui-input'></div></div>"
+	                		+"<input type='text' name='none' lay-verify='title' autocomplete='off' placeholder='请输入默认值，例如7.0*10~9/L' class='layui-input' required=''></div></div>"
 	                		+"</div></div><div class='modal-footer'>"
 	                		+"<input  type='submit' value='添加' class='btn btn-default' style='margin-right:50px'>"
 	                		+"<button type='button' class='btn btn-default'"
@@ -113,15 +113,15 @@ String path = request.getScheme() +"://"+request.getServerName()
 	   						+"<h4 class='modal-title' id='myModalLabel'>修改细项</h4></div>"
 	   						+"<input name='id' type='hidden' value='"+reData.termId+"'>"
 	   						+"<div class='layui-form-item'><label class='layui-form-label'>细项名</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='term' lay-verify='title' autocomplete='off' placeholder='"+reData.term+"' value='"+reData.term+"'class='layui-input'></div></div>"
+	                		+"<input type='text' name='term' lay-verify='title' autocomplete='off' placeholder='"+reData.term+"' value='"+reData.term+"'class='layui-input' required=''></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>下限值</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='downLimit' lay-verify='title' autocomplete='off' placeholder='"+reData.downLimit+"' value='"+reData.downLimit+"' class='layui-input'></div></div>"
+	                		+"<input type='text' name='downLimit' lay-verify='title' autocomplete='off' placeholder='"+reData.downLimit+"' value='"+reData.downLimit+"' class='layui-input' required=''></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>上限值</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='upLimit' lay-verify='title' autocomplete='off' placeholder='"+reData.upLimit+"' value='"+reData.upLimit+"' class='layui-input'></div></div>"
+	                		+"<input type='text' name='upLimit' lay-verify='title' autocomplete='off' placeholder='"+reData.upLimit+"' value='"+reData.upLimit+"' class='layui-input' required=''></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>计量单位</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='measur' lay-verify='title' autocomplete='off' placeholder='"+reData.measur+"' value='"+reData.measur+"' class='layui-input'></div></div>"
+	                		+"<input type='text' name='measur' lay-verify='title' autocomplete='off' placeholder='"+reData.measur+"' value='"+reData.measur+"' class='layui-input' required=''></div></div>"
 	                		+"<div class='layui-form-item'><label class='layui-form-label'>默认值</label><div class='layui-input-block'>"
-	                		+"<input type='text' name='none' lay-verify='title' autocomplete='off' placeholder='"+reData.none+"' value='"+reData.none+"' class='layui-input'></div></div>"
+	                		+"<input type='text' name='none' lay-verify='title' autocomplete='off' placeholder='"+reData.none+"' value='"+reData.none+"' class='layui-input' required=''></div></div>"
 	                		+"</div></div><div class='modal-footer'>"
 	                		+"<input  type='submit' value='添加' class='btn btn-default' style='margin-right:50px'>"
 	                		+"<button type='button' class='btn btn-default'"
@@ -157,6 +157,17 @@ String path = request.getScheme() +"://"+request.getServerName()
 			})	
 			}
 </script>
+<script type="text/javascript">
+		/* 提示是否删除 */
+		function dele(){
+			var r=confirm("是否确定删除!");
+			if (r==true){
+			 return true;
+			  }else{
+			 return false;
+			  }
+		}
+	</script>
 </head>
 <body>
  <div class="x-nav">
@@ -219,7 +230,7 @@ String path = request.getScheme() +"://"+request.getServerName()
             </c:if>
             <td class="td-status">
                  <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="amendItem(${item.termId})">修改</span>
-                 <span class="layui-btn layui-btn-danger"><a href="<%=path%>adminDetailAction/deleteDetail.action?id=${item.termId}">删除</a></span>
+                 <span class="layui-btn layui-btn-danger"><a href="<%=path%>adminDetailAction/deleteDetail.action?id=${item.termId}" onClick="return del()">删除</a></span>
                 <%--  <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="myModal(${item.itemId})">查看详情</span> --%>
                  <%-- <span class="layui-btn layui-btn-danger" data-toggle="modal" data-target="#myModal${i.index+1 }">查看详情</span> --%>
 	        </td>
