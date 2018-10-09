@@ -31,4 +31,8 @@ public interface QueryBiz  {
     
     //得到总结信息
   	public TotalBean   showSummary(String guChId);
+  	
+  	
+    //报告预览展示
+  	public StaffBean findMyUser(StaffBean staffBean);
 }

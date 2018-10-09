@@ -160,6 +160,8 @@
 			return false;
 		} */
 	}
+
+	
 	var flag = false;
 	//注册
 	function register(){
@@ -170,9 +172,15 @@
 			contacts = $("#contacts").val(),
 			phone = $("#phone").val(),
 			busNum = $("#busNum").val(),
+
+			
+			flag = false,
+			validatecode = null;
+
 			validatecode = null;
 
 		upperCaseReg()
+
 		//判断用户名密码是否为空
 		if(company == ""){
 			$.pt({
@@ -293,14 +301,23 @@
 			});
 			return true;
 		}
+
+	}
+	
+
 	}	
 	var flag = false;
+
 
 	//重置密码
 	function forget(){
 		var username = $("#forget-username").val(),
 			password = $("#forget-password").val(),
 			code = $("#forget-code").val(),
+
+			flag = false,
+
+
 			validatecode = null;
 		//判断用户名密码是否为空
 		if(username == ""){
@@ -326,6 +343,8 @@
 			flag = true;
 		}
 
+
+
 		if(code == ""){
 			$.pt({
         		target: $("#forget-code"),
@@ -337,11 +356,17 @@
         	});
 			flag = true;
 		}
+
 	
 		//检查用户名是否存在
 		//调后台方法
 		
+
+		
+		/* if(flag){
+
 	 if(flag){
+
 			return false;
 		}else{//重置密码
 			spop({			
@@ -365,10 +390,18 @@
 			});
 			return false;
 
+		} */
+	}
+	
+	
+	
+
+
 		} 
 	}
 	
 	/* 重置密码查重 */
+
 	function upperCase(){
 	$.ajax({
 		url:"<%=path %>userLoginAction/userRepeat.action",
@@ -378,15 +411,22 @@
 		success : function(str){
 			if(str==2){
 				alert("该账号不存在,请重新输入");
+
+
 				flag = true;
 				return false;
+
 			}
 		}
 	});
 	
 	}
 
+	
+
+
 	/* 注册查重 */
+
 	function upperCaseReg(){
 		$.ajax({
 			url:"<%=path %>userLoginAction/userRepeat.action",
@@ -396,8 +436,11 @@
 			success : function(str){
 				if(str==1){
 					alert("该账号已存在,请重新输入");
+
+
 					flag = true;
 					return false;
+
 				}
 			}
 		});
@@ -495,7 +538,10 @@ body{
 			</div>
 			<!-- 忘记密码页面 -->
 			<div class="login sign-out-htm">
+
+
 				<form onSubmit="return upperCase()" action="<%=path %>userLoginAction/resetPwd.action" onsubmit="return forget()" method="post" class="container offset1 loginform">
+
 
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="forget-owl">
@@ -541,7 +587,11 @@ body{
 			<!-- 注册页面 -->
 			<div class="login sign-up-htm">
 
+				<form action="<%=path %>userLoginAction/userRegister.action" method="post" class="container offset1 loginform" id="regP">
+
+
 				<form onSubmit="return upperCaseReg()" action="<%=path %>userLoginAction/userRegister.action" method="post" class="container offset1 loginform" id="regP">
+
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="register-owl">
 						<div class="hand"></div>

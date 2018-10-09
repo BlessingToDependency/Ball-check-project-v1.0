@@ -126,8 +126,11 @@ public class ReportAction {
 			}else {				
 				Integer sumSmall =reportBizImp.sumSmall(staffBean.getMyGuChId());
 				Integer  sumOrder = reportBizImp.sumOrderItem(staffBean.getMyGuChId());
+				System.out.println("sumSmall:"+sumSmall);
+				System.out.println("sumOrder:"+sumOrder);
 				System.out.println("sumSmall:"+sumSmall+"sumOrder:"+sumOrder);
-				if (staffBean.getSmallState()==14) {				
+				System.out.println("名字："+staffBean.getStaffName());
+				if (staffBean.getSmallState()==13) {				
 					if (sumSmall == sumOrder) {				
 						reportBizImp.setSmall(staffBean.getMyGuChId());
 						

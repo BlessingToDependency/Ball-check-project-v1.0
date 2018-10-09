@@ -22,6 +22,21 @@ public class UserBean {
 	private String regTime;  //账号注册时间
 	
 	
+	
+	
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "UserBean [companyId=" + companyId + ", company=" + company + ", pwd=" + pwd + ", address=" + address
+				+ ", contacts=" + contacts + ", phone=" + phone + ", balance=" + balance + ", busNum=" + busNum
+				+ ", head=" + head + ", stateId=" + stateId + ", logicId=" + logicId + ", phyExamId=" + phyExamId
+				+ ", regTime=" + regTime + "]";
+	}
 	public UserBean() {
 		super();
 	}
