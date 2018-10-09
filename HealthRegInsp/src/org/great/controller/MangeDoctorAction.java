@@ -128,9 +128,7 @@ public class MangeDoctorAction {
         int adminId=Integer.parseInt(adm);
         List<AdminBean>  adList=adminBizImp.slectDoctorInfo(adminId);
         session.setAttribute("adList", adList);
-        for(int i=0;i<adList.size();i++) {
-        System.out.println("********************"+adList.get(i).getPostBean().getPost());
-        }
+     
 		mav.setViewName("BackEnd/edit_docInfo");
 		return mav;		
 	}
@@ -157,8 +155,7 @@ public class MangeDoctorAction {
 	 * 管理所有医生信息
 	 */
 	@RequestMapping(value="/selectAllDoctor.action")
-	@ResponseBody
-	@SystemLog(module="医生管理",methods="查询医生")
+
 	public ModelAndView selectAllDoctor() {
 		
 		String page=request.getParameter("page");
@@ -193,7 +190,7 @@ public class MangeDoctorAction {
 		List<AdminBean> adLis=adminBizImp.selectAllDoctor(adminBean, rowBounds);
 		
 		
-		session.setAttribute("docList", adLis);
+		//session.setAttribute("docList", adLis);
 		
 		List<AdminBean> adLisN=adminBizImp.selectAllDoctorN(adminBean);
 		
@@ -208,6 +205,7 @@ public class MangeDoctorAction {
 		if(paN%5!=0) {
 			paNum=paN/5+1;
 	}
+		mav.addObject("docList", adLis);
 		mav.addObject("paNum", paNum);
 		mav.addObject("adminName", adminBean.getAdminName());
 		mav.addObject("post",adminBean.getPostBean().getPost());

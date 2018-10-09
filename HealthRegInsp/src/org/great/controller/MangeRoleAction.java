@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.RowBounds;
 import org.great.bean.RoleBean;
 import org.great.biz.IRoleBiz;
+import org.great.biz.JurisdictionBiz;
 import org.great.core.SystemLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,10 +31,11 @@ import com.google.gson.Gson;
 public class MangeRoleAction {
 
 	@Resource
-	private IRoleBiz roleBizImp;//前台接口
+	private IRoleBiz roleBizImp;//角色接口
 	@Resource 
 	private RoleBean roleBean;//后台bean
-	
+	@Resource 
+	private JurisdictionBiz jurisdictionBizImp;
 	@Autowired
 	private HttpServletRequest request;
 	@Autowired
@@ -87,7 +89,8 @@ public class MangeRoleAction {
 	}
 		 mav.addObject("paNum", paNum);	
 		 mav.addObject("role",role);
-		session.setAttribute("roleList", roleList);
+		//session.setAttribute("roleList", roleList);
+		mav.addObject("roleList", roleList);
 		mav.setViewName("BackEnd/mange_role");
 		return mav;
 		
@@ -129,7 +132,7 @@ public class MangeRoleAction {
 		roleBizImp.updateRoleNmae(roleBean);	
 		mav.setViewName("redirect:/maRoleAction/selectAllRole.action");
 		}else {
-			mav.setViewName("BackEnd/result");
+			mav.setViewName("redirect:/maRoleAction/selectAllRole.action");
 		}
 		return mav;
 		
@@ -168,7 +171,7 @@ public class MangeRoleAction {
 		mav.setViewName("redirect:/maRoleAction/selectAllRole.action");
 		}
 		else {
-			mav.setViewName("BackEnd/result");
+			mav.setViewName("redirect:/maRoleAction/selectAllRole.action");
 		}
 		
 		return mav;
@@ -184,6 +187,7 @@ public class MangeRoleAction {
 		String rol=request.getParameter("roleId");
 		System.out.println("ih="+rol);
 		int roleId=Integer.parseInt(rol);
+		jurisdictionBizImp.deleteJurrel(roleId);
 		roleBizImp.deleteRole(roleId);
 		return new ModelAndView("redirect:/maRoleAction/selectAllRole.action");
 		
