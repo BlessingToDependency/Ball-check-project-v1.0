@@ -35,4 +35,7 @@ public interface ComplexQuery {
 	//得到总结信息
 	public TotalBean   showSummary(@Param("guChId")String guChId);
 	
+	
+     //报告预览展示
+	public StaffBean findMyUser(StaffBean staffBean);
 }

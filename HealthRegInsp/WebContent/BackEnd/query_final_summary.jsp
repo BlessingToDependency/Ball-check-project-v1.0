@@ -21,8 +21,10 @@ String path = request.getScheme() +"://"+request.getServerName()
     <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
     <%-- <script src="<%=path%>js/bootstrap.min.js"></script> --%>
      <style>
-     .zt{color: #06F;font-size: 18px;font-weight: 10px;}
-         #div{width:580px; height:300px;margin: 0px 0px 100px 250px;line-height:40px; float:left;text-align:left;}
+     .zt{width:600px;  color: blcak;font-size: 70px;border:blue 0px solid;font-weight: 10px;margin: 100px 0px 10px 250px;text-align:left;line-height:150px;letter-spacing:5px;}
+         #div{width:600px; height:1000px;font-size: 30px;   margin: 100px 0px 10px 250px;border:red 0px solid;line-height:60px; float:left;text-align:left;letter-spacing:2px;}
+          #div2{width:800px; height:1500px;font-size: 25px;margin: 0px 100px 10px 100px;border:red 0px solid;line-height:60px; float:left;text-align:left;letter-spacing:2px;}
+       .zt1{width:600px; height:70px; color: blcak;font-size: 70px;border:red 0px solid;font-weight: 10px;margin: 0px 0px 100px 190px;text-align:left;letter-spacing:35px;}    
 	</style>
   </head>
   <body>
@@ -38,14 +40,36 @@ String path = request.getScheme() +"://"+request.getServerName()
       </xblock>
       
        <table class="layui-table">
-				<thead>
+       		<!-- 	<thead>
      			   <tr>
                    <th>健康体检中心</th>     
                    </tr>   
-        		</thead>
+        		</thead> -->
         				<tr>
 								<td >
 								<div id="div">
+									<div>团    体： ${staffBean.userBean.company}</div>
+								    <div>团体序号： ${staffBean.companyId} 	&nbsp;&nbsp;&nbsp;&nbsp;  体检号码：${staffBean.myGuChId}      </div>
+    								<div>姓    名：${staffBean.staffName}    	&nbsp;&nbsp;&nbsp;&nbsp;  性    别：${staffBean.sex}     </div>
+   									<div>年    龄： ${staffBean.age}   	&nbsp;&nbsp;&nbsp;&nbsp; 手    机：${staffBean.phone}     </div>
+   								</div>  	  
+   								<!-- 	<br/><span></span><br>									
+									<br/><span></span><br> -->
+										<br/><span></span><br>	
+										<br/><span></span><br>					
+    							 
+    							    <div class ="zt">健康体检中心</div>	  						
+    							    <div  class ="zt1">体   检   报   告</div>		
+    							   
+    						       														
+								
+							  </td>													
+						</tr>	
+				<thead>
+        		</thead>
+        				<tr>
+								<td >
+								<div id="div2">
 									<div>尊敬的:${staffBean.staffName}先生/女士</div>
 								    <div>    感谢您来到厦门协和医院进行健康体检 </div>
     								<div>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了增加您对健康体检的认识，我们再次特别向您说明，健康体检的目的在于及时了解自身的健康状况，

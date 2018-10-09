@@ -139,6 +139,8 @@ public class ComplexQueryAction {
 		//展示报告列表
 		@RequestMapping("/showFinalSummary.action")
 		public  ModelAndView showFinalSummary(Model model,StaffBean staffBean) {
+			
+			
 			ModelAndView mav  = new ModelAndView();
 			//获得总结
 			String guChId =staffBean.getMyGuChId(); //得到导检单ID
@@ -158,7 +160,8 @@ public class ComplexQueryAction {
 			List<String> fileNameList= SummaryBizImp.imageFile(staffBean.getMyGuChId(), itemID);
 			request.setAttribute("fileNameList", fileNameList);
 			request.setAttribute("itemID", itemID);
-			
+			staffBean = queryBizImp.findMyUser(staffBean);
+			System.out.println("staffBean:"+staffBean.toString());
 			mav.addObject("itemMap", map);			
 			mav.addObject("totalBean", totalBean);
 			mav.addObject("staffBean", staffBean);

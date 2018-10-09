@@ -159,9 +159,9 @@ String path = request.getScheme() +"://"+request.getServerName()
 				<thead>
 					<tr>
 						<th  width="3%">
-							<div class="layui-unselect header layui-form-checkbox" lay-skin="primary">
+							<!-- <div class="layui-unselect header layui-form-checkbox" lay-skin="primary">
 								<i class="layui-icon">&#xe605;</i>
-							</div>
+							</div> -->
 						</th>
 						<th  width="13%">项目序号</th>
 						<th  width="13%">项目名称</th>

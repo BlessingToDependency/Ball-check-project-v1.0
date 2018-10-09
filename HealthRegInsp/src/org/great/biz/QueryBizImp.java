@@ -58,4 +58,14 @@ public class QueryBizImp implements QueryBiz{
 		return totalBean;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.great.biz.QueryBiz#findMyUser(org.great.bean.StaffBean)
+	 */
+	@Override
+	public StaffBean findMyUser(StaffBean staffBean) {
+	
+		StaffBean sBean = complexQuery.findMyUser(staffBean);
+		return sBean;
+	}
+
 }

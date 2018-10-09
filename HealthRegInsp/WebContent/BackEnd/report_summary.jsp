@@ -138,13 +138,14 @@ String path = request.getScheme() +"://"+request.getServerName()
 						 
 							<input type="hidden" name="companyId" id="companyId" value="${companyId}"/>
 						</td></tr>								
-					</table>     			
+					</table>  
+					 <button class="layui-btn" type="submit" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>提交</button>
+						   <button class="layui-btn layui-btn-normal" onclick="delAll()"><i class="layui-icon"></i>返回</button>   			
 			</form>
     </div>
-     <button class="layui-btn" type="submit" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>提交</button>
-						   <button class="layui-btn layui-btn-normal" onclick="delAll()"><i class="layui-icon"></i>返回</button>
+    
 </body>
- <span id="dd" onclick="daying();">打印</span>
+
  <script type="text/javascript" src="<%=path%>js/jquery.min.js"></script>
  <script>
 $(document).ready(function(){
