@@ -61,10 +61,7 @@ public class UserCheckOut {
 				String result = AlipayUtil.pay(response, money, info, name, orderId);
 				
 				request.setAttribute("result", result);	
-				
-				//更改账单状态    支付  未支付
-				bdminBizImp.updateBill(142,Integer.valueOf(orderId));
-				
+						
 				request.getRequestDispatcher("/FrontEnd/bill.jsp").forward(request,response);
 			} catch (Exception e) {			
 					e.printStackTrace();		

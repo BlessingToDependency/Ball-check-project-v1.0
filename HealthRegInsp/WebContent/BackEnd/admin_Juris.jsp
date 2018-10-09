@@ -18,10 +18,9 @@ String path = request.getScheme() +"://"+request.getServerName()
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=path%>/js/xadmin.js"></script>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="<%=path%>css/bootstrap.min.css" rel="stylesheet" />
 	 <link href="<%=path%>/css/jquery.tree-multiselect.min.css" rel="stylesheet" />
 	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="<%=path%>/js/jquery-ui.min.js"></script>
     <script src="<%=path%>/js/bootstrap.min.js"></script>
     <script src="<%=path%>/js/jquery.tree-multiselect.min.js"></script>

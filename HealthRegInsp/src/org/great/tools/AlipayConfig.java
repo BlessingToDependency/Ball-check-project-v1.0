@@ -17,10 +17,10 @@ public class AlipayConfig {
 	    public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1bVjwzQHjJJPDrSnTDyNx0R4oSkQ+NMNAnQa0DdeLnc3U6vdmo7a3TP245/m8QxLRysv/eIiZnAtzGtTxgCsF2Aav39QbZDHDBZuLPNLSSgxF8TM+FOk63yXrVTE/mOoNCG00vmuzI4J5Hr3ATxizEgubxBktgbkMJFPTPldOgSoSpbGWBMv0J2FQOHuGdeLvcxe9GcnSwQogF4+uFtwwGvjpXH0Bt4l/mIJlhEfAAL8BMtMk1wupZwNTPhcUZzlTaCmiDVTojWxABk8uLUyqEmrZTJ5hk5XKC/vhLjEZoVvYbb2oQh5VCNvsgFPq4Z3jywWEcsopj6FhEyT/iTXLwIDAQAB";
 
 		// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-		public static String notify_url = "http://localhost:8080/HealthRegInsp/FrontEnd/user_index.jsp";
+		public static String notify_url = "http://localhost:8080/HealthRegInsp/userBillAction/paySuccess";
 		
 		// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-		public static String return_url = "http://localhost:8080/HealthRegInsp/FrontEnd/user_index.jsp";
+		public static String return_url = "http://localhost:8080/HealthRegInsp/userBillAction/paySuccess";
 
 		// 签名方式
 		public static String sign_type = "RSA2";
