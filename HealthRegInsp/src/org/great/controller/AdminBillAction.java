@@ -37,11 +37,8 @@ public class AdminBillAction {
 	@RequestMapping("/showBill.action")
 	public ModelAndView showBill(Model model,@RequestParam Integer page) {
 		
-		/*if(role.equals("请输入角色名")) {
-			role = "";
-			roleBean.setRole("");
-		}else {
-			roleBean.setRole(role);
+		/*if(paramId.equals("1")) {
+			paramId = "";
 		}*/
 		
 		//调用插叙细项总数
@@ -64,8 +61,8 @@ public class AdminBillAction {
 		
 		model.addAttribute("list", list);
 		
-		/*if(role.equals("")) {
-			role = "请输入角色名";
+		/*if(paramId.equals("")) {
+			paramId = "1";
 		}*/
 		
 		/*model.addAttribute("role", role);*/

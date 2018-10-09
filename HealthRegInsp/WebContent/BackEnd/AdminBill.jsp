@@ -22,40 +22,15 @@ String path = request.getScheme() +"://"+request.getServerName()
 	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 	<script src="<%=path%>js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-	/* 进入授权界面 */
-	function myModal(billId,companyId){
-		//alert(itemId);	
-		$.ajax({
-			type: "post",
-            url: "<%=path%>userBillAction/refundCause.action",
-            dataType: "json",
-            data: {billId: billId, 
-            	companyId:companyId,//发送的数据部分                       
-            },
-            success: function(reData){//接受后台发送的数据
-                    //alert(reData.money);
-                    //alert(reData.bill.billId);
-                   /*  var jsonObj=eval("("+reData+")");
-                    alert(jsonObj); */
-                     var html = '' ;
-                    html+="<div class='layui-form-item'><label class='layui-form-label'>账单ID:</label><div class='layui-input-block'>"
-                    html+="<input type='text' name='billId' lay-verify='title' autocomplete='off' value='"+reData.bill.billId+"' class='layui-input' readonly></div></div>"
-                    html+="<div class='layui-form-item'><label class='layui-form-label'>退款金额:</label><div class='layui-input-block'>"
-                    html+="<input type='text' name='actCharge' lay-verify='title' autocomplete='off' value='"+reData.money+"' class='layui-input' readonly></div></div>"
-                    html+="<div class='layui-form-item'><label class='layui-form-label'>退款理由:</label> <div class='form-group'>"
-                    html+="<textarea class='form-control' rows='3' name='causeInfo'placeholder='请输入退款理由！'></textarea></div></div>"
-                    var html2="";
-                    html2+=" <button type='button' class='btn btn-primary' id='authoritysubmit'>提交申请</button>";
-                    html2+=" <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>";
-                    
-                    $("#authorityBody").empty().append(html); 
-                    $("#perbutton").empty().append(html2);
-                    $("#AuthorityTitle").text("申请退款原因");
-                    $("#myModal").modal('show');	            
-            }	   
-    });
+		function show_confirm(){
+         var r=confirm("是否确定退款！");
+			if (r==true){
+				return true;
+ 			 }else{
+ 				return false;
+  			}
 		}
-	</script>
+</script>
 </head>
 <body>
  <div class="x-nav">
@@ -71,15 +46,12 @@ String path = request.getScheme() +"://"+request.getServerName()
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
-           <input class="layui-input" placeholder="${startTime }" value="${startTime }"name="startTime" id="startTime" readonly>
-          <input class="layui-input" placeholder="${endTime }" value="${endTime }"name="endTime" id="endTime" readonly> 
+           <%-- <input class="layui-input" placeholder="${startTime }" value="${startTime }"name="startTime" id="startTime" readonly>
           <input name="page" type="hidden" value="1">
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button> --%>
         </form>
       </div>
       <xblock>
-       <!-- <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-       <button class="layui-btn" onclick="addItem()"><i class="layui-icon"></i>添加</button> -->
         <span class="x-right" style="line-height:40px">共有数据：${sum } 条</span>
       </xblock>
       <table class="layui-table" width="100%" style="table-layout:fixed;">
@@ -101,15 +73,9 @@ String path = request.getScheme() +"://"+request.getServerName()
             <td class="td-status">
             <c:if test="${li.paramBean.param eq '尚未退款'}">
            <a href="<%=path%>userCheckOut/refund.action?refundId=${li.refundId }&billId=${li.billId }&actCharge=${li.reAmount }&causeInfo=无&soleId=1">
-               <span class="layui-btn layui-btn-normal layui-btn-mini" >确认退款</span>
+               <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="return show_confirm()">确认退款</span>
 	       	</a>
-	       	</c:if>
-	       	<c:if test="${li.paramBean.param eq '退款完毕'}">
-	       	<%-- <a href="<%=path%>userCheckOut/refund.action?billId=${li.billId }&actCharge=${li.actCharge }&causeInfo=无&soleId=1">
-               <span class="layui-btn layui-btn-normal layui-btn-mini" onClick="myModal(${li.billId },${li.companyId })">申请退款</span>  --%>
-	       <%-- 	<span class="layui-btn layui-btn-normal layui-btn-mini" onClick="myModal(${li.billId },${li.companyId })">申请退款</span> --%>
-	       	<!-- </a> -->
-	       	</c:if> 
+	       	</c:if>     
 	        </td>
           </tr>  
           </c:forEach>           
@@ -118,36 +84,13 @@ String path = request.getScheme() +"://"+request.getServerName()
       <div class="page">
         <div>    	
         	共${p }页/当前第${page }页
-          <a class="num" href="<%=path %>userBillAction/billInfo.action?page=1&startTime=${startTime }&endTime=${endTime }&paramId=">首页</a>
-          <a class="num" href="<%=path %>userBillAction/billInfo.action?page=${page - 1}&startTime=${startTime }&endTime=${endTime }&paramId=">上一页</a>
-          <a class="num" href="<%=path %>userBillAction/billInfo.action?page=${page + 1}&startTime=${startTime }&endTime=${endTime }&paramId=">下一页</a>
-          <a class="num" href="<%=path %>userBillAction/billInfo.action?page=${p}&startTime=${startTime }&endTime=${endTime }&paramId=">末页</a>
+          <a class="num" href="<%=path %>adminBillAction/showBill.action?page=1">首页</a>
+          <a class="num" href="<%=path %>adminBillAction/showBill.action?page=${page - 1}">上一页</a>
+          <a class="num" href="<%=path %>adminBillAction/showBill.action?page=${page + 1}">下一页</a>
+          <a class="num" href="<%=path %>adminBillAction/showBill.action?page=${p}">末页</a>
         </div>
       </div>
     </div>
-      <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				     <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" 
-						aria-hidden="true">×
-					</button>
-                    <h4 class="modal-title" id="AuthorityTitle"></h4>
-                </div>
-                <div class="modal-body" id="authorityBody">
-                  
-                </div>
-                <div class="modal-footer" id="perbutton">
-                    <!-- <input name="" class="btn btn-primary" type="submit" value="授权"> -->
-                   <button type="button" class="btn btn-primary" id="authoritysubmit" onClick="accredit()">授权</button> 
-                   <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                </div>
-              </div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
     <script>
       layui.use('laydate', function(){
         var laydate = layui.laydate;
