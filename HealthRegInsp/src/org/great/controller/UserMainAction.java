@@ -54,8 +54,8 @@ public class UserMainAction {
 	private HttpServletResponse response;
 
 	private List<ShoppingCartBean> shoppingList;//购物车list
-	
-	
+
+
 	//提交订单成功付钱后插入表
 	@RequestMapping("companyBuyNow.action")
 	public ModelAndView companyBuyNow(SetmealBean setmealBean) {
@@ -65,12 +65,12 @@ public class UserMainAction {
 		System.out.println(setmealBean.getCountDisAll());//总金额
 		//1先插入公司表
 		Integer payState = 142;//支付状态:成功
-		 userBizImp.companyBill(userBean.getCompanyId(),setmealBean.getCountDisAll(),payState);
+		userBizImp.companyBill(userBean.getCompanyId(),setmealBean.getCountDisAll(),payState);
 		//2再插入立即购买表tblBuyNow 
-		 userBizImp.companyBuyNow(setmealBean,userBean.getCompanyId());
-		 
-		 request.setAttribute("shopping", "已订购成功，快去配置套餐吧！");
-		 return new ModelAndView("redirect:/fileAction/companyStaffList.action");
+		userBizImp.companyBuyNow(setmealBean,userBean.getCompanyId());
+
+		request.setAttribute("shopping", "已订购成功，快去配置套餐吧！");
+		return new ModelAndView("redirect:/fileAction/companyStaffList.action");
 	}
 
 
@@ -79,6 +79,7 @@ public class UserMainAction {
 	public ModelAndView orderDetails(String cartNumber,String setmealId) {
 		System.out.println("cartNumber="+cartNumber+"setmealId="+setmealId);
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
+		if(null != userBean) {
 		List<SetmealBean> setList=userBizImp.showSetmeal(setmealId);
 		int count = 0;
 		//计算价格
@@ -102,10 +103,12 @@ public class UserMainAction {
 			mav.setViewName("FrontEnd/user_index");
 		}
 
-
 		mav.addObject("setList", setList);
 		mav.addObject("userBean", userBean);
 		mav.setViewName("FrontEnd/user_details");
+		}else {
+		return new ModelAndView("redirect:/user_login.jsp");
+		}
 		return mav;
 	}
 
@@ -146,7 +149,7 @@ public class UserMainAction {
 				scb.setSetmeal(setmeal);
 				scb.setPicture(picture);
 				scb.setSetmealId(setmealId);
-				
+
 			}
 
 		}else {
@@ -217,55 +220,55 @@ public class UserMainAction {
 	public ModelAndView batchMeal(String setmealId,String[] staffId) throws Exception{
 		//查询当前公司下所有未预约套餐得人员
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
-if(null != userBean ) {
-	
-		List<StaffBean> staffList = userBizImp.batchMeal(userBean.getCompanyId());
-		System.out.println("staffList="+staffList);
-		if(staffList.size()<1) {
-			request.setAttribute("msg", "人员已全部配置！");
-			return new ModelAndView("redirect:/fileAction/companyStaffList.action");
-		}else {
-		
-		System.out.println("staffList="+staffList.size());
-		System.out.println("setmealId是=="+setmealId);
-		System.out.println("staffId是=="+staffId);
-		//展示套餐
-		List<SetmealBean> setList=userBizImp.showSetmeal(setmealId);
+		if(null != userBean ) {
 
-		int count = 0;
-		//计算价格
-		for(int i=0;i<setList.size();i++) {
-			SetmealBean sb = setList.get(i);
-			int countAll = 0;
-			StringBuffer strItem = new StringBuffer();
-			for(int j =0;j<setList.get(i).getLitemBean().size();j++) {
-				count = setList.get(i).getLitemBean().get(j).getPrice();//价格
-				strItem.append(setList.get(i).getLitemBean().get(j).getItem());//项目
-				strItem.append(";");
-				countAll = countAll+count;
+			List<StaffBean> staffList = userBizImp.batchMeal(userBean.getCompanyId());
+			System.out.println("staffList="+staffList);
+			if(staffList.size()<1) {
+				request.setAttribute("msg", "人员已全部配置！");
+				return new ModelAndView("redirect:/fileAction/companyStaffList.action");
+			}else {
+
+				System.out.println("staffList="+staffList.size());
+				System.out.println("setmealId是=="+setmealId);
+				System.out.println("staffId是=="+staffId);
+				//展示套餐
+				List<SetmealBean> setList=userBizImp.showSetmeal(setmealId);
+
+				int count = 0;
+				//计算价格
+				for(int i=0;i<setList.size();i++) {
+					SetmealBean sb = setList.get(i);
+					int countAll = 0;
+					StringBuffer strItem = new StringBuffer();
+					for(int j =0;j<setList.get(i).getLitemBean().size();j++) {
+						count = setList.get(i).getLitemBean().get(j).getPrice();//价格
+						strItem.append(setList.get(i).getLitemBean().get(j).getItem());//项目
+						strItem.append(";");
+						countAll = countAll+count;
+					}
+					sb.setItemNick(strItem.toString());
+					sb.setCountAll(countAll);
+				}
+
+				//是否有套餐id
+				if(null != setmealId) {
+					mav.setViewName("FrontEnd/user_batch_mealone");
+				}else {
+					mav.setViewName("FrontEnd/user_batch_meal");
+				}
+
+				mav.addObject("staffList",staffList);//未预约的员工list
+				mav.addObject("staffId",staffId);//未预约的员工id
+				mav.addObject("setList",setList);//套餐
 			}
-			sb.setItemNick(strItem.toString());
-			sb.setCountAll(countAll);
-		}
-		
-		//是否有套餐id
-		if(null != setmealId) {
-			mav.setViewName("FrontEnd/user_batch_mealone");
 		}else {
-			mav.setViewName("FrontEnd/user_batch_meal");
+			return new ModelAndView("redirect:/user_login.jsp");
 		}
-		
-		mav.addObject("staffList",staffList);//未预约的员工list
-		mav.addObject("staffId",staffId);//未预约的员工id
-		mav.addObject("setList",setList);//套餐
-		}
-}else {
-	return new ModelAndView("redirect:/user_login.jsp");
-}
 		return mav;
 	}
-	
-	
+
+
 	//展示已订购套餐
 	@RequestMapping("chooseAlreadyMeal.action")
 	public ModelAndView chooseAlreadyMeal(String setmealId,String staffId) {
@@ -276,9 +279,9 @@ if(null != userBean ) {
 		if(null != setmealId) {
 			buyNowBean.setSetmealId(Integer.parseInt(setmealId));//套餐id
 		}
-		
+
 		buyNowBean.setStaffId(Integer.parseInt(staffId));//人员id
-		
+
 		List<BuyNowBean> buyList = userBizImp.chooseAlreadyMeal(buyNowBean);
 		int ordNumAll = 0;//总预约人数
 		int buyNumberAll = 0;//总套餐数量
@@ -292,8 +295,8 @@ if(null != userBean ) {
 			ordNumAll = ordNum+ordNumAll;
 			buyNumberAll = buyNumber + buyNumberAll;
 		}
-		
-		
+
+
 		//如果预约人数之和=套餐数量之和，则套餐已用完
 		if(ordNumAll == buyNumberAll) {
 			//发送弹窗，套餐已经使用完了，跳出，不往下执行
@@ -368,7 +371,7 @@ if(null != userBean ) {
 		}
 		System.out.println("员工id="+staffId);
 		System.out.println("套餐id="+setmealId);
-		
+
 		mav.addObject("staffId",staffId);//体检员工id
 		mav.addObject("setList", setList);
 
@@ -384,22 +387,70 @@ if(null != userBean ) {
 		System.out.println(perguirelaBean.toString());//员工id：staffId
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
 		if(null != userBean) {
-		perguirelaBean.setCompanyId(userBean.getCompanyId());//公司id
-		perguirelaBean.setBatchNum(1);//批次
-		//当前公司下所有未选择套餐的人数
-		List<StaffBean> staffList = userBizImp.batchMeal(userBean.getCompanyId());
-		//批量插入
-		if(staffId.length!=0) {
-			System.out.println(staffId);
-			for(int i=0;i<staffId.length;i++) {
+			perguirelaBean.setCompanyId(userBean.getCompanyId());//公司id
+			perguirelaBean.setBatchNum(1);//批次
+			//当前公司下所有未选择套餐的人数
+			List<StaffBean> staffList = userBizImp.batchMeal(userBean.getCompanyId());
+			//批量插入
+			if(staffId.length!=0) {
+				System.out.println(staffId);
+				for(int i=0;i<staffId.length;i++) {
+					//修改当前员工预约状态
+					perguirelaBean.setStaffId(Integer.parseInt(staffId[i]));
+					userBizImp.updateState(perguirelaBean);
+					//需要当前员工id
+					staffMealBean.setStaffId(perguirelaBean.getStaffId());
+					//人员套餐关系表
+					userBizImp.bespeakMeal(staffMealBean);
+
+					//插入个人账单表：公司id；员工id，套餐id；套餐价格
+					//------------------------
+					List<SetmealBean> setList=userBizImp.showSetmeal(String.valueOf(staffMealBean.getSetmealId()));
+					int count = 0;
+					SetmealBean sb = null;
+					//计算价格
+					for(int z=0;z<setList.size();z++) {
+						sb = setList.get(z);
+						int countAll = 0;
+						double countDisAll;
+						StringBuffer strItem = new StringBuffer();
+						for(int j =0;j<setList.get(z).getLitemBean().size();j++) {
+							count = setList.get(z).getLitemBean().get(j).getPrice();//价格
+							countAll = countAll+count;
+						}
+						countDisAll = sb.getDiscount()*countAll;
+
+						sb.setCountDisAll(countDisAll);
+					}  
+					staffMealBean.setCountDisAll(sb.getCountDisAll());
+					userBizImp.personalBill(staffMealBean,userBean.getCompanyId());
+					//------------------------------
+
+					//查询出公司账单表；人数;实际收费
+					BillBean billBean = userBizImp.numberPeople(userBean.getCompanyId());
+					int peopleAll = billBean.getOrdNum()+1;//预约人数+1
+					double chargeAll = billBean.getActCharge()+staffMealBean.getCountDisAll();//实际收费;需要加当前价格
+					staffMealBean.getStaffId();//当前员工id
+
+					billBean.setActCharge(chargeAll);//实际收费
+					billBean.setOrdNum(peopleAll);//预约人数
+					billBean.setStaffId(staffMealBean.getStaffId());//人员id
+
+					//每插入一次个人账单表，需要修改公司账单表的数据：人数，实际金额；员工id
+					userBizImp.updateCompanyBill(billBean);
+
+				}
+			}else {
+				//单个人员信息插入
+
 				//修改当前员工预约状态
-				perguirelaBean.setStaffId(Integer.parseInt(staffId[i]));
 				userBizImp.updateState(perguirelaBean);
+
 				//需要当前员工id
 				staffMealBean.setStaffId(perguirelaBean.getStaffId());
 				//人员套餐关系表
 				userBizImp.bespeakMeal(staffMealBean);
-				
+
 				//插入个人账单表：公司id；员工id，套餐id；套餐价格
 				//------------------------
 				List<SetmealBean> setList=userBizImp.showSetmeal(String.valueOf(staffMealBean.getSetmealId()));
@@ -407,7 +458,7 @@ if(null != userBean ) {
 				SetmealBean sb = null;
 				//计算价格
 				for(int z=0;z<setList.size();z++) {
-					 sb = setList.get(z);
+					sb = setList.get(z);
 					int countAll = 0;
 					double countDisAll;
 					StringBuffer strItem = new StringBuffer();
@@ -416,81 +467,32 @@ if(null != userBean ) {
 						countAll = countAll+count;
 					}
 					countDisAll = sb.getDiscount()*countAll;
-					
+
 					sb.setCountDisAll(countDisAll);
 				}  
 				staffMealBean.setCountDisAll(sb.getCountDisAll());
 				userBizImp.personalBill(staffMealBean,userBean.getCompanyId());
 				//------------------------------
-				
+
 				//查询出公司账单表；人数;实际收费
 				BillBean billBean = userBizImp.numberPeople(userBean.getCompanyId());
 				int peopleAll = billBean.getOrdNum()+1;//预约人数+1
 				double chargeAll = billBean.getActCharge()+staffMealBean.getCountDisAll();//实际收费;需要加当前价格
 				staffMealBean.getStaffId();//当前员工id
-				
+
 				billBean.setActCharge(chargeAll);//实际收费
 				billBean.setOrdNum(peopleAll);//预约人数
 				billBean.setStaffId(staffMealBean.getStaffId());//人员id
-				
+
 				//每插入一次个人账单表，需要修改公司账单表的数据：人数，实际金额；员工id
 				userBizImp.updateCompanyBill(billBean);
-				
 			}
-		}else {
-		//单个人员信息插入
-
-		//修改当前员工预约状态
-		userBizImp.updateState(perguirelaBean);
-
-		//需要当前员工id
-		staffMealBean.setStaffId(perguirelaBean.getStaffId());
-		//人员套餐关系表
-		userBizImp.bespeakMeal(staffMealBean);
-		
-		//插入个人账单表：公司id；员工id，套餐id；套餐价格
-		//------------------------
-		List<SetmealBean> setList=userBizImp.showSetmeal(String.valueOf(staffMealBean.getSetmealId()));
-		int count = 0;
-		SetmealBean sb = null;
-		//计算价格
-		for(int z=0;z<setList.size();z++) {
-			 sb = setList.get(z);
-			int countAll = 0;
-			double countDisAll;
-			StringBuffer strItem = new StringBuffer();
-			for(int j =0;j<setList.get(z).getLitemBean().size();j++) {
-				count = setList.get(z).getLitemBean().get(j).getPrice();//价格
-				countAll = countAll+count;
-			}
-			countDisAll = sb.getDiscount()*countAll;
-			
-			sb.setCountDisAll(countDisAll);
-		}  
-		staffMealBean.setCountDisAll(sb.getCountDisAll());
-		userBizImp.personalBill(staffMealBean,userBean.getCompanyId());
-		//------------------------------
-		
-		//查询出公司账单表；人数;实际收费
-		BillBean billBean = userBizImp.numberPeople(userBean.getCompanyId());
-		int peopleAll = billBean.getOrdNum()+1;//预约人数+1
-		double chargeAll = billBean.getActCharge()+staffMealBean.getCountDisAll();//实际收费;需要加当前价格
-		staffMealBean.getStaffId();//当前员工id
-		
-		billBean.setActCharge(chargeAll);//实际收费
-		billBean.setOrdNum(peopleAll);//预约人数
-		billBean.setStaffId(staffMealBean.getStaffId());//人员id
-		
-		//每插入一次个人账单表，需要修改公司账单表的数据：人数，实际金额；员工id
-		userBizImp.updateCompanyBill(billBean);
-		
-		}
-		return new ModelAndView("redirect:/fileAction/companyStaffList.action");
+			return new ModelAndView("redirect:/fileAction/companyStaffList.action");
 		}else {
 			return new ModelAndView("redirect:/user_login.jsp"); 
 		}
 	}
-	
+
 	/*
 	 * 配置完订购的套餐后，修改公司预约人数
 	 */
@@ -498,7 +500,7 @@ if(null != userBean ) {
 		//公司id
 		//查出公司id对应的账单id
 		//根据账单id修改人数
-		
+
 		return mav;
 	}
 

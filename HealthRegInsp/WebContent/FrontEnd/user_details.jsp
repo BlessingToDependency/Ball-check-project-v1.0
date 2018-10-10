@@ -115,7 +115,8 @@ function checkSub(){
 				<input type="hidden" name="number" value="${setmealBean.number }"/>
 				<input type="hidden" name="countDisAll" value="${setmealBean.countAll*setmealBean.number }"/>
 				</c:forEach>
-				<button onclick ="checkSub();"  class="btn submitForm">提交订单</button>
+				 <input type="button" class="btn submitForm" name="Submit" onclick="javascript:history.back(-1);" value="|   返回">
+				<button onclick ="checkSub();"  class="btn submitForm">提交订单 |</button>
 				</form>
 			</div>
 		</div>

@@ -186,7 +186,7 @@ function shoppingInfo(){
 
         <li style="background-image:url(<%=path%>images/banner1.jpg)" class="active"></li>
 
-<li style="background-image:url(<%=path%>images/banner2.jpg)" class="active"></li>
+<li style="background-image:url(<%=path%>images/banner1.jpg)" class="active"></li>
 
 
 
@@ -196,75 +196,6 @@ function shoppingInfo(){
 
     <div id="mindex" data-options-ease="Expo.easeInOut" data-options-speed="1" data-options-sscreen="0"></div>
 
-    <div id="mservice" class="module">
-
-      <div class="bgmask"></div>
-
-      <div class="content layoutnone">
-
-        <div class="header wow fw" data-wow-delay=".1s">
-
-          <p class="title">医疗特色</p>
-
-          <p class="subtitle"></p>
-
-        </div>
-
-        <div class="module-content fw" id="servicelist">
-
-          <div class="wrapper">
-
-            <ul class="content_list" data-options-sliders="3" data-options-margin="10" data-options-ease="1" data-options-speed="1">
-
-              <li id="serviceitem_0" class="serviceitem wow"><a href="/a/tese/11.html" target="_blank"><img src="<%=path%>images/1-1F5041F041314.png" height="120" />
-
-                <div>
-
-                  <p class="title">新技术针疗法</p>
-
-                  <p class="description">至于新三板，陈阳提到：我认同新三板今...</p>
-
-                </div>
-
-                </a> <a href="/a/tese/11.html" target="_blank" class="details">more<i class="fa fa-angle-right"></i></a> </li>
-
-<li id="serviceitem_1" class="serviceitem wow"><a href="/a/tese/10.html" target="_blank"><img src="<%=path%>images/1-1F5041AP10-L.png" height="120" />
-
-                <div>
-
-                  <p class="title">特色门诊</p>
-
-                  <p class="description">iOS/Android APP交互设计媒体的核心价值在于...</p>
-
-                </div>
-
-                </a> <a href="/a/tese/10.html" target="_blank" class="details">more<i class="fa fa-angle-right"></i></a> </li>
-
-<li id="serviceitem_2" class="serviceitem wow"><a href="/a/tese/9.html" target="_blank"><img src="<%=path%>images/1-1F5041AA20-L.png" height="120" />
-
-                <div>
-
-                  <p class="title">特需医疗</p>
-
-                  <p class="description">01. 泛游戏兴趣聚合平台着迷将正式宣布其...</p>
-
-                </div>
-
-                </a> <a href="/a/tese/9.html" target="_blank" class="details">more<i class="fa fa-angle-right"></i></a> </li>
-
-
-
-            </ul>
-
-          </div>
-
-        </div>
-
-        <div class="clear"></div>
-
-        <a href="/" class="more wow">MORE<i class="fa fa-angle-right"></i></a> </div>
-
-    </div>
 
     <div id="mproject" class="module">
 
@@ -274,33 +205,12 @@ function shoppingInfo(){
 
         <div class="header wow">
 
-          <p class="title">门诊科室</p>
+          <p class="title">热门套餐</p>
 
           <p class="subtitle"></p>
 
         </div>
 
-        <div id="category" class="hide wow">
-
-        
-
-        <a href="/a/keshi/k1/">非手术科</a>
-
-        
-
-        <a href="/a/keshi/k2/">手术科室</a>
-
-        
-
-        <a href="/a/keshi/k3/">诊断科室</a>
-
-        
-
-        <a href="/a/keshi/k4/">其他科室</a>
-
-        
-
-        </div>
 
         <!--yyLayout masonry-->
 
@@ -355,7 +265,7 @@ function shoppingInfo(){
 
           <!--projectSubList--> 
 
-         <a href="/a/keshi/" class="more wow">MORE<i class="fa fa-angle-right"></i></a> </div>
+         <a href="" class="more wow"><i class="fa fa-angle-right"></i></a> </div>
 
         <!--projectlist-->
 
@@ -365,255 +275,8 @@ function shoppingInfo(){
 
     </div>
 
-    <!--project-->
+   
 
-    <div id="mteam" class="module">
-
-      <div class="bgmask"></div>
-
-      <div class="content layoutslider">
-
-        <div class="header wow">
-
-          <p class="title">医师团队</p>
-
-          <p class="subtitle"></p>
-
-        </div>
-
-        <div class="module-content fw">
-
-          <div class="wrapper">
-
-            <ul class="content_list" data-options-sliders="1" data-options-margin="40" data-options-ease="1" data-options-speed="0.5">
-
-              <li id="teamitem_0" class="wow">
-
-                <div class="header wow" data-wow-delay=".4s"> <a href="/a/team/19.html" target="_blank"><img src="<%=path%>images/1-1F5041Z202224.png" width="180" height="180" /></a> </div>
-
-                <div class="summary wow">
-
-                  <p class="title"><a href="/a/team/19.html">吴群励</a></p>
-
-                  <p class="subtitle"></p>
-
-                  <p class="description wow">WEB企业版最新研发的针对于中小型企业网站系统，团队有多年丰富的建站经验，了解最新网站体验及交互原则，尽可能的为用户考虑集功能、操作、体验交互一体化的专业网站系统。...</p>
-
-                </div>
-
-                <a href="/a/team/19.html" target="_blank" class="details">more<i class="fa fa-angle-right"></i></a> </li>
-
-<li id="teamitem_1" class="wow">
-
-                <div class="header wow" data-wow-delay=".4s"> <a href="/a/team/18.html" target="_blank"><img src="<%=path%>images/1-1F5041Z0100-L.png" width="180" height="180" /></a> </div>
-
-                <div class="summary wow">
-
-                  <p class="title"><a href="/a/team/18.html">黄渭清</a></p>
-
-                  <p class="subtitle"></p>
-
-                  <p class="description wow">- 新西兰GOUW设计师平台收录 - 中国网页设计联盟2010-11中国十佳网页 - 世界权威电子设计杂志 NEWWEBPICK 推荐设计师及网站推荐 - 案例被收录NEWWEBPICK电子杂志 （第29期） - 欧美css设计奖项...</p>
-
-                </div>
-
-                <a href="/a/team/18.html" target="_blank" class="details">more<i class="fa fa-angle-right"></i></a> </li>
-
-<li id="teamitem_2" class="wow">
-
-                <div class="header wow" data-wow-delay=".4s"> <a href="/a/team/4.html" target="_blank"><img src="<%=path%>images/1-1F5041301570-L.png" width="180" height="180" /></a> </div>
-
-                <div class="summary wow">
-
-                  <p class="title"><a href="/a/team/4.html">乔安娜kustra</a></p>
-
-                  <p class="subtitle"></p>
-
-                  <p class="description wow">7年互联网经验，曾服务于搜狐火炬传递、北京建筑设计研究院、日本电通、影时尚、宝迪集团、牛扒工厂、悠怡蓝海、富士达电动车、南中圣淇、伟德福思、安陆恩彼、WEB官网、WEB平台...</p>
-
-                </div>
-
-                <a href="/a/team/4.html" target="_blank" class="details">more<i class="fa fa-angle-right"></i></a> </li>
-
-<li id="teamitem_3" class="wow">
-
-                <div class="header wow" data-wow-delay=".4s"> <a href="/a/team/3.html" target="_blank"><img src="<%=path%>images/1-1F5041253290-L.png" width="180" height="180" /></a> </div>
-
-                <div class="summary wow">
-
-                  <p class="title"><a href="/a/team/3.html">董怡</a></p>
-
-                  <p class="subtitle"></p>
-
-                  <p class="description wow">世界权威电子设计杂志 NEWWEBPICK 推荐设计师 收录电子杂志 （第29期） 新西兰GOUW设计师平台收录 欧美css设计奖项 cssdesignawards获奖作品 中国设计联盟2010-11中国十佳网页(互动)设计师及专...</p>
-
-                </div>
-
-                <a href="/a/team/3.html" target="_blank" class="details">more<i class="fa fa-angle-right"></i></a> </li>
-
-
-
-            </ul>
-
-          </div>
-
-        </div>
-
-        <div class="clear"></div>
-
-        </div>
-
-    </div>
-
-    <div id="mnews" class="module">
-
-      <div class="bgmask"></div>
-
-      <div class="content layoutnone">
-
-        <div class="header wow">
-
-          <p class="title">新闻动态</p>
-
-          <p class="subtitle">News Center</p>
-
-        </div>
-
-        <div class="module-content" id="newslist">
-
-          <div class="wrapper">
-
-            <ul class="content_list" data-options-sliders="3" data-options-margin="40" data-options-ease="1" data-options-speed="0.5" data-options-mode="horizontal" data-options-wheel="0">
-
-              <li id="newsitem_0" class='wow newstitem left'><a class="newscontent" target="_blank" href="/a/news/hyxw/22.html">
-
-                <div class="news_wrapper">
-
-                  <div class="newsbody">
-
-                    <p class="date"><span class="md">2017<span>-</span></span><span class="year">05-04</span></p>
-
-                    <p class="title">如何让自己的网站更有质量？AB模板王有</p>
-
-                    <div class="separator"></div>
-
-                    <p class="description">随着互联网的不断发展，对网站的要求越来越高，如何提高网站的质量，让自己在这个竞争激烈的市场中站稳自己的脚步呢?今天，AB模板王汇总了一些方式，希望对大家有帮助。 第一、...</p>
-
-                  </div>
-
-                </div>
-
-                <div class="newsimg" style="background-image:url(<%=path%>images/1-1F504192020423.jpg)"></div>
-
-                </a> <a href="/a/news/hyxw/22.html" target="_blank" class="details">more<i class="fa fa-angle-right"></i></a> </li>
-
-<li id="newsitem_1" class='wow newstitem left'><a class="newscontent" target="_blank" href="/a/news/hyxw/21.html">
-
-                <div class="news_wrapper">
-
-                  <div class="newsbody">
-
-                    <p class="date"><span class="md">2017<span>-</span></span><span class="year">05-04</span></p>
-
-                    <p class="title">内容优化之有“心”创作</p>
-
-                    <div class="separator"></div>
-
-                    <p class="description">什么是真正的原创文?小编认为，真正的原创文是作者自己内心的真切感悟或体会，能够体现作者独特风格，且来源于日常生活或工作中，能给大众带来价值的文章。 在网站优化中，内...</p>
-
-                  </div>
-
-                </div>
-
-                <div class="newsimg" style="background-image:url(<%=path%>images/1-1F504191949109.jpg)"></div>
-
-                </a> <a href="/a/news/hyxw/21.html" target="_blank" class="details">more<i class="fa fa-angle-right"></i></a> </li>
-
-<li id="newsitem_2" class='wow newstitem left'><a class="newscontent" target="_blank" href="/a/news/hyxw/20.html">
-
-                <div class="news_wrapper">
-
-                  <div class="newsbody">
-
-                    <p class="date"><span class="md">2017<span>-</span></span><span class="year">05-04</span></p>
-
-                    <p class="title">网络公司告诉你有关面包屑导航的事</p>
-
-                    <div class="separator"></div>
-
-                    <p class="description">面包屑导航来源于童话故事中的汉塞尔利用面包屑来记录回家的路的故事，根据这个故事我们就可以知道它是指可以让用户清楚知道在网站中所处的位置，找得到回到网站首页的路。...</p>
-
-                  </div>
-
-                </div>
-
-                <div class="newsimg" style="background-image:url(<%=path%>images/1-1F504191PS16.jpg)"></div>
-
-                </a> <a href="/a/news/hyxw/20.html" target="_blank" class="details">more<i class="fa fa-angle-right"></i></a> </li>
-
-
-
-            </ul>
-
-          </div>
-
-        </div>
-
-        <div class="clear"></div>
-
-        <a href="/a/news/" class="more wow">MORE<i class="fa fa-angle-right"></i></a>
-
-        <div style="height:0"> &nbsp; </div>
-
-      </div>
-
-    </div>
-
-    <div id="mpage" class="module">
-
-      <div class="bgmask"></div>
-
-      <div class="content">
-
-        <div class="module-content">
-
-          <div class="wrapper">
-
-            <ul class="slider one">
-
-              <li>
-
-                <div class="header wow" data-wow-delay=".2s">
-
-                  <p class="title">医院简介</p>
-
-                  <p class="subtitle"></p>
-
-                </div>
-
-                <div class="des-wrap">
-
-                  <p class="description wow" data-wow-delay=".3s"> 优爱精神 严谨、求精、勤奋、奉献 严谨、求精、勤奋、奉献协和精神是协和的核心价值观，是协和医院文化精髓。协和文化以崇尚科学、崇尚知识、专业态度和专业精神为其思想内核，又具有深厚的人文特征，表现方式凝重、内敛、不张扬、戒浮躁，重视口碑效应。具体体现在协和人身上就是科学严谨的作风、浓厚的人文传统与学术的包容...</p>
-
-                </div>
-
-                <a href="/a/about/" class="more wow" data-wow-delay=".5s">MORE<i class="fa fa-angle-right"></i></a>
-
-                <div class="fimg wow" style="background-image:url(<%=path%>images/jianjie.jpg)"></div>
-
-              </li>
-
-            </ul>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    
 
     <div id="mcontact" class="module">
 
@@ -633,17 +296,15 @@ function shoppingInfo(){
 
           <div id="contactinfo" class="fl wow" data-wow-delay=".2s">
 
-            <h3 class="ellipsis name">南京市AB模板网科技有限公司</h3>
+            <h3 class="ellipsis name">厦门协和医院</h3>
 
-            <p class="ellipsis add"><span>地址：</span>江苏省南京市玄武区玄武湖</p>
+            <p class="ellipsis add"><span>地址：</span>福建省厦门市思明区软件园二期56号</p>
 
             <p class="ellipsis tel"><span>电话：</span>4008-888-888</p>
 
-            <p class="ellipsis fax"><span>Q Q：</span>9490489</p>
+            <p class="ellipsis fax"><span>Q Q：</span>382559544</p>
 
-            <p class="ellipsis email"><span>邮箱：</span>9490489@qq.com</p>
-
-            <div> <a class="fl" target="_blank" href="http://www.weibo.com/gooxao" id="sweibo"><i class="fa fa-weibo"></i></a> <a class="fl" target="_blank" href="tencent://message/?uin=9490489&amp;Site=uemo&amp;Menu=yes"><i class="fa fa-qq"></i></a> <a id="mpbtn" class="fl" href="<%=path%>/style/images/ma.jpg"><i class="fa fa-weixin"></i></a> </div>
+            <p class="ellipsis email"><span>邮箱：</span>382559544@qq.com</p>
 
           </div>
 
@@ -657,11 +318,7 @@ function shoppingInfo(){
 
 </div>
 
-<div id="footer">
 
-  <p>Copyright &copy; 2002-2011 <a href="http://www.adminbuy.cn" target="_blank">团检系统</a> 版权所有　<a class="beian" href="http://www.miitbeian.gov.cn/" style="display:inline; width:auto; color:#8e8e8e" target="_blank">苏ICP12345678</a></p>
-
-</div>
  
  
  
@@ -696,23 +353,6 @@ function shoppingInfo(){
 				<div id="resultData">
 					<ul style="height: auto;" id="shoppingShow">
 					
-					<%-- <c:forEach items="shoppingList" var="shoppingCartBean">
-						<li class="clearfix" data-url="7115213">
-							<input type="checkbox" class="checkbox_c" name="checkbox_c_Name" data-url="7115213|" checked="checked">
-							<span class="check"></span>
-							<div class="img_con">
-								<img src="../images/pd/pd1.jpg" alt="">
-							</div>
-							<div class="product_name">
-								<span title="S5700-28P-PWR-LI-AC">${shoppingList.setmealId }</span>
-								<a href="javascript:void(0)" class="del_pro_btn" onClick="">删除</a>
-							</div>
-							<div class="amount_btn clearfix">
-								<input type="text" value="1" class="spinnerExample" onBlur="isDigit(this)">
-							</div>
-						</li>
-					</c:forEach> --%>
-						
 					</ul>
 				</div>
 				<div class="count_info clearfix">

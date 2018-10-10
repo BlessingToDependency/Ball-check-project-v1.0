@@ -108,7 +108,7 @@ function checkUser(){
 <body>
 <div id="header">
 
-  <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
+  <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/lo.png" height="40" /></a>
 
     <ul id="nav">
 
