@@ -59,7 +59,7 @@ public class MyCompAction {
 		
 		if(msg.equals("密码正确")) {
 		userBizImp.updateUserPws(pwd,company);
-		mav.setViewName("FrontEnd/user_index");
+		mav.setViewName("user_index");
 		}
 		else {
 		 mav.setViewName("FrontEnd/update_CompPws");
@@ -150,7 +150,7 @@ public class MyCompAction {
 	@RequestMapping(value="/EditCompInfo.action",method=RequestMethod.POST)
 	 public ModelAndView EditCompInfo(UserBean uBean,MultipartFile fileact,HttpServletRequest request) {
 		String file = fileact.getOriginalFilename();
-		System.out.println("获取到的文件名:" + file);
+		
 		try {
 			String root = request.getServletContext().getRealPath("/upload"); // 设置文件上传的路径
 			System.out.println(root);
@@ -161,11 +161,11 @@ public class MyCompAction {
 		}
 		
 		String componey=(String) session.getAttribute("componeyE");
-		System.out.println("^^^^^^^^"+componey);
+		
 		uBean.setCompany(componey);
 		uBean.setHead(file);
 		userBizImp.updateCompInfo(uBean);
-		mav.setViewName("FrontEnd/user_index");
+		mav.setViewName("user_index");
 		return mav;
 	}
 	
@@ -175,7 +175,7 @@ public class MyCompAction {
 	 */
 	@RequestMapping(value="/backIndex.action")
 	public ModelAndView backIndex() {
-		mav.setViewName("FrontEnd/user_index");
+		mav.setViewName("user_index");
 		
 		return mav;
 		

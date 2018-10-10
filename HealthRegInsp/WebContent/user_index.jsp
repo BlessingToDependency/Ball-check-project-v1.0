@@ -77,10 +77,10 @@ function shoppingInfo(){
 		dataType:"json",
 		type:"POST",
 		success : function(a){
-			if(null != a || "" != a){
+			if(null != a  && "null" != a){
 				 var strHtml="";
 				 var strBuy="";
-				 
+				if("" != a){
 					$.each(a, function(i, item) {
 						strHtml+="<li class='clearfix' data-url=''>"+
 						"<input type='checkbox' class='checkbox_c' name='checkbox_c_Name' data-url='' checked='checked'>"+
@@ -104,6 +104,12 @@ function shoppingInfo(){
 						"</a>";
 					$("#shoppingShow").html(strHtml);
 					$("#div_login").html(strBuy);
+				}else{
+					strBuy+="<a href='' id='checkLook' onClick='checkLook()' class='more redbtn-moddle1' id='btn_popup_login'>"+
+					"<span id='login'>去逛逛</span>"+
+					"</a>";
+					$("#div_login").html(strBuy);
+				}
 			}else{
 				var strLogin="";
 				strLogin+="<a href='<%=path%>userLoginAction/jumpLogin.action' class='more redbtn-moddle1' id='btn_popup_login'>"+
@@ -125,12 +131,20 @@ function shoppingInfo(){
        $("#checkShopp").attr("href","<%=path%>userMainAction/orderDetails.action?cartNumber="+acrtNumber+"&setmealId="+setmealId+"");
    };
 
+   function checkLook(){
+		  
+       //设置linkToCart的href的值
+       $("#checkLook").attr("href","<%=path%>userMainAction/showSetmeal.action");
+   };
 </script>
 </head>
 <body>
 <div id="header">
 
-  <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
+  <div class="content"> 
+  <div style="margin-left: 100px">
+  <a href="/" id="logo"><img src="<%=path%>images/lo.png" height="40" /></a>
+  </div>
     <ul id="nav">
       <li class="navitem"><a  class='active' href="<%=path %>userMainAction/showSetmeal.action">首页</a></li>
       <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action?page=1&startTime=&endTime=&paramId=" >账户</a>
@@ -138,14 +152,8 @@ function shoppingInfo(){
         </ul>
       </li>
       
-       <li class="navitem"><a  href="about.html" >公司简介</a>
-        <ul class="subnav">
-          <li>
-          <a href="<%=path%>myCompAction/selectCompInfo.action"  >公司信息</a>                  
-         </li>
-          <li><a href="<%=path%>myCompAction/toEditCompInfo.action" >编辑公司信息</a></li>
-          <li><a  href="<%=path%>myCompAction/toUpPws.action"">修改密码</a></li>
-        </ul>
+       <li class="navitem"><a  href="<%=path%>myCompAction/selectCompInfo.action"" >公司简介</a>
+  
       </li>
       
       <li class="navitem">

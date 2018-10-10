@@ -297,6 +297,7 @@ if(null != userBean ) {
 		//如果预约人数之和=套餐数量之和，则套餐已用完
 		if(ordNumAll == buyNumberAll) {
 			//发送弹窗，套餐已经使用完了，跳出，不往下执行
+			System.out.println("暂无订购的套餐，去购买！");
 			request.setAttribute("msg", "暂无订购的套餐，去购买！");
 			return new ModelAndView("redirect:/fileAction/companyStaffList.action");
 		}else {
@@ -382,6 +383,7 @@ if(null != userBean ) {
 		System.out.println(staffMealBean.toString());//套餐id:setmealId
 		System.out.println(perguirelaBean.toString());//员工id：staffId
 		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
+		if(null != userBean) {
 		perguirelaBean.setCompanyId(userBean.getCompanyId());//公司id
 		perguirelaBean.setBatchNum(1);//批次
 		//当前公司下所有未选择套餐的人数
@@ -434,7 +436,6 @@ if(null != userBean ) {
 				//每插入一次个人账单表，需要修改公司账单表的数据：人数，实际金额；员工id
 				userBizImp.updateCompanyBill(billBean);
 				
-				
 			}
 		}else {
 		//单个人员信息插入
@@ -485,6 +486,9 @@ if(null != userBean ) {
 		
 		}
 		return new ModelAndView("redirect:/fileAction/companyStaffList.action");
+		}else {
+			return new ModelAndView("redirect:/user_login.jsp"); 
+		}
 	}
 	
 	/*

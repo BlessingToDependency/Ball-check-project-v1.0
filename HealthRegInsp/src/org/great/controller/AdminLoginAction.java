@@ -192,7 +192,18 @@ public class AdminLoginAction {
 		return mav;		
 	}
 	
-
+	/*
+	 * 后台对医生信息进行修改
+	 */
+	@RequestMapping(value="/toshow.action")
+	public  ModelAndView toshow() {
+		
+		mav.setViewName("BackEnd/Back_Main");
+		
+		//跳 转到用户展示的方法
+		return mav;		
+	}
+	
 	
 }  
 
