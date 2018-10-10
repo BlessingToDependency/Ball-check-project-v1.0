@@ -244,7 +244,8 @@
  	 <!--体检完改变体检状态  -->
  	 <update id="changeState" parameterType="org.great.bean.TotalBean" >
  	    
- 			 UPDATE TBLSTAFF  SET MEDICALID = '83' , SMALLSTATE = '15' WHERE  myGuChId =#{guChId}
+ 			 UPDATE TBLSTAFF  SET MEDICALID = '83' , ORDERID ='126' , SMALLSTATE = '15' WHERE  myGuChId =#{guChId}
+ 
  	 </update>
  	 
  	 
