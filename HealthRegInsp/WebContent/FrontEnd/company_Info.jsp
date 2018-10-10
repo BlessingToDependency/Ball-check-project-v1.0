@@ -15,7 +15,7 @@
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<title>医院简介</title>
+<title>公司信息简介</title>
 
 <meta name="keywords" content="" />
 
@@ -43,6 +43,54 @@
 
 <meta http-equiv="mobile-agent" content="format=xhtml;url=/m/list.php?tid=6">
 
+ <script type="text/javascript" src="<%=path%>/lib/layui/layui.js" charset="utf-8"></script>
+   <link rel="stylesheet" href="<%=path%>/lib/layui/css/layui.css">
+<style type="text/css">
+ #a{
+	width: 50%;
+	height: 50px;
+	margin: 0px 0px 0px 0px;
+	border: blue 0px solid;
+	float: left;
+	text-align: right;
+	font-weight: bold;
+	font-size: 18px;
+}
+  #b{
+	width: 10%;
+	height: 50px;
+	margin-left: 15px;
+	border: blue 0px solid;
+	float: left;
+	text-align: left;
+	color: #F00;
+	font-weight: bold;
+	font-size: 18px;
+}
+ #c{
+	  width: 50%;
+	height: 50px;
+	margin: 0px 0px 0px 0px;
+	border: blue 0px solid;
+	float: left;
+	text-align: right;
+	font-weight: bold;
+	
+	 
+	 }
+	 
+	  #d{
+	  width: 10%;
+	height: 50px;
+	margin: 0px 0px 0px 0px;
+	border: blue 0px solid;
+	float: left;
+	text-align: center;
+	font-weight: bold;
+	
+	 
+	 }
+</style>
 <script type="text/javascript">
 	if (window.location.toString().indexOf('pref=padindex') != -1) {
 	} else {
@@ -69,131 +117,88 @@
 
 
 <body class="nobanner">
-	<div id="header">
-		<div class="content">
-			<ul id="nav">
-				<li class="navitem"><a class='active' href="<%=path%>myCompAction/backIndex.action">首页</a></li>
-				<li class="navitem"><a href="keshi.html">门诊科室</a>
-					<ul class="subnav">
-						<li><a href="keshi.html">非手术科</a></li>
+<div id="header">
 
-
-						<li><a href="keshi.html">手术科室</a></li>
-
-
-
-						<li><a href="keshi.html">诊断科室</a></li>
-
-
-
-						<li><a href="keshi.html">其他科室</a></li>
-
-
-
-					</ul></li>
-				<li class="navitem"><a href="tese.html">医疗特色</a>
-					<ul class="subnav">
-					</ul></li>
-				<li class="navitem"><a href="about.html">公司简介</a>
-
-					<ul class="subnav">
-
-						<li><a href="<%=path%>myCompAction/selectCompInfo.action">公司信息</a></li>
-						<li><a href="<%=path%>myCompAction/toEditCompInfo.action">编辑公司信息</a></li>
-						<li><a href="<%=path%>myCompAction/toUpPws.action"">修改密码</a></li>
-
-
-
-					</ul></li>
-				<li class="navitem"><a href="team.html">医师团队</a>
-
-					<ul class="subnav">
-
-
-
-					</ul></li>
-				<li class="navitem"><a href="news.html">新闻动态</a>
-
-					<ul class="subnav">
+  <div class="content"> 
+    <div style="margin-left: 100px">
+       <a href="/" id="logo"><img src="<%=path%>images/lo.png" height="40" /></a>
+  </div>
+    <ul id="nav">
+      <li class="navitem"><a  class='active' href="<%=path %>userMainAction/showSetmeal.action">首页</a></li>
+      <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action" >我的账户</a>
+        <ul class="subnav">
+        </ul>
+      </li>
+      
+       <li class="navitem"><a  href="<%=path%>myCompAction/selectCompInfo.action" >公司简介</a>
+      
+      </li>
+      
+      <li class="navitem">
+      <a  href="<%=path %>fileAction/fileDownLoad.action" >下载体检信息模板</a>
+        <ul class="subnav">
+        </ul>
+      </li>
+	   <li class="navitem">
+      <a  href="<%=path %>fileAction/userUpload.action" >上传体检人员信息</a>
+        <ul class="subnav">
+        </ul>
+      </li>
+      <li class="navitem"><a  href="<%=path %>fileAction/companyStaffList.action" >配置套餐</a>
+        <ul class="subnav">
+        </ul>
+      </li><li class="navitem"><a  href="<%=path%>userLoginAction/jumpLogin.action" >去登陆</a>
+        <ul class="subnav">
+        </ul>
+      </li>
+    </ul>
+    <div class="clear"></div>
+  </div>
+  <a id="headSHBtn" href="javascript:;"><i class="fa fa-bars"></i></a> </div>
 
 
 
-						<li><a href="#">院内新闻</a></li>
 
 
+	<div class="npagePage Pageyemian" id="page_none">
+     <c:forEach items="${compList}" var="comp">
+		<div style="background:url(<%=path%>images/cf.jpg); width: 100%; height: 720px;">
+		    
+			<div id="a" style="margin-top: 150px;">公 &nbsp;司  &nbsp;名:</div>
+			<div id="b" style="margin-top: 150px;">${comp.company}</div>
 
-						<li><a href="#">行业新闻</a></li>
+			<div id="a">公司地址:</div>
+			<div id="b">${comp.address}</div>
 
+			<div id="a">联&nbsp;&nbsp;系&nbsp;人:</div>
+			<div id="b">${comp.contacts}</div>
 
+			<div id="a">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:</div>
+			<div id="b">${comp.phone}</div>
 
-					</ul></li>
-				<li class="navitem"><a href="contact.html">联系我们</a>
+			<div id="a">工&nbsp;商&nbsp;号:</div>
+			<div id="b">${comp.busNum}</div>
 
-					<ul class="subnav">
-					</ul></li>
-
-			</ul>
-
-			<div class="clear"></div>
+			<div id="c"> <span class="layui-btn layui-btn-normal layui-btn-mini"   onclick="upInfo()">修改信息</span></div>
+			<div id="d"><span class="layui-btn layui-btn-normal" onclick="upPws()" >修改密码</span></div>
 
 		</div>
+    </c:forEach>
 
-		<a id="headSHBtn" href="javascript:;"><i class="fa fa-bars"></i></a>
 	</div>
 
 
 
-	<div id="sitecontent">
 
-		<div class="npagePage Pageyemian" id="page_none">
-
-			<div class="content">
-					
-					<!--联系我们-->
-					<div class="contract wrap" style="margin-top: 100px;" align:center>
-						<div class="title">公司信息</div>
-						<div class="contractlist en_contractlist">
-							<div class="row">
-								<form id="fileForm" name="fileform" method="post" action="fileShow.action">
-									<div align="center">
-										<div>
-
-											<table  width="400">
-												<c:forEach items="${compList}" var="comp">
-													<tr>
-														<td align="center">公司名</td>
-														<td align="center">${comp.company}</td>
-													</tr>
-													<tr>
-														<td align="center">公司地址</td>
-														<td align="center">${comp.address}</td>
-													</tr>
-													<tr>
-														<td align="center">联系人</td>
-														<td align="center">${comp.contacts}</td>
-													</tr>
-													<tr>
-														<td align="center">电话</td>
-														<td align="center">${comp.phone}</td>
-													</tr>
-													<tr>
-														<td align="center">工商号</td>
-														<td align="center">${comp.busNum}</td>
-													</tr>
-												</c:forEach>
-
-											</table>
-
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>		
-			</div>
-
-		</div>
-	</div>
 </body>
+<script type="text/javascript">
+function upInfo(){
 
+	window.location.href="<%=path%>myCompAction/toEditCompInfo.action";
+}
+function upPws(){
+
+	window.location.href="<%=path%>myCompAction/toUpPws.action";
+}
+</script>
 </html>

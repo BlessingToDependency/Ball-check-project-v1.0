@@ -130,7 +130,10 @@ function shoppingInfo(){
 <body>
 <div id="header">
 
-  <div class="content"> <a href="/" id="logo"><img src="<%=path%>images/logo.png" height="40" /></a>
+  <div class="content"> 
+  <div style="margin-left: 100px">
+  <a href="/" id="logo"><img src="<%=path%>images/lo.png" height="40" /></a>
+  </div>
     <ul id="nav">
       <li class="navitem"><a  class='active' href="<%=path %>userMainAction/showSetmeal.action">首页</a></li>
       <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action?page=1&startTime=&endTime=&paramId=" >账户</a>
@@ -138,14 +141,8 @@ function shoppingInfo(){
         </ul>
       </li>
       
-       <li class="navitem"><a  href="about.html" >公司简介</a>
-        <ul class="subnav">
-          <li>
-          <a href="<%=path%>myCompAction/selectCompInfo.action"  >公司信息</a>                  
-         </li>
-          <li><a href="<%=path%>myCompAction/toEditCompInfo.action" >编辑公司信息</a></li>
-          <li><a  href="<%=path%>myCompAction/toUpPws.action"">修改密码</a></li>
-        </ul>
+       <li class="navitem"><a  href="<%=path%>myCompAction/selectCompInfo.action"" >公司简介</a>
+  
       </li>
       
       <li class="navitem">
