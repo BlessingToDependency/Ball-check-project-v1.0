@@ -138,20 +138,19 @@
         	});
 			flag = true;
 		}
-		//用户名只能是15位以下的字母或数字
-	/* 	var regExp = new RegExp("^[a-zA-Z0-9_]{1,15}$");
-		if(!regExp.test(username)){
+		
+		if(pwd.length<6){
 			$.pt({
-        		target: $("#login-username"),
+        		target: $("#pwd"),
         		position: 'r',
         		align: 't',
         		width: 'auto',
         		height: 'auto',
-        		content:"用户名必须为15位以下的字母或数字"
+        		content:"密码长度不能小于6位"
         	});
 			flag = true;
-		} */
-		
+
+		}
 		if(flag){
 			return false;
 		}else{//登录
@@ -254,6 +253,19 @@
         	});
 			flag = true;
 		}
+		
+		if(!(/^1[34578]\d{9}$/.test(phone))){
+			$.pt({
+        		target: $("#phone"),
+        		position: 'r',
+        		align: 't',
+        		width: 'auto',
+        		height: 'auto',
+        		content:"请输入正确手机号"
+        	});
+			flag = true;
+		}
+		
 		if(busNum == ""){
 			$.pt({
         		target: $("#busNum"),

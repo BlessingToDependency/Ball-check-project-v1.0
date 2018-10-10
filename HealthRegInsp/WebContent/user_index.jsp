@@ -149,14 +149,8 @@ function shoppingInfo(){
         </ul>
       </li>
       
-       <li class="navitem"><a  href="about.html" >公司简介</a>
-        <ul class="subnav">
-          <li>
-          <a href="<%=path%>myCompAction/selectCompInfo.action"  >公司信息</a>                  
-         </li>
-          <li><a href="<%=path%>myCompAction/toEditCompInfo.action" >编辑公司信息</a></li>
-          <li><a  href="<%=path%>myCompAction/toUpPws.action"">修改密码</a></li>
-        </ul>
+       <li class="navitem"><a  href="<%=path%>myCompAction/selectCompInfo.action"" >公司简介</a>
+  
       </li>
       
       <li class="navitem">

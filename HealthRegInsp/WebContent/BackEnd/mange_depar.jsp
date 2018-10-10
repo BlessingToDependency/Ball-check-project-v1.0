@@ -87,7 +87,7 @@ String path = request.getScheme() +"://"+request.getServerName()
           <a class="prev" href="<%=path%>maDeparAction/selectDe.action?page=${page-1<1?1:page-1}&depa=${depa}">上一页</a>
           <a class="next" href="<%=path%>maDeparAction/selectDe.action?page=${(page+1)<=paNum?page+1:paNum}&depa=${depa}">下一页</a>
           <a class="num" href="<%=path%>maDeparAction/selectDe.action?page=${paNum}&depa=${depa}">末页</a> 
-           <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" />
+           <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off"  onkeyup="this.value=this.value.replace(/\D/gi,'')"/>
            <a class="num" id="linkToCart" onclick="jump();">跳转</a>
           
         </div>

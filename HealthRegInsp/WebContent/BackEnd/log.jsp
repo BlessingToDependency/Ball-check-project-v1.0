@@ -115,7 +115,7 @@
                    <a class="prev" href="<%=path%>logAction/selectAllLog.action?page=${page-1<1?1:page-1}&name=${name}">上一页</a>
                    <a class="next" href="<%=path%>logAction/selectAllLog.action?page=${(page+1)<=paNum?page+1:paNum}&name=${name}">下一页</a>
                    <a class="num" href="<%=path%>logAction/selectAllLog.action?page=${paNum}&name=${name}">末页</a>
-				 <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" />
+				 <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" onkeyup="this.value=this.value.replace(/\D/gi,'')"/>
                 <a class="num" id="linkToCart" onclick="jump();">跳转</a>
 			</div>
 		</div>
