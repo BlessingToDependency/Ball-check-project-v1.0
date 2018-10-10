@@ -152,13 +152,12 @@
 			flag = true;
 		} */
 		
-		/* if(flag){
+		if(flag){
 			return false;
 		}else{//登录
 			//调用后台登录验证的方法
-			alert('登录成功');
-			return false;
-		} */
+			return true;
+		} 
 	}
 	var flag = false;
 	//注册
@@ -412,17 +411,15 @@
 			console.log(msg);
 			alert(msg);
 		}
-		
-	}) 
+	});
 	
 	$(function(){
-		var msg = "${requestScope.get('login')}";
-		if(msg.length > 0){
-			console.log(msg);
-			alert(msg);
+		var login = "${requestScope.get('login')}";
+		if(login.length > 0){
+			console.log(login);
+			alert(login);
 		}
-		
-	}) 
+	}); 
 	
 	
 </script>
@@ -459,7 +456,7 @@ body{
 		<div class="wrapper">
 			<!-- 登录页面 -->
 			<div class="login sign-in-htm">
-				<form class="container offset1 loginform" action="<%=path%>userLoginAction/userLogin.action">
+				<form method="post" class="container offset1 loginform" onSubmit="return login()" action="<%=path%>userLoginAction/userLogin.action">
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="login-owl">
 						<div class="hand"></div>

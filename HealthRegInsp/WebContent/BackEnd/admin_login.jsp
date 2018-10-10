@@ -53,6 +53,7 @@ $(function(){
 	var msg = "${requestScope.get('login')}";
 	if(msg.length > 0){
 		console.log(msg);
+		document.getElementById('null').disabled=true;
 		alert(msg);
 	}
 	
