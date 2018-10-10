@@ -57,7 +57,7 @@ public class UserLoginAction {
 	 */
 
 	@RequestMapping("/userLogin.action")
-	public ModelAndView userLogin(UserBean uBean,String login_username,String login_password) {
+	public ModelAndView userLogin(HttpServletRequest request,UserBean uBean,String login_username,String login_password) {
 		uBean.setCompany(login_username);
 		uBean.setPwd(login_password);
 		userBean = userBizImp.userLogin(uBean);
@@ -66,10 +66,13 @@ public class UserLoginAction {
 			session.setAttribute("userBean", userBean);
 			return new ModelAndView("redirect:/userMainAction/showSetmeal.action");
 		}else {
-			request.setAttribute("login", "登陆失败，账号密码不匹配！");
-			mav.setViewName("user_login.jsp");//登陆失败
+			request.setAttribute("login","登陆失败，账号密码不匹配！");
+//			ModelAndView mav = new ModelAndView("redirect:/user_login.jsp");
+//			mav.addObject("login","登陆失败，账号密码不匹配！");
+			mav.setViewName("user_login");
+			
+			return mav;
 		}
-		return mav;
 	}
 	
 	/*
@@ -77,18 +80,16 @@ public class UserLoginAction {
 	 * 
 	 */
 	@RequestMapping("resetPwd.action")
-	public ModelAndView resetPwd(String companyNick,String industryNum,String passWord) {
+	public ModelAndView resetPwd(HttpServletRequest request,String companyNick,String industryNum,String passWord) {
 		System.out.println(companyNick+industryNum+passWord);
 		int i = userBizImp.resetPwd(companyNick,industryNum,passWord);
 		if(i>0) {
 			request.setAttribute("msg", "重置成功，请登录！");
-			mav.setViewName("user_login.jsp");//登陆失败
+			return new ModelAndView("redirect:/user_login.jsp");
 		}else {
 			request.setAttribute("msg", "重置失败，输入有误！");
-			mav.setViewName("user_login.jsp");//登陆失败
+			return new ModelAndView("redirect:/user_login.jsp");
 		}
-		
-		return mav;
 	}
 	
 	/*

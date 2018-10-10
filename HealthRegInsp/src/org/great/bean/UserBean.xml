@@ -82,8 +82,8 @@
 		
 		<!-- 上传人员后 插入公司账单表 -->
 		<insert id="companyBill">
-			insert into tblbill(BILLID,companyId,ordNum,actCharge,orderTime,payState) 
-			values(tbl_bill.nextVal,#{companyId},0,#{actCharge},(select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') from dual),#{payState})
+			insert into tblbill(BILLID,companyId,ordNum,actnum,actCharge,orderTime,payState) 
+			values(tbl_bill.nextVal,#{companyId},0,0,#{actCharge},(select to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') from dual),#{payState})
 		</insert>
 		
 		<!-- 插入个人账单表 -->

@@ -118,6 +118,7 @@ public class ReportAction {
 		session.setAttribute("orderTime", orderTime);
 		List<StaffBean> guideList = reportBizImp.findGuChId(companyId);
 		System.out.println("guideList:"+guideList.toString());
+		int  i =1;
 		for (Iterator<StaffBean> iterator = guideList.iterator(); iterator.hasNext();) {
 			StaffBean staffBean = (StaffBean) iterator.next();
 			System.out.println("staffBean.getMyGuChId():"+staffBean.getMyGuChId());		
@@ -131,7 +132,8 @@ public class ReportAction {
 				System.out.println("sumSmall:"+sumSmall+"sumOrder:"+sumOrder);
 				System.out.println("名字："+staffBean.getStaffName());
 				if (staffBean.getSmallState()==13) {				
-					if (sumSmall == sumOrder) {				
+					if (sumSmall == sumOrder) {			
+						System.out.println("111111111111重复次数："+i);
 						reportBizImp.setSmall(staffBean.getMyGuChId());
 						
 					}
@@ -241,10 +243,7 @@ public class ReportAction {
 		//少了参数 用户ID？
 		return new ModelAndView("redirect:/Report/showUser.action");		
 	}
-	
-	
-	
-	
+		
 	
 	/**
 	 * @return the currentPage
