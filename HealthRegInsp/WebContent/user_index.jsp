@@ -105,7 +105,7 @@ function shoppingInfo(){
 					$("#shoppingShow").html(strHtml);
 					$("#div_login").html(strBuy);
 				}else{
-					strBuy+="<a href='' id='checkLook' onClick='checkShopp()' class='more redbtn-moddle1' id='btn_popup_login'>"+
+					strBuy+="<a href='' id='checkLook' onClick='checkLook()' class='more redbtn-moddle1' id='btn_popup_login'>"+
 					"<span id='login'>去逛逛</span>"+
 					"</a>";
 					$("#div_login").html(strBuy);
@@ -131,7 +131,7 @@ function shoppingInfo(){
        $("#checkShopp").attr("href","<%=path%>userMainAction/orderDetails.action?cartNumber="+acrtNumber+"&setmealId="+setmealId+"");
    };
 
-   function checkShopp(){
+   function checkLook(){
 		  
        //设置linkToCart的href的值
        $("#checkLook").attr("href","<%=path%>userMainAction/showSetmeal.action");

@@ -77,10 +77,10 @@ function shoppingInfo(){
 		dataType:"json",
 		type:"POST",
 		success : function(a){
-			if(null != a || "" != a){
+			if(null != a  && "null" != a){
 				 var strHtml="";
 				 var strBuy="";
-				 
+				if("" != a){
 					$.each(a, function(i, item) {
 						strHtml+="<li class='clearfix' data-url=''>"+
 						"<input type='checkbox' class='checkbox_c' name='checkbox_c_Name' data-url='' checked='checked'>"+
@@ -93,19 +93,23 @@ function shoppingInfo(){
 						"<a href='javascript:void(0)' class='del_pro_btn' onClick=''>删除</a>"+
 						"</div>"+
 						"<div class='amount_btn clearfix'>"+
-						"<input type='text' id='acrtNumber' value='"+item.acrtNumber+"'  onBlur='isDigit(this)' class='spinnerExample'>"+
+						"<input type='text' oninput = 'value=value.replace(/[^\d]/g,'')' id='acrtNumber'  value='"+item.acrtNumber+"'  onBlur='isDigit(this)' class='spinnerExample'>"+
 						"<input type='hidden' id='setmealId' value='"+item.setmealId+"'>"+
 						"</div>"+
 					"</li>";
-					
 					});
-					var acrtNumber = $("#acrtNumber").val();
-					var setmealId = $("#setmealId").val();
-					strBuy+="<a href='<%=path%>userMainAction/orderDetails.action?acrtNumber='acrtNumber'&setmealId='setmealId'' class='more redbtn-moddle1' id='btn_popup_login'>"+
+					
+					strBuy+="<a href='' id='checkShopp' onClick='checkShopp()' class='more redbtn-moddle1' id='btn_popup_login'>"+
 						"<span id='login'>去购买</span>"+
 						"</a>";
 					$("#shoppingShow").html(strHtml);
 					$("#div_login").html(strBuy);
+				}else{
+					strBuy+="<a href='' id='checkLook' onClick='checkLook()' class='more redbtn-moddle1' id='btn_popup_login'>"+
+					"<span id='login'>去逛逛</span>"+
+					"</a>";
+					$("#div_login").html(strBuy);
+				}
 			}else{
 				var strLogin="";
 				strLogin+="<a href='<%=path%>userLoginAction/jumpLogin.action' class='more redbtn-moddle1' id='btn_popup_login'>"+
@@ -115,7 +119,23 @@ function shoppingInfo(){
 			}
 		}
 	});
-}
+};
+
+    //点击链接的时候调用
+   function checkShopp(){
+	  
+	   var acrtNumber = $("#acrtNumber").val();
+		var setmealId = $("#setmealId").val();
+		
+       //设置linkToCart的href的值
+       $("#checkShopp").attr("href","<%=path%>userMainAction/orderDetails.action?cartNumber="+acrtNumber+"&setmealId="+setmealId+"");
+   };
+
+   function checkLook(){
+		  
+       //设置linkToCart的href的值
+       $("#checkLook").attr("href","<%=path%>userMainAction/showSetmeal.action");
+   };
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
