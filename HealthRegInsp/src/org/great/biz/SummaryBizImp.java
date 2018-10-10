@@ -27,7 +27,7 @@ public class SummaryBizImp implements ISummaryBiz {
 	//获得对应项目体检的人员列表
 	@Override
 	public List<StaffBean> getSummaryList(HttpServletRequest request,SumCon sunCon) {
-		//得到登录对象信息
+/*		//得到登录对象信息
 		AdminBean adminBean = (AdminBean) request.getSession().getAttribute("adminBean");
 		//得到对应的科室Id
 		int depaId = adminBean.getDepaId();
@@ -35,6 +35,24 @@ public class SummaryBizImp implements ISummaryBiz {
 		//得到了该项目还未做小结的导检单列表
 		List<StaffBean> guChList = iSummaryMapper.getThisItemStaff(sunCon);
 		
+		List<StaffBean> List = new ArrayList<StaffBean>();
+		for(int i =0;i<guChList.size();i++) {
+			StaffBean stb = guChList.get(i);
+			//得到该用户的导检单号
+			String ch = stb.getMyGuChId();
+			//根据导检单号和科室id查询该用户是否已经小结过了
+			String x = iSummaryMapper.xiaoJie(ch, depaId);
+			if(x==null) {
+				List.add(stb);
+			}
+		}*/
+		//得到登录对象信息
+		AdminBean adminBean = (AdminBean) request.getSession().getAttribute("adminBean");
+		//得到对应的科室Id
+		int depaId = adminBean.getDepaId();
+		sunCon.setDepaId(depaId);
+		//得到了该项目还未做小结的导检单列表
+		List<StaffBean> guChList = iSummaryMapper.getThisItemStaff(sunCon);
 		List<StaffBean> List = new ArrayList<StaffBean>();
 		for(int i =0;i<guChList.size();i++) {
 			StaffBean stb = guChList.get(i);

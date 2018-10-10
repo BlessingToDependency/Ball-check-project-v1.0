@@ -32,9 +32,10 @@ String path = request.getScheme() +"://"+request.getServerName()
       <span class="layui-breadcrumb">
      <button class="layui-btn layui-btn-warm" onclick="javascript:history.back(-1)">返回</button>
       </span>
-      <button id="dy" name="name" onclick="daying();">打印</button>
+      <img alt="dyj" src="<%=path%>images/dyj.png" onclick="daying();">
+ <!--      //<button id="dy" name="name" onclick="daying();">打印</button> -->
     </div>
-    <div class="x-body">       
+    <div class="x-body" id="dadad">       
       <xblock>
         <span class="x-right" style="line-height:40px"></span>
       </xblock>
@@ -49,7 +50,8 @@ String path = request.getScheme() +"://"+request.getServerName()
 								<td >
 								<div id="div">
 									<div>团    体： ${staffBean.userBean.company}</div>
-								    <div>团体序号： ${staffBean.companyId} 	&nbsp;&nbsp;&nbsp;&nbsp;  体检号码：${staffBean.myGuChId}      </div>
+								    <div>团体序号： ${staffBean.companyId} </div>
+								    <div>体检号码：${staffBean.myGuChId}        </div>
     								<div>姓    名：${staffBean.staffName}    	&nbsp;&nbsp;&nbsp;&nbsp;  性    别：${staffBean.sex}     </div>
    									<div>年    龄： ${staffBean.age}   	&nbsp;&nbsp;&nbsp;&nbsp; 手    机：${staffBean.phone}     </div>
    								</div>  	  
@@ -243,7 +245,14 @@ function jump(){
 
 //启用弹窗确认
 function daying(){
-	document.execCommand("print");
+		 var sText = document.getSelection().toString();
+		/*  var obj = document.execCommand("insertHTML",false, "<div class='x-body' id='dadad'>" + sText + "</div>"); */
+		var obj = document.getElementById("dadad");
+		var newStr = obj.outerHTML;  
+		 var oldStr = document.body.innerHTML;  
+		 document.body.innerHTML = newStr;  
+		 document.execCommand("print");
+		 document.body.innerHTML = oldStr; 
 }
 
 

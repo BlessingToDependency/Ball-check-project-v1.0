@@ -83,9 +83,9 @@ public class SummaryAction {
 		//展示的列表
 		request.setAttribute("thisItemlist", thisItemlist);
 		//当前页数
-		request.setAttribute("pageNo", page);
+		request.setAttribute("pageNo", 1);
 		//总的页数
-		request.setAttribute("AllPage", AllPage);
+		request.setAttribute("AllPage", 1);
 		//总的记录数
 		request.setAttribute("allRecord", allRecord);
 		
