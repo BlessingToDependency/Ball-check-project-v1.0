@@ -1,7 +1,10 @@
 package org.great.tools;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
@@ -41,24 +44,36 @@ public class AlipayUtil {
 		return result;
 	}
 	
-	public static String refund(HttpServletResponse response,String money,String orderId,String info,String signId) throws AlipayApiException {
+	public static String refund(HttpServletResponse response,String money,String orderId,String info,String signId) throws AlipayApiException, UnsupportedEncodingException {
 		
-		//获得初始化的AlipayClient
-		AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
-		
-		//设置请求参数
+		//获得初始化的AlipayClient		
+		AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);				
+		//设置请求参数		
 		AlipayTradeRefundRequest alipayRequest = new AlipayTradeRefundRequest();
-		
+
 		alipayRequest.setBizContent("{\"out_trade_no\":\""+ orderId +"\"," 				
 				+ "\"refund_amount\":\""+ money +"\"," 
 				+ "\"refund_reason\":\""+ info +"\"," 
 				+ "\"out_request_no\":\""+ signId +"\"}");
 		
-		//请求
+		//请求并获取返回过来的消息
 		String result = alipayClient.execute(alipayRequest).getBody();
 		
-		//返回
-	    return result;
+		
+		//把从请求过来的消息，转换为json数据		
+		JSONObject resultJsonAll = JSONObject.parseObject(result);	
+		System.out.println(resultJsonAll);
+		JSONObject results = JSONObject.parseObject(resultJsonAll.getString("alipay_trade_refund_response"));				
+		System.out.println(results);
+		//获取退款消息		
+		String mess = results.getString("msg");			
+		//如果返回过来的消息等于Success 则调用退款接口成功		
+		if("Success".equals(mess)) {			
+			return "退款成功!";		
+			}else {			
+			return "退款失败!";		
+		}	
+
 	}
 }
 

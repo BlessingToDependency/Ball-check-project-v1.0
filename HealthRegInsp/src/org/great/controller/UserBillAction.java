@@ -235,7 +235,7 @@ public class UserBillAction {
 		}else {
 			
 		}
-		mav.setViewName("FrontEnd/user_index");
+		mav.setViewName("user_index");
 		return mav;
 	}
 }

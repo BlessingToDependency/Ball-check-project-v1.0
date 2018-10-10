@@ -279,8 +279,8 @@ public class MangeDoctorAction {
     	  
     		PrintWriter out = response.getWriter();
     		String msg;
-    		if(adList.size()>0) {
-    			msg="手机号已被使用";
+    		if(adList.size()>0||ph==null||"".equals(ph)) {
+    			msg="不可用手机号";
     			
     		}else {
     			msg="可用手机号";
@@ -307,8 +307,8 @@ public class MangeDoctorAction {
   	   
  		PrintWriter out = response.getWriter();
  		String msg;
- 		if(adList.size()>0) {
- 			msg="您已注册";
+ 		if(adList.size()>0||idu==null||"".equals(idu)) {
+ 			msg="不可用身份证";
  			
  		}else {
  			msg="可用身份证";
