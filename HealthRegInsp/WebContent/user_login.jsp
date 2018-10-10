@@ -139,19 +139,9 @@
 			flag = true;
 		}
 		
-		if(pwd.length<6){
-			$.pt({
-        		target: $("#pwd"),
-        		position: 'r',
-        		align: 't',
-        		width: 'auto',
-        		height: 'auto',
-        		content:"密码长度不能小于6位"
-        	});
-			flag = true;
-		}
-
+		
 	}
+	
 	var flag = false;
 	//注册
 	function register(){
@@ -177,6 +167,18 @@
         		width: 'auto',
         		height: 'auto',
         		content:"用户名不能为空"
+        	});
+			flag = true;
+		}
+		
+		if(pwd.length<6){
+			$.pt({
+        		target: $("#pwd"),
+        		position: 'r',
+        		align: 't',
+        		width: 'auto',
+        		height: 'auto',
+        		content:"密码长度不能小于6位"
         	});
 			flag = true;
 		}
