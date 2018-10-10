@@ -90,7 +90,9 @@
 
 <style type="text/css">
  .setb{
+
     background:url(<%=path%>images/cf.jpg);
+
     height:800px;
     width:1500px;
     margin-top: 50px;
@@ -102,6 +104,7 @@
 <div id="header">
 
   <div class="content">
+
   <div style="margin-left: 100px">
    <a href="/" id="logo"><img src="<%=path%>images/lo.png" height="40" /></a>
   </div>
@@ -121,6 +124,8 @@
         <ul class="subnav">
         </ul>
       </li>
+
+  
 	   <li class="navitem">
       <a  href="<%=path %>fileAction/userUpload.action" >上传体检人员信息</a>
         <ul class="subnav">

@@ -100,6 +100,9 @@ public class UserCheckOut {
 			
 			refundBizImp.updateRefund(145, refundId);
 			
+			System.out.println("111111");
+			System.out.println(result);
+			
 			request.getRequestDispatcher("/FrontEnd/bill.jsp").forward(request,response);
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block

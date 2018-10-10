@@ -77,10 +77,10 @@ function shoppingInfo(){
 		dataType:"json",
 		type:"POST",
 		success : function(a){
-			if(null != a || "" != a){
+			if(null != a  && "null" != a){
 				 var strHtml="";
 				 var strBuy="";
-				 
+				if("" != a){
 					$.each(a, function(i, item) {
 						strHtml+="<li class='clearfix' data-url=''>"+
 						"<input type='checkbox' class='checkbox_c' name='checkbox_c_Name' data-url='' checked='checked'>"+
@@ -104,6 +104,12 @@ function shoppingInfo(){
 						"</a>";
 					$("#shoppingShow").html(strHtml);
 					$("#div_login").html(strBuy);
+				}else{
+					strBuy+="<a href='' id='checkLook' onClick='checkLook()' class='more redbtn-moddle1' id='btn_popup_login'>"+
+					"<span id='login'>去逛逛</span>"+
+					"</a>";
+					$("#div_login").html(strBuy);
+				}
 			}else{
 				var strLogin="";
 				strLogin+="<a href='<%=path%>userLoginAction/jumpLogin.action' class='more redbtn-moddle1' id='btn_popup_login'>"+
@@ -125,6 +131,11 @@ function shoppingInfo(){
        $("#checkShopp").attr("href","<%=path%>userMainAction/orderDetails.action?cartNumber="+acrtNumber+"&setmealId="+setmealId+"");
    };
 
+   function checkLook(){
+		  
+       //设置linkToCart的href的值
+       $("#checkLook").attr("href","<%=path%>userMainAction/showSetmeal.action");
+   };
 </script>
 </head>
 <body>

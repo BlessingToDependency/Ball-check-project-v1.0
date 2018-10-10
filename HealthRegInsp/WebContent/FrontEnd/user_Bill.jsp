@@ -75,7 +75,7 @@ String path = request.getScheme() +"://"+request.getServerName()
                     html+="<div class='layui-form-item'><label class='layui-form-label'>"+reData.money+"</label><div class='layui-input-block'></div>"
                   
                     var html2="";              
-                    html2+=" <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>";
+                    html2+="<button type='button' class='btn btn-default' data-dismiss='modal' onClick='refresh()'>关闭</button>";
                     
                     $("#authorityBody").empty().append(html); 
                     $("#perbutton").empty().append(html2);
@@ -84,6 +84,9 @@ String path = request.getScheme() +"://"+request.getServerName()
             }	   
     });
 		}
+	function refresh(){
+		location.reload();
+	}
 	</script>
 </head>
 <body>
