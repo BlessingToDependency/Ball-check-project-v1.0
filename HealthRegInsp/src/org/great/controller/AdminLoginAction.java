@@ -81,7 +81,7 @@ public class AdminLoginAction {
 		}else {
 			System.out.println("登陆失败");
 			request.setAttribute("login", "登陆失败，账号密码不匹配！");
-			return new ModelAndView("redirect:/admin_login.jsp");
+			return new ModelAndView("redirect:/BackEnd/admin_login.jsp");
 		}
 		return mav;
 	}
