@@ -75,11 +75,15 @@ public class MyCompAction {
 	public ModelAndView  selectCompInfo() {
 		
 		UserBean userBean=(UserBean) session.getAttribute("userBean");
+		
+		if(userBean==null) {
+			return new ModelAndView("redirect:/user_login.jsp");
+		}else {
+		
 		String componey=userBean.getCompany();
-		//String componey="公司";
 		List<UserBean> compList=userBizImp.selectCompInfo(componey);
 		session.setAttribute("compList", compList);
-		mav.setViewName("FrontEnd/company_Info");
+		mav.setViewName("FrontEnd/company_Info");}
 		return mav;
 	}
 	

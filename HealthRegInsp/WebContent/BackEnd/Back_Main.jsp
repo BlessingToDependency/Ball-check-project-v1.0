@@ -25,13 +25,10 @@ String path = request.getScheme() +"://"+request.getServerName()
 			<div class="indexL" id="a">
 				 <img class="indexBn" src="<%=path %>images/ba1.png"  width="100%"/><br> 
 
-			<div class="indexL">
-				<img class="indexBn" src="images/ba1.png" /><br>
-
-				
-			</div>
+		
 			<!-- main页面样式end -->
 		</div>
+	</div>
 	</div>
 </body>
 </html>
