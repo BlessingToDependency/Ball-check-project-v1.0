@@ -90,7 +90,9 @@
 
 <style type="text/css">
  .setb{
-   background-color: #9FF;
+
+    background:url(<%=path%>images/cf.jpg);
+
     height:800px;
     width:1500px;
     margin-top: 50px;
@@ -102,6 +104,10 @@
 <div id="header">
 
   <div class="content">
+
+  <div style="margin-left: 100px">
+   <a href="/" id="logo"><img src="<%=path%>images/lo.png" height="40" /></a>
+  </div>
     <ul id="nav">
       <li class="navitem"><a  class='active' href="<%=path %>userMainAction/showSetmeal.action">首页</a></li>
       <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action" >我的账户</a>
@@ -118,6 +124,8 @@
         <ul class="subnav">
         </ul>
       </li>
+
+  
 	   <li class="navitem">
       <a  href="<%=path %>fileAction/userUpload.action" >上传体检人员信息</a>
         <ul class="subnav">
@@ -137,7 +145,7 @@
 
 
 
- <div class="setb" >
+ <div class="setb" id="setb" >
   <form  method="post" action="<%=path%>/myCompAction/updateUserPws.action" class="layui-form">
    <div   >
               <label for="L_pass" style="padding-top: 60px; padding-left: 700px ; margin-top: 50px">

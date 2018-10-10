@@ -53,6 +53,9 @@
 <div id="header">
 
   <div class="content">
+
+   <a href="/" id="logo"><img src="<%=path%>images/lo.png" height="40" /></a>
+
     <ul id="nav">
       <li class="navitem"><a  class='active' href="<%=path %>userMainAction/showSetmeal.action">首页</a></li>
       <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action" >我的账户</a>
@@ -89,7 +92,10 @@
 
 
  
+  <div id="a" style=" background:url(<%=path%>images/cf.jpg); width: 100%; height: 720px; margin-top: 50px">
+
   <div id="a" style="background-color: #9FF; width: 100%; height: 720px; margin-top: 50px">
+
  
   <form  method="post" action="<%=path%>myCompAction/EditCompInfo.action" class="layui-form" enctype="multipart/form-data">
          

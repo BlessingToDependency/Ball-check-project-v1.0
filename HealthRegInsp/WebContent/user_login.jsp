@@ -139,25 +139,9 @@
 			flag = true;
 		}
 		
-		if(pwd.length<6){
-			$.pt({
-        		target: $("#pwd"),
-        		position: 'r',
-        		align: 't',
-        		width: 'auto',
-        		height: 'auto',
-        		content:"密码长度不能小于6位"
-        	});
-			flag = true;
-
-		}
-		if(flag){
-			return false;
-		}else{//登录
-			//调用后台登录验证的方法
-			return true;
-		} 
+		
 	}
+	
 	var flag = false;
 	//注册
 	function register(){
@@ -183,6 +167,18 @@
         		width: 'auto',
         		height: 'auto',
         		content:"用户名不能为空"
+        	});
+			flag = true;
+		}
+		
+		if(pwd.length<6){
+			$.pt({
+        		target: $("#pwd"),
+        		position: 'r',
+        		align: 't',
+        		width: 'auto',
+        		height: 'auto',
+        		content:"密码长度不能小于6位"
         	});
 			flag = true;
 		}
@@ -423,15 +419,17 @@
 			console.log(msg);
 			alert(msg);
 		}
-	});
+		
+	}) 
 	
 	$(function(){
-		var login = "${requestScope.get('login')}";
-		if(login.length > 0){
-			console.log(login);
-			alert(login);
+		var msg = "${requestScope.get('login')}";
+		if(msg.length > 0){
+			console.log(msg);
+			alert(msg);
 		}
-	}); 
+		
+	}) 
 	
 	
 </script>
@@ -468,7 +466,7 @@ body{
 		<div class="wrapper">
 			<!-- 登录页面 -->
 			<div class="login sign-in-htm">
-				<form method="post" class="container offset1 loginform" onSubmit="return login()" action="<%=path%>userLoginAction/userLogin.action">
+				<form class="container offset1 loginform" action="<%=path%>userLoginAction/userLogin.action">
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="login-owl">
 						<div class="hand"></div>
@@ -632,3 +630,4 @@ body{
 </div>
 </body>
 </html>
+

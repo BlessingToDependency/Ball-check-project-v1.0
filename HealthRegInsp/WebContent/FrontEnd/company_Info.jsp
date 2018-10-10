@@ -120,6 +120,11 @@
 <div id="header">
 
   <div class="content"> 
+
+    <div style="margin-left: 100px">
+       <a href="/" id="logo"><img src="<%=path%>images/lo.png" height="40" /></a>
+  </div>
+
     <ul id="nav">
       <li class="navitem"><a  class='active' href="<%=path %>userMainAction/showSetmeal.action">首页</a></li>
       <li class="navitem"><a  href="<%=path %>userBillAction/billInfo.action" >我的账户</a>
@@ -159,7 +164,12 @@
 
 	<div class="npagePage Pageyemian" id="page_none">
      <c:forEach items="${compList}" var="comp">
+
+		<div style="background:url(<%=path%>images/cf.jpg); width: 100%; height: 720px;">
+		    
+
 		<div style="background-color: #9FF; width: 100%; height: 720px;">
+
 			<div id="a" style="margin-top: 150px;">公 &nbsp;司  &nbsp;名:</div>
 			<div id="b" style="margin-top: 150px;">${comp.company}</div>
 
