@@ -378,7 +378,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 
                 <iframe src='<%=path%>adminLoginAction/toshow.action' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
 
-                <iframe src='BackEnd/Back_Main.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+               
 
             </div>
           </div>

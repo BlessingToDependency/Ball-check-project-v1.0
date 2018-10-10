@@ -166,9 +166,7 @@
      <c:forEach items="${compList}" var="comp">
 
 		<div style="background:url(<%=path%>images/cf.jpg); width: 100%; height: 720px;">
-		    
-
-		<div style="background-color: #9FF; width: 100%; height: 720px;">
+	
 
 			<div id="a" style="margin-top: 150px;">公 &nbsp;司  &nbsp;名:</div>
 			<div id="b" style="margin-top: 150px;">${comp.company}</div>

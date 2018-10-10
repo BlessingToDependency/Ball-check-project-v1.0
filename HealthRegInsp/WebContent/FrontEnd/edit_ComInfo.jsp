@@ -94,7 +94,7 @@
  
   <div id="a" style=" background:url(<%=path%>images/cf.jpg); width: 100%; height: 720px; margin-top: 50px">
 
-  <div id="a" style="background-color: #9FF; width: 100%; height: 720px; margin-top: 50px">
+ 
 
  
   <form  method="post" action="<%=path%>myCompAction/EditCompInfo.action" class="layui-form" enctype="multipart/form-data">
