@@ -92,7 +92,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 <body>
  <div class="x-nav">
       <span class="layui-breadcrumb">
-        <a href="<%=path%>FrontEnd/user_index.jsp">首页</a>
+        <a href="<%=path%>user_index.jsp">首页</a>
         <a href="">演示</a>
         <a>
           <cite>导航元素</cite></a>
