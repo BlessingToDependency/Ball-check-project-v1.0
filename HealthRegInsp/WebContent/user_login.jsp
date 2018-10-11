@@ -430,7 +430,11 @@
 		}
 		
 	}) 
-	
+	function getCode(){
+			//得到图片对象
+			var image =document.getElementById("imgCode")
+			image.src = "<%=path %>userLoginAction/imageCode.action?"+Math.random();
+		}
 	
 </script>
 <style type="text/css">
@@ -466,7 +470,7 @@ body{
 		<div class="wrapper">
 			<!-- 登录页面 -->
 			<div class="login sign-in-htm">
-				<form class="container offset1 loginform" action="<%=path%>userLoginAction/userLogin.action">
+				<form method="post" class="container offset1 loginform" action="<%=path%>userLoginAction/userLogin.action">
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="login-owl">
 						<div class="hand"></div>
@@ -489,6 +493,18 @@ body{
 							<span class="input input--hideo">
 								<input class="input__field input__field--hideo" type="password" id="login-password" name="login_password" placeholder="请输入密码" tabindex="2" maxlength="15"/>
 								<label class="input__label input__label--hideo" for="login-password">
+									<i class="fa fa-fw fa-lock icon icon--hideo"></i>
+									<span class="input__label-content input__label-content--hideo"></span>
+								</label>
+							</span>
+							
+							<span class="input input--hideo">
+							<img src="<%=path %>userLoginAction/imageCode.action" id="imgCode" onClick="getCode()" />
+							</span>
+							
+							<span class="input input--hideo">
+								<input class="input__field input__field--hideo" type="text" id="imageCode" name="imageCode" placeholder="请输入验证码" tabindex="2" maxlength="15"/>
+								<label class="input__label input__label--hideo" for="login-username">
 									<i class="fa fa-fw fa-lock icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
