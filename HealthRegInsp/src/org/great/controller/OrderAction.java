@@ -142,7 +142,7 @@ public class OrderAction {
 			oderBizImp.deleteOrder(dataId);
 		}
 		//model.addAttribute("itemList",itemList);	
-		attr.addAttribute("setmeal", setmeal);
+	//	attr.addAttribute("setmeal", setmeal);
 		System.out.println("setmeal:"+setmeal);
 		return   new ModelAndView("redirect:/Order/showOrder.action");
 	}
@@ -176,7 +176,7 @@ public class OrderAction {
 		myPic.transferTo(new File(root+"/"+filename));
 		oderBizImp.addOrder(setmealBean, filename);
 			
-		return new ModelAndView("redirect:/Order/showItem.action");		
+		return new ModelAndView("redirect:/Order/showOrder.action");		
 	}
 	
 	//套餐除重名

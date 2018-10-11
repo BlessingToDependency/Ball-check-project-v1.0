@@ -63,6 +63,18 @@ public class StatisticsAction {
 	@Resource
 	private StatisitcBiz  statisitcBizImp;
 	
+	
+	
+	@RequestMapping("/showBar.action")
+	public String showBar(){
+		
+		return "BackEnd/admin_bargraph";		
+	}
+	
+	
+	
+	
+	
 	//计算一周的注册人数
 	@RequestMapping("/showWeek.action")
 	@ResponseBody

@@ -61,7 +61,7 @@ $(document).ready(function(){
         async:false,
         success: function (data) {
         	console.log(data);
-        	alert(data)
+
         	SetOption(data);
            /*  var str = "";
            
