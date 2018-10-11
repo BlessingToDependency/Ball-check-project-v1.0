@@ -498,9 +498,7 @@ body{
 								</label>
 							</span>
 							
-							<span class="input input--hideo">
-							<img src="<%=path %>userLoginAction/imageCode.action" id="imgCode" onClick="getCode()" />
-							</span>
+							
 							
 							<span class="input input--hideo">
 								<input class="input__field input__field--hideo" type="text" id="imageCode" name="imageCode" placeholder="请输入验证码" tabindex="2" maxlength="15"/>
@@ -508,6 +506,9 @@ body{
 									<i class="fa fa-fw fa-lock icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
+							</span>
+							<span class="input input--hideo">
+							<img height="50" width="150"  src="<%=path %>userLoginAction/imageCode.action" id="imgCode" onClick="getCode()" />
 							</span>
 						</section>
 					</div>

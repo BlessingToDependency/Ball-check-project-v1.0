@@ -229,7 +229,7 @@ function shoppingInfo(){
             <div class="wrapper">
               <ul class="content_list" data-options-sliders="8" data-options-margin="15" data-options-ease="1" data-options-speed="1">
 <!-- ------------------------ -->
-
+<%-- 
              <c:forEach items="${setList }" var="setmealBean">
                 <li id="projectitem_0" class="projectitem wow"> 
                 <a href="<%=path %>userMainAction/showSetmeal.action?setmealId=${setmealBean.setmealId}" class="projectitem_content" target="_self">
@@ -251,11 +251,89 @@ function shoppingInfo(){
                  </div> 
                 </a> 
               </li>
-           </c:forEach>
+           </c:forEach> --%>
 
+				<li id="projectitem_7" class="projectitem wow"> <a href="<%=path %>userMainAction/showSetmeal.action?setmealId=1" class="projectitem_content" target="_blank">
 
+                  <div class="projectitem_wrapper">
 
-<!-- ----------------------------- -->
+                    <div class="project_img"> <img src="<%=path %>images/套餐A.jpg" width="650" height="385" /> </div>
+
+                    <div class="project_info">
+
+                      <div>
+
+                        <p class="title">套餐A</p>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  </a> </li>
+                  
+                 <!--  ------B套餐--------- -->
+                  <li id="projectitem_7" class="projectitem wow"> <a href="<%=path %>userMainAction/showSetmeal.action?setmealId=2" class="projectitem_content" target="_blank">
+
+                  <div class="projectitem_wrapper">
+
+                    <div class="project_img"> <img src="<%=path %>images/套餐B.jpg" width="650" height="385" /> </div>
+
+                    <div class="project_info">
+
+                      <div>
+
+                        <p class="title">套餐B</p>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  </a> </li>
+                  
+                 <!--  -----c套餐----- -->
+<li id="projectitem_7" class="projectitem wow"> <a href="<%=path %>userMainAction/showSetmeal.action?setmealId=3" class="projectitem_content" target="_blank">
+
+                  <div class="projectitem_wrapper">
+
+                    <div class="project_img"> <img src="<%=path %>images/套餐C.jpg" width="650" height="385" /> </div>
+
+                    <div class="project_info">
+
+                      <div>
+
+                        <p class="title">套餐C</p>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  </a> </li>
+<!-- ------------------d套餐----------- -->
+<li id="projectitem_7" class="projectitem wow"> <a href="<%=path %>userMainAction/showSetmeal.action?setmealId=4" class="projectitem_content" target="_blank">
+
+                  <div class="projectitem_wrapper">
+
+                    <div class="project_img"> <img src="<%=path %>images/套餐E.jpg" width="650" height="385" /> </div>
+
+                    <div class="project_info">
+
+                      <div>
+
+                        <p class="title">套餐E</p>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  </a> </li>
               </ul>
             </div>
 
