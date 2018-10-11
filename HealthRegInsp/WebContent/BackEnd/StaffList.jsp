@@ -99,13 +99,16 @@ String path = request.getScheme() +"://"+request.getServerName()
 			    <td>${list.phone}</td>
 			    <c:if test="${list.printGuCh==122}">
 			      <td><span style="color: orange;">未开单</span></td>
+			       <td class="td-status">
+                   <span class="layui-btn layui-btn-danger" style="width:80px;" onclick="openBill(${list.staffId});">开单</span>
+	               </td>
 			    </c:if>
 			     <c:if test="${list.printGuCh==123}">
 			      <td>已开单</td>
-			    </c:if>
-	       	   <td class="td-status">
-                <span class="layui-btn layui-btn-danger" style="width:80px;" onclick="openBill(${list.staffId});">开单</span>
+			       <td class="td-status">
+                <span class="layui-btn layui-btn-disabled" style="width:80px;">开单</span>
 	           </td>
+			    </c:if>
 			</tr>
 			</c:forEach>
         </tbody>
@@ -160,7 +163,7 @@ $(document).ready(function(){
 
         var data = tableCheck.getData();
   
-        layer.confirm('确认要吗？'+data,function(index){
+        layer.confirm('确认批量开单吗？',function(index){
         	//年份
         	var partYear=document.getElementById("partYear").value;
         	if(partYear==0){
