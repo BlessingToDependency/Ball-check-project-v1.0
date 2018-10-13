@@ -64,7 +64,7 @@ String path = request.getScheme() +"://"+request.getServerName()
     
       <xblock>
 <!--         <button class="layui-btn layui-btn-normal" onclick="delAll()"><i class="layui-icon"></i>批量删除</button> -->
-        <span class="x-right" style="line-height:40px">共有数据:${allRecord}条</span>
+        <span class="x-right" style="line-height:40px">
       </xblock>
       <table class="layui-table">
         <thead>

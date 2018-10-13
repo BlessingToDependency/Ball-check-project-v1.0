@@ -113,7 +113,7 @@
 	    </insert>
 	    
 	    <update id="updateNewGuChid">
-	    update TBLSTAFF set myGuChId=#{myGuChId},EXAMTIME=#{time},SMALLSTATE=14 where STAFFID=#{staffId}
+	    update TBLSTAFF set myGuChId=#{myGuChId},EXAMTIME=#{time} where STAFFID=#{staffId}
 	    </update>
 	    
 	    <update id="updatePrint">
