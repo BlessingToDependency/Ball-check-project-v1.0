@@ -75,7 +75,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 			   <td>${list.sex}</td>
 			   <td>${list.idNum}</td>
 			   <td>${list.phone}</td>
-			   <td>${list.myGuChId} ${list.smallState}</td>
+			   <td>${list.myGuChId} </td>
 	       	     <c:if test="${list.smallState==13}">
 	       	      <td class="td-status">	             
 				   未完成	

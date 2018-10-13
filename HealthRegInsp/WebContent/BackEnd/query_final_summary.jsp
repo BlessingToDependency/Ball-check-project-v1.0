@@ -33,9 +33,12 @@ String path = request.getScheme() +"://"+request.getServerName()
      <button class="layui-btn layui-btn-warm" onclick="javascript:history.back(-1)">返回</button>
       </span>
       <img alt="dyj" src="<%=path%>images/dyj.png" onclick="daying();">
+     <%--   111<img alt="dyj" src="<%=path%>images/dyj.png" onclick="print();"> --%>
+       <!--   <button id="dy" name="name" onclick="print2();">打印</button>  -->
  <!--      //<button id="dy" name="name" onclick="daying();">打印</button> -->
     </div>
-    <div class="x-body" id="dadad">       
+    <div class="x-body" id="dadad">  
+    <!--startprint-->     
       <xblock>
         <span class="x-right" style="line-height:40px"></span>
       </xblock>
@@ -177,7 +180,7 @@ String path = request.getScheme() +"://"+request.getServerName()
 						</tr>					
 					</table>  
 
-
+	<!--endprint-->
     </div>
 </body>
  <script type="text/javascript" src="<%=path%>js/jquery.min.js"></script>
@@ -247,13 +250,39 @@ function jump(){
 function daying(){
 		 var sText = document.getSelection().toString();
 		/*  var obj = document.execCommand("insertHTML",false, "<div class='x-body' id='dadad'>" + sText + "</div>"); */
-		var obj = document.getElementById("dadad");
-		var newStr = obj.outerHTML;  
+		 var obj = document.getElementById("dadad");
+		 var newStr = obj.outerHTML;  
 		 var oldStr = document.body.innerHTML;  
 		 document.body.innerHTML = newStr;  
 		 document.execCommand("print");
 		 document.body.innerHTML = oldStr; 
 }
+
+function print(){
+
+	var bdhtml=window.document.body.innerHTML;//获取当前页的html代码 
+	var startStr="<!--startprint-->";//设置打印开始区域 
+	var endStr="<!--endprint-->";//设置打印结束区域 
+	var printHtml=bdhtml.substring(bdhtml.indexOf(startStr)+startStr.length,bdhtml.indexOf(endStr));//从标记里获取需要打印的页面 
+	window.document.body.innerHTML=printHtml;//需要打印的页面 
+	window.print(); 
+//	document.execCommand("print");
+	window.document.body.innerHTML=bdhtml;//还原界面 
+	location.reload();
+}
+
+
+function print2(){
+	var bdhtml=window.document.body.innerHTML;//获取当前页的html代码 
+	var startStr="<!--startprint-->";//设置打印开始区域 
+	var endStr="<!--endprint-->";//设置打印结束区域 
+	var printHtml=bdhtml.substring(bdhtml.indexOf(startStr)+startStr.length,bdhtml.indexOf(endStr));//从标记里获取需要打印的页面 
+	window.document.body.innerHTML=printHtml;//需要打印的页面 
+	window.print(); 
+	window.document.body.innerHTML=bdhtml;//还原界面 
+	location.reload();
+}
+
 
 
 //启用弹窗确认
