@@ -43,7 +43,9 @@ public class LogAction {
 		
 		String page=request.getParameter("page");
 		String name=request.getParameter("name");
-		logBean.setName(name);
+		String module=request.getParameter("module");
+		String method=request.getParameter("method");
+	
 		 int pageNo=-1;
 			if(null==page||"".equals(page)) {
 				pageNo =1;
@@ -74,6 +76,9 @@ public class LogAction {
 		mav.addObject("paNum", paNum);
 		mav.addObject("name", name);
 		mav.addObject("logList", logList);
+		mav.addObject("module", module);
+		mav.addObject("method", method);
+		
 		return mav;
 		
 	}

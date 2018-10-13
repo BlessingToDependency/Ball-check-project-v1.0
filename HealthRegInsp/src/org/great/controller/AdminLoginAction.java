@@ -99,6 +99,7 @@ public class AdminLoginAction {
         //创建cookie
         Cookie nameCookie = new Cookie(userName, password);
         nameCookie.setPath(request.getContextPath()+"/");//设置cookie路径
+        
         //设置cookie保存的时间 单位：秒
         nameCookie.setMaxAge(7*24*60*60);
         //将cookie添加到响应

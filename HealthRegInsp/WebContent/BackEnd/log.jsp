@@ -29,6 +29,8 @@
 <script type="text/javascript" src="<%=path%>js/calendar.js"></script>
 
 
+
+
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -46,9 +48,14 @@
 	<div class="x-body">
 		<div class="layui-row">
 			<form class="layui-form layui-col-md12 x-so" >			  
-				<input type="text" name="name" value="<%=request.getAttribute("name")==null?"":request.getAttribute("name")%>" placeholder="请输入操作人" autocomplete="off"
+				   <input type="text" name="name" value="<%=request.getAttribute("name")==null?"":request.getAttribute("name")%>" placeholder="请输入操作人" autocomplete="off"
 					class="layui-input">
-				<button class="layui-btn" lay-filter="sreach">
+					<input type="text" name="module" value="<%=request.getAttribute("module")==null?"":request.getAttribute("module")%>" placeholder="请输入操作模块" autocomplete="off"
+					class="layui-input">
+						<input type="text" name="method" value="<%=request.getAttribute("method")==null?"":request.getAttribute("method")%>" placeholder="请输入操作事项" autocomplete="off"
+					class="layui-input">
+				<button class="layui-btn" >
+				
 					<i class="layui-icon">&#xe615;</i>
 				</button>
 			</form>
@@ -63,7 +70,7 @@
 		 
 		 </button>
 		
-		<span class="x-right" style="line-height: 40px">页数：${currentPage}/${totalPage }</span> </xblock>
+		<span class="x-right" style="line-height: 40px"></span> </xblock>
 		<form id="fileForm" name="fileform" method="post" action="fileShow.action">
 			<table class="layui-table">
 				<thead>
@@ -111,10 +118,10 @@
 		<div class="page">
 			<div>
 				当前：第${page} 页/ 共 ${paNum} 页
-				   <a class="num" href="<%=path%>logAction/selectAllLog.action?page=1&name=${name}">首页</a>
-                   <a class="prev" href="<%=path%>logAction/selectAllLog.action?page=${page-1<1?1:page-1}&name=${name}">上一页</a>
-                   <a class="next" href="<%=path%>logAction/selectAllLog.action?page=${(page+1)<=paNum?page+1:paNum}&name=${name}">下一页</a>
-                   <a class="num" href="<%=path%>logAction/selectAllLog.action?page=${paNum}&name=${name}">末页</a>
+				   <a class="num" href="<%=path%>logAction/selectAllLog.action?page=1&name=${name}&module=${module}&method=${method}">首页</a>
+                   <a class="prev" href="<%=path%>logAction/selectAllLog.action?page=${page-1<1?1:page-1}&name=${name}&module=${module}&method=${method}">上一页</a>
+                   <a class="next" href="<%=path%>logAction/selectAllLog.action?page=${(page+1)<=paNum?page+1:paNum}&name=${name}&module=${module}&method=${method}">下一页</a>
+                   <a class="num" href="<%=path%>logAction/selectAllLog.action?page=${paNum}&name=${name}&module=${module}&method=${method}">末页</a>
 				 <input type="text" id="pageNo" name="code" style="width:50px;height:40px;" autocomplete="off" onkeyup="this.value=this.value.replace(/\D/gi,'')"/>
                 <a class="num" id="linkToCart" onclick="jump();">跳转</a>
 			</div>
@@ -126,7 +133,7 @@
 //跳转页码
 function jump(){
 	var p=document.getElementById("pageNo").value;
-	if(p<=${paNum}){window.location.href="<%=path%>logAction/selectAllLog.action?name=${name}&page="+p;}
+	if(p<=${paNum}){window.location.href="<%=path%>logAction/selectAllLog.action?name=${name}&module=${module}&method=${method}&page="+p;}
 	else{alert("页数不存在");}
 	
 }
