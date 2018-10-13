@@ -273,6 +273,17 @@
         	});
 			flag = true;
 		}
+		if(busNum.length<15){
+			$.pt({
+        		target: $("#busNum"),
+        		position: 'r',
+        		align: 't',
+        		width: 'auto',
+        		height: 'auto',
+        		content:"工商号不小于15位"
+        	});
+			flag = true;
+		}
 		//用户名只能是15位以下的字母或数字
 	
 		//检查用户名是否已经存在
