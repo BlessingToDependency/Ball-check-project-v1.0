@@ -137,6 +137,9 @@ function shoppingInfo(){
        $("#checkLook").attr("href","<%=path%>userMainAction/showSetmeal.action");
    };
 </script>
+<style>
+          #div2{font-size: 15px;margin: 25px 0px 0px 200px;border:red 0px solid;line-height:60px; float:left;text-align:left;letter-spacing:2px;}
+	</style>
 </head>
 <body>
 <div id="header">
@@ -186,7 +189,7 @@ function shoppingInfo(){
 
         <li style="background-image:url(<%=path%>images/banner1.jpg)" class="active"></li>
 
-<li style="background-image:url(<%=path%>images/banner1.jpg)" class="active"></li>
+<%-- <li style="background-image:url(<%=path%>images/banner1.jpg)" class="active"></li> --%>
 
 
 
@@ -257,18 +260,17 @@ function shoppingInfo(){
 
                   <div class="projectitem_wrapper">
 
-                    <div class="project_img"> <img src="<%=path %>images/套餐A.jpg" width="650" height="385" /> </div>
+                    <div class="project_img"> <img src="<%=path %>images/套餐A.jpg" width="650" height="585" /> </div>
 
-                    <div class="project_info">
+										<!-- <br/><span></span><br>	
+										<br/><span></span><br> -->
+                      <div id="div2">
 
-                      <div>
-
-                        <p class="title">套餐A</p>
+                    <p class="title">立即购买</p>
 
                       </div>
 
-                    </div>
-
+				
                   </div>
 
                   </a> </li>
@@ -280,15 +282,11 @@ function shoppingInfo(){
 
                     <div class="project_img"> <img src="<%=path %>images/套餐B.jpg" width="650" height="385" /> </div>
 
-                    <div class="project_info">
+                  <div id="div2">
 
-                      <div>
-
-                        <p class="title">套餐B</p>
+                    <p class="title">立即购买</p>
 
                       </div>
-
-                    </div>
 
                   </div>
 
@@ -300,16 +298,11 @@ function shoppingInfo(){
                   <div class="projectitem_wrapper">
 
                     <div class="project_img"> <img src="<%=path %>images/套餐C.jpg" width="650" height="385" /> </div>
+					<div id="div2">
 
-                    <div class="project_info">
-
-                      <div>
-
-                        <p class="title">套餐C</p>
+                    <p class="title">立即购买</p>
 
                       </div>
-
-                    </div>
 
                   </div>
 
@@ -321,15 +314,11 @@ function shoppingInfo(){
 
                     <div class="project_img"> <img src="<%=path %>images/套餐E.jpg" width="650" height="385" /> </div>
 
-                    <div class="project_info">
+                 <div id="div2">
 
-                      <div>
-
-                        <p class="title">套餐E</p>
+                    <p class="title">立即购买</p>
 
                       </div>
-
-                    </div>
 
                   </div>
 
