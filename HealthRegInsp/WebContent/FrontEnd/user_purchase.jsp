@@ -299,6 +299,13 @@ $('#min').attr('disabled',true);
 	  <input id="total" name="countAll" type="text" value="${setmealBean.discount*setmealBean.countAll }"style="width:30px;"/>  </span></td>
     </tr>
     <tr>
+    	<td height="7" colspan="3"><div align="center">
+    	<label><input name="Fruit" type="radio" value="" />
+    	我已阅读<a href="">套餐预约协议</a>
+    	</label> 
+	  </div></td>
+    </tr>
+    <tr>
       <td height="72" colspan="3"><div align="center">
       <a id="linkToCart" href="">加入购物车</a> 
       <input type="Submit" value="立即购买">
@@ -306,10 +313,19 @@ $('#min').attr('disabled',true);
 	  </div></td>
     </tr>
 	</c:forEach>
+	
+	<tr>
+      <td height="500" colspan="3"><div align="center">
+		<div align="center">
+			<img alt="" src="<%=path %>images/细项图1.png" height="500" width="800">
+		</div>
+		</div>
+	 </td>
+	</tr>
+	
   </table>
   </div>
 </form>
-
 </div>
 
 
